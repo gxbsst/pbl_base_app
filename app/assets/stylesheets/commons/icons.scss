@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'fontIcon';
+  src:font_url("icon.eot?kdlps");
+  src:font_url("icon.eot?#iefixkdlps") format('embedded-opentype'),
+  font_url('icon.woff?kdlps') format('woff'),
+  font_url('icon.ttf?kdlps') format('truetype'),
+  font_url('icon.svg?kdlps#icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'fontIcon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+  content: "\e621";
+}
+.icon-gps:before {
+  content: "\e61b";
+}
+.icon-user:before {
+  content: "\f007";
+}
+.icon-lock:before {
+  content: "\f023";
+}
+.icon-play:before {
+  content: "\f04b";
+}
+.icon-pause:before {
+  content: "\f04c";
+}
+.icon-stop:before {
+  content: "\f04d";
+}
+.icon-compass:before {
+  content: "\f14e";
+}
+.icon-flag:before {
+  content: "\f024";
+}
+.icon-favorites:before {
+  content: "\f005";
+}
+.icon-share:before {
+  content: "\f045";
+}
+.icon-refresh:before {
+  content: "\e626";
+}
+.icon-game:before {
+  content: "\e600";
+}
+.icon-car:before {
+  content: "\e601";
+}
+.icon-baby:before {
+  content: "\e602";
+}
+.icon-heart:before {
+  content: "\e603";
+}
+.icon-cart:before {
+  content: "\e607";
+}
+.icon-search:before {
+  content: "\e605";
+}
+.icon-menu:before {
+  content: "\e604";
+}
+.icon-star:before {
+  content: "\e609";
+}
+.icon-user2:before {
+  content: "\e606";
+}
+.icon-chat:before {
+  content: "\e608";
+}
+.icon-paperplane:before {
+  content: "\e60a";
+}
+.icon-loading:before {
+  content: "\e60b";
+}
+.icon-flip:before {
+  content: "\e60e";
+}
+.icon-arrow-left:before {
+  content: "\e60d";
+}
+.icon-arrow-right:before {
+  content: "\e614";
+}
+.icon-upload:before {
+  content: "\e618";
+}
+.icon-weixin:before {
+  content: "\e60f";
+}
+.icon-weibo:before {
+  content: "\e610";
+}
+.icon-renren:before {
+  content: "\e611";
+}
+.icon-qzone:before {
+  content: "\e612";
+}
+.icon-qq:before {
+  content: "\e613";
+}
+.icon-friend:before {
+  content: "\e615";
+}
+.icon-blog:before {
+  content: "\e616";
+}
+.icon-mic:before {
+  content: "\e61c";
+}
+.icon-camera:before {
+  content: "\e61d";
+}
+.icon-camera2:before {
+  content: "\e61e";
+}
+.icon-qrcode:before {
+  content: "\e61f";
+}
+.icon-neutral:before {
+  content: "\e619";
+}
+.icon-notification:before {
+  content: "\e61a";
+}
+.icon-close:before {
+  content: "\e624";
+}
+.icon-loop:before {
+  content: "\e622";
+}
+.icon-arrow-right-big:before {
+  content: "\e620";
+}
+.icon-checkbox:before {
+  content: "\e623";
+}
+.icon-scissors:before {
+  content: "\e627";
+}
+.icon-checkmark:before {
+  content: "\e617";
+}

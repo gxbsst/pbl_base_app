@@ -53,4 +53,11 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root :to => 'index#index'
+
+  resources :index, only: %w(index)
+
+  resources :home, only: %w(index)
+
 end

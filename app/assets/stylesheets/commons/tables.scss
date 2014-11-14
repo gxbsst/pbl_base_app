@@ -1,0 +1,19 @@
+.grid{
+  width:100%;
+  max-width:1140px;
+  min-width:755px;
+  margin:0 auto;
+  overflow:hidden;
+}
+
+.grid:after{
+  content:"";
+  display:table;
+  clear:both;
+}
+
+.grid-pad{
+  padding-top:20px;
+  padding-left:20px;
+  padding-right:0;
+}

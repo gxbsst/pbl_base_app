@@ -1,0 +1,39 @@
+@each $type in border, padding, margin{
+  .no-#{$type}{
+    #{$type}:none !important;
+  }
+}
+
+@each $int in 25, 50, 75, 100, 125, 150, 175, 200{
+  .font-size-#{$int}{
+    font-size:#{$int + '%'} !important;
+  }
+}
+
+@each $int in 2, 6, 8, 10, 12, 16, 20{
+  .space-#{$int}{
+    height:$int + px !important;
+    overflow:hidden;
+    clear:both;
+  }
+  .padding-#{$int}{
+    padding:$int + px !important;
+  }
+  .margin-#{$int}{
+    margin:$int + px !important;
+  }
+  @each $dir in left, right, top, bottom{
+    .padding-#{$dir}-#{$int}{
+      padding-#{$dir}:$int + px !important;
+    }
+    .margin-#{$dir}-#{$int}{
+      margin-#{$dir}:$int + px !important;
+    }
+  }
+}
+
+@each $type in left, center, right{
+  .text-#{$type}{
+    text-align:$type !important;
+  }
+}
