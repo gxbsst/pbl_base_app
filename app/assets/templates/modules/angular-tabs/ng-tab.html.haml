@@ -1,0 +1,3 @@
+.ng-tabs-content{ng: {class: '{active:selected}', show: 'selected'}}
+  %div{ng: {if: '!options.src', transclude: ''}}
+  %div{ng: {if: 'options.src', include: 'options.src'}}

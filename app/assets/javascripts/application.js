@@ -17,6 +17,32 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
-//= require angular-modules
+
+// Bootstrapping
+//= require app.module
+
+// Modules
+//= require modules/modules
+
+// Core
+//= require core/modules
+
+// Blocks
+//= require blocks/router/modules
+
+// Directives
+//= require directives/modules
+
+// Filters
+//= require filters/modules
+
+// Services
+//= require services/modules
+
+// App
+//= require app/modules
+
+//= require angular-rails-templates
+//= require_tree ../templates
 
 //= require_tree .

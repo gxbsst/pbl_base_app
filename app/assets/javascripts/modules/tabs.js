@@ -1,10 +1,10 @@
-(function (window, angular) {
+(function () {
     'use strict';
 
-    var ngTabsModule = angular.module('widgets.tabs', []);
-
-    ngTabsModule.directive('ngTabs', ngTabs);
-    ngTabsModule.directive('ngTab', ngTab);
+    angular
+        .module('modules.tabs', [])
+        .directive('ngTabs', ngTabs)
+        .directive('ngTab', ngTab);
 
     function ngTabs() {
         return {
@@ -12,7 +12,7 @@
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: '/templates/angular-tabs/ng-tabs.html',
+            templateUrl: 'modules/angular-tabs/ng-tabs.html',
             link: function (scope, element, attr) {
                 scope.options = angular.extend({
                     justify: false
@@ -53,7 +53,7 @@
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: '/templates/angular-tabs/ng-tab.html',
+            templateUrl: 'modules/angular-tabs/ng-tab.html',
             link: function (scope, element, attrs, tabsController) {
                 var def = {
                         title: 'title',
@@ -69,4 +69,4 @@
         };
     }
 
-})(window, window.angular);
+})();

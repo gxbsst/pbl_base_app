@@ -15,12 +15,19 @@ gem 'turbolinks'
 
 gem 'jbuilder', '~> 2.0'
 
+gem 'haml'
+
 
 gem 'spring', group: :development
 
 source 'https://rails-assets.org'
 
-gem 'rails-assets-angular', '1.2.6'
-gem 'rails-assets-angular-route', '1.2.6'
-gem 'rails-assets-angular-sanitize', '1.2.6'
-gem 'rails-assets-angular-resource', '1.2.6'
+gem 'rails-assets-angular', '~> 1.2.0'
+gem 'rails-assets-angular-route', '~> 1.2.0'
+gem 'rails-assets-angular-sanitize', '~> 1.2.0'
+gem 'rails-assets-angular-resource', '~> 1.2.0'
+gem 'rails-assets-angular-cache', '~> 2.3.7'
+gem 'rails-assets-restangular'
+gem 'rails-assets-lodash'
+
+gem 'angular-rails-templates'

@@ -1,0 +1,4 @@
+.ng-tabs
+  .ng-tabs-titles
+    .ng-tabs-title{ng: {repeat: 'pane in panes', class: 'classes(pane)', click: 'select(pane)', bind: {html: 'pane.options.title'}}}
+  .ng-tabs-contents.col-1-1{ng: {transclude: ''}}
