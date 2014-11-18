@@ -5,10 +5,9 @@
         .module('app.pbl')
         .controller('StylesController', StylesController);
 
-    StylesController.$inject = ['$scope'];
-
-    function StylesController($scope) {
+    function StylesController() {
         var vm = this;
+        vm.view = 'styles/elements.html';
     }
 
 })();
