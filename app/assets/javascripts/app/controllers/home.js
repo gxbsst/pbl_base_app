@@ -5,10 +5,11 @@
         .module('app.pbl')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope'];
+    HomeController.$inject = ['$scope', '$locale'];
 
-    function HomeController($scope) {
+    function HomeController($scope, $locale) {
         var vm = this;
+        console.log($locale);
     }
 
 })();
