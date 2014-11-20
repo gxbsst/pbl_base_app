@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.directives', [])
+        .module('app.directives')
         .directive('ngBindHtmlUnsafe', ngBindHtmlUnsafe);
 
     function ngBindHtmlUnsafe(){

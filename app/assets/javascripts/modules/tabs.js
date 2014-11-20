@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('modules.tabs', [])
+        .module('app.tabs', [])
         .directive('ngTabs', ngTabs)
         .directive('ngTab', ngTab);
 

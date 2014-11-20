@@ -17,6 +17,10 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
+//= require angular-ui-router
+
+// Prototypes
+//= require_tree ./prototype
 
 // Bootstrapping
 //= require app.module
@@ -29,6 +33,9 @@
 
 // Blocks
 //= require blocks/router/modules
+
+// I18n
+//= require i18n/modules
 
 // Directives
 //= require directives/modules

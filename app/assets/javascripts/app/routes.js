@@ -17,6 +17,7 @@
                 url: '/home',
                 config: {
                     controller: 'HomeController',
+                    controllerAs: 'vm',
                     templateUrl: 'home/index.html'
                 }
             },

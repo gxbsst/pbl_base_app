@@ -6,13 +6,10 @@
         .provider('routeHelperConfig', routeHelperConfig)
         .factory('routeHelper', routeHelper);
 
-    routeHelperConfig.$inject = ['$routeProvider'];
     routeHelper.$inject = ['$location', '$rootScope', '$route', 'routeHelperConfig'];
 
-    function routeHelperConfig($routeProvider) {
-        this.config = {
-            $routeProvider: $routeProvider
-        };
+    function routeHelperConfig() {
+        this.config = {};
         this.$get = function () {
             return {
                 config: this.config
