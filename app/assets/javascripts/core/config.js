@@ -5,13 +5,14 @@
         .module('app.core')
         .config(configure);
 
-    configure.$inject = [ '$routeProvider', 'routeHelperConfigProvider'];
+    configure.$inject = [ '$routeProvider'];
 
-    function configure( $routeProvider, routeHelperConfigProvider) {
+    function configure( $routeProvider) {
 
         configureRouting();
 
         function configureRouting() {
+            /*
             var routeCfg = routeHelperConfigProvider;
             routeCfg.config.$routeProvider = $routeProvider;
             routeCfg.config.docTitle = '';
@@ -19,6 +20,7 @@
                 ready: function() {
                 }
             };
+            */
         }
     }
 })();

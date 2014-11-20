@@ -15,8 +15,6 @@ gem 'turbolinks'
 
 gem 'jbuilder', '~> 2.0'
 gem 'tzinfo-data'
-gem 'haml'
-
 
 gem 'spring', group: :development
 
@@ -27,7 +25,7 @@ gem 'rails-assets-angular-route', '~> 1.2.0'
 gem 'rails-assets-angular-sanitize', '~> 1.2.0'
 gem 'rails-assets-angular-resource', '~> 1.2.0'
 gem 'rails-assets-angular-cache', '~> 2.3.7'
-gem 'rails-assets-angular-ui-router'
+gem 'rails-assets-angular-ui-router', '0.2.12'
 gem 'rails-assets-restangular'
 gem 'rails-assets-lodash'
 

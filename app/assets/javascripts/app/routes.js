@@ -1,35 +1,65 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.pbl')
+        .config(configure)
         .run(routeConfig);
 
-    routeConfig.$inject = ['routeHelper'];
+    configure.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-    function routeConfig(routeHelper) {
-        routeHelper.configureRoutes(getRoutes());
-    }
+    function configure($stateProvider, $urlRouterProvider){
 
-    function getRoutes() {
-        return [
-            {
+        $urlRouterProvider
+            //.when('/c?id', '/contacts/:id')
+            //.when('/user/:id', '/contacts/:id')
+            .otherwise('/');
+
+        $stateProvider
+            .state('index', {
+                url: '/',
+                views:{
+                    '':{
+                        templateUrl: 'layout/index.html'
+                    },
+                    'footer@': {
+                        templateUrl: 'layout/footer.html'
+                    }
+                }
+            })
+            .state('home', {
                 url: '/home',
-                config: {
-                    controller: 'HomeController',
-                    controllerAs: 'vm',
-                    templateUrl: 'home/index.html'
-                }
-            },
-            {
-                url: '/styles',
-                config: {
-                    controller: 'StylesController',
-                    controllerAs: 'vm',
-                    templateUrl: 'styles/index.html'
-                }
-            }
-        ];
+                templateUrl: 'home/index.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .state('header', {
+                templateUrl: 'layout/header.html'
+            })
+            .state('about', {
+                url: '/about',
+                templateProvider: aboutProvider
+            });
+
+        aboutProvider.$inject = ['$timeout'];
+
+        function aboutProvider($timeout){
+            return $timeout(function () {
+                return 'about template';
+            }, 100);
+        }
     }
+
+    routeConfig.$inject = ['$rootScope', '$state', '$stateParams'];
+
+    function routeConfig($rootScope, $state, $stateParams) {
+
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+
+        console.log($state)
+
+    }
+
 
 })();

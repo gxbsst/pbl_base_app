@@ -1,6 +1,29 @@
 <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
 
-
 <a href="javascript:void(0);" ng-click="setLocale('en-us')">en-us</a>
 <a href="javascript:void(0);" ng-click="setLocale('zh-cn')">zh-cn</a>
 <a href="javascript:void(0);" ng-click="setLocale('zh-tw')">zh-tw</a>
+<table>
+    <thead>
+    <tr>
+        <th ng-repeat="column in vm.head track by $index">
+            <i class="icon-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
+            <span ng-bind="column"></span>
+            <i class="icon-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
+        </th>
+        <th ng-click="vm.addColumn()">+</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in vm.body track by $index" ng-init="i=$index">
+        <td ng-repeat="c in row track by $index" ng-bind="c"></td>
+        <td>
+            <span ng-click="vm.moveRow($index,$index-1)" ng-if="i>0">上</span>
+            <span ng-click="vm.moveRow($index,$index+1)" ng-if="i<vm.body.length-1">下</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="{{vm.head.length+1}}" ng-click="vm.addRow()">+</td>
+    </tr>
+    </tbody>
+</table>

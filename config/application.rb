@@ -28,6 +28,5 @@ module PblWeb
     # config.i18n.default_locale = :de
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
-
   end
 end
