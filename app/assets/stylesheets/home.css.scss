@@ -1,65 +1,30 @@
 .icons{
-  [class^="icon-"], [class*=" icon-"] {
+  [class^="pf-"], [class*=" pf-"] {
     display:inline-block;
     margin:2px;
     color:#fff;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .5)), to(rgba(255, 255, 255, 1)));
     border-radius:15%;
-    &.icon-weixin{
-      background-color:#54ae00;
-    }
-    &.icon-friend{
+    &.pf-circle{
       background-color:#735dff;
-    }
-    &.icon-qq{
-      background-color:#009de7;
-    }
-    &.icon-qzone{
-      background-color:#ff9000;
-    }
-    &.icon-weibo{
-      background-color:#e30000;
-    }
-    &.icon-blog{
-      background-color:#32b7f4;
-    }
-    &.icon-renren{
-      background-color:#005baa;
+      padding:1%;
     }
   }
 }
 
 .icons1{
-  [class^="icon-"], [class*=" icon-"] {
+  [class^="pf-"], [class*=" pf-"] {
     display:inline-block;
     margin:2px;
     -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .5)), to(rgba(255, 255, 255, 1)));
-    &.icon-weixin{
-      color:#54ae00;
-    }
-    &.icon-friend{
-      color:#735dff;
-    }
-    &.icon-qq{
+    &.pf-circle{
       color:#009de7;
-    }
-    &.icon-qzone{
-      color:#ff9000;
-    }
-    &.icon-weibo{
-      color:#e30000;
-    }
-    &.icon-blog{
-      color:#32b7f4;
-    }
-    &.icon-renren{
-      color:#005baa;
     }
   }
 }
 
 .icons2{
-  [class^="icon-"], [class*=" icon-"] {
+  [class^="pf-"], [class*=" pf-"] {
     display:inline-block;
     margin:2px;
     color:#666;

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app.core', [
+    angular.module('app.config', [
         'ngRoute',
         'ngSanitize',
         'ui.router',

@@ -28,8 +28,8 @@
 // Modules
 //= require modules/modules
 
-// Core
-//= require core/modules
+// Config
+//= require config/modules
 
 // Blocks
 //= require blocks/router/modules

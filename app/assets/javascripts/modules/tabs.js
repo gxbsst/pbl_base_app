@@ -7,43 +7,17 @@
         .directive('ngTab', ngTab);
 
     function ngTabs() {
+
         return {
             restrict: 'A',
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: 'modules/angular-tabs/ng-tabs.html',
-            link: function (scope, element, attr) {
-                scope.options = angular.extend({
-                    justify: false
-                }, scope.$eval(attr.ngTabs || '{}'));
-            },
-            controller: function ($scope) {
-                var panes = $scope.panes = [];
-                $scope.select = function (pane) {
-                    angular.forEach(panes, function (pane) {
-                        pane.selected = false;
-                    });
-                    pane.selected = true;
-                };
-                $scope.classes = function (pane) {
-                    var classes = [];
-                    if (pane.selected) {
-                        classes.push('active');
-                    }
-                    if ($scope.options.justify) {
-                        classes.push(['col', 1, panes.length].join('-'));
-                    }
-                    return classes.join(' ');
-                };
-                this.addPane = function (pane) {
-                    if (panes.length == 0) {
-                        $scope.select(pane);
-                    }
-                    panes.push(pane);
-                }
-            }
-        }
+            templateUrl: 'modules/tabs/ng-tabs.html',
+            link: ngTabsLink,
+            controller: ngTabsController
+        };
+
     }
 
     function ngTab() {
@@ -53,20 +27,66 @@
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: 'modules/angular-tabs/ng-tab.html',
-            link: function (scope, element, attrs, tabsController) {
-                var def = {
-                        title: 'title',
-                        src: null
-                    },
-                    options = scope.$eval(attrs.ngTab);
-                if (typeof options == 'string') {
-                    options = {title: options};
-                }
-                scope.options = angular.extend(def, options);
-                tabsController.addPane(scope);
-            }
+            templateUrl: 'modules/tabs/ng-tab.html',
+            link: ngTabLink
         };
+
+    }
+
+    function ngTabsLink(scope, element, attr){
+
+        attr.ngTabs.$parseConfig(scope);
+
+    }
+
+    ngTabsController.$inject = ['$scope'];
+
+    function ngTabsController($scope){
+
+        $scope.panes = [];
+        $scope.select = select;
+        $scope.classes = classes;
+
+        this.addPane = addPane;
+
+        function select(pane) {
+            angular.forEach($scope.panes, function (pane) {
+                pane.selected = false;
+            });
+            pane.selected = true;
+        }
+
+        function classes(pane) {
+            var classes = [];
+            if (pane.selected) {
+                classes.push('active');
+            }
+            if ($scope.config.justify) {
+                classes.push(['col', 1, $scope.panes.length].join('-'));
+            }
+            return classes.join(' ');
+        }
+
+        function addPane(pane) {
+            if ($scope.panes.length == 0) {
+                $scope.select(pane);
+            }
+            $scope.panes.push(pane);
+        }
+
+    }
+
+    function ngTabLink(scope, element, attr, tabs) {
+
+        scope.config = scope.config || {};
+
+        scope.$watch(attr.ngTab, ngTabWatch);
+
+        function ngTabWatch(title){
+            scope.config.title = title;
+        }
+
+        tabs.addPane(scope);
     }
 
 })();

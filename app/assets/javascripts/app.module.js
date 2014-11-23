@@ -1,5 +1,5 @@
 angular.module('app', [
-    'app.core',
+    'app.config',
     'app.modules',
     'app.i18n',
     'app.filters',

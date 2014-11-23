@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('app.modules', [
-       'app.tabs',
-       'app.cookie'
+        'app.cookie',
+        'app.tabs',
+        'app.modal'
     ]);
 
 })();

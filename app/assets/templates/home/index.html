@@ -3,12 +3,14 @@
 <a href="javascript:void(0);" ng-click="setLocale('en-us')">en-us</a>
 <a href="javascript:void(0);" ng-click="setLocale('zh-cn')">zh-cn</a>
 <a href="javascript:void(0);" ng-click="setLocale('zh-tw')">zh-tw</a>
+<a href="javascript:void(0);" ng-modal="title='Modal'|i18n;width='50%';src='demos/pane/demo.html'">show modal(src)!</a>
+<a href="javascript:void(0);" ng-modal="title='Modal'|i18n;width='50%';html='demos/pane/demo.html'">show modal(html)!</a>
 <table>
     <thead>
     <tr>
         <th ng-repeat="column in vm.head track by $index">
             <i class="icon-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
-            <span ng-bind="column"></span>
+            <span ng-bind="'column'|i18n:$index+1"></span>
             <i class="icon-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
         </th>
         <th ng-click="vm.addColumn()">+</th>
@@ -18,8 +20,8 @@
     <tr ng-repeat="row in vm.body track by $index" ng-init="i=$index">
         <td ng-repeat="c in row track by $index" ng-bind="c"></td>
         <td>
-            <span ng-click="vm.moveRow($index,$index-1)" ng-if="i>0">上</span>
-            <span ng-click="vm.moveRow($index,$index+1)" ng-if="i<vm.body.length-1">下</span>
+            <span ng-click="vm.moveRow($index,$index-1)" ng-if="i>0" ng-bind="'up'|i18n"></span>
+            <span ng-click="vm.moveRow($index,$index+1)" ng-if="i<vm.body.length-1" ng-bind="'down'|i18n"></span>
         </td>
     </tr>
     <tr>
@@ -27,3 +29,16 @@
     </tr>
     </tbody>
 </table>
+<hr/>
+<h2 ng-bind="'Pane examples'|i18n" title="{{'Pane examples'|i18n}}"></h2>
+<div class="col-1-1">
+    <div ng-pane="'App.Pane'|i18n:1" ng-config="title='Pane'|i18n:1;src='demos/pane/demo.html'" class="col-1-2"></div>
+    <div ng-pane="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}" /> </div>
+</div>
+<hr/>
+<div ng-tabs="justify=true">
+    <div ng-tab="'tab'|i18n:5" ng-config="title='tab'|i18n:1;src='demos/tabs/demo.html'"></div>
+    <div ng-tab="'tab'|i18n:2" ng-config="src='demos/tabs/demo1.html'"></div>
+    <div ng-tab="'tab'|i18n:3" ng-config="src='demos/tabs/demo2.html'"></div>
+    <div ng-tab="'tab'|i18n:4">{{'tab'|i18n:4}} content</div>
+</div>

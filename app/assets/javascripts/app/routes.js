@@ -57,8 +57,6 @@
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
-        console.log($state)
-
     }
 
 
