@@ -18,7 +18,7 @@
             'hello world': 'Hello world!',
             'Pane examples': 'Pane examples',
             Pane: 'Pane%1',
-            Modal: 'Modal dialog',
+            Modal: 'Modal dialog %1',
             tab: 'Tab%1',
             column: 'Column%1',
             up: 'Up',

@@ -18,7 +18,7 @@
             'hello world': '你好，世界!',
             'Pane examples': '面板示例',
             Pane: '面板%1',
-            Modal: '模态窗口',
+            Modal: '模态窗口%1',
             tab: '选项卡%1',
             column: '第%1列',
             up: '上',
