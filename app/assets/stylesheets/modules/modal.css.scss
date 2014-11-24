@@ -1,32 +1,48 @@
 .ng-modal{
   position:fixed;
-  left:50%;
-  top:50%;
-  min-width:200px;
-  max-width:90%;
-  min-height:80px;
-  max-height:90%;
-  background:#fff;
-  border:1px solid #c0c0c0;
-  border-radius:6px;
-  box-shadow:0 0 25px 0 #9f9f9f;
-  behavior:url('PIE.htc')\0;
-  .ng-modal-title{
-    $height: 46px;
-    font-size:16px;
-    line-height:$height;
-    padding:0 18px;
-    margin:0;
-    border-radius:6px 6px 0 0;
-    background:#f8f8f8;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:10000;
+  .ng-modal-overlay{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,.1);
+    -pie-background:rgba(0,0,0,.1);
     behavior:url('PIE.htc')\0;
-    .ng-modal-destroy{
-      line-height:$height;
-      cursor:pointer;
-    }
   }
-  .ng-modal-content{
-    padding:18px;
-    border-top:1px solid #ccc;
+  .ng-modal-container{
+    position:relative;
+    margin:0 auto;
+    min-width:200px;
+    max-width:90%;
+    min-height:80px;
+    max-height:90%;
+    background:#fff;
+    border:1px solid #c0c0c0;
+    border-radius:6px;
+    box-shadow:0 0 25px 0 #9f9f9f;
+    behavior:url('PIE.htc')\0;
+    .ng-modal-title{
+      $height: 46px;
+      font-size:16px;
+      line-height:$height;
+      padding:0 18px;
+      border-radius:6px 6px 0 0;
+      background:#f8f8f8;
+      behavior:url('PIE.htc')\0;
+      .ng-modal-destroy{
+        line-height:$height;
+        cursor:pointer;
+      }
+    }
+    .ng-modal-content{
+      padding:18px;
+      border-top:1px solid #ccc;
+    }
   }
 }
