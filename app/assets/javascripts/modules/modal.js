@@ -14,7 +14,7 @@
         this.modals = [];
         this.$get = function () {
             return {
-                config: this.config
+                config: this
             };
         };
 
@@ -39,16 +39,16 @@
                         defer.resolve(config.template);
                     } else if (config.templateUrl) {
                         var cache = $templateCache.get(config.templateUrl);
-                        if(cache){
+                        if (cache) {
                             defer.resolve(cache);
-                        }else{
+                        } else {
                             $http({
                                 method: 'GET',
                                 url: config.templateUrl,
                                 cache: true
                             }).then(function (result) {
                                 defer.resolve(result.data);
-                            }).catch(function (error) {
+                            }, function (error) {
                                 defer.reject(error);
                             });
                         }
@@ -79,8 +79,8 @@
                     childScope.$watch(function () {
                         return [modalElement[0].clientWidth, modalElement[0].clientHeight];
                     }, function (values) {
-                        config.marginLeft = -values[0]/2;
-                        config.marginTop = -values[1]/2;
+                        values[0] && (config.marginLeft = -values[0] / 2);
+                        values[1] && (config.marginTop = -values[1] / 2);
                     }, true);
 
                     childScope.destroyModal = function () {
@@ -98,7 +98,7 @@
 
                     defer.resolve(modal);
 
-                }).catch(function (error) {
+                }, function (error) {
                     defer.reject(error);
                 });
 
@@ -112,20 +112,20 @@
 
     ngModal.$inject = ['modalFactory'];
 
-    function ngModal(modalFactory){
+    function ngModal(modalFactory) {
         return {
             restrict: 'A',
             scope: true,
             link: ngModalLink
         };
 
-        function ngModalLink(scope, element, attr){
+        function ngModalLink(scope, element, attr) {
 
             scope.config = angular.extend({
                 templateUrl: 'modules/modal/ng-modal.html'
             }, attr.ngModal.$parseConfig(scope));
 
-            if(!scope.config.scope){
+            if (!scope.config.scope) {
                 scope.config.scope = scope;
             }
 

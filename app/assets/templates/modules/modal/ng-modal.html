@@ -1,5 +1,5 @@
 <div class="ng-modal" ng-style="{width:config.width,height:config.height,marginLeft:config.marginLeft,marginTop:config.marginTop}">
-    <h1 class="ng-modal-title"><strong ng-bind="config.title"></strong><i class="pf-cross pull-right" ng-click="destroyModal()"></i></h1>
+    <h1 class="ng-modal-title"><strong ng-bind="config.title"></strong><i class="ng-modal-destroy pf-cross pull-right" ng-click="destroyModal()"></i></h1>
     <div class="ng-modal-content" ng-if="config.html" ng-bind-html="config.html"></div>
     <div class="ng-modal-content" ng-if="config.src" ng-include="config.src"></div>
 </div>

@@ -3,7 +3,8 @@
 
     angular
         .module('app.pbl')
-        .controller('HomeController', HomeController);
+        .controller('HomeController', HomeController)
+        .controller('ModalDemoController', ModalDemoController);
 
     HomeController.$inject = ['$scope', 'cookie', '$document', '$filter'];
 
@@ -37,6 +38,12 @@
         vm.moveRow = function (from, to) {
             vm.body.move(from, to);
         };
+    }
+
+    ModalDemoController.$inject = ['$scope'];
+
+    function ModalDemoController($scope){
+        $scope.demo = 'Hi, modal!'
     }
 
 })();

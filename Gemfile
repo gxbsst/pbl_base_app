@@ -9,7 +9,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 #gem 'coffee-rails', '~> 4.0.0'
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.1.2'
 
 gem 'turbolinks'
 
@@ -19,6 +19,8 @@ gem 'tzinfo-data'
 gem 'spring', group: :development
 
 source 'https://rails-assets.org'
+
+gem 'rails-assets-es5-shim'
 
 gem 'rails-assets-angular', '~> 1.2.0'
 gem 'rails-assets-angular-route', '~> 1.2.0'
