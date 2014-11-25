@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.modal', [])
+        .module('app.modal', ['app.factories'])
         .provider('modalConfig', modalConfig)
         .factory('modalFactory', modalFactory)
         .directive('ngModal', ngModal);
@@ -20,9 +20,9 @@
 
     }
 
-    modalFactory.$inject = ['$document', '$compile', '$controller', '$http', '$rootScope', '$q', '$templateCache', 'modalConfig'];
+    modalFactory.$inject = ['$document', '$compile', '$controller', '$rootScope', '$q', '$template', 'modalConfig'];
 
-    function modalFactory($document, $compile, $controller, $http, $rootScope, $q, $templateCache, modalConfig) {
+    function modalFactory($document, $compile, $controller, $rootScope, $q, $template, modalConfig) {
 
         var body = $document.find('body');
 
@@ -30,35 +30,7 @@
 
         function Modal() {
 
-            var self = this,
-                getTemplate = function (config) {
-
-                    var defer = $q.defer();
-
-                    if (config.template) {
-                        defer.resolve(config.template);
-                    } else if (config.templateUrl) {
-                        var cache = $templateCache.get(config.templateUrl);
-                        if (cache) {
-                            defer.resolve(cache);
-                        } else {
-                            $http({
-                                method: 'GET',
-                                url: config.templateUrl,
-                                cache: true
-                            }).then(function (result) {
-                                defer.resolve(result.data);
-                            }, function (error) {
-                                defer.reject(error);
-                            });
-                        }
-                    } else {
-                        defer.reject('No template or templateUrl has been specified.');
-                    }
-
-                    return defer.promise;
-
-                };
+            var self = this;
 
             self.showModal = showModal;
 
@@ -66,22 +38,15 @@
 
                 var defer = $q.defer();
 
-                getTemplate(config).then(function (template) {
+                $template(config).then(function (template) {
 
                     var controller = config.controller,
-                        childScope = (config.scope || $rootScope).$new(),
+                        childScope = (config.$scope || $rootScope).$new(),
                         inject = angular.extend({
                             $scope: childScope
                         }, config.inject || {}),
                         modalController = controller ? $controller(controller, inject) : null,
                         modalElement = $compile(angular.element(template))(childScope);
-
-                    childScope.$watch(function () {
-                        return [modalElement[0].clientWidth, modalElement[0].clientHeight];
-                    }, function (values) {
-                        values[0] && (config.marginLeft = -values[0] / 2);
-                        values[1] && (config.marginTop = -values[1] / 2);
-                    }, true);
 
                     childScope.destroyModal = function () {
                         childScope.$destroy();
@@ -122,12 +87,10 @@
         function ngModalLink(scope, element, attr) {
 
             scope.config = angular.extend({
+                $scope: scope,
+                overlay: true,
                 templateUrl: 'modules/modal/ng-modal.html'
             }, attr.ngModal.$parseConfig(scope));
-
-            if (!scope.config.scope) {
-                scope.config.scope = scope;
-            }
 
             element.on('click', function () {
                 modalFactory.showModal(scope.config);

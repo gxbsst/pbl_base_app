@@ -12,6 +12,12 @@ body{
   font:13px/22px '微软雅黑', '宋体', Arial;
 }
 
+.container{
+  border:1px solid #ccc;
+  height:100px;
+  width:1000px;
+}
+
 .layout-table{
   display:table !important;
   .layout-table-cell{
@@ -47,5 +53,7 @@ body{
 }
 
 @media handheld, only screen and (max-width:767px) {
-
+  .container{
+    width:500px;
+  }
 }

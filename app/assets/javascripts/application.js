@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require css3-mediaqueries-js
 //= require es5-shim
 //= require jquery
 //= require jquery_ujs
@@ -19,6 +20,7 @@
 //= require angular-resource
 //= require angular-sanitize
 //= require angular-ui-router
+//= require ng-scrollbar
 
 // Prototypes
 //= require_tree ./prototype
@@ -40,6 +42,9 @@
 
 // Directives
 //= require directives/modules
+
+// Factories
+//= require factories/modules
 
 // Filters
 //= require filters/modules

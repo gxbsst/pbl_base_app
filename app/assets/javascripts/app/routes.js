@@ -27,6 +27,12 @@
                     }
                 }
             })
+            .state('demos', {
+                url: '/demos',
+                templateUrl: 'demos/index.html',
+                controller: 'DemosController',
+                controllerAs: 'vm'
+            })
             .state('home', {
                 url: '/home',
                 templateUrl: 'home/index.html',

@@ -3,44 +3,73 @@
 
     angular
         .module('app.directives')
-        .directive('ngTips', ngTips)
-        .directive('ngTipsSrc', ngTipsSrc);
+        .directive('ngTips', ngTips);
 
-    function ngTips(){
+    ngTips.$inject = ['$document', '$timeout', '$template', '$compile'];
+
+    function ngTips($document, $timeout, $template, $compile) {
+
+        var body = $document.find('body');
+
         return {
             restrict: 'A',
-            transclude: true,
-            replace: true,
             scope: true,
-            templateUrl: 'directives/ng-pane.html',
             link: ngTipsLink
         };
-    }
 
-    function ngTipsSrc(){
-        return {
-            restrict: 'A',
-            link: ngTipsSrcLink
-        };
-    }
+        function ngTipsLink(scope, element, attr) {
 
-    function ngTipsLink(scope, element, attr){
+            scope.config = angular.extend({
+                templateUrl: 'directives/ng-tips.html'
+            }, attr.ngTips.$parseConfig(scope));
 
-        scope.$watch(attr.ngTips, ngTipsWatch);
+            var enterTimer, leaveTimer, tips;
 
-        function ngTipsWatch(content){
-            scope.ngTips = content;
+            element
+                .on('mouseenter', mouseEnter)
+                .on('mouseleave', mouseLeave);
+
+            function mouseEnter() {
+                $timeout.cancel(enterTimer);
+                $timeout.cancel(leaveTimer);
+                leaveTimer = null;
+
+                if(!tips){
+                    enterTimer = $timeout(function () {
+                        $template(scope.config)
+                            .then(function (template) {
+                                tips = $compile(angular.element(template))(scope);
+                                tips
+                                    .css({
+                                        top: element.offset().top + element.outerHeight() + 10,
+                                        left: element.offset().left
+                                    })
+                                    .on('mouseenter', function () {
+                                        if (leaveTimer) {
+                                            $timeout.cancel(leaveTimer);
+                                            leaveTimer = null;
+                                        }
+                                    })
+                                    .on('mouseleave', mouseLeave);
+                                body.append(tips);
+                            });
+                    }, 150);
+                }
+
+            }
+
+            function mouseLeave() {
+                $timeout.cancel(enterTimer);
+                if(tips){
+                    leaveTimer = $timeout(function () {
+                        tips.remove();
+                        tips = leaveTimer = null;
+                    }, 150);
+                }
+            }
+
         }
 
-    }
-
-    function ngTipsSrcLink(scope, element, attr){
-
-        scope.$watch(attr.ngTipsSrc, ngTipsSrcWatch);
-
-        function ngTipsSrcWatch(src) {
-            scope.ngTipsSrc = src;
-        }
     }
 
 })();
