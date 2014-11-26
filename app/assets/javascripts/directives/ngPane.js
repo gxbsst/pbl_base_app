@@ -18,14 +18,14 @@
 
     function ngPaneLink(scope, element, attr){
 
-        scope.config = scope.config || {};
+        scope.$config = scope.$config || {};
         scope.status = true;
         scope.toggle = toggle;
 
         scope.$watch(attr.ngPane, ngPaneWatch);
 
         function ngPaneWatch(title){
-            scope.config.title = title;
+            scope.$config.title = title;
         }
 
         function toggle(o){

@@ -5,7 +5,7 @@
         'app.cookie',
         'app.tabs',
         'app.modal',
-        'ngScrollbar'
+        'app.scrollbar'
     ]);
 
 })();

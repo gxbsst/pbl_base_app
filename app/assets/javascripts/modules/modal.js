@@ -86,14 +86,14 @@
 
         function ngModalLink(scope, element, attr) {
 
-            scope.config = angular.extend({
+            scope.$config = angular.extend({
                 $scope: scope,
                 overlay: true,
                 templateUrl: 'modules/modal/ng-modal.html'
             }, attr.ngModal.$parseConfig(scope));
 
             element.on('click', function () {
-                modalFactory.showModal(scope.config);
+                modalFactory.showModal(scope.$config);
             });
 
         }

@@ -1,0 +1,25 @@
+<table>
+    <thead>
+    <tr>
+        <th ng-repeat="column in vm.head track by $index">
+            <i class="icon-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
+            <span ng-bind="'column'|i18n:$index+1"></span>
+            <i class="icon-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
+        </th>
+        <th ng-click="vm.addColumn()">+</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in vm.body track by $index" ng-init="i=$index">
+        <td ng-repeat="c in row track by $index" ng-bind="c"></td>
+        <td>
+            <span ng-click="vm.moveRow($index,$index-1)" ng-if="i>0" ng-bind="'up'|i18n"></span>
+                    <span ng-click="vm.moveRow($index,$index+1)" ng-if="i<vm.body.length-1"
+                          ng-bind="'down'|i18n"></span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="{{vm.head.length+1}}" ng-click="vm.addRow()">+</td>
+    </tr>
+    </tbody>
+</table>

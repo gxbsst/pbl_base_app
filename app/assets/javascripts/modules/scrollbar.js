@@ -1,4 +1,3 @@
-/*
 (function () {
     'use strict';
 
@@ -6,44 +5,30 @@
         .module('app.scrollbar', [])
         .directive('ngScrollbar', ngScrollbar);
 
-    function ngScrollbar(){
-        */
-/*
-        options = [
-            'wheelSpeed', 'wheelPropagation', 'minScrollbarLength', 'useBothWheelAxes',
-            'useKeyboard', 'suppressScrollX', 'suppressScrollY', 'scrollXMarginOffset',
-            'scrollYMarginOffset', 'includePadding'
-        ];
-        *//*
+    ngScrollbar.$inject = ['$timeout'];
 
+    function ngScrollbar($timeout) {
 
         return {
-            restrict: 'EA',
-            transclude: true,
-            template: '<div><div ng-transclude></div></div>',
-            replace: true,
+            restrict: 'A',
+            scope: true,
             link: ngScrollbarLink
         };
 
-        function ngScrollbarLink(scope, element, attr){
+        function ngScrollbarLink(scope, element, attr) {
 
-            attr.ngScrollbar.$parseConfig(scope);
-
-            element.perfectScrollbar(scope.config);
-
-            if (attr.refreshOnChange) {
-                scope.$watchCollection(attr.refreshOnChange, function() {
-                    scope.$evalAsync(function() {
-                        element.perfectScrollbar('update');
+            $timeout(function () {
+                element
+                    .scrollbar(angular.extend({
+                        disableBodyScroll: true
+                    }, scope.$config))
+                    .on('$destroy', function () {
+                        element.scrollbar('destroy');
                     });
-                });
-            }
-
-            element.bind('$destroy', function() {
-                element.perfectScrollbar('destroy');
             });
+
         }
 
     }
 
-})();*/
+})();

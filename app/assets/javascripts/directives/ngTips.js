@@ -19,7 +19,7 @@
 
         function ngTipsLink(scope, element, attr) {
 
-            scope.config = angular.extend({
+            scope.$config = angular.extend({
                 templateUrl: 'directives/ng-tips.html'
             }, attr.ngTips.$parseConfig(scope));
 
@@ -36,7 +36,7 @@
 
                 if(!tips){
                     enterTimer = $timeout(function () {
-                        $template(scope.config)
+                        $template(scope.$config)
                             .then(function (template) {
                                 tips = $compile(angular.element(template))(scope);
                                 tips

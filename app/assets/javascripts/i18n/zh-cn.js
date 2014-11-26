@@ -23,7 +23,9 @@
             column: '第%1列',
             up: '上',
             down: '下',
-            img: 'http://www.jingwentian.com/avatar/large/1.png'
+            img: 'http://www.jingwentian.com/avatar/large/1.png',
+            username: '用户名：',
+            'enter username': '请输入用户名'
 
         }
     }

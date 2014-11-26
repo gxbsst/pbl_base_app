@@ -23,7 +23,9 @@
             column: 'Column%1',
             up: 'Up',
             down: 'Down',
-            img: 'http://dl.iteye.com/upload/attachment/0080/6960/261b91b3-4fc0-349a-892c-157a58c403bb.jpg'
+            img: 'http://dl.iteye.com/upload/attachment/0080/6960/261b91b3-4fc0-349a-892c-157a58c403bb.jpg',
+            username: 'Username: ',
+            'enter username': 'please enter username'
 
         };
     }

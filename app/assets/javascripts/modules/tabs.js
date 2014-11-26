@@ -61,7 +61,7 @@
             if (pane.selected) {
                 classes.push('active');
             }
-            if ($scope.config.justify) {
+            if ($scope.$config.justify) {
                 classes.push(['col', 1, $scope.panes.length].join('-'));
             }
             return classes.join(' ');
@@ -78,12 +78,12 @@
 
     function ngTabLink(scope, element, attr, tabs) {
 
-        scope.config = scope.config || {};
+        scope.$config = scope.$config || {};
 
         scope.$watch(attr.ngTab, ngTabWatch);
 
         function ngTabWatch(title){
-            scope.config.title = title;
+            scope.$config.title = title;
         }
 
         tabs.addPane(scope);

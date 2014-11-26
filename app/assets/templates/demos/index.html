@@ -7,74 +7,22 @@
 <a href="javascript:void(0);" ng-click="setLocale('zh-tw')" ng-tips="src='demos/pane/demo.html'">zh-tw</a>
 <div ng-init="test=123">
     <a href="javascript:void(0);" ng-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
-    <a href="javascript:void(0);" ng-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show modal(html)!</a>
-    <a href="javascript:void(0);" ng-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show modal(controller)!</a>
+    <a href="javascript:void(0);" ng-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
+        modal(html)!</a>
+    <a href="javascript:void(0);"
+       ng-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show
+        modal(controller)!</a>
 </div>
 <div class="col-1-1">
-    <div class="col-1-3">
-        <table>
-            <thead>
-            <tr>
-                <th ng-repeat="column in vm.head track by $index">
-                    <i class="icon-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
-                    <span ng-bind="'column'|i18n:$index+1"></span>
-                    <i class="icon-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
-                </th>
-                <th ng-click="vm.addColumn()">+</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in vm.body track by $index" ng-init="i=$index">
-                <td ng-repeat="c in row track by $index" ng-bind="c"></td>
-                <td>
-                    <span ng-click="vm.moveRow($index,$index-1)" ng-if="i>0" ng-bind="'up'|i18n"></span>
-                    <span ng-click="vm.moveRow($index,$index+1)" ng-if="i<vm.body.length-1" ng-bind="'down'|i18n"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="{{vm.head.length+1}}" ng-click="vm.addRow()">+</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-1-3" ng-controller="ScrollbarDemoController">
-        <style type="text/css">
-            .scrollme{
-                height:200px;
-                overflow:hidden;
-            }
-        </style>
-        <div class="well" >
-            <div class="scrollme" rebuild-on="rebuild:scrollbar" ng-scrollbar>
-                <div ng-resize="onResize(width,height)">
-                    <button ng-click="addItem()">Add</button>
-                    <button ng-click="removeItem()">Remove</button>
-                    <div ng-repeat="times in someArray">
-                        {{times}}.
-
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend lectus et nunc congue gravida. Phasellus et iaculis risus, ut scelerisque dolor. Sed diam diam, tempor et feugiat a, pharetra sed nulla. Duis non lacinia odio, vitae ultricies dui. Ut sit amet dui quis lectus cursus laoreet et in magna. Nulla rutrum nisi urna, sit amet faucibus felis placerat ac. Cras commodo aliquam purus, eget gravida magna lacinia non. Sed facilisis, eros iaculis rhoncus adipiscing, dolor augue fermentum risus, vel vulputate massa metus ac erat.
-
-                        Pellentesque libero justo, pellentesque non neque a, ultricies eleifend lectus. Aenean a nisl mauris. Aliquam erat volutpat. Nulla et viverra nisi, sit amet venenatis leo. Quisque aliquam sed leo eu pretium. Maecenas a lobortis lacus. Aenean lacinia scelerisque aliquam. Vestibulum pretium consequat enim at lacinia. Suspendisse pretium nulla quis lacus accumsan consectetur. In hac habitasse platea dictumst.
-
-                        In risus ipsum, facilisis sit amet scelerisque imperdiet, vulputate ac erat. Quisque sed ipsum ornare, euismod quam vel, eleifend metus. Praesent ut fermentum augue. Sed sodales mollis arcu. Etiam quis erat dignissim, posuere tortor at, ullamcorper orci. Integer sodales, lectus a venenatis scelerisque, ipsum augue tempus augue, non vulputate nibh nunc ac est. Vestibulum accumsan arcu ut semper dapibus. Fusce mattis turpis et ante adipiscing, a mattis ipsum vestibulum. Aliquam non eros lobortis augue dapibus consectetur. Praesent sit amet nulla eu ligula elementum dapibus.
-
-                        Quisque id sapien vel neque malesuada cursus non dictum enim. Nam tincidunt eu ante ut imperdiet. Sed odio erat, mattis non leo eget, varius ultricies ipsum. Nulla porta est eu eros interdum dapibus. Sed a odio nisi. Sed eu vestibulum neque. Ut luctus risus nulla. Aenean dignissim porta sem, vitae dictum turpis iaculis a. Integer purus purus, dictum vitae consectetur sed, sollicitudin at enim.
-
-                        Cras sed nunc eget eros dapibus placerat. Fusce suscipit, nulla id elementum euismod, velit elit tincidunt leo, non bibendum magna nisl a diam. Donec lorem enim, tristique sed mi et, mollis luctus risus. In rutrum a magna non cursus. Duis malesuada varius elit eu hendrerit. Vivamus sed consequat augue. Proin ligula lectus, lacinia eu elementum sed, lacinia a nisi.
-
-                        Vestibulum porttitor gravida lectus vitae cursus. Sed mauris orci, aliquam in sodales vel, consectetur vitae dui. Phasellus auctor sollicitudin massa sed imperdiet. Nulla venenatis nisl molestie, consectetur metus eget, luctus lorem. Nullam blandit ut felis id consequat. Aliquam semper accumsan condimentum. Donec eu sodales mauris. Phasellus sagittis tellus sit amet purus venenatis, pellentesque convallis tellus porttitor. Etiam dictum dui nec adipiscing tincidunt. Curabitur viverra pretium est. Maecenas ligula purus, faucibus vitae mauris et, suscipit imperdiet tellus. Ut id feugiat lacus. Vivamus sed orci posuere, convallis nunc at, volutpat felis. Sed gravida libero nibh, nec mattis tortor tempus vel.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+    <div class="col-1-3" ng-include="'demos/grid/demo.html'"></div>
+    <div class="col-1-3" ng-include="'demos/scrollbar/demo.html'"></div>
+    <div class="col-1-3" ng-include="'demos/validation/demo.html'"></div>
 </div>
 <hr/>
 <h2 ng-bind="'Pane examples'|i18n" title="{{'Pane examples'|i18n}}"></h2>
 <div class="col-1-1">
     <div ng-pane="'App.Pane'|i18n:1" ng-config="title='Pane'|i18n:1;src='demos/pane/demo.html'" class="col-1-2"></div>
-    <div ng-pane="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}" /> </div>
+    <div ng-pane="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}"/></div>
 </div>
 <hr/>
 <div ng-tabs="justify=true">
