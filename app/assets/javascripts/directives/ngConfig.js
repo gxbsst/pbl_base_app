@@ -8,6 +8,8 @@
     function ngConfig(){
         return {
             restrict: 'A',
+            scope: true,
+            priority: 9999,
             link: ngConfigLink
         };
     }

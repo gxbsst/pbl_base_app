@@ -18,7 +18,7 @@ gem 'tzinfo-data'
 
 gem 'spring', group: :development
 
-source 'https://rails-assets.org'
+source 'http://rails-assets.org'
 
 gem 'rails-assets-jquery', '~> 1.10.0'
 

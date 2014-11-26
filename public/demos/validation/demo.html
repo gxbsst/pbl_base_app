@@ -1,4 +1,4 @@
 <form name="From">
-    <div ng-input="form.username" ng-config="label='username'|i18n;placeholder='enter username'|i18n"></div>
+    <input ng-model="form.username" data-label="{{ 'username'|i18n }}" placeholder="{{ 'enter username'|i18n }}" min="10" ng-input-helper />
     <div ng-bind="form.username"></div>
 </form>

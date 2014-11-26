@@ -3,32 +3,40 @@
 
     angular
         .module('app.directives')
-        .directive('ngInput', ngInput);
+        .directive('ngInputHelper', ngInputHelper);
 
-    ngInput.$inject = ['$timeout'];
+    ngInputHelper.$inject = ['$compile'];
 
-    function ngInput($timeout) {
+    function ngInputHelper($compile) {
 
         return {
             restrict: 'A',
-            scope: {
-                ngInput: '='
-            },
             replace: true,
-            template: '<span class="ng-input"><label for="{{ $config.name }}" ng-if="$config.label" ng-bind-html="$config.label"></label><input type="{{ $config.type }}" name="{{ $config.name }}" id="{{ $config.name }}" ng-model="ngInput" placeholder="{{ $config.placeholder }}" /></span>',
-            link: ngInputLink
+            scope: { label: '@' },
+            template: '<span class="ng-input-helper"><label for="{{ $config.id }}" ng-if="label" ng-bind-html="label"></label><input /></span>',
+            compile: ngInputHelperCompile
         };
 
-        function ngInputLink(scope, element, attr) {
+        function ngInputHelperCompile(){
 
-            attr.ngConfig.$parseConfig(scope);
+            return {
+                pre: function (scope, element, attrs) {
 
-            $timeout(function () {
-                scope.$config = angular.extend({
-                    name: scope.$config.name || attr.ngInput.replace(/\./g, '_'),
-                    type: 'text'
-                }, scope.$config);
-            });
+                    attrs.$$element = element.find('input');
+
+                    var name = attrs.name || attrs.ngModel.replace(/\./g, '_'),
+                        id = attrs.id || name;
+
+                    scope.$config = {
+                        id: id,
+                        name: name
+                    };
+
+                    angular.forEach(scope.$config, function (value, key) {
+                        attrs.$set(key, value);
+                    });
+                }
+            };
 
         }
 
