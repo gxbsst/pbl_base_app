@@ -1,4 +1,5 @@
 source 'http://ruby.taobao.org'
+source 'https://rails-assets.org'
 
 
 gem 'rails', '4.1.7'
@@ -18,7 +19,12 @@ gem 'tzinfo-data'
 
 gem 'spring', group: :development
 
-source 'http://rails-assets.org'
+gem 'devise'
+
+gem 'devise_cas_authenticatable'
+
+gem 'pbl_service_client', git: 'git@124.202.141.250:pbl/pbl_service_client.git', branch: 'master'
+gem 'pbl_authenticatable', git: 'git@124.202.141.250:pbl/pbl_authenticatable.git', branch: 'master'
 
 gem 'rails-assets-jquery', '~> 1.10.0'
 
@@ -36,3 +42,7 @@ gem 'rails-assets-restangular'
 gem 'rails-assets-lodash'
 
 gem 'angular-rails-templates'
+
+group :development do
+  gem 'thin', platforms: [:ruby]
+end
