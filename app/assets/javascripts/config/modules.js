@@ -5,6 +5,7 @@
         'ngRoute',
         'ngSanitize',
         'ui.router',
+        'validation',
         //'blocks.router',
         'templates'
     ]);

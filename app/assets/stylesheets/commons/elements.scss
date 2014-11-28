@@ -1,0 +1,5 @@
+@each $type in border, outline, padding, margin{
+  .no-#{$type}{
+    #{$type}:none !important;
+  }
+}

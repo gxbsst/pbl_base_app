@@ -21,7 +21,6 @@
 //= require angular-resource
 //= require angular-sanitize
 //= require angular-ui-router
-//= require angular-validation
 
 // Prototypes
 //= require_tree ./prototype

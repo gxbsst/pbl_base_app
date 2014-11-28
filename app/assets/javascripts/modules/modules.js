@@ -5,7 +5,8 @@
         'app.cookie',
         'app.tabs',
         'app.modal',
-        'app.scrollbar'
+        'app.scrollbar',
+        'validation'
     ]);
 
 })();

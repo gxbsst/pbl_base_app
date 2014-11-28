@@ -1,4 +1,13 @@
-<form name="From">
-    <input ng-model="form.username" data-label="{{ 'username'|i18n }}" placeholder="{{ 'enter username'|i18n }}" min="10" ng-input-helper />
+<form name="From" ng-controller="FromDemoController">
+    <input class="no-outline"
+           type="text"
+           ng-model="form.username"
+           placeholder="{{ 'enter username'|i18n }}"
+           validator="required"
+           invalid-callback="AccountInvalidCallback"
+           valid-callback="AccountValidCallback"
+            />
+
     <div ng-bind="form.username"></div>
+
 </form>

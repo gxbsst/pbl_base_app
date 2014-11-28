@@ -1,6 +1,6 @@
 angular.module('app', [
-    'app.config',
     'app.modules',
+    'app.config',
     'app.i18n',
     'app.filters',
     'app.services',

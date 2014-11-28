@@ -5,6 +5,7 @@
         .module('app.pbl')
         .controller('DemosController', DemosController)
         .controller('ModalDemoController', ModalDemoController)
+        .controller('FromDemoController', FromDemoController)
         .controller('ScrollbarDemoController', ScrollbarDemoController);
 
     function DemosController() {
@@ -63,6 +64,17 @@
             console.log(width,height);
             $scope.$broadcast('rebuild:scrollbar');
         }
+    }
+
+    FromDemoController.$inject = ['$scope', '$filter'];
+
+    function FromDemoController($scope, $filter){
+        $scope.AccountInvalidCallback = function (element, validMessage, validation) {
+            console.log(arguments);
+        };
+        $scope.AccountValidCallback = function (element, validMessage, validation) {
+            console.log(arguments);
+        };
     }
 
 })();

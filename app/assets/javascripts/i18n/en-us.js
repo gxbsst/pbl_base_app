@@ -15,6 +15,29 @@
                 Expand: 'Expand'
             },
 
+            VALIDATION:{
+                required: {
+                    error: 'This should be Required!!',
+                    success: 'It\'s Required'
+                },
+                account: {
+                    error: 'Account is error!',
+                    success: 'It\'s Required'
+                },
+                url: {
+                    error: 'This should be Url',
+                    success: 'It\'s Url'
+                },
+                email: {
+                    error: 'This should be Email',
+                    success: 'It\'s Email'
+                },
+                number: {
+                    error: 'This should be Number',
+                    success: 'It\'s Number'
+                }
+            },
+
             'hello world': 'Hello world!',
             'Pane examples': 'Pane examples',
             Pane: 'Pane%1',
