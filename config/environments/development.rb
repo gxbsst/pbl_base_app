@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.pbl_service_client.base_url = 'http://0.0.0.0:3001'
+  config.pbl_service_client.base_url = 'http://172.172.172.120:3001'
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
