@@ -49,5 +49,4 @@ gem 'angular-rails-templates'
 
 group :development do
   gem 'thin', platforms: [:ruby]
-  gem 'require_reloader'
 end
