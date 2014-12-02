@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
-  revision: df89c6955082436adbb706bddf9438b2aa92ea6b
+  revision: 41b79074d73dd9d8f00a6363e24703bcc61a7c67
   branch: master
   specs:
     pbl_service_client (0.0.1)
@@ -87,6 +87,8 @@ GEM
     eventmachine (1.0.3)
     execjs (2.2.2)
     ffi (1.9.6)
+    figaro (1.0.0)
+      thor (~> 0.14)
     hike (1.2.3)
     i18n (0.6.11)
     ice_nine (0.11.0)
@@ -195,6 +197,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise_cas_authenticatable
+  figaro
   jbuilder (~> 2.0)
   jquery-rails (= 3.1.2)
   pbl_authenticatable!

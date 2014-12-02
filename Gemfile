@@ -23,6 +23,8 @@ gem 'devise'
 
 gem 'devise_cas_authenticatable'
 
+gem 'figaro'
+
 gem 'pbl_service_client', git: 'git@124.202.141.250:pbl/pbl_service_client.git', branch: 'master'
 gem 'pbl_authenticatable', git: 'git@124.202.141.250:pbl/pbl_authenticatable.git', branch: 'master'
 
