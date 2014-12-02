@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'cookie', '$document', '$filter'];
+    HomeController.$inject = ['$scope'];
 
-    function HomeController($scope, cookie, $document, $filter) {
+    function HomeController($scope) {
         var vm = this;
     }
 

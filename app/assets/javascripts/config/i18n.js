@@ -22,9 +22,9 @@
 
     }
 
-    configure.$inject = ['$location', 'cookie', '$rootScope', 'i18nConfig'];
+    configure.$inject = ['$rootScope', '$location', 'cookie', 'i18nConfig'];
 
-    function configure($location, cookie, $rootScope, i18nConfig) {
+    function configure($rootScope, $location, cookie, i18nConfig) {
 
         i18nConfig.locale = cookie('locale', [
             $location.search().locale,
@@ -35,6 +35,7 @@
         ].findOne(finder).toLowerCase());
 
         $rootScope.setLocale = setLocale;
+        $rootScope.getLocale = getLocale;
 
         function setLocale(locale){
             i18nConfig.locale = cookie('locale', [
@@ -42,6 +43,10 @@
                 i18nConfig.locale,
                 i18nConfig.defaultLocale
             ].findOne(finder).toLowerCase());
+        }
+
+        function getLocale(){
+            return i18nConfig.locale;
         }
 
         function finder(locale){

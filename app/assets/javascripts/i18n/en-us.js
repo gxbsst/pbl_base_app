@@ -10,6 +10,10 @@
     function configure(i18nConfigProvider) {
         i18nConfigProvider.locales['en-us'] = {
 
+            SITE: {
+                name: 'Bridges ● Developing a global educational community'
+            },
+
             DIRECTIVE:{
                 Collapse: 'Collapse',
                 Expand: 'Expand'
@@ -38,6 +42,15 @@
                 }
             },
 
+            NAV: {
+                logo: 'logo_en-us',
+                news: 'News',
+                home: 'Home',
+                pbl: 'PBL',
+                amoocs: 'AMoocs',
+                explore: 'Explore'
+            },
+
             'hello world': 'Hello world!',
             'Pane examples': 'Pane examples',
             Pane: 'Pane%1',
@@ -48,7 +61,8 @@
             down: 'Down',
             img: 'http://dl.iteye.com/upload/attachment/0080/6960/261b91b3-4fc0-349a-892c-157a58c403bb.jpg',
             username: 'Username: ',
-            'enter username': 'please enter username'
+            'enter username': 'please enter username',
+            'all posts': 'All posts'
 
         };
     }

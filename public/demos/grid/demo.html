@@ -2,9 +2,9 @@
     <thead>
     <tr>
         <th ng-repeat="column in vm.head track by $index">
-            <i class="icon-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
+            <i class="pf-arrow-left" ng-click="vm.moveColumn($index,$index-1)"></i>
             <span ng-bind="'column'|i18n:$index+1"></span>
-            <i class="icon-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
+            <i class="pf-arrow-right" ng-click="vm.moveColumn($index,$index+1)"></i>
         </th>
         <th ng-click="vm.addColumn()">+</th>
     </tr>

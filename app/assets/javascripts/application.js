@@ -22,6 +22,10 @@
 //= require angular-sanitize
 //= require angular-ui-router
 
+//= require mockjs/dist/mock
+//= require modules/mock
+//= require config/mock
+
 // Prototypes
 //= require_tree ./prototype
 

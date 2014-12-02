@@ -10,6 +10,10 @@
     function configure(i18nConfigProvider) {
         i18nConfigProvider.locales['zh-cn'] = {
 
+            SITE: {
+                name: '桥 ● 全球教育共同体'
+            },
+
             DIRECTIVE:{
                 Collapse: '收起',
                 Expand: '展开'
@@ -38,6 +42,15 @@
                 }
             },
 
+            NAV: {
+                logo: 'logo_zh-cn',
+                news: '新闻动态',
+                home: '个人中心',
+                pbl: 'PBL',
+                amoocs: '爱慕课',
+                explore: '发现'
+            },
+
             'hello world': '你好，世界!',
             'Pane examples': '面板示例',
             Pane: '面板%1',
@@ -48,7 +61,8 @@
             down: '下',
             img: 'http://www.jingwentian.com/avatar/large/1.png',
             username: '用户名：',
-            'enter username': '请输入用户名'
+            'enter username': '请输入用户名',
+            'all posts': '所有动态'
 
         }
     }

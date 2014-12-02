@@ -3,7 +3,7 @@
            type="text"
            ng-model="form.username"
            placeholder="{{ 'enter username'|i18n }}"
-           validator="required"
+           validator="account,accountUnique"
            invalid-callback="AccountInvalidCallback"
            valid-callback="AccountValidCallback"
             />

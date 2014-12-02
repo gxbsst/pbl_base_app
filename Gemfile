@@ -28,6 +28,8 @@ gem 'pbl_authenticatable', git: 'git@124.202.141.250:pbl/pbl_authenticatable.git
 
 gem 'rails-assets-jquery', '~> 1.10.0'
 
+gem 'rails-assets-mockjs', '~> 0.1.5'
+
 gem 'rails-assets-css3-mediaqueries-js'
 gem 'rails-assets-es5-shim'
 

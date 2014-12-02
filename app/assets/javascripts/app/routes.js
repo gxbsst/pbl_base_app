@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('app.pbl')
+        .module('app.routes', ['ui.router'])
         .config(configure)
         .run(routeConfig);
 
     configure.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-    function configure($stateProvider, $urlRouterProvider){
+    function configure($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider
             //.when('/c?id', '/contacts/:id')
@@ -16,40 +16,58 @@
             .otherwise('/');
 
         $stateProvider
-            .state('index', {
+            .state('root', {
                 url: '/',
                 views:{
-                    '':{
-                        templateUrl: 'layout/index.html'
+                    header: {
+                        templateUrl: 'layout/header.html',
+                        controller: 'HeaderController'
                     },
-                    'footer@': {
+                    '': {
+                        template: '<div ui-view></div>'
+                    },
+                    footer: {
                         templateUrl: 'layout/footer.html'
                     }
+                },
+                resolve: {
+                    currentUser: currentUserResolve
                 }
+            })
+            .state('root.home', {
+                url: '^/home',
+                templateUrl: 'home/index.html',
+                controller: 'HomeController as vm'
+            })
+            .state('root.pbl', {
+                url: '^/pbl',
+                templateUrl: 'pbl/index.html',
+                controller: 'PBLController as vm'
             })
             .state('demos', {
                 url: '/demos',
                 templateUrl: 'demos/index.html',
-                controller: 'DemosController',
-                controllerAs: 'vm'
+                controller: 'DemosController as vm'
             })
-            .state('home', {
-                url: '/home',
-                templateUrl: 'home/index.html',
-                controller: 'HomeController',
-                controllerAs: 'vm'
-            })
-            .state('header', {
-                templateUrl: 'layout/header.html'
+            .state('root.news', {
+                url: '^/news',
+                templateUrl: 'news/index.html'
             })
             .state('about', {
                 url: '/about',
                 templateProvider: aboutProvider
             });
 
+        currentUserResolve.$inject = ['$rootScope', 'User'];
+
+        function currentUserResolve($rootScope, User){
+            $rootScope.currentUser = $rootScope.currentUser || User.add();
+            return $rootScope.currentUser;
+        }
+
         aboutProvider.$inject = ['$timeout'];
 
-        function aboutProvider($timeout){
+        function aboutProvider($timeout) {
             return $timeout(function () {
                 return 'about template';
             }, 100);

@@ -1,9 +1,15 @@
-angular.module('app', [
-    'app.modules',
-    'app.config',
-    'app.i18n',
-    'app.filters',
-    'app.services',
-    'app.directives',
-    'app.pbl'
-]);
+(function () {
+    'use strict';
+
+    angular.module('app', [
+        'app.mock',
+        'app.modules',
+        'app.config',
+        'app.i18n',
+        'app.filters',
+        'app.services',
+        'app.directives',
+        'app.pbl'
+    ]);
+
+})();
