@@ -1,7 +1,9 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.cas_base_url = 'http://0.0.0.0:3002'
+  config.cas_base_url = ENV['SSO_URL']
+
+  config.cas_enable_single_sign_out = true
 
   config.warden do |manager|
     manager.failure_app = DeviseCasAuthenticatable::SingleSignOut::WardenFailureApp
