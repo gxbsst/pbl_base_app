@@ -3,6 +3,8 @@
 Devise.setup do |config|
   config.cas_base_url = ENV['SSO_URL']
 
+  config.cas_enable_single_sign_out = true
+
   config.warden do |manager|
     manager.failure_app = DeviseCasAuthenticatable::SingleSignOut::WardenFailureApp
   end

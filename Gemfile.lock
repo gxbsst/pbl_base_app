@@ -1,6 +1,6 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_authenticatable.git
-  revision: 4a273bc2116c64a3b455691b72323c05b0af862f
+  revision: 34b437bef43d6114ffa86f8e306d56308714cfe7
   branch: master
   specs:
     pbl_authenticatable (0.0.1)
@@ -40,6 +40,10 @@ GEM
       activemodel (= 4.1.7)
       activesupport (= 4.1.7)
       arel (~> 5.0.0)
+    activerecord-session_store (0.1.0)
+      actionpack (>= 4.0.0, < 5)
+      activerecord (>= 4.0.0, < 5)
+      railties (>= 4.0.0, < 5)
     activesupport (4.1.7)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -194,6 +198,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-session_store
   angular-rails-templates
   coffee-rails (~> 4.0.0)
   devise
