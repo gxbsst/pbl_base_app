@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree ./ie
 //= require css3-mediaqueries-js
 //= require es5-shim
 //= require jquery
@@ -40,9 +39,6 @@
 
 // Config
 //= require config/modules
-
-// Blocks
-//= require blocks/router/modules
 
 // I18n
 //= require i18n/modules

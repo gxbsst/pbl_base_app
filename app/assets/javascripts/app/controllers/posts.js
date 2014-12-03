@@ -6,9 +6,9 @@
         .controller('PostsIndexController', PostsIndexController)
         .controller('PostsShowController', PostsShowController);
 
-    PostsIndexController.$inject = ['$scope', 'Posts'];
+    PostsIndexController.$inject = ['Posts'];
 
-    function PostsIndexController($scope, Posts) {
+    function PostsIndexController(Posts) {
         var vm = this;
         vm.posts = Posts.all();
     }

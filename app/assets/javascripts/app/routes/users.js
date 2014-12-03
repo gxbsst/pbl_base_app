@@ -12,8 +12,7 @@
         $stateProvider
             .state('root.home.user', {
                 url: '^/me',
-                templateUrl: 'user/index.html',
-                controller: 'PostsIndexController as vm'
+                templateUrl: 'user/index.html'
             })
             .state('root.home.users', {
                 url: '^/users',
