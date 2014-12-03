@@ -51,6 +51,8 @@
                 explore: 'Explore'
             },
 
+            guide: 'Guide%1',
+            create: 'Create',
             'hello world': 'Hello world!',
             'Pane examples': 'Pane examples',
             Pane: 'Pane%1',

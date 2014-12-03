@@ -51,6 +51,8 @@
                 explore: '发现'
             },
 
+            guide: '步骤%1',
+            create: '创建',
             'hello world': '你好，世界!',
             'Pane examples': '面板示例',
             Pane: '面板%1',

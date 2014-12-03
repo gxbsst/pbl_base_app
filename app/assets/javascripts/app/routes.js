@@ -35,7 +35,12 @@
                 }
             })
             .state('root.home', {
+                abstract: true,
                 url: '^/home',
+                templateUrl: 'home/layout.html'
+            })
+            .state('root.home.index', {
+                url: '',
                 templateUrl: 'home/index.html',
                 controller: 'HomeController as vm'
             })
@@ -53,6 +58,11 @@
                 url: '^/news',
                 templateUrl: 'news/index.html'
             })
+            .state('root.news.posts', {
+                url: '^/posts',
+                templateUrl: 'posts/index.html',
+                controller: 'PostsIndexController as vm'
+            })
             .state('about', {
                 url: '/about',
                 templateProvider: aboutProvider
@@ -61,7 +71,7 @@
         currentUserResolve.$inject = ['$rootScope', 'User'];
 
         function currentUserResolve($rootScope, User){
-            $rootScope.currentUser = $rootScope.currentUser || User.add();
+            $rootScope.currentUser = $rootScope.currentUser || User.get();
             return $rootScope.currentUser;
         }
 

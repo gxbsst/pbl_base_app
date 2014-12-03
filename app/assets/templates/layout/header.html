@@ -2,9 +2,9 @@
     <div class="container">
         <ul class="nav">
             <li><a ui-sref="root.home" class="logo" ng-class="getLocale()"></a></li>
-            <li><a ui-sref="root.news" ui-sref-active="active" ng-bind="'NAV.news'|i18n"></a></li>
-            <li><a ui-sref="root.home" ui-sref-active="active" ng-bind="'NAV.home'|i18n"></a></li>
-            <li><a ui-sref="root.pbl" ui-sref-active="active" ng-bind="'NAV.pbl'|i18n"></a></li>
+            <li><a ui-sref="root.news" ng-class="{active:$state.includes('root.news')}" ng-bind="'NAV.news'|i18n"></a></li>
+            <li><a ui-sref="root.home.index" ng-class="{active:$state.includes('root.home')}" ng-bind="'NAV.home'|i18n"></a></li>
+            <li><a ui-sref="root.pbl" ng-class="{active:$state.includes('root.pbl')}" ng-bind="'NAV.pbl'|i18n"></a></li>
             <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.amoocs'|i18n"></a></li>
             <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.explore'|i18n"></a></li>
         </ul>

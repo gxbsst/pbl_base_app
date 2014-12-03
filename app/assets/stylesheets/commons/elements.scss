@@ -15,3 +15,11 @@
 .ng-invalid{
   border-color:#b40000;
 }
+
+.hr{
+  clear:both;
+  border-bottom:1px solid #ccc;
+  height:0;
+  overflow:hidden;
+  margin:12px 0;
+}

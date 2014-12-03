@@ -16,15 +16,15 @@
             'liked|1-100': 100,
             'content': '@paragraph(2)'
         })
-        .mock('/user', 'POST', {
+        .mock('/user', 'GET', {
             'id': '@guid',
             'name': '@name',
             'role': '@role',
             'email': '@email',
             'age|15-50': 50,
             'constellation': '@constellation',
-            'gender|1': '@gender',
-            'avatar|1': '@avatar'
+            'gender': '@gender',
+            'avatar': '@avatar'
         });
 
 })();
