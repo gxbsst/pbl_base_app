@@ -1,6 +1,6 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_authenticatable.git
-  revision: bdf9845961d4f9cac7e4e8a460459c46a63522be
+  revision: d7f3be95d412c9847c5be129da63501b9b8dfc6d
   branch: master
   specs:
     pbl_authenticatable (0.0.1)
