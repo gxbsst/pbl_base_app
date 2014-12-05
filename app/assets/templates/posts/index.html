@@ -1,4 +1,4 @@
 <h3>动态列表</h3>
 <ul>
-    <li ng-repeat="post in vm.posts.data"><a ui-sref="root.home.post({postId:post.id})" ui-sref-active="active" ng-bind="post.title"></a></li>
+    <li ng-repeat="post in vm.posts.data"><a ui-sref="base.home.post({postId:post.id})" ui-sref-active="active" ng-bind="post.title"></a></li>
 </ul>

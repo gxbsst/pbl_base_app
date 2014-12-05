@@ -10,12 +10,12 @@
     function configure($stateProvider) {
 
         $stateProvider
-            .state('root.home.posts', {
+            .state('base.home.posts', {
                 url: '^/posts',
                 templateUrl: 'posts/index.html',
                 controller: 'PostsIndexController as vm'
             })
-            .state('root.home.post', {
+            .state('base.home.post', {
                 url: '^/posts/:postId',
                 templateUrl: 'posts/show.html',
                 controller: 'PostsShowController as vm'

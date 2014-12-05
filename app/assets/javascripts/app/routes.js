@@ -10,62 +10,21 @@
 
     function configure($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider
-            //.when('/c?id', '/contacts/:id')
-            //.when('/user/:id', '/contacts/:id')
-            .otherwise('/');
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider
-            .state('root', {
+            .state('base', {
+                abstract: true,
                 url: '/',
-                views:{
-                    header: {
-                        templateUrl: 'layout/header.html',
-                        controller: 'HeaderController'
-                    },
-                    '': {
-                        template: '<div ui-view></div>'
-                    },
-                    footer: {
-                        templateUrl: 'layout/footer.html'
-                    }
-                },
+                template: '<div ui-view></div>',
                 resolve: {
                     currentUser: currentUserResolve
                 }
-            })
-            .state('root.home', {
-                abstract: true,
-                url: '^/home',
-                templateUrl: 'home/layout.html'
-            })
-            .state('root.home.index', {
-                url: '',
-                templateUrl: 'home/index.html',
-                controller: 'HomeController as vm'
-            })
-            .state('root.pbl', {
-                url: '^/pbl',
-                templateUrl: 'pbl/index.html',
-                controller: 'PBLController as vm'
             })
             .state('demos', {
                 url: '/demos',
                 templateUrl: 'demos/index.html',
                 controller: 'DemosController as vm'
-            })
-            .state('root.news', {
-                url: '^/news',
-                templateUrl: 'news/index.html'
-            })
-            .state('root.news.posts', {
-                url: '^/posts',
-                templateUrl: 'posts/index.html',
-                controller: 'PostsIndexController as vm'
-            })
-            .state('about', {
-                url: '/about',
-                templateProvider: aboutProvider
             });
 
         currentUserResolve.$inject = ['$rootScope', 'User'];
@@ -73,14 +32,6 @@
         function currentUserResolve($rootScope, User){
             $rootScope.currentUser = $rootScope.currentUser || User.get();
             return $rootScope.currentUser;
-        }
-
-        aboutProvider.$inject = ['$timeout'];
-
-        function aboutProvider($timeout) {
-            return $timeout(function () {
-                return 'about template';
-            }, 100);
         }
     }
 

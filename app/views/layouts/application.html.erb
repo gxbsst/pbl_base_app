@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html id="ng-app" ng-app="app">
 <head>
-  <title>PblWeb</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta charset="UTF-8">
+  <title ng-bind="'SITE.name'|i18n"></title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%#= link_to '退出', destroy_user_session_path, method: :delete %>
 <%= yield %>
-
+<% if Rails.env == 'development' %>
+    <pre class="dev-state">
+      $state = {{$state.current.name}}
+      $stateParams = {{$stateParams}}
+      $state full url = {{ $state.$current.url.source }}
+    </pre>
+<% end %>
 </body>
 </html>

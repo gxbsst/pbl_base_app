@@ -16,6 +16,20 @@
             'liked|1-100': 100,
             'content': '@paragraph(2)'
         })
+        .mock('/pbls', {
+            'data|1-15': [{
+                'id|+1': 1,
+                'title': '@title',
+                'liked|1-100': 100,
+                'content': '@paragraph(2)'
+            }]
+        })
+        .mock('/pbls/:pblId', {
+            'id|1-15': 1,
+            'title': '@title',
+            'liked|1-100': 100,
+            'content': '@paragraph(2)'
+        })
         .mock('/user', 'GET', {
             'id': '@guid',
             'name': '@name',

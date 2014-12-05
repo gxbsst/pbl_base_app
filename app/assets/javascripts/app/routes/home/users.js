@@ -10,16 +10,16 @@
     function configure($stateProvider) {
 
         $stateProvider
-            .state('root.home.user', {
+            .state('base.home.user', {
                 url: '^/me',
                 templateUrl: 'user/index.html'
             })
-            .state('root.home.users', {
+            .state('base.home.users', {
                 url: '^/users',
                 templateUrl: 'users/index.html',
                 controller: 'UsersIndexController as vm'
             })
-            .state('root.home.users.show', {
+            .state('base.home.users.show', {
                 url: '^/users/:userId',
                 templateUrl: 'users/show.html',
                 controller: 'UsersShowController as vm'

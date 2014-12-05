@@ -9,6 +9,8 @@
 
     function HomeController($scope) {
         var vm = this;
+
+
     }
 
 })();
