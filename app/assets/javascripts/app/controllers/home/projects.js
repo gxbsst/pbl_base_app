@@ -7,10 +7,13 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController);
 
-    HomePBLIndexController.$inject = ['$scope'];
+    HomePBLIndexController.$inject = ['$scope','$http'];
 
-    function HomePBLIndexController($scope) {
+    function HomePBLIndexController($scope,$http) {
         var vm = this;
+        $http.get('/pbls/1')
+            .success(function(){
+            });
     }
 
     PBLMapController.$inject = ['$scope'];

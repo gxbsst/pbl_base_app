@@ -17,7 +17,8 @@
             })
             .state('base.home.projects.index', {
                 url: '',
-                templateUrl: 'home/projects/index.html'
+                templateUrl: 'home/projects/index.html',
+                controller:'HomePBLIndexController as vm'
             })
             .state('base.home.projects.create', {
                 abstract: true,

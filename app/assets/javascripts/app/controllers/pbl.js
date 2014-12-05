@@ -10,5 +10,4 @@
     function PBLController($scope) {
         var vm = this;
     }
-
 })();
