@@ -1,11 +1,4 @@
 GIT
-  remote: git@124.202.141.250:pbl/pbl_authenticatable.git
-  revision: bdf9845961d4f9cac7e4e8a460459c46a63522be
-  branch: master
-  specs:
-    pbl_authenticatable (0.0.1)
-
-GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
   revision: b1ffc5131897799be56189722b3a4dbfce669ddd
   branch: master
@@ -204,7 +197,6 @@ DEPENDENCIES
   figaro
   jbuilder (~> 2.0)
   jquery-rails (= 3.1.2)
-  pbl_authenticatable!
   pbl_service_client!
   rails (= 4.1.7)
   rails-assets-angular (~> 1.2.0)
