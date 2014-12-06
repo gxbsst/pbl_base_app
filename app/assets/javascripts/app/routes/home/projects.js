@@ -18,16 +18,20 @@
             .state('base.home.projects.index', {
                 url: '',
                 templateUrl: 'home/projects/index.html',
-                controller:'HomePBLIndexController as vm'
+                controller:'HomeProjectIndexController as vm'
             })
             .state('base.home.projects.create', {
                 abstract: true,
-                url: '/create',
-                templateUrl: 'home/projects/create.html'
+                url: '/create/:projectId',
+                templateUrl: 'home/projects/create.html',
+                resolve: {
+                    project: getProject
+                }
             })
             .state('base.home.projects.create.design', {
                 url: '',
-                templateUrl: 'home/projects/create/steps/design.html'
+                templateUrl: 'home/projects/create/steps/design.html',
+                controller:'HomeProjectCreateDesignController as vm'
             })
             .state('base.home.projects.create.rubrics', {
                 url: '/rubrics',
@@ -49,6 +53,24 @@
                 url: '/:projectId',
                 templateUrl: 'home/projects/index.html'
             });
+
+        getProject.$inject = ['$q', '$state', '$stateParams', 'Projects'];
+
+        function getProject($q, $state, $stateParams, Projects){
+            var defer = $q.defer();
+            if($stateParams.projectId){
+                Projects.get({projectId:$stateParams.projectId}, function (result) {
+                    console.log(result.data);
+                    defer.resolve(result.data);
+                });
+            }else{
+                Projects.add(function (result) {
+                    $state.go('base.home.projects.create.design', {projectId:result.id});
+                    //defer.resolve(result.data);
+                });
+            }
+            return defer.promise;
+        }
 
     }
 

@@ -3,12 +3,12 @@
 
     angular
         .module('app.services')
-        .service('HomeProjects', HomeProjects);
+        .service('Projects', Projects);
 
-    HomeProjects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
-    function HomeProjects($resource, RESOURCE_ACTIONS) {
-        return $resource('/posts/:postId', {postId: '@postId', action: '@action'}, RESOURCE_ACTIONS);
+    function Projects($resource, RESOURCE_ACTIONS) {
+        return $resource('/projects/:projectId', {projectId: '@projectId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
 })();

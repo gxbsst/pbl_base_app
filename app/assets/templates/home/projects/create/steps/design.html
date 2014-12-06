@@ -1,1 +1,48 @@
 构思
+{{vm.project}}
+abc
+
+<div>
+    项目名称： <input type="text" ng-model="vm.project.id"/>
+</div>
+<div>
+    课标：
+    <div ng-repeat="curriculum_standard in vm.project.curriculum_standards">
+        <div>ID:<input type="text" ng-model="curriculum_standard.id"/></div>
+        <div>标题:<input type="text" ng-model="curriculum_standard.title"/></div>
+    </div>
+</div>
+<div>
+    技能：
+    <div ng-repeat="skill in vm.project.skills">
+        <div>ID:<input type="text" ng-model="skill.id"/></div>
+        <div>标题:<input type="text" ng-model="skill.title"/></div>
+    </div>
+</div>
+<div>
+    驱动性问题：
+    <textarea name=""  cols="30" rows="10" ng-model="vm.project.driven_issue"></textarea>
+</div>
+<div>
+    课标解读：
+    <textarea name=""  cols="30" rows="10" ng-model="vm.project.standard_analysis"></textarea>
+</div>
+<div>
+    课标分解
+</div>
+<div>
+    最终产品：
+    <div>
+        <div>作品形态:<input type="text" ng-model="vm.project.final_product.form.title"/></div>
+        <div>上传示例:<input type="text" ng-model="vm.project.final_product.description"/></div>
+        <div>描述:<input type="text" ng-model="vm.project.final_product.example"/></div>
+    </div>
+</div>
+<div>
+    阶段性产品：
+    <div ng-repeat="stage in vm.project.stage_products">
+        <div>作品形态:<input type="text" ng-model="stage.form.title"/></div>
+        <div>上传示例:<input type="text" ng-model="stage.description"/></div>
+        <div>描述:<input type="text" ng-model="stage.example"/></div>
+    </div>
+</div>
