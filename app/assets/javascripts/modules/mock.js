@@ -26,7 +26,7 @@
     Item.prototype.add = function (url, method) {
         var result = null;
         angular.forEach(Mock._mocked, function (value) {
-            if (new RegExp('^' + value.rurl.replace(/:.\w+/g, '\\w+').replace(/\//g, '\\/') + '$').test(url) && (value.rtype || 'GET') === method) {
+            if (new RegExp('^' + value.rurl.replace(/:[A-Za-z0-9-%]+/g, '[A-Za-z0-9-%]+').replace(/\//g, '\\/') + '$').test(url) && (value.rtype || 'GET') === method) {
                 result = Mock.mock(value.template);
             }
         });
