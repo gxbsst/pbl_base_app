@@ -3,28 +3,28 @@
 
     angular
         .module('app.directives')
-        .directive('ngPane', ngPane);
+        .directive('etPanel', etPanel);
 
-    function ngPane(){
+    function etPanel(){
         return {
             restrict: 'A',
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: 'directives/ng-pane.html',
-            link: ngPaneLink
+            templateUrl: 'directives/et-panel.html',
+            link: etPanelLink
         };
     }
 
-    function ngPaneLink(scope, element, attr){
+    function etPanelLink(scope, element, attr){
 
         scope.$config = scope.$config || {};
         scope.status = true;
         scope.toggle = toggle;
 
-        scope.$watch(attr.ngPane, ngPaneWatch);
+        scope.$watch(attr.etPanel, etPanelWatch);
 
-        function ngPaneWatch(title){
+        function etPanelWatch(title){
             scope.$config.title = title;
         }
 

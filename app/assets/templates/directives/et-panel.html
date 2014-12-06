@@ -1,0 +1,5 @@
+<div class="et-panel">
+    <div class="et-panel-title"><strong ng-bind="$config.title"></strong><i class="pull-right" ng-class="status?'pf-triangle-down':'pf-triangle-up'" title="{{status?('DIRECTIVE.Expand'|i18n):('DIRECTIVE.Collapse'|i18n)}}" ng-click="toggle()"></i></div>
+    <div class="et-panel-content" ng-if="!$config.src" ng-show="status" ng-transclude></div>
+    <div class="et-panel-content" ng-if="$config.src" ng-show="status" ng-include="$config.src"></div>
+</div>
