@@ -3,7 +3,7 @@
 
     angular
         .extend(String.prototype, {
-            '$parseConfig': function (scope) {
+            parseConfig: function (scope) {
 
                 scope.$config = {};
                 angular.forEach(this.split(';'), function (config) {

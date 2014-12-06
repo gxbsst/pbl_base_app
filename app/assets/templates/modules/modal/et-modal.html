@@ -1,0 +1,8 @@
+<div class="et-modal" et-observer="modalResize()">
+    <div class="et-modal-overlay" ng-if="$config.overlay"></div>
+    <div class="et-modal-container" ng-style="{width:$config.width,height:$config.height}">
+        <div class="et-modal-title"><strong ng-bind="$config.title"></strong><span class="et-modal-destroy pull-right" ng-click="destroyModal()" role="link"><i class="pf-cross"></i></span></div>
+        <div class="et-modal-content" ng-if="$config.html" ng-bind-html="$config.html"></div>
+        <div class="et-modal-content" ng-if="$config.src" ng-include="$config.src"></div>
+    </div>
+</div>

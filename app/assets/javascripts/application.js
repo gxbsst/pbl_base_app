@@ -12,6 +12,7 @@
 //
 //= require css3-mediaqueries-js
 //= require es5-shim
+//= require ie/MutationObserver
 //= require jquery
 //= require jquery_ujs
 //= require angular

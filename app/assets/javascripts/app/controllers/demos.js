@@ -42,10 +42,13 @@
 
     }
 
-    ModalDemoController.$inject = ['$scope'];
+    ModalDemoController.$inject = ['$scope', '$timeout'];
 
-    function ModalDemoController($scope){
-        $scope.demo = 'Hi, modal!'
+    function ModalDemoController($scope, $timeout){
+        $scope.demo = 'Hi, modal!';
+        $timeout(function () {
+            $scope.demo = 'Hi, modal!<br/>Hi, modal!<br/>Hi, modal!<br/>Hi, modal!<br/>Hi, modal!<br/>Hi, modal!<br/>';
+        },2000);
     }
 
     ScrollbarDemoController.$inject = ['$scope'];

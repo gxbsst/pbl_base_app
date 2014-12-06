@@ -21,7 +21,7 @@
 
             scope.$config = angular.extend({
                 templateUrl: 'directives/et-tips.html'
-            }, attr.etTips.$parseConfig(scope));
+            }, attr.etTips.parseConfig(scope));
 
             var enterTimer, leaveTimer, tips;
 

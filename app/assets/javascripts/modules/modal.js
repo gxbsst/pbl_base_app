@@ -34,9 +34,10 @@
 
             self.showModal = showModal;
 
-            function showModal(config) {
+            function showModal(scope) {
 
-                var defer = $q.defer();
+                var config = scope.$config,
+                    defer = $q.defer();
 
                 $template(config).then(function (template) {
 
@@ -46,9 +47,18 @@
                             $scope: childScope
                         }, config.inject || {}),
                         modalController = controller ? $controller(controller, inject) : null,
-                        modalElement = $compile(angular.element(template))(childScope);
+                        modalElement = $compile(angular.element(template))(childScope),
+                        container = modalElement.find('.et-modal-container');
+
+                    childScope.modalResize = function () {
+                        container.css({
+                            marginLeft: -container.outerWidth() / 2,
+                            marginTop: -container.outerHeight() / 2
+                        });
+                    };
 
                     childScope.destroyModal = function () {
+                        delete scope.$modal;
                         childScope.$destroy();
                         modalElement.remove();
                     };
@@ -89,11 +99,13 @@
             scope.$config = angular.extend({
                 $scope: scope,
                 overlay: true,
-                templateUrl: 'modules/modal/ng-modal.html'
-            }, attr.etModal.$parseConfig(scope));
+                templateUrl: 'modules/modal/et-modal.html'
+            }, attr.etModal.parseConfig(scope));
 
             element.on('click', function () {
-                modalFactory.showModal(scope.$config);
+                !scope.$modal && scope.$apply(function () {
+                    scope.$modal = modalFactory.showModal(scope);
+                });
             });
 
         }

@@ -35,7 +35,7 @@
 
     function ngTabsLink(scope, element, attr){
 
-        attr.ngTabs.$parseConfig(scope);
+        attr.ngTabs.parseConfig(scope);
 
     }
 
