@@ -3,18 +3,27 @@
 
     angular
         .module('app.pbl')
-        .controller('HomePBLIndexController', HomePBLIndexController)
+        .controller('HomeProjectIndexController', HomeProjectIndexController)
         .controller('PBLMapController', PBLMapController)
-        .controller('PBLGuideController', PBLGuideController);
+        .controller('PBLGuideController', PBLGuideController)
+        .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
 
-    HomePBLIndexController.$inject = ['$scope','$http'];
+    HomeProjectIndexController.$inject = ['Projects'];
 
-    function HomePBLIndexController($scope,$http) {
+    function HomeProjectIndexController(Projects) {
         var vm = this;
-        $http.get('/pbls/1')
-            .success(function(){
-            });
+        Projects.all({}, function(result){
+            vm.projects =result.data;
+        });
+
+        //vm.addProject = function() {
+        //    Projects.add({}, function(projectID){
+        //        $state.go('base.home.projects.create.design({pblId:projectID.pbl_id})');
+        //    });
+        //};
+
     }
+
 
     PBLMapController.$inject = ['$scope'];
 
@@ -28,6 +37,14 @@
         var vm = this;
 
         vm.currentStep = $stateParams.step;
+
+    }
+
+    HomeProjectCreateDesignController.$inject = ['Projects','project'];
+
+    function HomeProjectCreateDesignController(Projects,project) {
+        var vm = this;
+        vm.project =project;
 
     }
 

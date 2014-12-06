@@ -3,63 +3,62 @@
     Mock
 
         //查询PBL列表
-        .mock('/pbls', {
-            'pbls|1-20':[{
-                'id':Random.guid(),
-                'title':Random.title()
+        .mock('/projects', {
+            'data|1-20':[{
+                'id':'@GUID',
+                'title':'@TITLE'
             }]
         })
 
         //创建一个新的PBL，返回PBL的ID，空标题的PBL作为未命名的PBL
-        .mock('/pbls', 'post', {
-            'pbl_id':Random.guid()
+        .mock('/projects', 'POST', {
+            'id':'@GUID'
         })
 
         //调用一个PBL的扁平结构
-        .mock('/pbls/:id', 'get', {
-            'pbl': {
-                'id': Random.guid(),
-                'project_id': Random.guid(),
-                'project_name': Random.title(),
-                'curriculum_standards':[{
-                    'id': Random.guid(),
-                    'label': Random.title()
+        .mock('/projects/:projectId', 'GET', {
+            'data': {
+                'id': '@GUID',
+                'project_name': '@TITLE',
+                'curriculum_standards|1-5':[{
+                    'id': '@GUID',
+                    'title': '@TITLE'
                 }],
-                'skills':[{
-                    'id': Random.guid(),
-                    'label': Random.title()
+                'skills|1-5':[{
+                    'id': '@GUID',
+                    'title': '@TITLE'
                 }],
-                'driven_issue': Random.paragraph(),
-                'standard_analysis':Random.paragraph(),
+                'driven_issue': '@PARAGRAPH',
+                'standard_analysis':'@PARAGRAPH',
                 'standard_decomposition':[],
                 'final_product':{
                     'form':{
-                        'id':Random.guid(),
-                        'title': Random.title()
+                        'id':'@GUID',
+                        'title': '@TITLE'
                     },
-                    'description': Random.paragraph(),
-                    'example': Random.guid()
+                    'description': '@PARAGRAPH',
+                    'example': '@GUID'
                 },
-                'stage_products':[{
-                    'id':Random.guid(),
+                'stage_products|1-10':[{
+                    'id':'@GUID',
                     'form':{
-                        'id':Random.guid(),
-                        'title': Random.title()
+                        'id':'@GUID',
+                        'title': '@TITLE'
                     },
-                    'description': Random.paragraph(),
-                    'example': [Random.guid()]
+                    'description': '@PARAGRAPH',
+                    'example': ['@GUID']
                 }]
             }
         })
 
         //提交一个PBL表单,UPDATE
-        .mock('/pbls', 'put', {
-            '':'success'
+        .mock('/projects', 'put', {
+            'result':'success'
         })
 
         //删除一个PBL表单,DELETE,暂时不用
-        .mock('/pbls', 'delete', {
-            '':'success'
+        .mock('/projects', 'delete', {
+            'result':'success'
         })
         ;
 
