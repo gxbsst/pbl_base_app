@@ -15,8 +15,7 @@
         vm.current = null;
         $rootScope.setCurrentTool = setCurrentTool;
 
-        function setCurrentTool(current, $event) {
-            $event && $event.stopPropagation();
+        function setCurrentTool(current) {
             if (current) {
                 if (vm.current && vm.current.src != current.src) {
                     delete vm.current.active;

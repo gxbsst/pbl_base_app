@@ -3,25 +3,25 @@
 
     angular
         .module('app.directives')
-        .directive('ngTips', ngTips);
+        .directive('etTips', etTips);
 
-    ngTips.$inject = ['$document', '$timeout', '$template', '$compile'];
+    etTips.$inject = ['$document', '$timeout', '$template', '$compile'];
 
-    function ngTips($document, $timeout, $template, $compile) {
+    function etTips($document, $timeout, $template, $compile) {
 
         var body = $document.find('body');
 
         return {
             restrict: 'A',
             scope: true,
-            link: ngTipsLink
+            link: etTipsLink
         };
 
-        function ngTipsLink(scope, element, attr) {
+        function etTipsLink(scope, element, attr) {
 
             scope.$config = angular.extend({
-                templateUrl: 'directives/ng-tips.html'
-            }, attr.ngTips.$parseConfig(scope));
+                templateUrl: 'directives/et-tips.html'
+            }, attr.etTips.$parseConfig(scope));
 
             var enterTimer, leaveTimer, tips;
 

@@ -5,7 +5,7 @@
         .module('app.modal', ['app.factories'])
         .provider('modalConfig', modalConfig)
         .factory('modalFactory', modalFactory)
-        .directive('ngModal', ngModal);
+        .directive('etModal', etModal);
 
     function modalConfig() {
 
@@ -75,22 +75,22 @@
 
     }
 
-    ngModal.$inject = ['modalFactory'];
+    etModal.$inject = ['modalFactory'];
 
-    function ngModal(modalFactory) {
+    function etModal(modalFactory) {
         return {
             restrict: 'A',
             scope: true,
-            link: ngModalLink
+            link: etModalLink
         };
 
-        function ngModalLink(scope, element, attr) {
+        function etModalLink(scope, element, attr) {
 
             scope.$config = angular.extend({
                 $scope: scope,
                 overlay: true,
                 templateUrl: 'modules/modal/ng-modal.html'
-            }, attr.ngModal.$parseConfig(scope));
+            }, attr.etModal.$parseConfig(scope));
 
             element.on('click', function () {
                 modalFactory.showModal(scope.$config);
