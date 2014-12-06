@@ -1,0 +1,8 @@
+<div class="toolbar">
+    <div class="toolbar-icons">
+        <i ng-repeat="tool in vm.toolbar" class="toolbar-icon" ng-class="tool.icon + ' ' + (tool.active ? 'active' : '')" ng-click="setCurrentTool(tool,$event)" role="link"></i>
+    </div>
+    <div class="toolbar-panel" ng-class="{show:vm.current.active}">
+        <div ng-include="vm.current.src"></div>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?-bzae2m');
-  src:font_url('PblIconFont.eot?#iefix-bzae2m') format('embedded-opentype'),
-  font_url('PblIconFont.woff?-bzae2m') format('woff'),
-  font_url('PblIconFont.ttf?-bzae2m') format('truetype'),
-  font_url('PblIconFont.svg?-bzae2m#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?-w74ar2');
+  src:font_url('PblIconFont.eot?#iefix-w74ar2') format('embedded-opentype'),
+  font_url('PblIconFont.woff?-w74ar2') format('woff'),
+  font_url('PblIconFont.ttf?-w74ar2') format('truetype'),
+  font_url('PblIconFont.svg?-w74ar2#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,50 +23,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.pf-plus:before {
-  content: "\e114";
+.pf-bubble-star:before {
+  content: "\e600";
 }
-.pf-minus:before {
-  content: "\e115";
+.pf-clock:before {
+  content: "\e605";
 }
-.pf-check:before {
-  content: "\e116";
+.pf-doc-eye:before {
+  content: "\e62c";
 }
-.pf-cross:before {
-  content: "\e117";
+.pf-user-heart:before {
+  content: "\e62d";
 }
-.pf-alert:before {
-  content: "\f02d";
-}
-.pf-arrowhead-down:before {
-  content: "\f03f";
-}
-.pf-arrowhead-left:before {
-  content: "\f040";
-}
-.pf-arrowhead-right:before {
-  content: "\f03e";
-}
-.pf-arrowhead-up:before {
-  content: "\f03d";
-}
-.pf-triangle-down:before {
-  content: "\f05b";
-}
-.pf-triangle-left:before {
-  content: "\f044";
-}
-.pf-triangle-right:before {
-  content: "\f05a";
-}
-.pf-triangle-up:before {
-  content: "\f0aa";
-}
-.pf-share:before {
-  content: "\e601";
-}
-.pf-circle:before {
-  content: "\e602";
+.pf-users:before {
+  content: "\e62e";
 }
 .pf-attachment:before {
   content: "\e603";
@@ -74,7 +44,7 @@
 .pf-albums:before {
   content: "\e604";
 }
-.pf-attention:before {
+.pf-user-eye:before {
   content: "\e606";
 }
 .pf-bell:before {
@@ -86,13 +56,13 @@
 .pf-course:before {
   content: "\e609";
 }
-.pf-dynamic:before {
+.pf-user-speaker:before {
   content: "\e60a";
 }
 .pf-expand:before {
   content: "\e60b";
 }
-.pf-friend:before {
+.pf-user-star:before {
   content: "\e60c";
 }
 .pf-group:before {
@@ -110,7 +80,7 @@
 .pf-message:before {
   content: "\e611";
 }
-.pf-operation:before {
+.pf-documents:before {
   content: "\e612";
 }
 .pf-pbl:before {
@@ -172,6 +142,51 @@
 }
 .pf-user:before {
   content: "\e626";
+}
+.pf-plus:before {
+  content: "\e114";
+}
+.pf-minus:before {
+  content: "\e115";
+}
+.pf-check:before {
+  content: "\e116";
+}
+.pf-cross:before {
+  content: "\e117";
+}
+.pf-alert:before {
+  content: "\f02d";
+}
+.pf-arrowhead-down:before {
+  content: "\f03f";
+}
+.pf-arrowhead-left:before {
+  content: "\f040";
+}
+.pf-arrowhead-right:before {
+  content: "\f03e";
+}
+.pf-arrowhead-up:before {
+  content: "\f03d";
+}
+.pf-triangle-down:before {
+  content: "\f05b";
+}
+.pf-triangle-left:before {
+  content: "\f044";
+}
+.pf-triangle-right:before {
+  content: "\f05a";
+}
+.pf-triangle-up:before {
+  content: "\f0aa";
+}
+.pf-share:before {
+  content: "\e601";
+}
+.pf-circle:before {
+  content: "\e602";
 }
 .pf-folder:before {
   content: "\e627";

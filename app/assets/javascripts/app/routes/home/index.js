@@ -13,7 +13,15 @@
             .state('base.home', {
                 abstract: true,
                 url: '',
-                templateUrl: 'home/layout.html'
+                views: {
+                    '': {
+                        templateUrl: 'home/layout.html'
+                    },
+                    'toolbar@': {
+                        templateUrl: 'home/toolbar/index.html',
+                        controller: 'HomeToolbarController as vm'
+                    }
+                }
             })
             .state('base.home.index', {
                 url: '',

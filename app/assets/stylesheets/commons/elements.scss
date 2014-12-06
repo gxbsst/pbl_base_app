@@ -23,3 +23,57 @@
   overflow:hidden;
   margin:12px 0;
 }
+
+.toolbar{
+  $size:60px;
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:$size;
+  z-index:1000;
+  .toolbar-icons{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    padding:$size 0;
+    background:#ebebeb;
+    .toolbar-icon{
+      display:block;
+      width:$size;
+      height:$size;
+      line-height:$size;
+      text-align:center;
+      font-size:30px;
+      color:#b4bed2;
+      cursor:pointer;
+      &:hover{
+        color:#333;
+        background:#dbdbdb;
+      }
+      &.active{
+        background:#fff;
+        color:#333;
+      }
+    }
+  }
+  .toolbar-panel{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:300px;
+    background:#fff;
+    box-shadow:0 0 12px 0 #999;
+    opacity:0;
+    transition:.5s ease all;
+    transform:translate3d(0, 0, 0);
+    z-index:-1;
+    &.show{
+      left:-300px;
+      opacity:1;
+    }
+  }
+}
