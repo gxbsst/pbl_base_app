@@ -51,6 +51,7 @@
                                 params: config.params,
                                 data: config.data
                             };
+                            config.data && console.log('[request  ' + config.method + '] ' + config.url + ' => ', config.data);
                             config.method = "GET";
                             config.url = "?mockUrl=" + config.url;
                         }
@@ -60,7 +61,7 @@
                         var original = response.config.original;
                         if (original) {
                             response.data = original.result;
-                            console.log('[' + original.method + '] ' + original.url + ' => ', original.result);
+                            console.log('[response ' + original.method + '] ' + original.url + ' => ', original.result);
                         }
                         return response;
                     }
