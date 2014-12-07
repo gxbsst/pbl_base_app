@@ -2,9 +2,24 @@
 <a href="javascript:void(0)" ng-click="vm.view='styles/modules.html'">modules</a>
 <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
 
-<a href="javascript:void(0);" ng-click="setLocale('en-us')">en-us</a>
-<a href="javascript:void(0);" ng-click="setLocale('zh-cn')">zh-cn</a>
-<a href="javascript:void(0);" ng-click="setLocale('zh-tw')" et-tips="src='demos/pane/demo.html'">zh-tw</a>
+<span ng-click="setLocale('en-us')" class="btn btn-xs" role="button">en-us</span>
+<span ng-click="setLocale('zh-cn')" class="btn btn-xs" role="button">zh-cn</span>
+<span ng-click="setLocale('zh-tw')" et-tips="src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
+<div class="hr"></div>
+<span class="btn btn-xs" role="button">button</span>
+<span class="btn btn-sm" role="button">button</span>
+<span class="btn" role="button">button</span>
+<span class="btn btn-lg" role="button">button</span>
+<div class="hr"></div>
+<span class="btn btn-xs btn-gray" role="button">button</span>
+<span class="btn btn-sm btn-gray" role="button">button</span>
+<span class="btn btn-gray" role="button">button</span>
+<span class="btn btn-lg btn-gray" role="button">button</span>
+<div class="hr"></div>
+<span class="btn btn-xs btn-blue" role="button">button</span>
+<span class="btn btn-sm btn-blue" role="button">button</span>
+<span class="btn btn-blue" role="button">button</span>
+<span class="btn btn-lg btn-blue" role="button">button</span>
 <div ng-init="test=123">
     <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
     <a href="javascript:void(0);" et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show

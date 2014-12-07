@@ -1,3 +1,12 @@
+a{
+  color:#1996dc;
+  text-decoration:none;
+  &:hover{
+    color:#065ded;
+    text-decoration:underline;
+  }
+}
+
 img{
   border:none;
 }
