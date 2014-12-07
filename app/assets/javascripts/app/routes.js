@@ -17,6 +17,7 @@
                 abstract: true,
                 url: '/',
                 template: '<div ui-view></div>',
+                controller: 'BaseController',
                 resolve: {
                     currentUser: currentUserResolve
                 }

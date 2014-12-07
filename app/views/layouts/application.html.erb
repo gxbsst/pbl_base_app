@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-click="setCurrentTool()">
+<body>
 <%#= link_to '退出', destroy_user_session_path, method: :delete %>
 <%= yield %>
 <% if Rails.env == 'development' %>
