@@ -1,13 +1,16 @@
-<form name="From" ng-controller="FromDemoController">
-    <input class="no-outline"
-           type="text"
-           ng-model="form.username"
-           placeholder="{{ 'enter username'|i18n }}"
-           validator="account,accountUnique"
-           invalid-callback="AccountInvalidCallback"
-           valid-callback="AccountValidCallback"
-            />
-
-    <div ng-bind="form.username"></div>
-
+<form name="From" ng-controller="FromDemoController" class="form-horizontal">
+    <div class="form-group">
+        <label for="username" class="col-1-6 control-label" ng-bind="'username'|i18n"></label>
+        <div class="col-5-6">
+            <input class="form-control no-outline"
+                   type="text"
+                   id="username"
+                   ng-model="form.username"
+                   placeholder="{{ 'enter username'|i18n }}"
+                   validator="account,accountUnique"
+                   invalid-callback="AccountInvalidCallback"
+                   valid-callback="AccountValidCallback"
+                    />
+        </div>
+    </div>
 </form>

@@ -60,13 +60,11 @@
             var defer = $q.defer();
             if($stateParams.projectId){
                 Projects.get({projectId:$stateParams.projectId}, function (result) {
-                    console.log(result.data);
                     defer.resolve(result.data);
                 });
             }else{
                 Projects.add(function (result) {
                     $state.go('base.home.projects.create.design', {projectId:result.id});
-                    //defer.resolve(result.data);
                 });
             }
             return defer.promise;
