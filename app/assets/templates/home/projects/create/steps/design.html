@@ -37,20 +37,27 @@
             <a href="javascript:void(0);" ng-click="vm.deleteObjArray(vm.project.standard_decompositions,$index)">delete</a>
         </div>
     </div>
-    <div>
-        最终产品：
-        <div>
-            作品形态:<input type="text" ng-model="vm.project.final_product.form.title"/>
-            上传示例:<input type="text" ng-model="vm.project.final_product.description"/>
-            描述:<input type="text" ng-model="vm.project.final_product.example"/>
+    <div class="form-group" class="col-1-1">
+        <div class="col-1-1">
+            <label for="project[final_product]" class="control-label">最终产品：</label>
+        </div>
+        <div class=" col-1-12">
+        </div>
+        <div class=" col-11-12">
+            作品形态:
+            <input type="text" id="" ng-model="vm.project.final_product.form.title" class="form-control"/>
+            上传示例:
+            <input type="text" id="" ng-model="vm.project.final_product.description" class="form-control"/>
+            描述:
+            <input type="text" id="" ng-model="vm.project.final_product.example" class="form-control"/>
         </div>
     </div>
     <div class="row">
         阶段性产品：
         <a href="javascript:void(0);" ng-click="vm.addObjArray(vm.project.stage_products)">add</a>
         <div ng-repeat="stage in vm.project.stage_products">
-            <a href="javascript:void(0);"
-               et-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">选择作品形态</a>
+            <a href="javascript:void(0);" ng-click="vm.chooseWorksform($index)"
+               et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'">选择作品形态</a>
             作品形态:<input type="text" ng-model="stage.form.title"/>
             上传示例:<input type="text" ng-model="stage.description"/>
             描述:<input type="text" ng-model="stage.example"/>
