@@ -45,9 +45,13 @@
         vm.goRubrics= function(){
             saveProject(Projects,project);
             $state.go('base.home.projects.create.rubrics', {projectId:project.id});
-        }
-        vm.deleteCurriculumStandard=function(id){
-            project.curriculum_standards.find(id);
+        };
+        vm.deleteObjArray=function(obj,index){
+            console.log("delete");
+            obj.splice(index,1);
+        };
+        vm.addObjArray=function(obj){
+            obj.splice(obj.length,0,{});
         }
     }
     function saveProject(Projects,project){

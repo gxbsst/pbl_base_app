@@ -30,7 +30,7 @@
                 }],
                 'driven_issue': '@PARAGRAPH',
                 'standard_analysis':'@PARAGRAPH',
-                'standard_decomposition|1-5':[{
+                'standard_decompositions|1-5':[{
                     'id':'@GUID',
                     'verb':'@TITLE',
                     'noun':'@TITLE',
