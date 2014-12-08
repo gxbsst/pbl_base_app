@@ -3,45 +3,45 @@
 
     angular
         .module('app.tabs', [])
-        .directive('ngTabs', ngTabs)
-        .directive('ngTab', ngTab);
+        .directive('etTabs', etTabs)
+        .directive('etTab', etTab);
 
-    function ngTabs() {
+    function etTabs() {
 
         return {
             restrict: 'A',
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: 'modules/tabs/ng-tabs.html',
-            link: ngTabsLink,
-            controller: ngTabsController
+            templateUrl: 'modules/tabs/et-tabs.html',
+            link: etTabsLink,
+            controller: etTabsController
         };
 
     }
 
-    function ngTab() {
+    function etTab() {
         return {
-            require: '^ngTabs',
+            require: '^etTabs',
             restrict: 'A',
             transclude: true,
             replace: true,
             scope: true,
-            templateUrl: 'modules/tabs/ng-tab.html',
-            link: ngTabLink
+            templateUrl: 'modules/tabs/et-tab.html',
+            link: etTabLink
         };
 
     }
 
-    function ngTabsLink(scope, element, attr){
+    function etTabsLink(scope, element, attr){
 
-        attr.ngTabs.parseConfig(scope);
+        attr.etTabs.parseConfig(scope);
 
     }
 
-    ngTabsController.$inject = ['$scope'];
+    etTabsController.$inject = ['$scope'];
 
-    function ngTabsController($scope){
+    function etTabsController($scope){
 
         $scope.panes = [];
         $scope.select = select;
@@ -76,13 +76,13 @@
 
     }
 
-    function ngTabLink(scope, element, attr, tabs) {
+    function etTabLink(scope, element, attr, tabs) {
 
         scope.$config = scope.$config || {};
 
-        scope.$watch(attr.ngTab, ngTabWatch);
+        scope.$watch(attr.etTab, etTabWatch);
 
-        function ngTabWatch(title){
+        function etTabWatch(title){
             scope.$config.title = title;
         }
 

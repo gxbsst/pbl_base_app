@@ -1,12 +1,12 @@
-.ng-tabs{
+.et-tabs{
   border:1px solid #ccc;
   &:after{
     content:"";
     display:table;
     clear:both;
   }
-  .ng-tabs-titles{
-    .ng-tabs-title{
+  .et-tabs-titles{
+    .et-tabs-title{
       float:left;
       &.active{
 

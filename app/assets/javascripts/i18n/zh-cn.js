@@ -62,6 +62,8 @@
             up: '上',
             down: '下',
             img: 'http://www.jingwentian.com/avatar/large/1.png',
+            next: '下一步',
+            prev: '上一步',
             username: '用户名：',
             'enter username': '请输入用户名',
             'all posts': '所有动态'
