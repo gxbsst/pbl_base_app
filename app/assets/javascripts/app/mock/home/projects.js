@@ -67,6 +67,16 @@
         .mock('/projects', 'delete', {
             'result':'success'
         })
+
+
+        //获取作品形态列表
+        .mock('/worksforms', {
+            'data|20':[{
+                'id':'@GUID',
+                'title':'@TITLE',
+                'explain':'@PARAGRAPH'
+            }]
+        })
         ;
 
 })();

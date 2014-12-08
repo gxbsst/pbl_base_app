@@ -7,6 +7,9 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
+        .controller('ModalWorksformController', ModalWorksformController)
+    ;
+
 
     HomeProjectIndexController.$inject = ['Projects'];
 
@@ -53,10 +56,31 @@
         vm.addObjArray=function(obj){
             obj.splice(obj.length,0,{});
         }
+        vm.chooseWorksform=function(index){
+            console.log(project.stage_products[index]);
+        }
     }
     function saveProject(Projects,project){
         Projects.update({projectId: project.id},{project: project}, function (result) {
             //console.log(result.result);
         });
+    }
+
+    ModalWorksformController.$inject = ['$scope','Worksforms'];
+
+    function ModalWorksformController($scope,Worksforms){
+        Worksforms.all({}, function(result){
+                $scope.worksforms =result.data;
+                $scope.explain =$scope.worksforms[0].explain;
+                $scope.activeItem=0;
+            });
+        $scope.choose=function(index){
+            $scope.explain =$scope.worksforms[index].explain;
+            $scope.activeItem=index;
+        }
+        $scope.modalEmit=function(){
+            console.log($scope.worksforms[$scope.activeItem]);
+            $scope.destroyModal();
+        }
     }
 })();

@@ -65,6 +65,13 @@
     .et-modal-content{
       padding:18px;
       border-top:1px solid #ccc;
+      a{
+        display: block;
+        &.active{
+          color: #999;
+          background: #eee;
+        }
+      }
     }
   }
 }
