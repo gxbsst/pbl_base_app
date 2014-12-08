@@ -31,3 +31,14 @@
     text-align:$type !important;
   }
 }
+
+.row{
+  display:block;
+  &:before, &:after{
+    display:table;
+    content:' ';
+  }
+  &:after{
+    clear:both;
+  }
+}

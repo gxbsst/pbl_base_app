@@ -1,3 +1,46 @@
 .home-controller{
 
 }
+
+.selector{
+  width:650px;
+  dl.table{
+    dd{
+      height:350px;
+      ul.categories{
+        margin:0 -12px;
+        li{
+          border-bottom:1px solid #e0e0e0;
+          padding:0 12px;
+          cursor:pointer;
+          &:hover{
+            background:#fafafa;
+          }
+          &.active{
+            background:#f5faff;
+            border-left:2px solid #6faef0;
+            padding-left:10px;
+          }
+        }
+      }
+      .selector-entries{
+        line-height:26px;
+        height:300px;
+        margin:0 -12px;
+        padding:3px 12px;
+        overflow:auto;
+        .selector-entry{
+          font-weight:bold;
+        }
+        .selector-entry-children{
+          padding-left:2em;
+        }
+      }
+      .selector-footer{
+        text-align:right;
+        height:30px;
+        padding:8px;
+      }
+    }
+  }
+}

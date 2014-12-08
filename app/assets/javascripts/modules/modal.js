@@ -20,74 +20,77 @@
 
     }
 
-    modalFactory.$inject = ['$document', '$compile', '$controller', '$rootScope', '$q', '$template', 'modalConfig'];
+    modalFactory.$inject = ['$document', '$compile', '$controller', '$rootScope', '$q', '$timeout', '$template', 'modalConfig'];
 
-    function modalFactory($document, $compile, $controller, $rootScope, $q, $template, modalConfig) {
+    function modalFactory($document, $compile, $controller, $rootScope, $q, $timeout, $template, modalConfig) {
+
+        $rootScope.modals = {};
+
+        $rootScope.$on('$stateChangeStart', function () {
+            angular.forEach($rootScope.modals, function (modal) {
+                modal.scope.destroyModal();
+            });
+        });
 
         var body = $document.find('body');
 
-        return new Modal();
+        return function showModal(scope) {
 
-        function Modal() {
+            var config = scope.$config,
+                defer = $q.defer();
 
-            var self = this;
+            $template(config).then(function (template) {
 
-            self.showModal = showModal;
+                var controller = config.controller,
+                    childScope = (config.$scope || $rootScope).$new(),
+                    inject = angular.extend({
+                        $scope: childScope
+                    }, config.inject || {}),
+                    modalController = controller ? $controller(controller, inject) : null,
+                    modalElement = $compile(angular.element(template))(childScope),
+                    container = modalElement.find('.et-modal-container');
 
-            function showModal(scope) {
+                childScope.modalResize = function () {
+                    container.css({
+                        marginLeft: -container.outerWidth() / 2,
+                        marginTop: -container.outerHeight() / 2
+                    });
+                };
 
-                var config = scope.$config,
-                    defer = $q.defer();
+                childScope.destroyModal = function () {
+                    delete $rootScope.modals[config.$scope.$id];
+                    body.removeClass('disable-scroll');
+                    childScope.$destroy();
+                    modalElement.remove();
+                };
 
-                $template(config).then(function (template) {
+                body.addClass('disable-scroll').append(modalElement);
+                $timeout(function () {
+                    container.addClass('et-modal-show');
+                }, 100);
 
-                    var controller = config.controller,
-                        childScope = (config.$scope || $rootScope).$new(),
-                        inject = angular.extend({
-                            $scope: childScope
-                        }, config.inject || {}),
-                        modalController = controller ? $controller(controller, inject) : null,
-                        modalElement = $compile(angular.element(template))(childScope),
-                        container = modalElement.find('.et-modal-container');
+                var modal = {
+                    controller: modalController,
+                    scope: childScope,
+                    element: modalElement
+                };
 
-                    childScope.modalResize = function () {
-                        container.css({
-                            marginLeft: -container.outerWidth() / 2,
-                            marginTop: -container.outerHeight() / 2
-                        });
-                    };
+                defer.resolve(modal);
 
-                    childScope.destroyModal = function () {
-                        delete scope.$modal;
-                        childScope.$destroy();
-                        modalElement.remove();
-                    };
+            }, function (error) {
+                defer.reject(error);
+            });
 
-                    body.append(modalElement);
-
-                    var modal = {
-                        controller: modalController,
-                        scope: childScope,
-                        element: modalElement
-                    };
-
-                    defer.resolve(modal);
-
-                }, function (error) {
-                    defer.reject(error);
-                });
-
-                return defer.promise;
-
-            }
+            return defer.promise;
 
         }
 
     }
 
-    etModal.$inject = ['modalFactory'];
+    etModal.$inject = ['$rootScope', 'modalFactory'];
 
-    function etModal(modalFactory) {
+    function etModal($rootScope, modalFactory) {
+
         return {
             restrict: 'A',
             scope: true,
@@ -99,12 +102,15 @@
             scope.$config = angular.extend({
                 $scope: scope,
                 overlay: true,
+                disableBodyScroll: true,
                 templateUrl: 'modules/modal/et-modal.html'
             }, attr.etModal.parseConfig(scope));
 
             element.on('click', function () {
-                !scope.$modal && scope.$apply(function () {
-                    scope.$modal = modalFactory.showModal(scope);
+                !$rootScope.modals[scope.$id] && scope.$apply(function () {
+                    modalFactory(scope).then(function (modal) {
+                        $rootScope.modals[scope.$id] = modal;
+                    });
                 });
             });
 

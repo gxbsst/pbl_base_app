@@ -1,0 +1,33 @@
+<div class="selector">
+    <dl class="table">
+        <dt class="col-1-5">学科</dt>
+        <dt class="col-1-5">年级</dt>
+        <dt class="col-3-5">课程标准</dt>
+        <dd class="col-1-5">
+            <ul class="categories">
+                <li ng-repeat="entry in vm.subjects.data" ng-class="{active:entry.id==vm.subject.id}" ng-bind="entry.name" ng-click="vm.setSubject(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-1-5">
+            <i class="remark" ng-if="!vm.grades.data.length">请选择学科</i>
+            <ul class="categories">
+                <li ng-repeat="entry in vm.grades.data" ng-class="{active:entry.id==vm.grade.id}" ng-bind="entry.name" ng-click="vm.setGrade(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-3-5">
+            <div class="selector-entries scrollbar-macosx" et-scrollbar>
+                <i class="remark" ng-if="!vm.standards.data.length">请选择年级</i>
+                <div ng-repeat="entry in vm.standards.data">
+                    <label class="row selector-entry"><input type="checkbox" ng-model="entry.selected" ng-change="vm.parentChange(entry)"/> <span ng-bind="entry.name"></span></label>
+                    <div class="selector-entry-children">
+                        <label ng-repeat="child in entry.children" class="row"><input type="checkbox" ng-model="child.selected" ng-change="vm.childChange(child,entry)"/> <span ng-bind="entry.name"></span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="selector-footer">
+                <span class="btn btn-blue" role="button">导入选中课标</span>
+                <span class="btn btn-gray" ng-click="destroyModal()" role="button">取消</span>
+            </div>
+        </dd>
+    </dl>
+</div>

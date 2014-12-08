@@ -17,6 +17,29 @@
         roles: ['SuperMaster', 'Master', 'Teacher', 'Student', 'Parent'],
         role: function () {
             return this.pick(this.roles);
+        },
+        subjects: function () {
+            return ['语文', '数学', '自然科学'].map(function (v) {
+                return {
+                    id: Mock.Random.guid(),
+                    name: v
+                };
+            });
+        },
+        subject: function () {
+            return this.pick(this.subjects);
+        },
+        grades: ['一年级', '二年级', '三年级', '四年级', '五年级'],
+        grade: function () {
+            return this.pick(this.grades);
+        },
+        skills: ['21世纪技能', 'Scans技能', 'John Thomas技能', '知识时代必备技能'],
+        skill: function () {
+            return this.pick(this.skills);
+        },
+        categories: ['学习和创新技能', '创造和革新技能', '批判性思维和解决问题的能力', '交流与合作', '信息、媒体和技术技能', '生活和职业技能'],
+        category: function () {
+            return this.pick(this.categories);
         }
     });
 
