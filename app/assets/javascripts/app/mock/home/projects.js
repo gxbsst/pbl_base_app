@@ -30,7 +30,14 @@
                 }],
                 'driven_issue': '@PARAGRAPH',
                 'standard_analysis':'@PARAGRAPH',
-                'standard_decomposition':[],
+                'standard_decomposition|1-5':[{
+                    'id':'@GUID',
+                    'verb':'@TITLE',
+                    'noun':'@TITLE',
+                    'role':'@TITLE',
+                    'products':'@TITLE',
+                    'skill':'@TITLE'
+                }],
                 'final_product':{
                     'form':{
                         'id':'@GUID',
@@ -52,7 +59,7 @@
         })
 
         //提交一个PBL表单,UPDATE
-        .mock('/projects', 'put', {
+        .mock('/projects/:projectId', 'PUT', {
             'result':'success'
         })
 

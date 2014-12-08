@@ -16,12 +16,6 @@
             vm.projects =result.data;
         });
 
-        //vm.addProject = function() {
-        //    Projects.add({}, function(projectID){
-        //        $state.go('base.home.projects.create.design({pblId:projectID.pbl_id})');
-        //    });
-        //};
-
     }
 
 
@@ -40,12 +34,25 @@
 
     }
 
-    HomeProjectCreateDesignController.$inject = ['Projects','project'];
+    HomeProjectCreateDesignController.$inject = ['$state','Projects','project'];
 
-    function HomeProjectCreateDesignController(Projects,project) {
+    function HomeProjectCreateDesignController($state,Projects,project) {
         var vm = this;
-        vm.project =project;
-
+        vm.project = project;
+        vm.saveProject = function() {
+            saveProject(Projects,project);
+        };
+        vm.goRubrics= function(){
+            saveProject(Projects,project);
+            $state.go('base.home.projects.create.rubrics', {projectId:project.id});
+        }
+        vm.deleteCurriculumStandard=function(id){
+            project.curriculum_standards.find(id);
+        }
     }
-
+    function saveProject(Projects,project){
+        Projects.update({projectId: project.id},{project: project}, function (result) {
+            //console.log(result.result);
+        });
+    }
 })();
