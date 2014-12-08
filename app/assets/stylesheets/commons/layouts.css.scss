@@ -1,9 +1,5 @@
 @import "compass/css3";
 
-*, *:after, *:before{
-  @include box-sizing(border-box);
-}
-
 html{
   position:relative;
   width:100%;
@@ -25,11 +21,6 @@ body{
   width:1200px;
   &:after{
     clear:both;
-  }
-  &:after, &:before{
-    display:table;
-    line-height:0;
-    content:"";
   }
 }
 

@@ -1,3 +1,18 @@
+@import "compass/css3";
+
+*, *:after, *:before{
+  @include box-sizing(border-box);
+}
+
+.container,
+.form-group{
+  &:after, &:before{
+    display:table;
+    line-height:0;
+    content:'';
+  }
+}
+
 a{
   color:#1996dc;
   text-decoration:none;
@@ -12,7 +27,7 @@ img{
 }
 
 ul{
-    list-style:none;
-    margin:0;
-    padding:0;
+  list-style:none;
+  margin:0;
+  padding:0;
 }
