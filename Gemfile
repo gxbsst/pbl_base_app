@@ -28,6 +28,8 @@ gem 'activerecord-session_store'
 
 gem 'figaro'
 
+gem 'qiniu', '~> 6.3.1'
+
 gem 'pbl_service_client', git: 'git@124.202.141.250:pbl/pbl_service_client.git', branch: 'master'
 
 gem 'rails-assets-jquery', '~> 1.10.0'

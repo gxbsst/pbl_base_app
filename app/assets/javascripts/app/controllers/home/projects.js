@@ -40,7 +40,9 @@
     HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'project'];
 
     function HomeProjectCreateDesignController($scope, $state, Projects, project) {
+
         var vm = this;
+
         project.standards = project.standards || [];
         vm.project = project;
         vm.removeStandard = removeStandard;
