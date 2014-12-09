@@ -16,6 +16,7 @@
         var vm = this;
         Projects.all({}, function (result) {
             vm.projects = result.data;
+            console.log(vm.projects);
         });
 
     }
