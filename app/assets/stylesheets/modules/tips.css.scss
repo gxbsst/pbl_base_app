@@ -1,22 +1,81 @@
-.et-tips{
-  position:absolute;
-  left:100px;
-  top:100px;
-  padding:18px;
-  background:#fff;
-  box-shadow:0 0 15px 0 #9f9f9f;
-  behavior:url('PIE.htc')\0;
-  .et-tips-arrow{
-    display:none\0;
-    position:absolute;
-    left:30px;
-    top:-6px;
-    width:10px;
-    height:10px;
-    border-color:#ccc;
-    border-style:solid;
-    border-width:1px 0 0 1px;
-    background:#fff;
-    transform:rotate(45deg);
+.et-tips {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  padding: 18px;
+  background: #fff;
+  box-shadow: 0 0 15px 0 #9f9f9f;
+  behavior: url('PIE.htc') \0;
+  .et-tips-arrow {
+    display: none\0;
+    position: absolute;
+    left: 30px;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    background: #fff;
+    transform: rotate(45deg);
+  }
+}
+
+.nav-ball {
+.blue-hint{
+  &:before {
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    margin-left: -3px;
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    content: '';
+    background: #3d80f6;
+  }
+ }
+  span {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 3px 0 0 0 !important;
+    &:before {
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      margin-left: -3px;
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      content: '';
+      background: #000;
+    }
+
+  }
+}
+
+.black-line {
+  position: relative;
+  border-top: #000 solid 1px;
+  &:before, &:after {
+    position: absolute;
+    top: -3px;
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    content: '';
+    background: #000;
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
   }
 }
