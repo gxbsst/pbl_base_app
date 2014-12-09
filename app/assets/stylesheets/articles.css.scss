@@ -1,15 +1,7 @@
 .articles{
-  li{
+li{
     padding:6px 5px 6px 20px;
     word-break: break-all;
     border-bottom:#e7e7e7 dotted 1px;
-  }
-  a{
-    color: #666;
-    text-decoration: none;
-    &:hover{
-      color: #666;
-      text-decoration: underline;
-    }
-  }
+ }
 }
