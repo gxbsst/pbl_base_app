@@ -25,54 +25,92 @@
             <textarea name=""  cols="30" rows="5" ng-model="vm.project.driven_issue" class="form-control"></textarea>
         </div>
     </div>
+
     <div class="form-group">
+        高级选项如何设计驱动性问题：（
+        <a href="javascript:void(0);" ng-click="vm.showStandardAnalysis()">点击填写
+            <span ng-show="vm.switchvmStandardAnalysis">↑</span>
+            <span ng-hide="vm.switchvmStandardAnalysis">↓</span>
+        </a>
+        ）
+    </div>
+    <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
         <label for="project[standard_analysis]" class="control-label">课标解读：</label>
         <div class="col-1-1">
             <textarea name=""  cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
         </div>
     </div>
-    <div>
+    <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
         课标分解：
-        <a href="javascript:void(0);" ng-click="vm.addObjArray(vm.project.standard_decompositions)">add</a>
+        <table class="table table-bordered col-1-1 margin-bottom-8">
+            <tr>
+                <td class="text-center">动词</td>
+                <td class="text-center">名词</td>
+                <td class="text-center">现实世界中的角色</td>
+                <td class="text-center">现实世界的产品</td>
+            </tr>
+            <tr ng-repeat="decomposition in vm.project.standard_decompositions">
+                <td><input type="text" ng-model="decomposition.verb" class="form-control ng-pristine ng-valid"/></td>
+                <td><input type="text" ng-model="decomposition.noun" class="form-control ng-pristine ng-valid"/></td>
+                <td><input type="text" ng-model="decomposition.role" class="form-control ng-pristine ng-valid"/></td>
+                <td><input type="text" ng-model="decomposition.products" class="form-control ng-pristine ng-valid"/></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center">
+                    <span class="btn btn-gray btn-sm control-label" role="button" ng-click="vm.addObjArray(vm.project.standard_decompositions)"><i class="pf-plus"></i>继续添加</span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="col-1-1">
+            <label for="project[final_product]" class="control-label">考虑规划的学生实现角色和最终产品，匹配选用的技能，缩小最终角色和产品的范围</label>
+        </div>
         <div ng-repeat="decomposition in vm.project.standard_decompositions">
-            动词:<input type="text" ng-model="decomposition.verb"/>
-            名词:<input type="text" ng-model="decomposition.noun"/>
-            角色:<input type="text" ng-model="decomposition.role"/>
-            产品:<input type="text" ng-model="decomposition.products"/>
-            产品:<input type="text" ng-model="decomposition.skill"/>
-            <a href="javascript:void(0);" ng-click="vm.deleteObjArray(vm.project.standard_decompositions,$index)">delete</a>
+            <span ng-bind="decomposition.verb"></span>
+            如何
+            <input type="text" ng-model="decomposition.skill"/>
+            <span ng-bind="decomposition.noun"></span>
+            <span ng-bind="decomposition.role"></span>
+            来创建
+            <span ng-bind="decomposition.products"></span>
+            <a href="javascript:void(0);" ng-click="vm.removeObjArray(vm.project.standard_decompositions,$index)">delete</a>
         </div>
     </div>
-    <div class="form-group" class="col-1-1">
+    <div class="form-group col-1-1">
         <div class="col-1-1">
             <label for="project[final_product]" class="control-label">最终产品：</label>
         </div>
-        <div class=" col-1-12">
-        </div>
-        <div class=" col-11-12">
-            作品形态:
-            <input type="text" id="" ng-model="vm.project.final_product.form.title" class="form-control"/>
-            上传示例:
-            <input type="text" id="" ng-model="vm.project.final_product.description" class="form-control"/>
-            描述:
-            <input type="text" id="" ng-model="vm.project.final_product.example" class="form-control"/>
+        <div>
+            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform(vm.project.final_product.form)" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>选择作品形态</span>
+            <span class="btn btn-gray btn-sm" role="button" bing="vm.project.final_product.example" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
+            <div class="col-1-1">
+                描述:
+                <textarea name=""  cols="30" rows="5" ng-model="vm.project.final_product.description" class="form-control"></textarea>
+            </div>
         </div>
     </div>
-    <div class="row">
-        阶段性产品：
-        <a href="javascript:void(0);" ng-click="vm.addObjArray(vm.project.stage_products)">add</a>
-        <div ng-repeat="stage in vm.project.stage_products">
-            <a href="javascript:void(0);" ng-click="vm.chooseWorksform($index)"
-               et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'">选择作品形态</a>
-            作品形态:<input type="text" ng-model="stage.form.title"/>
-            上传示例:<input type="text" ng-model="stage.description"/>
-            描述:<input type="text" ng-model="stage.example"/>
-            <a href="javascript:void(0);" ng-click="vm.deleteObjArray(vm.project.stage_products,$index)">delete</a>
+    <div class="form-group col-1-1" >
+        <div class="col-1-1">
+            <span class="btn btn-gray btn-sm control-label" role="button" ng-click="vm.addObjArray(vm.project.stage_products)"><i class="pf-plus"></i>新增阶段性产品</span>
+        </div>
+    </div>
+    <div class="form-group col-1-1" >
+        <div ng-repeat="stage in vm.project.stage_products" class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
+            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform(stage.form)" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>选择作品形态</span>
+            <span class="btn btn-gray btn-sm" role="button" bind="stage.example" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
+            <div class="col-1-1">
+                描述:
+                <textarea name=""  cols="30" rows="5" ng-model="stage.description" class="form-control"></textarea>
+            </div>
+
+            <a href="javascript:void(0);" ng-click="vm.removeObjArray(vm.project.stage_products,$index)">delete</a>
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="row">
-        <span class="btn" role="button" ng-click="vm.saveProject()">保存草稿</span>
-        <span class="btn btn-blue" role="button" ng-click="vm.goRubrics()">下一步</span>
+    <div class="form-group col-1-1" >
+        <div class="col-1-1 text-right">
+            <span class="btn" role="button" ng-click="vm.saveProject()">保存草稿</span>
+            <span class="btn btn-blue" role="button" ng-click="vm.goRubrics()">下一步</span>
+        </div>
     </div>
 </form>

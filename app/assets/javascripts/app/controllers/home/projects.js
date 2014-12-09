@@ -50,7 +50,8 @@
             saveProject(Projects, project);
             $state.go('base.home.projects.create.rubrics', {projectId: project.id});
         };
-        vm.deleteObjArray = function (obj, index) {
+        
+        vm.removeObjArray=function(obj,index){
             console.log("delete");
             obj.splice(index, 1);
         };
@@ -68,6 +69,11 @@
         $scope.$on('setStandards', function (event, standards) {
             vm.project.standards = standards;
         });
+        };
+        vm.showStandardAnalysis=function(){
+            vm.switchvmStandardAnalysis=!vm.switchvmStandardAnalysis;
+            console.log(vm.switchvmStandardAnalysis);
+        }
     }
 
     function saveProject(Projects, project) {

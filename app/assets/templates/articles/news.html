@@ -1,0 +1,8 @@
+<div class="col-1-1" ng-controller="articleNewsIndexController as vm">
+    <ul>
+        <li ng-repeat="news in vm.articleNews.data">
+            <a ui-sref="" ui-sref-active="active" ng-bind="news.title"></a>
+            <img ng-src="{{news.thumbnail|thumb:'60x50'}}" />
+        </li>
+    </ul>
+</div>
