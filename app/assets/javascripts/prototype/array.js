@@ -34,6 +34,9 @@
                 }
                 return null;
             },
+            has: function (fn) {
+                return !!this.findOne(fn);
+            },
             remove: function (fn) {
                 var index = this.index(fn);
                 if (index > -1) {
