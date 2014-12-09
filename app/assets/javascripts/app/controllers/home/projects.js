@@ -43,6 +43,8 @@
         var vm = this;
         project.standards = project.standards || [];
         vm.project = project;
+        vm.removeStandard = removeStandard;
+        $scope.$on('setStandards', setStandards);
         vm.saveProject = function () {
             saveProject(Projects, project);
         };
@@ -50,8 +52,8 @@
             saveProject(Projects, project);
             $state.go('base.home.projects.create.rubrics', {projectId: project.id});
         };
-        
-        vm.removeObjArray=function(obj,index){
+
+        vm.removeObjArray = function (obj, index) {
             console.log("delete");
             obj.splice(index, 1);
         };
@@ -61,19 +63,21 @@
         vm.chooseWorksform = function (index) {
             console.log(project.stage_products[index]);
         };
-        vm.removeStandard = function (standard) {
+        vm.showStandardAnalysis = function () {
+            vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
+            console.log(vm.switchvmStandardAnalysis);
+        };
+
+        function removeStandard(standard) {
             vm.project.standards.remove(function (a) {
                 return a.id === standard.id;
             });
-        };
-        $scope.$on('setStandards', function (event, standards) {
-            vm.project.standards = standards;
-        });
-        };
-        vm.showStandardAnalysis=function(){
-            vm.switchvmStandardAnalysis=!vm.switchvmStandardAnalysis;
-            console.log(vm.switchvmStandardAnalysis);
         }
+
+        function setStandards(event, standards) {
+            vm.project.standards = standards;
+        }
+
     }
 
     function saveProject(Projects, project) {
