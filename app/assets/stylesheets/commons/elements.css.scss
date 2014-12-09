@@ -16,6 +16,11 @@
   border-color:#b40000;
 }
 
+.remark{
+  color:#ccc;
+  cursor:default;
+}
+
 .hr{
   clear:both;
   border-bottom:1px solid #ccc;
@@ -78,4 +83,8 @@
       opacity:1;
     }
   }
+}
+
+.disable-scroll{
+  overflow:hidden;
 }

@@ -22,18 +22,24 @@
     min-height:80px;
     max-height:90%;
     background:#fff;
-    //border:1px solid #c0c0c0;
-    //border-radius:6px;
+    @include opacity(0);
+    @include transition(.2s ease all);
+    @include transform(scale(.3));
     @include box-shadow(0 0 25px 0 #9f9f9f);
     behavior:url('PIE.htc')\0;
     z-index:10000;
+    &.et-modal-show{
+      @include opacity(1);
+      @include transform(scale(1));
+    }
     .et-modal-title{
-      $height: 46px;
+      $height: 44px;
       font-size:16px;
       line-height:$height;
       padding:0 18px;
-      //border-radius:6px 6px 0 0;
+      color:#666;
       background:#f8f8f8;
+      cursor:default;
       behavior:url('PIE.htc')\0;
       .et-modal-destroy{
         position:absolute;
@@ -63,15 +69,7 @@
       }
     }
     .et-modal-content{
-      padding:18px;
-      border-top:1px solid #ccc;
-      a{
-        display: block;
-        &.active{
-          color: #999;
-          background: #eee;
-        }
-      }
+      border-top:1px solid #e0e0e0;
     }
   }
 }
