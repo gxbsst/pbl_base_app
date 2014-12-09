@@ -51,6 +51,13 @@
                 explore: '发现'
             },
 
+            ARTICLE: {
+                news: '新闻',
+                publications: '发表',
+                pbl: 'PBL',
+                moocs: '慕课'
+            },
+
             guide: '步骤%1',
             create: '创建',
             'hello world': '你好，世界!',
