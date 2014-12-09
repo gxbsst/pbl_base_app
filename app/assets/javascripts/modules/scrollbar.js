@@ -3,19 +3,19 @@
 
     angular
         .module('app.scrollbar', [])
-        .directive('ngScrollbar', ngScrollbar);
+        .directive('etScrollbar', etScrollbar);
 
-    ngScrollbar.$inject = ['$timeout'];
+    etScrollbar.$inject = ['$timeout'];
 
-    function ngScrollbar($timeout) {
+    function etScrollbar($timeout) {
 
         return {
             restrict: 'A',
             scope: true,
-            link: ngScrollbarLink
+            link: etScrollbarLink
         };
 
-        function ngScrollbarLink(scope, element, attr) {
+        function etScrollbarLink(scope, element, attr) {
 
             $timeout(function () {
                 element
