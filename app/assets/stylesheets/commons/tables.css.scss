@@ -17,3 +17,20 @@
   padding-left:20px;
   padding-right:0;
 }
+
+dl.table{
+  dt, dd{
+    padding:0 12px;
+    line-height:32px;
+    border-left:1px solid #e0e0e0;
+  }
+  dt:first-of-type, dd:first-of-type{
+    border-left:none;
+  }
+  dt{
+    font-weight:bold;
+    font-size:14px;
+    background:#fafafa;
+    border-bottom:1px solid #e0e0e0;
+  }
+}

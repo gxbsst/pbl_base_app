@@ -30,7 +30,7 @@
                 }],
                 'driven_issue': '@PARAGRAPH',
                 'standard_analysis':'@PARAGRAPH',
-                'standard_decomposition|1-5':[{
+                'standard_decompositions|1-5':[{
                     'id':'@GUID',
                     'verb':'@TITLE',
                     'noun':'@TITLE',
@@ -66,6 +66,16 @@
         //删除一个PBL表单,DELETE,暂时不用
         .mock('/projects', 'delete', {
             'result':'success'
+        })
+
+
+        //获取作品形态列表
+        .mock('/worksforms', {
+            'data|20':[{
+                'id':'@GUID',
+                'title':'@TITLE',
+                'explain':'@PARAGRAPH'
+            }]
         })
         ;
 
