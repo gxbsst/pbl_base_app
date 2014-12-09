@@ -1,9 +1,3 @@
-@each $type in border, outline, padding, margin{
-  .no-#{$type}{
-    #{$type}:none !important;
-  }
-}
-
 .nav{
   > li{
     float:left;
@@ -28,7 +22,12 @@
   overflow:hidden;
   margin:12px 0;
 }
-
+.clear{
+  clear: both;
+}
+.aligm-middle{
+  vertical-align: middle;
+}
 .toolbar{
   $size:60px;
   position:fixed;

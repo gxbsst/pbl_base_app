@@ -4,6 +4,12 @@
   }
 }
 
+@each $type in border, outline, padding, margin{
+  .no-#{$type}{
+    #{$type}:0 !important;
+  }
+}
+
 @each $int in 2, 6, 8, 10, 12, 16, 20{
   .space-#{$int}{
     height:$int + px !important;
