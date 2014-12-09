@@ -22,7 +22,7 @@
             return ['语文', '数学', '自然科学'].map(function (v) {
                 return {
                     id: Mock.Random.guid(),
-                    name: v
+                    title: v
                 };
             });
         },
@@ -33,7 +33,14 @@
         grade: function () {
             return this.pick(this.grades);
         },
-        skills: ['21世纪技能', 'Scans技能', 'John Thomas技能', '知识时代必备技能'],
+        skills:function () {
+            return  ['21世纪技能', 'Scans技能', 'John Thomas技能', '知识时代必备技能'].map(function (v) {
+                return {
+                    id: Mock.Random.guid(),
+                    title: v
+                };
+            });
+        },
         skill: function () {
             return this.pick(this.skills);
         },

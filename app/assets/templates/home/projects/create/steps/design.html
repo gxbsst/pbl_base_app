@@ -11,13 +11,19 @@
         <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='StandardsController as vm';src='home/projects/create/standards.html'"><i class="pf-plus"></i> 选择课标</span>
         <div class="col-1-1">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.name"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
+                <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
             </ul>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">请选择本项目中学生需要使用的技能：</label>
-        <span class="btn btn-gray btn-sm" role="button"><i class="pf-plus"></i> 选择技能</span>
+        <input type="hidden" ng-model="vm.project.skills"/>
+        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/create/skills.html'"><i class="pf-plus"></i> 选择技能</span>
+        <div class="col-1-1">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>
+            </ul>
+        </div>
     </div>
     <div class="form-group">
         <label for="project[driven_issue]" class="control-label">驱动性问题：</label>
@@ -35,13 +41,13 @@
         ）
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
-        <label for="project[standard_analysis]" class="control-label">课标解读：</label>
+        <label for="project[standard_analysis]" class="control-label">课标解读：（请填写这些标准对于现实世界的价值，您希望学生从中得到什么理解？）</label>
         <div class="col-1-1">
             <textarea name=""  cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
         </div>
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
-        课标分解：
+        课标分解：（根据课标对于学生的要求，分解出要做的事情：动词+名词）
         <table class="table table-bordered col-1-1 margin-bottom-8">
             <tr>
                 <td class="text-center">动词</td>
@@ -81,8 +87,8 @@
             <label for="project[final_product]" class="control-label">最终产品：</label>
         </div>
         <div>
-            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform(vm.project.final_product.form)" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>选择作品形态</span>
-            <span class="btn btn-gray btn-sm" role="button" bing="vm.project.final_product.example" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
+            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform('final_product',$index)" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"><span ng-bind="vm.project.final_product.worksform.title" ng-hide="vm.project.final_product.worksform==null"></span><span ng-show="vm.project.final_product.worksform==null"><i class="pf-plus"></i>选择作品形态</span></span>
+            <span class="btn btn-gray btn-sm" role="button" bing="vm.project.final_product.example" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
             <div class="col-1-1">
                 描述:
                 <textarea name=""  cols="30" rows="5" ng-model="vm.project.final_product.description" class="form-control"></textarea>
@@ -96,8 +102,8 @@
     </div>
     <div class="form-group col-1-1" >
         <div ng-repeat="stage in vm.project.stage_products" class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
-            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform(stage.form)" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>选择作品形态</span>
-            <span class="btn btn-gray btn-sm" role="button" bind="stage.example" et-modal="title='作品形态';controller='ModalWorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
+            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform('stage',$index)" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"><span ng-bind="stage.worksform.title" ng-hide="stage.worksform==null"></span><span ng-show="stage.worksform==null"><i class="pf-plus"></i>选择作品形态</span></span>
+            <span class="btn btn-gray btn-sm" role="button" bind="stage.example" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
             <div class="col-1-1">
                 描述:
                 <textarea name=""  cols="30" rows="5" ng-model="stage.description" class="form-control"></textarea>

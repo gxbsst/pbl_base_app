@@ -7,7 +7,6 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
-        .controller('ModalWorksformController', ModalWorksformController)
     ;
 
 
@@ -42,31 +41,47 @@
     function HomeProjectCreateDesignController($scope, $state, Projects, project) {
         var vm = this;
         project.standards = project.standards || [];
+        project.skills = project.skills || [];
         vm.project = project;
         vm.removeStandard = removeStandard;
         $scope.$on('setStandards', setStandards);
-        vm.saveProject = function () {
-            saveProject(Projects, project);
-        };
-        vm.goRubrics = function () {
+        vm.removeSkill = removeSkill;
+        $scope.$on('setSkills', setSkills);
+        $scope.$on('setWorksforms', setWorksforms);
+
+        vm.saveProject = saveProject;
+        vm.goRubrics =goRubrics;
+
+        vm.removeObjArray =removeObjArray;
+        vm.addObjArray = addObjArray;
+        vm.chooseWorksform = chooseWorksform;
+        vm.showStandardAnalysis = showStandardAnalysis;
+
+        function showStandardAnalysis() {
+            vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
+        }
+
+        function chooseWorksform(obj,index) {
+            vm.chooseitem={
+                'obj':obj,'index':index
+            };
+        }
+
+        function addObjArray(obj) {
+            obj.splice(obj.length, 0, {});
+        }
+
+        function removeObjArray(obj, index) {
+            obj.splice(index, 1);
+        }
+        function goRubrics() {
             saveProject(Projects, project);
             $state.go('base.home.projects.create.rubrics', {projectId: project.id});
-        };
+        }
 
-        vm.removeObjArray = function (obj, index) {
-            console.log("delete");
-            obj.splice(index, 1);
-        };
-        vm.addObjArray = function (obj) {
-            obj.splice(obj.length, 0, {});
-        };
-        vm.chooseWorksform = function (index) {
-            console.log(project.stage_products[index]);
-        };
-        vm.showStandardAnalysis = function () {
-            vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
-            console.log(vm.switchvmStandardAnalysis);
-        };
+        function setStandards(event, standards) {
+            vm.project.standards = standards;
+        }
 
         function removeStandard(standard) {
             vm.project.standards.remove(function (a) {
@@ -74,33 +89,35 @@
             });
         }
 
-        function setStandards(event, standards) {
-            vm.project.standards = standards;
+        function setSkills(event, skills) {
+            vm.project.skills = skills;
+        }
+        function removeSkill(skill) {
+            vm.project.skills.remove(function (a) {
+                return a.id === skill.id;
+            });
         }
 
-    }
 
-    function saveProject(Projects, project) {
-        Projects.update({projectId: project.id}, {project: project}, function (result) {
-            //console.log(result.result);
-        });
-    }
-
-    ModalWorksformController.$inject = ['$scope', 'Worksforms'];
-
-    function ModalWorksformController($scope, Worksforms) {
-        Worksforms.all({}, function (result) {
-            $scope.worksforms = result.data;
-            $scope.explain = $scope.worksforms[0].explain;
-            $scope.activeItem = 0;
-        });
-        $scope.choose = function (index) {
-            $scope.explain = $scope.worksforms[index].explain;
-            $scope.activeItem = index;
+        function setWorksforms(event, worksforms) {
+            switch(vm.chooseitem.obj)
+            {
+                case 'final_product':
+                    vm.project.final_product.worksform= worksforms;
+                    break;
+                case 'stage':
+                    console.log(vm.project.stage_products);
+                    vm.project.stage_products[vm.chooseitem.index].worksform= worksforms;
+                    break;
+            }
         }
-        $scope.modalEmit = function () {
-            console.log($scope.worksforms[$scope.activeItem]);
-            $scope.destroyModal();
+
+        function saveProject() {
+            Projects.update({projectId: project.id}, {project: project}, function (result) {
+                //console.log(result.result);
+            });
         }
     }
+
+
 })();

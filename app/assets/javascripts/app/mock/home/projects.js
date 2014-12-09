@@ -20,7 +20,7 @@
             'data': {
                 'id': '@GUID',
                 'project_name': '@TITLE',
-                'curriculum_standards|1-5':[{
+                'standards|1-5':[{
                     'id': '@GUID',
                     'title': '@TITLE'
                 }],
@@ -39,7 +39,7 @@
                     'skill':'@TITLE'
                 }],
                 'final_product':{
-                    'form':{
+                    'worksform':{
                         'id':'@GUID',
                         'title': '@TITLE'
                     },
@@ -48,13 +48,16 @@
                 },
                 'stage_products|1-10':[{
                     'id':'@GUID',
-                    'form':{
+                    'worksform':{
                         'id':'@GUID',
                         'title': '@TITLE'
                     },
                     'description': '@PARAGRAPH',
                     'example': ['@GUID']
-                }]
+                }],
+                'gauges':{
+
+                }
             }
         })
 
