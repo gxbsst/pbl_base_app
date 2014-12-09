@@ -41,6 +41,7 @@
 
     function HomeProjectCreateDesignController($state,Projects,project) {
         var vm = this;
+
         vm.project = project;
         vm.saveProject = function() {
             saveProject(Projects,project);
@@ -49,15 +50,19 @@
             saveProject(Projects,project);
             $state.go('base.home.projects.create.rubrics', {projectId:project.id});
         };
-        vm.deleteObjArray=function(obj,index){
+        vm.removeObjArray=function(obj,index){
             console.log("delete");
             obj.splice(index,1);
         };
         vm.addObjArray=function(obj){
             obj.splice(obj.length,0,{});
-        }
+        };
         vm.chooseWorksform=function(index){
             console.log(project.stage_products[index]);
+        };
+        vm.showStandardAnalysis=function(){
+            vm.switchvmStandardAnalysis=!vm.switchvmStandardAnalysis;
+            console.log(vm.switchvmStandardAnalysis);
         }
     }
     function saveProject(Projects,project){
