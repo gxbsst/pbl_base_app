@@ -6,16 +6,16 @@
         })
         .mock('/standards/:subjectId', {
             'data|2-5':[{
-                'id':'@guid',
+                'id|+1':100,
                 'name':'@grade'
             }]
         })
         .mock('/standards/grades/:gradeId', {
             'data|2-5':[{
-                'id':'@guid',
+                'id|+1':100,
                 'name':'@title',
                 'children|1-5':[{
-                    'id': '@guid',
+                    'id|+1':100,
                     'name': '@title'
                 }]
             }]

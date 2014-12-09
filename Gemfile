@@ -52,3 +52,12 @@ gem 'angular-rails-templates'
 group :development do
   gem 'thin', platforms: [:ruby]
 end
+
+group :test do
+  gem 'json_spec'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end

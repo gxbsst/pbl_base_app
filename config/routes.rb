@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :index, only: %w(index)
 
   resources :home, only: %w(index)
+  resources :projects, defaults: {format: 'json'}
 
   #resources :posts, defaults: { format: :json }
 

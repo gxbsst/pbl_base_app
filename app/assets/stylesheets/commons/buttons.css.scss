@@ -53,3 +53,19 @@
     line-height:45px;
   }
 }
+
+.btn-mini{
+  display:inline-block;
+  width:15px;
+  height:15px;
+  line-height:15px !important;
+  text-align:center;
+  @include border-radius(50%);
+  background:#dcdcdc;
+  color:#fff;
+  cursor:pointer;
+  &:hover{
+    color:#fff;
+    background:#ff0000;
+  }
+}
