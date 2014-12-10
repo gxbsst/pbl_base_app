@@ -18,19 +18,56 @@
   padding-right:0;
 }
 
+@mixin table-style{
+  border-width:0 0 1px 1px;
+  border-color:#e0e0e0;
+  border-style:solid;
+}
+
+@mixin table-row{
+  padding:0 12px;
+  line-height:32px;
+  @include table-style;
+}
+
+@mixin table-th{
+  font-weight:bold;
+  font-size:14px;
+  background:#f5f5f5;
+  cursor:default;
+}
+
 dl.table{
   dt, dd{
-    padding:0 12px;
-    line-height:32px;
-    border-left:1px solid #e0e0e0;
+    @include table-row;
   }
   dt:first-of-type, dd:first-of-type{
     border-left:none;
   }
   dt{
-    font-weight:bold;
-    font-size:14px;
-    background:#fafafa;
-    border-bottom:1px solid #e0e0e0;
+    @include table-th;
+  }
+  dd{
+    border-bottom-width:0;
+  }
+}
+
+table.table{
+  color:#454545;
+  border-collapse:collapse;
+  border-spacing:0;
+  @include table-style;
+  border-width:1px 1px 0 0;
+  & > thead > tr > th, & > tbody > tr > td{
+    @include table-row;
+  }
+  & > thead > tr > th{
+    color:#000;
+    @include table-th;
+  }
+  &.table-striped{
+    & > tbody > tr:nth-child(even) > td{
+      background-color:#fafafa;
+    }
   }
 }
