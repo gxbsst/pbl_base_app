@@ -107,9 +107,14 @@
         }
 
         function removeStandard(standard) {
-            vm.project.standards.remove(function (a) {
-                return a.id === standard.id;
-            });
+            ProjectStandards
+                .remove({
+                    projectId: project.id,
+                    standardId: standard.id
+                }, onProjectStandards);
+            //vm.project.standards.remove(function (a) {
+            //    return a.id === standard.id;
+            //});
         }
 
         function setSkills(event, skills) {
