@@ -45,6 +45,15 @@
 
         project.standards = project.standards || [];
         project.skills = project.skills || [];
+        project.standard_decompositions = project.standard_decompositions || [];
+        project.stage_products = project.stage_products || [];
+        project.final_product = project.final_product ||
+        {
+            'worksform':{},
+                'description': '@PARAGRAPH',
+                'example': '@GUID'
+        };
+
         vm.project = project;
         vm.removeStandard = removeStandard;
         $scope.$on('setStandards', setStandards);
@@ -74,8 +83,15 @@
             obj.splice(obj.length, 0, {});
         }
 
-        function removeObjArray(obj, index) {
-            obj.splice(index, 1);
+        //function removeObjArray(obj, index) {
+        //    obj.splice(index, 1);
+        //}
+
+        function removeObjArray(objs, obj) {
+            objs.remove(function (a) {
+                console.log("new remove");
+                return a.id === obj.id;
+            });
         }
         function goRubrics() {
             saveProject(Projects, project);
@@ -116,7 +132,7 @@
         }
 
         function saveProject() {
-            Projects.update({projectId: project.id}, {project: project}, function (result) {
+            Projects.update({projectId: project.id}, {data: project}, function (result) {
                 //console.log(result.result);
             });
         }
