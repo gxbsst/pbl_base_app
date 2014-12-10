@@ -5,19 +5,26 @@
         .module('app.pbl')
         .controller('SkillsController', SkillsController);
 
-    SkillsController.$inject = ['$scope', 'Skills'];
+    SkillsController.$inject = ['$scope', '$stateParams', 'Skills', 'ProjectSkills'];
 
-    function SkillsController($scope, Skills) {
+    function SkillsController($scope, $stateParams, Skills, ProjectSkills) {
 
         var vm = this;
         vm.selected = [];
         vm.subjects = Skills.all();
+        vm.isSelected = isSelected;
         vm.setSubject = setSubject;
         vm.setCategorie = setCategorie;
         vm.parentChange = parentChange;
         vm.childChange = childChange;
-        vm.importSkills = importSkills;
         vm.setSkills = setSkills;
+
+        ProjectSkills
+            .all({
+                projectId: $stateParams.projectId
+            }, function (result) {
+                vm.selected = result.data;
+            });
 
         function setSubject(subject) {
             vm.subject = subject;
@@ -37,10 +44,27 @@
             });
         }
 
-        function childChange(entry, parent) {
-            entry.selected ? vm.selected.push(entry) : vm.selected.remove(function (a) {
-                return a.id === entry.id;
-            });
+        function childChange(entry) {
+            if(entry.selected){
+                ProjectSkills
+                    .add({
+                        projectId: $stateParams.projectId
+                    }, {
+                        id: entry.id
+                    }, emit);
+            }else{
+                ProjectSkills
+                    .remove({
+                        projectId: $stateParams.projectId,
+                        skillsId: entry.id
+                    }, emit);
+            }
+
+            function emit(){
+                $scope.$emit('onProjectSkills');
+            }
+
+
         }
 
         function isSelected(entry) {
@@ -49,13 +73,14 @@
             });
         }
 
-        function importSkills(entry, parent) {
-            console.log(arguments);
-        }
 
         function setSkills() {
-            $scope.$emit('setSkills', vm.selected);
-            $scope.destroyModal();
+            ProjectSkills
+                .update({projectId: $stateParams.projectId}, vm.project.skills)
+                .then(function () {
+                    $scope.$emit('Skills');
+                    $scope.destroyModal();
+                });
         }
 
     }

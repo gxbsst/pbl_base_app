@@ -5,7 +5,9 @@
         .module('app.services')
         .service('Projects', Projects)
         .service('ProjectStandards', ProjectStandards)
-        .service('Worksforms', Worksforms);
+        .service('ProjectSkills', ProjectSkills)
+    ;
+
 
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
@@ -19,9 +21,10 @@
         return $resource('/projects/:projectId/standards/:standardId', {projectId: '@projectId', standardId: '@standardId'}, RESOURCE_ACTIONS);
     }
 
-    Worksforms.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    ProjectSkills.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
-    function Worksforms($resource, RESOURCE_ACTIONS) {
-        return $resource('/worksforms/:worksformId', {projectId: '@worksformId', action: '@action'}, RESOURCE_ACTIONS);
+    function ProjectSkills($resource, RESOURCE_ACTIONS) {
+        return $resource('/projects/:projectId/skills/:skillId', {skillId: '@skillId', action: '@action', categorieId: '@categorieId'}, RESOURCE_ACTIONS);
     }
+
 })();

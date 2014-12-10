@@ -37,9 +37,9 @@
 
     }
 
-    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'project'];
+    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'ProjectSkills', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards, project) {
+    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards,ProjectSkills, project) {
 
         var vm = this;
 
@@ -50,15 +50,15 @@
         project.final_product = project.final_product ||
         {
             'worksform':{},
-                'description': '@PARAGRAPH',
-                'example': '@GUID'
+                'description': '',
+                'example': ''
         };
 
         vm.project = project;
         vm.removeStandard = removeStandard;
         $scope.$on('onProjectStandards', onProjectStandards);
         vm.removeSkill = removeSkill;
-        $scope.$on('setSkills', setSkills);
+        $scope.$on('onProjectSkills', onProjectSkills);
         $scope.$on('setWorksforms', setWorksforms);
 
         vm.saveProject = saveProject;
@@ -117,15 +117,25 @@
             //});
         }
 
-        function setSkills(event, skills) {
-            vm.project.skills = skills;
-        }
-        function removeSkill(skill) {
-            vm.project.skills.remove(function (a) {
-                return a.id === skill.id;
+
+        function onProjectSkills() {
+            ProjectSkills.all({
+                projectId: vm.project.id
+            }, function (result) {
+                vm.project.skills = result.data;
             });
         }
 
+        function removeSkill(skill) {
+            Projectskills
+                .remove({
+                    projectId: project.id,
+                    skillId: skill.id
+                }, onProjectSkills);
+            //vm.project.standards.remove(function (a) {
+            //    return a.id === standard.id;
+            //});
+        }
 
         function setWorksforms(event, worksforms) {
             switch(vm.chooseitem.obj)

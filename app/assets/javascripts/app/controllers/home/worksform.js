@@ -9,6 +9,7 @@
     WorksformController.$inject = ['$scope', 'Worksforms'];
 
     function WorksformController($scope, Worksforms) {
+
         Worksforms.all({}, function (result) {
             $scope.worksforms = result.data;
             $scope.explain = $scope.worksforms[0].explain;
