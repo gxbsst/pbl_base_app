@@ -1,16 +1,16 @@
 (function () {
     'use strict';
     Mock
-        .mock('/standards', {
-            'data':'@subjects'
+        .mock('/skills', {
+            'data':'@skills'
         })
-        .mock('/standards/:subjectId', {
+        .mock('/skills/:skillId', {
             'data|2-5':[{
                 'id|+1':100,
-                'title':'@grade'
+                'title':'@categories'
             }]
         })
-        .mock('/standards/grades/:gradeId', {
+        .mock('/skills/categories/:categorieId', {
             'data|2-5':[{
                 'id|+1':100,
                 'title':'@title',

@@ -64,7 +64,7 @@
                 });
             }else{
                 Projects.add(function (result) {
-                    $state.go('base.home.projects.create.design', {projectId:result.id});
+                    $state.go('base.home.projects.create.design', {projectId:result.data.id});
                 });
             }
             return defer.promise;

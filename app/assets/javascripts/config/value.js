@@ -34,6 +34,12 @@
                     icon: 'pf-clock',
                     src: 'home/toolbar/histories.html'
                 }
-            ]
+            ],
+            QINIU: {
+                upload: 'http://up.qiniu.com',
+                mp4: 'http://mooc-video-mp4.qiniudn.com',
+                ogv: 'http://mooc-video-ogv.qiniudn.com',
+                image: 'http://mooc-images.qiniudn.com'
+            }
         })
 })();

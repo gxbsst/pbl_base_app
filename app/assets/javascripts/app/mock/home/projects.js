@@ -12,7 +12,7 @@
 
         //创建一个新的PBL，返回PBL的ID，空标题的PBL作为未命名的PBL
         .mock('/projects', 'POST', {
-            'id':'@GUID'
+            'data': {'id':'@GUID'}
         })
 
         //调用一个PBL的扁平结构
@@ -20,7 +20,7 @@
             'data': {
                 'id': '@GUID',
                 'project_name': '@TITLE',
-                'curriculum_standards|1-5':[{
+                'standards|1-5':[{
                     'id': '@GUID',
                     'title': '@TITLE'
                 }],
@@ -39,7 +39,7 @@
                     'skill':'@TITLE'
                 }],
                 'final_product':{
-                    'form':{
+                    'worksform':{
                         'id':'@GUID',
                         'title': '@TITLE'
                     },
@@ -48,24 +48,27 @@
                 },
                 'stage_products|1-10':[{
                     'id':'@GUID',
-                    'form':{
+                    'worksform':{
                         'id':'@GUID',
                         'title': '@TITLE'
                     },
                     'description': '@PARAGRAPH',
                     'example': ['@GUID']
-                }]
+                }],
+                'gauges':{
+
+                }
             }
         })
 
         //提交一个PBL表单,UPDATE
         .mock('/projects/:projectId', 'PUT', {
-            'result':'success'
+            'data': {'result':'success'}
         })
 
         //删除一个PBL表单,DELETE,暂时不用
         .mock('/projects', 'delete', {
-            'result':'success'
+            'data': {'result':'success'}
         })
 
 

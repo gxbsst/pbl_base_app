@@ -14,7 +14,8 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project =  Pbl::Models::Projects::Project.update(params[:id], params[:project])
+    params[:data][:name] = params[:data][:project_name]
+    @project =  Pbl::Models::Projects::Project.update(params[:id], params[:data])
     render :show
   end
 

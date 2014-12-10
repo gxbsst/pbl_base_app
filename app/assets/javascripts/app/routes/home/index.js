@@ -25,7 +25,8 @@
             })
             .state('base.home.index', {
                 url: '',
-                templateUrl: 'home/index.html'
+                templateUrl: 'home/index.html',
+                controller: 'HomeIndexController as vm'
             });
 
     }
