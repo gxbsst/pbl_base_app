@@ -1,6 +1,6 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
-  revision: ed2465f41a9c7ae0da1b5c2077d5c1326c92bc73
+  revision: b10f75b23736eabf8db0210912e23258f311013a
   branch: master
   specs:
     pbl_service_client (0.0.2)
