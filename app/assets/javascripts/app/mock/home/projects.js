@@ -15,6 +15,16 @@
             'data': {'id':'@GUID'}
         })
 
+        //提交一个PBL表单,UPDATE
+        .mock('/projects/:projectId', 'PUT', {
+            'data': {'result':'success'}
+        })
+
+        //删除一个PBL表单,DELETE,暂时不用
+        .mock('/projects', 'DELETE', {
+            'data': {'result':'success'}
+        })
+
         //调用一个PBL的扁平结构
         .mock('/projects/:projectId', 'GET', {
             'data': {
@@ -60,17 +70,6 @@
                 }
             }
         })
-
-        //提交一个PBL表单,UPDATE
-        .mock('/projects/:projectId', 'PUT', {
-            'data': {'result':'success'}
-        })
-
-        //删除一个PBL表单,DELETE,暂时不用
-        .mock('/projects', 'delete', {
-            'data': {'result':'success'}
-        })
-
 
         //获取作品形态列表
         .mock('/worksforms', {

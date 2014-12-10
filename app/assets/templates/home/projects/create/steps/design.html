@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="project[name]" class="control-label">项目名称：</label>
         <div class="col-1-1">
-            <input type="text" id="project[name]" ng-model="vm.project.project_name" class="form-control"/>
+            <input type="text" id="project[name]" ng-model="vm.project.project_name" class="form-control" et-sync="{projectId:vm.project.id,project:{project_name:vm.project.project_name},$service:'Projects'}"/>
         </div>
     </div>
     <div class="form-group">
