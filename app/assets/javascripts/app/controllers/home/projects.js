@@ -37,9 +37,9 @@
 
     }
 
-    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'project'];
+    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, Projects, project) {
+    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards, project) {
 
         var vm = this;
 
@@ -56,7 +56,7 @@
 
         vm.project = project;
         vm.removeStandard = removeStandard;
-        $scope.$on('setStandards', setStandards);
+        $scope.$on('onProjectStandards', onProjectStandards);
         vm.removeSkill = removeSkill;
         $scope.$on('setSkills', setSkills);
         $scope.$on('setWorksforms', setWorksforms);
@@ -98,8 +98,12 @@
             $state.go('base.home.projects.create.rubrics', {projectId: project.id});
         }
 
-        function setStandards(event, standards) {
-            vm.project.standards = standards;
+        function onProjectStandards() {
+            ProjectStandards.all({
+                projectId: vm.project.id
+            }, function (result) {
+                vm.project.standards = result.data;
+            });
         }
 
         function removeStandard(standard) {

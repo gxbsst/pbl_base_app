@@ -25,7 +25,7 @@
       }
       .selector-entries{
         line-height:26px;
-        height:300px;
+        height:100%;
         margin:0 -12px;
         padding:3px 12px;
         overflow:auto;
@@ -33,7 +33,7 @@
           font-weight:bold;
         }
         .selector-entry-children{
-          padding-left:2em;
+          //padding-left:1em;
         }
       }
       .selector-footer{
