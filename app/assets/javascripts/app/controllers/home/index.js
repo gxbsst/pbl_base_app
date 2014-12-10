@@ -15,8 +15,8 @@
         $scope.onCompleted = onCompleted;
         $scope.onError = onError;
 
-        function onBegin(project){
-            return function (files) {
+        function onBegin(a){
+            return function (b) {
                 console.log(a);
                 console.log(b);
             }
