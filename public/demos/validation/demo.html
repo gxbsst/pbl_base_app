@@ -1,4 +1,4 @@
-<form name="From" ng-controller="FromDemoController" class="form-horizontal">
+<form ng-controller="FromDemoController" class="form-horizontal">
     <div class="form-group">
         <label for="username" class="col-1-6 control-label" ng-bind="'username'|i18n"></label>
         <div class="col-5-6">
@@ -16,6 +16,10 @@
     <div class="form-group">
         <label class="control-label">请选择1-3条课标：</label>
         <button class="btn btn-gray"><i class="pf-plus"></i> 选择课标</button>
+    </div>
+    <div class="form-group">
+        <label class="control-label">选择标签：</label>
+        <input type="text" ng-model="vm.project.tags" placeholder="请选择标签" et-tags/>
     </div>
     <div class="hr"></div>
     <div class="col-5-6 offset-1-6">

@@ -20,9 +20,9 @@
 
     }
 
-    modalFactory.$inject = ['$document', '$compile', '$controller', '$rootScope', '$q', '$timeout', '$template', 'modalConfig'];
+    modalFactory.$inject = ['$document', '$window', '$compile', '$controller', '$rootScope', '$q', '$timeout', '$template', 'modalConfig'];
 
-    function modalFactory($document, $compile, $controller, $rootScope, $q, $timeout, $template, modalConfig) {
+    function modalFactory($document, $window, $compile, $controller, $rootScope, $q, $timeout, $template, modalConfig) {
 
         $rootScope.modals = {};
 
@@ -66,7 +66,12 @@
 
                 body.addClass('disable-scroll').append(modalElement);
                 $timeout(function () {
-                    container.addClass('et-modal-show');
+                    var x = $document.width(),
+                        y = window.innerHeight || document.documentElement.offsetHeight;
+                    container.css({
+                        left: x / 2,
+                        top: y / 2
+                    }).addClass('et-modal-show');
                 }, 100);
 
                 var modal = {

@@ -10,7 +10,10 @@
             restrict: 'A',
             replace: true,
             scope: {
-                ngModel: '='
+                ngModel: '=?',
+                placeholder: '@',
+                type: '@',
+                classes: '@class'
             },
             templateUrl: 'directives/et-tags.html',
             link: etTagsLink
@@ -20,6 +23,7 @@
     function etTagsLink(scope, element, attr){
 
         scope.$input = '';
+        scope.$tags = [];
 
 
     }
