@@ -5,8 +5,7 @@
         .module('app.services')
         .service('Projects', Projects)
         .service('ProjectStandards', ProjectStandards)
-        .service('ProjectSkills', ProjectSkills)
-    ;
+        .service('ProjectSkills', ProjectSkills);
 
 
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
