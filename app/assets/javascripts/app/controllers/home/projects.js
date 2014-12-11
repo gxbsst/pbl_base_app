@@ -6,6 +6,7 @@
         .controller('HomeProjectIndexController', HomeProjectIndexController)
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
+        .controller('HomeProjectCreateController', HomeProjectCreateController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
         .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
         .controller('HomeProjectCreateNewController', HomeProjectCreateNewController)
@@ -39,9 +40,20 @@
 
     }
 
+    HomeProjectCreateController.$inject = ['$state', '$scope', 'project'];
+
+    function HomeProjectCreateController($state, $scope, project){
+
+        $scope.next = next;
+
+        function next(step) {
+            $state.go('base.home.projects.create.' + step, {projectId: project.id});
+        }
+    }
+
     HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'ProjectSkills', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards,ProjectSkills, project) {
+    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards, ProjectSkills, project) {
 
         var vm = this;
 
@@ -51,32 +63,29 @@
         project.stage_products = project.stage_products || [];
         project.final_product = project.final_product ||
         {
-            'worksform':null,
-                'description': '',
-                'example': ''
+            'worksform': null,
+            'description': '',
+            'example': ''
         };
         vm.project = project;
         vm.removeStandard = removeStandard;
-        $scope.$on('onProjectStandards', onProjectStandards);
         vm.removeSkill = removeSkill;
-        $scope.$on('onProjectSkills', onProjectSkills);
-        $scope.$on('setWorksforms', setWorksforms);
-
         vm.saveProject = saveProject;
-        vm.goGauges =goGauges;
-
-        vm.removeObjArray =removeObjArray;
+        vm.removeObjArray = removeObjArray;
         vm.addObjArray = addObjArray;
         vm.chooseWorksform = chooseWorksform;
         vm.showStandardAnalysis = showStandardAnalysis;
+        $scope.$on('onProjectStandards', onProjectStandards);
+        $scope.$on('onProjectSkills', onProjectSkills);
+        $scope.$on('setWorksforms', setWorksforms);
 
         function showStandardAnalysis() {
             vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
         }
 
-        function chooseWorksform(obj,index) {
-            vm.chooseitem={
-                'obj':obj,'index':index
+        function chooseWorksform(obj, index) {
+            vm.chooseitem = {
+                'obj': obj, 'index': index
             };
         }
 
@@ -93,10 +102,6 @@
                 console.log("new remove");
                 return a.id === obj.id;
             });
-        }
-        function goGauges() {
-            saveProject(Projects, project);
-            $state.go('base.home.projects.create.gauges', {projectId: project.id});
         }
 
         function onProjectStandards() {
@@ -139,14 +144,13 @@
         }
 
         function setWorksforms(event, worksforms) {
-            switch(vm.chooseitem.obj)
-            {
+            switch (vm.chooseitem.obj) {
                 case 'final_product':
-                    vm.project.final_product.worksform= worksforms;
+                    vm.project.final_product.worksform = worksforms;
                     break;
                 case 'stage':
                     console.log(vm.project.stage_products);
-                    vm.project.stage_products[vm.chooseitem.index].worksform= worksforms;
+                    vm.project.stage_products[vm.chooseitem.index].worksform = worksforms;
                     break;
             }
         }
@@ -162,24 +166,14 @@
 
     function HomeProjectCreateGaugesController($state, Projects, project) {
         var vm = this;
-        vm.goNew =goNew;
         vm.project = project;
-
-        function goNew() {
-            $state.go('base.home.projects.create.new', {projectId: project.id});
-        }
     }
 
     HomeProjectCreateNewController.$inject = ['$state', 'Projects', 'project'];
 
     function HomeProjectCreateNewController($state, Projects, project) {
         var vm = this;
-        vm.goNew =goNew;
         vm.project = project;
-
-        function goNew() {
-            $state.go('base.home.projects.create.new', {projectId: project.id});
-        }
     }
 
 })();

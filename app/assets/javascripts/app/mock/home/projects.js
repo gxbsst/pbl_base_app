@@ -94,7 +94,6 @@
         .mock('/projects/:projectId/gauges/:gaugeId', 'PUT', {
             'data': {'result':'success'}
         })
-        //删除一个PBL表单,DELETE,暂时不用
         .mock('/projects/:projectId/gauges/:gaugeId', 'DELETE', {
             'data': {'result':'success'}
         })
