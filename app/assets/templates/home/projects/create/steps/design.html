@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="project[name]" class="control-label">项目名称：</label>
         <div class="col-1-1">
-            <input type="text" id="project[name]" ng-model="vm.project.project_name" class="form-control"/>
+            <input type="text" id="project[name]" ng-model="vm.project.project_name" class="form-control" et-sync="{projectId:vm.project.id,project:{project_name:vm.project.project_name},$service:'Projects'}"/>
         </div>
     </div>
     <div class="form-group">
@@ -93,6 +93,11 @@
         <div>
             <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform('final_product',$index)" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"><span ng-bind="vm.project.final_product.worksform.title" ng-hide="vm.project.final_product.worksform==null"></span><span ng-show="vm.project.final_product.worksform==null"><i class="pf-plus"></i>选择作品形态</span></span>
             <span class="btn btn-gray btn-sm" role="button" bing="vm.project.final_product.example" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'"><i class="pf-plus"></i>上传示例</span>
+            <div class="col-1-1 progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
+                </div>
+            </div>
             <div class="col-1-1">
                 描述:
                 <textarea name=""  cols="30" rows="5" ng-model="vm.project.final_product.description" class="form-control"></textarea>

@@ -34,12 +34,13 @@
                 inputElement.on('change', function () {
                     var self = this,
                         files = self.files,
+                        total = 0,
+                        loaded = 0,
                         uploaded = [],
                         count = files.length,
                         updateCount = function () {
                             !count && onCompleted.call(self, uploaded);
                         };
-
 
                     if (files.length) {
                         scope.$apply(function () {
@@ -47,7 +48,7 @@
                         });
                     }
                     angular.forEach(files, function (file, i) {
-                        file.loaded = 0;
+                        total += file.size;
                         var data = {
                             bucket: config.bucket
                         };
@@ -67,7 +68,15 @@
                             xhr.upload.addEventListener('progress', function (evt) {
                                 if (evt.lengthComputable) {
                                     scope.$apply(function () {
-                                        onProgress.call(file, evt);
+                                        file.loaded = evt.loaded;
+                                        loaded = 0;
+                                        angular.forEach(files, function (file) {
+                                            loaded += file.loaded;
+                                        });
+                                        if(loaded > total){
+                                            loaded = total;
+                                        }
+                                        onProgress.call(file, {loaded: loaded || 0, total: total});
                                     });
                                 }
                             }, false);

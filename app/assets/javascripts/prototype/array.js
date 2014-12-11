@@ -9,6 +9,12 @@
             last: function () {
                 return this[this.length - 1];
             },
+            isFirst: function (index) {
+                return index == 0;
+            },
+            isLast: function (index) {
+                return this.length - 1 == index;
+            },
             index: function (fn) {
                 for (var i = 0; i < this.length; i++) {
                     if (fn.call(null, this[i])) {

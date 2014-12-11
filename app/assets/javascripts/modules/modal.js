@@ -20,9 +20,9 @@
 
     }
 
-    modalFactory.$inject = ['$document', '$window', '$compile', '$controller', '$rootScope', '$q', '$timeout', '$template', 'modalConfig'];
+    modalFactory.$inject = ['$document', '$compile', '$controller', '$rootScope', '$q', '$timeout', '$template', 'modalConfig'];
 
-    function modalFactory($document, $window, $compile, $controller, $rootScope, $q, $timeout, $template, modalConfig) {
+    function modalFactory($document, $compile, $controller, $rootScope, $q, $timeout, $template, modalConfig) {
 
         $rootScope.modals = {};
 

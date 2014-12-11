@@ -1,3 +1,41 @@
 <h2 ng-bind="'NAV.home'|i18n"></h2>
 <a ui-sref="base.home.posts" ui-sref-active="active" ng-bind="'posts'|i18n"></a>
-<span class="btn" qn-upload on-begin="onBegin('test')" on-progress="onProgress()" on-success="onSuccess()" on-completed="onCompleted()" on-error="onError()"><i class="pf-arrowhead-up"></i> 上传示例</span>
+<span class="btn" qn-upload="{multiple:true,accept:'image/*'}" on-begin="onBegin('test')" on-progress="onProgress()" on-success="onSuccess()" on-completed="onCompleted()" on-error="onError()"><i class="pf-arrowhead-up"></i> 上传示例</span>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>abc</th>
+        <th>def</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    <tr>
+        <td>aaa</td>
+        <td>bbb</td>
+    </tr>
+    </tbody>
+</table>

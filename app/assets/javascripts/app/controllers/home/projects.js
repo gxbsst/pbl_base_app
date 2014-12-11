@@ -7,6 +7,8 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
+        .controller('HomeProjectCreateRubricsController', HomeProjectCreateRubricsController)
+        .controller('HomeProjectCreateNewController', HomeProjectCreateNewController)
     ;
 
 
@@ -37,9 +39,9 @@
 
     }
 
-    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'project'];
+    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'ProjectSkills', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, Projects, project) {
+    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards,ProjectSkills, project) {
 
         var vm = this;
 
@@ -49,16 +51,15 @@
         project.stage_products = project.stage_products || [];
         project.final_product = project.final_product ||
         {
-            'worksform':{},
-                'description': '@PARAGRAPH',
-                'example': '@GUID'
+            'worksform':null,
+                'description': '',
+                'example': ''
         };
-
         vm.project = project;
         vm.removeStandard = removeStandard;
-        $scope.$on('setStandards', setStandards);
+        $scope.$on('onProjectStandards', onProjectStandards);
         vm.removeSkill = removeSkill;
-        $scope.$on('setSkills', setSkills);
+        $scope.$on('onProjectSkills', onProjectSkills);
         $scope.$on('setWorksforms', setWorksforms);
 
         vm.saveProject = saveProject;
@@ -98,25 +99,44 @@
             $state.go('base.home.projects.create.rubrics', {projectId: project.id});
         }
 
-        function setStandards(event, standards) {
-            vm.project.standards = standards;
+        function onProjectStandards() {
+            ProjectStandards.all({
+                projectId: vm.project.id
+            }, function (result) {
+                vm.project.standards = result.data;
+            });
         }
 
         function removeStandard(standard) {
-            vm.project.standards.remove(function (a) {
-                return a.id === standard.id;
+            ProjectStandards
+                .remove({
+                    projectId: project.id,
+                    standardId: standard.id
+                }, onProjectStandards);
+            //vm.project.standards.remove(function (a) {
+            //    return a.id === standard.id;
+            //});
+        }
+
+
+        function onProjectSkills() {
+            ProjectSkills.all({
+                projectId: vm.project.id
+            }, function (result) {
+                vm.project.skills = result.data;
             });
         }
 
-        function setSkills(event, skills) {
-            vm.project.skills = skills;
-        }
         function removeSkill(skill) {
-            vm.project.skills.remove(function (a) {
-                return a.id === skill.id;
-            });
+            Projectskills
+                .remove({
+                    projectId: project.id,
+                    skillId: skill.id
+                }, onProjectSkills);
+            //vm.project.standards.remove(function (a) {
+            //    return a.id === standard.id;
+            //});
         }
-
 
         function setWorksforms(event, worksforms) {
             switch(vm.chooseitem.obj)
@@ -138,5 +158,28 @@
         }
     }
 
+    HomeProjectCreateRubricsController.$inject = ['$state', 'Projects', 'project'];
+
+    function HomeProjectCreateRubricsController($state, Projects, project) {
+        var vm = this;
+        vm.goNew =goNew;
+        vm.project = project;
+
+        function goNew() {
+            $state.go('base.home.projects.create.new', {projectId: project.id});
+        }
+    }
+
+    HomeProjectCreateNewController.$inject = ['$state', 'Projects', 'project'];
+
+    function HomeProjectCreateNewController($state, Projects, project) {
+        var vm = this;
+        vm.goNew =goNew;
+        vm.project = project;
+
+        function goNew() {
+            $state.go('base.home.projects.create.new', {projectId: project.id});
+        }
+    }
 
 })();

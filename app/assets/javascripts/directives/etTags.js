@@ -11,9 +11,7 @@
             replace: true,
             scope: {
                 ngModel: '=?',
-                placeholder: '@',
-                type: '@',
-                classes: '@class'
+                placeholder: '@'
             },
             templateUrl: 'directives/et-tags.html',
             link: etTagsLink
@@ -24,7 +22,16 @@
 
         scope.$input = '';
         scope.$tags = [];
+        scope.keypress = onKeypress;
 
+        function onKeypress($event){
+            if ($event.which == 13) {
+                scope.addTag();
+                $event.stopPropagation();
+                $event.preventDefault();
+                return false;
+            }
+        }
 
     }
 

@@ -1,5 +1,5 @@
 <div class="et-tags">
     <input type="text" ng-model="ngModel"/>
     <span ng-repeat="tag in $tags" ng-bind="tag"></span>
-    <input type="{{type}}" ng-class="classes" ng-model="$input" placeholder="{{placeholder}}"/>
+    <input type="text" ng-model="$input" ng-change="setTag()" placeholder="{{placeholder}}"/>
 </div>

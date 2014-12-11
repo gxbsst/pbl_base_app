@@ -19,6 +19,25 @@
                     'title': '@title'
                 }]
             }]
+        })
+        .mock('/projects/:projectId/standards', 'GET', {
+            'data|1-5':[{
+                'id|+1':100,
+                'title': '@title'
+            }]
+        })
+        .mock('/projects/:projectId/standards', 'POST', {
+            'id|+1':100,
+            'title': '@title'
+        })
+        .mock('/projects/:projectId/standards/:standardId', 'DELETE', {
+            success: true
+        })
+        .mock('/projects/:projectId/standards/:standardId', {
+            'data|1-5':[{
+                'id|+1':100,
+                'title': '@title'
+            }]
         });
 
 })();
