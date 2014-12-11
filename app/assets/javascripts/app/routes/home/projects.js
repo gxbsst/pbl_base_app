@@ -35,11 +35,13 @@
             })
             .state('base.home.projects.create.rubrics', {
                 url: '/rubrics',
-                templateUrl: 'home/projects/create/steps/rubrics.html'
+                templateUrl: 'home/projects/create/steps/rubrics.html',
+                controller:'HomeProjectCreateRubricsController as vm'
             })
             .state('base.home.projects.create.new', {
                 url: '/new',
-                templateUrl: 'home/projects/create/steps/new.html'
+                templateUrl: 'home/projects/create/steps/new.html',
+                controller:'HomeProjectCreateNewController as vm'
             })
             .state('base.home.projects.create.scaffold', {
                 url: '/scaffold',

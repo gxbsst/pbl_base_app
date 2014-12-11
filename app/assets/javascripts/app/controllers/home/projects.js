@@ -7,6 +7,8 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
+        .controller('HomeProjectCreateRubricsController', HomeProjectCreateRubricsController)
+        .controller('HomeProjectCreateNewController', HomeProjectCreateNewController)
     ;
 
 
@@ -49,11 +51,10 @@
         project.stage_products = project.stage_products || [];
         project.final_product = project.final_product ||
         {
-            'worksform':{},
+            'worksform':null,
                 'description': '',
                 'example': ''
         };
-
         vm.project = project;
         vm.removeStandard = removeStandard;
         $scope.$on('onProjectStandards', onProjectStandards);
@@ -157,5 +158,28 @@
         }
     }
 
+    HomeProjectCreateRubricsController.$inject = ['$state', 'Projects', 'project'];
+
+    function HomeProjectCreateRubricsController($state, Projects, project) {
+        var vm = this;
+        vm.goNew =goNew;
+        vm.project = project;
+
+        function goNew() {
+            $state.go('base.home.projects.create.new', {projectId: project.id});
+        }
+    }
+
+    HomeProjectCreateNewController.$inject = ['$state', 'Projects', 'project'];
+
+    function HomeProjectCreateNewController($state, Projects, project) {
+        var vm = this;
+        vm.goNew =goNew;
+        vm.project = project;
+
+        function goNew() {
+            $state.go('base.home.projects.create.new', {projectId: project.id});
+        }
+    }
 
 })();
