@@ -79,6 +79,24 @@
                 'explain':'@PARAGRAPH'
             }]
         })
+        .mock('/projects/:projectId/gauges', 'GET', {
+            'data|20':[{
+                'id':'@guid',
+                'title|2-5':[{
+                    content: '@title',
+                    'level|+1': 1
+                }]
+            }]
+        })
+        .mock('/projects/:projectId/gauges', 'POST', {
+            'data': {'result':'success'}
+        })
+        .mock('/projects/:projectId/gauges/:gaugeId', 'PUT', {
+            'data': {'result':'success'}
+        })
+        //删除一个PBL表单,DELETE,暂时不用
+        .mock('/projects/:projectId/gauges/:gaugeId', 'DELETE', {
+            'data': {'result':'success'}
+        })
         ;
-
 })();

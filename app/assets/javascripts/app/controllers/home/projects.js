@@ -7,7 +7,7 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
-        .controller('HomeProjectCreateRubricsController', HomeProjectCreateRubricsController)
+        .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
         .controller('HomeProjectCreateNewController', HomeProjectCreateNewController)
     ;
 
@@ -63,7 +63,7 @@
         $scope.$on('setWorksforms', setWorksforms);
 
         vm.saveProject = saveProject;
-        vm.goRubrics =goRubrics;
+        vm.goGauges =goGauges;
 
         vm.removeObjArray =removeObjArray;
         vm.addObjArray = addObjArray;
@@ -94,9 +94,9 @@
                 return a.id === obj.id;
             });
         }
-        function goRubrics() {
+        function goGauges() {
             saveProject(Projects, project);
-            $state.go('base.home.projects.create.rubrics', {projectId: project.id});
+            $state.go('base.home.projects.create.gauges', {projectId: project.id});
         }
 
         function onProjectStandards() {
@@ -158,9 +158,9 @@
         }
     }
 
-    HomeProjectCreateRubricsController.$inject = ['$state', 'Projects', 'project'];
+    HomeProjectCreateGaugesController.$inject = ['$state', 'Projects', 'project'];
 
-    function HomeProjectCreateRubricsController($state, Projects, project) {
+    function HomeProjectCreateGaugesController($state, Projects, project) {
         var vm = this;
         vm.goNew =goNew;
         vm.project = project;
