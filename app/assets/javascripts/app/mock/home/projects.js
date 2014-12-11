@@ -80,12 +80,9 @@
             }]
         })
         .mock('/projects/:projectId/gauges', 'GET', {
-            'data|20':[{
+            'data|2-5':[{
                 'id':'@guid',
-                'title|2-5':[{
-                    content: '@title',
-                    'level|+1': 1
-                }]
+                'gauge':['@skill', '@name', '@percent', '@title', '@title', '@title', '@title', '@title']
             }]
         })
         .mock('/projects/:projectId/gauges', 'POST', {

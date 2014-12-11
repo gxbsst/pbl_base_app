@@ -162,11 +162,32 @@
         }
     }
 
-    HomeProjectCreateGaugesController.$inject = ['$state', 'Projects', 'project'];
+    HomeProjectCreateGaugesController.$inject = ['$state', 'ProjectGauges', 'project'];
 
-    function HomeProjectCreateGaugesController($state, Projects, project) {
+    function HomeProjectCreateGaugesController($state, ProjectGauges, project) {
+
         var vm = this;
         vm.project = project;
+        vm.columns = [{name:'对应技能'},{name:'量规标准'},{name:'权重'},{name:'不及格'},{name:'及格'},{name:'一般'},{name:'良好'},{name:'优秀'}];
+        vm.gauges = ProjectGauges.all({projectId: project.id});
+        vm.addRow = addRow;
+        vm.addColumn = addColumn;
+
+        function addRow(content, level){
+            ProjectGauges.add({
+                projectId: project.id,
+                gauge: {
+                    content: content,
+                    level: level
+                }
+            }, function () {
+
+            });
+        }
+
+        function addColumn(){
+
+        }
     }
 
     HomeProjectCreateNewController.$inject = ['$state', 'Projects', 'project'];

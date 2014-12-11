@@ -33,20 +33,24 @@
         grade: function () {
             return this.pick(this.grades);
         },
-        skills:function () {
-            return  ['21世纪技能', 'Scans技能', 'John Thomas技能', '知识时代必备技能'].map(function (v) {
+        skills : ['21世纪技能', 'Scans技能', 'John Thomas技能', '知识时代必备技能'],
+        skill: function () {
+            return this.pick(this.skills);
+        },
+        skillObject: function () {
+            return this.pick(this.skills.map(function (v) {
                 return {
                     id: Mock.Random.guid(),
                     title: v
                 };
-            });
-        },
-        skill: function () {
-            return this.pick(this.skills);
+            }));
         },
         categories: ['学习和创新技能', '创造和革新技能', '批判性思维和解决问题的能力', '交流与合作', '信息、媒体和技术技能', '生活和职业技能'],
         category: function () {
             return this.pick(this.categories);
+        },
+        percent: function () {
+            return Random.integer(10,50) + '%';
         }
     });
 
