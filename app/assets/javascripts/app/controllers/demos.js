@@ -18,10 +18,6 @@
             ['2:1', '2:2', '2:3'],
             ['3:1', '3:2', '3:3']
         ];
-        vm.project = {
-            tags: ['aa', 'bb', 'cc', 'dd']
-        };
-
         vm.addColumn = function () {
             vm.head.push(['第', vm.head.length + 1, '列'].join(''));
             angular.forEach(vm.body, function (row, i) {

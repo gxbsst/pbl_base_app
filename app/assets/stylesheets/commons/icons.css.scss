@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?-w74ar2');
-  src:font_url('PblIconFont.eot?#iefix-w74ar2') format('embedded-opentype'),
-  font_url('PblIconFont.woff?-w74ar2') format('woff'),
-  font_url('PblIconFont.ttf?-w74ar2') format('truetype'),
-  font_url('PblIconFont.svg?-w74ar2#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?-lwgu2k');
+  src:font_url('PblIconFont.eot?#iefix-lwgu2k') format('embedded-opentype'),
+  font_url('PblIconFont.woff?-lwgu2k') format('woff'),
+  font_url('PblIconFont.ttf?-lwgu2k') format('truetype'),
+  font_url('PblIconFont.svg?-lwgu2k#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,6 +23,57 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pf-cog:before {
+  content: "\f013";
+}
+.pf-trash-o:before {
+  content: "\f014";
+}
+.pf-calendar:before {
+  content: "\f073";
+}
+.pf-spinner:before {
+  content: "\f110";
+}
+.pf-cloud-upload:before {
+  content: "\f00c";
+}
+.pf-alert:before {
+  content: "\f02d";
+}
+.pf-arrowhead-down:before {
+  content: "\f03f";
+}
+.pf-arrowhead-left:before {
+  content: "\f040";
+}
+.pf-arrowhead-right:before {
+  content: "\f03e";
+}
+.pf-arrowhead-up:before {
+  content: "\f03d";
+}
+.pf-triangle-down:before {
+  content: "\f05b";
+}
+.pf-triangle-left:before {
+  content: "\f044";
+}
+.pf-triangle-right:before {
+  content: "\f05a";
+}
+.pf-triangle-up:before {
+  content: "\f0aa";
+}
+.pf-camera:before {
+  content: "\e62f";
+}
+.pf-share:before {
+  content: "\e601";
+}
+.pf-circle:before {
+  content: "\e602";
+}
 .pf-bubble-star:before {
   content: "\e600";
 }
@@ -154,39 +205,6 @@
 }
 .pf-cross:before {
   content: "\e117";
-}
-.pf-alert:before {
-  content: "\f02d";
-}
-.pf-arrowhead-down:before {
-  content: "\f03f";
-}
-.pf-arrowhead-left:before {
-  content: "\f040";
-}
-.pf-arrowhead-right:before {
-  content: "\f03e";
-}
-.pf-arrowhead-up:before {
-  content: "\f03d";
-}
-.pf-triangle-down:before {
-  content: "\f05b";
-}
-.pf-triangle-left:before {
-  content: "\f044";
-}
-.pf-triangle-right:before {
-  content: "\f05a";
-}
-.pf-triangle-up:before {
-  content: "\f0aa";
-}
-.pf-share:before {
-  content: "\e601";
-}
-.pf-circle:before {
-  content: "\e602";
 }
 .pf-folder:before {
   content: "\e627";
