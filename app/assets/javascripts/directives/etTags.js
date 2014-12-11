@@ -47,7 +47,8 @@
         }
 
         function add(tag) {
-            if(!exist(tag)){
+            tag = tag.trim();
+            if(tag && !exist(tag)){
                 scope.$tags.push(tag);
                 scope.ngModel = scope.$tags.join(',');
             }

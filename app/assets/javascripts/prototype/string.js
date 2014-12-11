@@ -33,9 +33,10 @@
                     string += i ? '[' + key + ']' : key;
                 });
                 return string;
+            },
+            trim: function () {
+                return this.replace(/(^\s*)|(\s*$)/g,'');
             }
-
-
         });
 
 })();
