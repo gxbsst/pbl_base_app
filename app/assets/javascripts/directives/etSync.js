@@ -25,7 +25,6 @@
                 scope.model = scope.ngModel;
             });
             element.on('focusout', function () {
-                console.log(scope.model == scope.ngModel, scope.model, scope.ngModel)
                 if (scope.model != scope.ngModel) {
                     scope.model = scope.ngModel;
                     var service = $injector.get(scope.$config.$service);
