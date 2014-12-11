@@ -46,5 +46,31 @@
 }
 
 .project-create-new{
-
+  margin-top:50px;
+  cursor: pointer;
+ h2{
+  font-size: 16px;
+ }
+  .file-up{
+    width:93px;
+    height: 93px;
+    text-align: center;
+    border:dashed 1px #e8e8e8;
+ .circle{
+    width:55px;
+    height:55px;
+   line-height: 55px;
+    color: #ddd;
+    margin:10px auto -10px;
+    border-radius: 50%;
+    background: #f6f6f6;
+  }
+  }
+  .pf-search{
+    color:#d2d2d2;
+    font-size: 23px;
+    position: absolute;
+    left: 2px;
+    top:6px;
+  }
 }
