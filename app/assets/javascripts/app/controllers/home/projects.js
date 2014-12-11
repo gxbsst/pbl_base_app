@@ -49,11 +49,11 @@
         project.stage_products = project.stage_products || [];
         project.final_product = project.final_product ||
         {
-            'worksform':{},
+            'worksform':null,
                 'description': '',
                 'example': ''
         };
-
+        console.log(project);
         vm.project = project;
         vm.removeStandard = removeStandard;
         $scope.$on('onProjectStandards', onProjectStandards);
