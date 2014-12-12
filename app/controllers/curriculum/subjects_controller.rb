@@ -6,7 +6,11 @@ module Curriculum
     end
 
     def show
-      @subject = Curriculum::Subject.look_for(params[:id], include: 'phases')
+      if params[:include]
+        @subject = Curriculum::Subject.find(params[:id], include: params[:include])
+      else
+        @subject = Curriculum::Subject.find(params[:id])
+      end
     end
 
   end

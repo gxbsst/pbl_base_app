@@ -10,7 +10,11 @@ class Skill::CategoriesController < ApplicationController
   end
 
   def show
-    @category = Skills::Category.find(params[:id])
+    if params[:include]
+      @category = Skills::Category.find(params[:id], include: params[:include])
+    else
+      @category = Skills::Category.find(params[:id])
+    end
   end
 
   def update

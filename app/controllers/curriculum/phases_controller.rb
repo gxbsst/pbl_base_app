@@ -2,7 +2,11 @@ module Curriculum
   class PhasesController < ApplicationController
 
     def show
-      @phase = Curriculum::Phase.look_for(params[:id], include: 'standards')
+      if params[:include]
+        @phase = Curriculum::Phase.find(params[:id], include: params[:include])
+      else
+        @phase = Curriculum::Phase.find(params[:id])
+      end
     end
 
   end

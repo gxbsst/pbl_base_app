@@ -10,7 +10,11 @@ class Skill::TechniquesController < ApplicationController
   end
 
   def show
-    @technique = Skills::Techniquey.find(params[:id])
+    if params[:include]
+      @technique = Skills::Techniquey.find(params[:id], include: params[:include])
+    else
+      @technique = Skills::Techniquey.find(params[:id])
+    end
   end
 
   def update
