@@ -1,13 +1,66 @@
-<div class="project-create-new">
+<div class="project-create-new offset-1-12">
     <form class="form-horizontal">
         <div class="form-group">
-            创建：
+          <h2>基本信息填写</h2>
+            <p>项目名称:制作重庆的一份旅游指南</p>
+            <div class="form-group" style="position: relative;">
+                <label class="control-label col-1-8">课程时长：</label>
+               <div class="col-7-8"> <select style="width: 300px; height: 30px;"></select>
+                  <input type="checkbox"/> 公开招募
+                <input type="file" style="display: none;" class="pull-right">
+                <span class="file-up">
+                   <p class="circle"><i class="pf-camera"></i></p>
+                    <p>上传封面</p>
+                </span>
+               </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">添加标签：</label>
+                  <div class="col-1-1">  <input type="text" class="form-control"></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">项目概述：</label>
+                <div class="col-1-1"><textarea class="form-control"></textarea></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">启动文档：</label>
+                    <span class="btn btn-gray btn-sm control-label">上传文档</span>
+               </div>
+            <h2 class="margin-top-20">选择成员和老师</h2>
+            <div class="form-group">
+                <label class="control-label">选择成员：</label>
+                <span class="btn btn-gray btn-sm control-label">点击选择</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">指导老师：</label>
+                <div class="col-1-1" style="position: relative;"><i class="pf-search"></i>  <input type="text" class="form-control"></div>
+            </div>
         </div>
 
         <div class="form-group col-1-1" >
             <div class="col-1-1 text-right">
-                <span class="btn btn-blue" role="button" ng-click="next('scaffold')">下一步</span>
+                <span class="btn">保存草稿</span>
+                <span class="btn btn-blue" role="button" ng-click="vm.goNew()">下一步</span>
             </div>
         </div>
     </form>
+
 </div>
+<!---->
+
+
+
+<div class="input-group margin-top-20 offset-1-12">
+   <span><i>现实角色</i><input type="text" placeholder="建筑设计师"/></span>如何 <span><i>使用技能</i><input type="text" placeholder="建筑设计师"/></span>
+    <span><i>动词</i><input type="text" placeholder="建筑设计师设计建"/></span> 创建<span><i>动词</i><input type="text" placeholder="建筑"/></span><span><i>现实角色</i><input type="text" placeholder="建筑设计师"/></span>
+
+</div>
+<div class="input-group margin-top-20 offset-1-12">
+    <span><input type="text" placeholder="建筑设计师"/></span>如何 <span><input type="text" placeholder="建筑设计师"/></span>
+    <span><input type="text" placeholder="建筑设计师设计建"/></span> 创建<span><input type="text" placeholder="建筑"/></span><span><input type="text" placeholder="建筑设计师"/></span>
+
+</div>
+
+
+
+

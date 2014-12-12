@@ -20,4 +20,9 @@ Rails.application.routes.draw do
 
   #resources :user, defaults: { format: :json }, only: %w(index)
 
+  scope module: 'curriculum' do
+    resources :subjects, defaults: {format: 'json'}
+    resources :phases, defaults: {format: 'json'}
+    resources :standards, defaults: {format: 'json'}
+  end
 end

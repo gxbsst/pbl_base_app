@@ -1,5 +1,7 @@
 @import "compass/css3";
-
+input,button,textarea{
+  outline: none;
+}
 .form-horizontal{
   .form-group{
     margin-bottom:10px;
