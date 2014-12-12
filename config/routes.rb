@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :qiniu_tokens, format: :json, only: %w(create)
   resources :qiniu_stat, format: :json, only: %w(index)
 
+  namespace :skill do
+    resources :categories, defaults: { format: :json }
+    resources :sub_categories, defaults: { format: :json }
+    resources :techniques, defaults: { format: :json }
+  end
   #resources :posts, defaults: { format: :json }
 
   #resources :user, defaults: { format: :json }, only: %w(index)
