@@ -39,10 +39,10 @@
                 templateUrl: 'home/projects/create/steps/gauges.html',
                 controller:'HomeProjectCreateGaugesController as vm'
             })
-            .state('base.home.projects.create.new', {
-                url: '/new',
-                templateUrl: 'home/projects/create/steps/new.html',
-                controller:'HomeProjectCreateNewController as vm'
+            .state('base.home.projects.create.info', {
+                url: '/info',
+                templateUrl: 'home/projects/create/steps/info.html',
+                controller:'HomeProjectCreateInfoController as vm'
             })
             .state('base.home.projects.create.scaffold', {
                 url: '/scaffold',

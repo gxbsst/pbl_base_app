@@ -9,7 +9,7 @@
         .controller('HomeProjectCreateController', HomeProjectCreateController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
         .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
-        .controller('HomeProjectCreateNewController', HomeProjectCreateNewController)
+        .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController)
     ;
 
 
@@ -17,11 +17,7 @@
 
     function HomeProjectIndexController(Projects) {
         var vm = this;
-        Projects.all({}, function (result) {
-            vm.projects = result.data;
-            console.log(vm.projects);
-        });
-
+        vm.projects = Projects.all();
     }
 
 
@@ -42,7 +38,7 @@
 
     HomeProjectCreateController.$inject = ['$state', '$scope', 'project'];
 
-    function HomeProjectCreateController($state, $scope, project){
+    function HomeProjectCreateController($state, $scope, project) {
 
         $scope.next = next;
 
@@ -168,12 +164,12 @@
 
         var vm = this;
         vm.project = project;
-        vm.columns = [{name:'对应技能'},{name:'量规标准'},{name:'权重'},{name:'不及格'},{name:'及格'},{name:'一般'},{name:'良好'},{name:'优秀'}];
+        vm.columns = [{name: '对应技能'}, {name: '量规标准'}, {name: '权重'}, {name: '不及格'}, {name: '及格'}, {name: '一般'}, {name: '良好'}, {name: '优秀'}];
         vm.gauges = ProjectGauges.all({projectId: project.id});
         vm.addRow = addRow;
         vm.addColumn = addColumn;
 
-        function addRow(content, level){
+        function addRow(content, level) {
             ProjectGauges.add({
                 projectId: project.id,
                 gauge: {
@@ -185,14 +181,14 @@
             });
         }
 
-        function addColumn(){
+        function addColumn() {
 
         }
     }
 
-    HomeProjectCreateNewController.$inject = ['$state', 'Projects', 'project'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project'];
 
-    function HomeProjectCreateNewController($state, Projects, project) {
+    function HomeProjectCreateInfoController($state, Projects, project) {
         var vm = this;
         vm.project = project;
     }
