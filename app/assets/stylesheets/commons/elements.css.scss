@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 .nav{
   > li{
     float:left;
@@ -22,9 +24,11 @@
   overflow:hidden;
   margin:12px 0;
 }
+
 .aligm-middle{
-  vertical-align: middle;
+  vertical-align:middle;
 }
+
 .toolbar{
   $size:60px;
   position:fixed;
