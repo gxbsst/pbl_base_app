@@ -28,7 +28,7 @@
     <div class="form-group">
         <label for="project[driven_issue]" class="control-label">驱动性问题：</label>
         <div class="col-1-1">
-            <textarea name=""  cols="30" rows="5" ng-model="vm.project.driven_issue" class="form-control"></textarea>
+            <textarea  id="project[driven_issue]" cols="30" rows="5" ng-model="vm.project.driven_issue" class="form-control" et-sync="{projectId:vm.project.id,project:{driven_issue:vm.project.driven_issue},$service:'Projects'}"></textarea>
         </div>
     </div>
 
