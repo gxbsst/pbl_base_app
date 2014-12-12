@@ -1,1 +1,3 @@
-json.array! @technique
+json.data do
+  json.array! @technique
+end

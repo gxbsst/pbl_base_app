@@ -1,1 +1,3 @@
-json.array! @categories
+json.data do
+  json.array! @categories
+end

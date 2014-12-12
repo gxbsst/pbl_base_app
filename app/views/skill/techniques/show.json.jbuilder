@@ -1,1 +1,3 @@
-json.extract! @technique, :id, :title
+json.data do
+  json.extract! @technique, :id, :title
+end
