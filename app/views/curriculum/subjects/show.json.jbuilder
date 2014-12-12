@@ -1,8 +1,6 @@
 if @subject.success?
   json.data do
-    json.id @subject.id
-    json.name @subject.name
-    json.position @subject.position
+    json.extract! @subject, :id, :name, :position
     json.phases do
       json.array! @subject.phases
     end

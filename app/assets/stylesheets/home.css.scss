@@ -45,8 +45,7 @@
 }
 
 .project-create-new{
-  margin-top:50px;
-  cursor: pointer;
+    cursor: pointer;
   &:after {
     display:block;
     clear:both;
@@ -138,4 +137,14 @@
      }
    }
  }
+}
+.project-create-release{
+  border-radius: 3px;
+ /*@include border-radius(2px);*/
+h2{
+  font-size: 14px;
+}
+.mar-2 img{
+  margin-right:2px;
+}
 }

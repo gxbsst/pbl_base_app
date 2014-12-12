@@ -20,6 +20,7 @@
 //= require angular-resource
 //= require angular-sanitize
 //= require angular-ui-router
+//= require angular-ui-select
 
 //= require mockjs/dist/mock
 //= require modules/mock
