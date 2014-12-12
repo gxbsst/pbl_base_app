@@ -1,7 +1,6 @@
 .home-controller{
 
 }
-
 .selector{
   width:650px;
   dl.table{
@@ -23,7 +22,7 @@
           }
         }
       }
-      .selector-entries{
+   .selector-entries{
         line-height:26px;
         height:100%;
         margin:0 -12px;
@@ -46,5 +45,97 @@
 }
 
 .project-create-new{
+  margin-top:50px;
+  cursor: pointer;
+  &:after {
+    display:block;
+    clear:both;
+    visibility:hidden;
+    height:0;
+    overflow:hidden;
+    content:".";
+  }
+  h2{
+   font-size: 16px;
+  }
+  .file-up{
+    right: 0;
+    width:93px;
+    height: 93px;
+    bottom:-10px;
+    text-align: center;
+    border:dashed 1px #e8e8e8;
+    position: absolute;
 
+ .circle{
+    width:55px;
+    height:55px;
+    color: #ddd;
+    margin:10px auto -10px;
+    line-height: 55px;
+    border-radius: 50%;
+    background: #f6f6f6;
+  .pf-camera{
+     color:#d2d2d2;
+     font-size: 20px;
+    vertical-align: top;
+  }
+  }
+  }
+  & .pf-search{
+    color:#d2d2d2;
+    font-size: 23px;
+    position: absolute;
+    left: 2px;
+    top:6px;
+  }
+}
+.input-group{
+ span{
+   position:relative;
+  input{
+     border:none;
+     border-bottom: #000 solid 1px;
+     width: 90px;
+     margin-right: 3px;
+     text-align: center;
+   }
+   i{
+     left:50%;
+     bottom:28px;
+     color: red;
+     height: 27px;
+     margin-left:-29px;
+     padding: 0 5px;
+     line-height: 27px;
+     position:absolute;
+     font-style: normal;
+     border:#e0e0e0 solid 1px;
+     display:inline-block;
+     &:before, &:after{
+       width: 0;
+       height: 0;
+       font-size: 0;
+       border-width:8px;
+       position: absolute;
+       content:"";
+       border-style: dashed dashed dashed dashed;
+       border-top-color:#e0e0e0;
+     }
+     &:before{
+       position: absolute;
+       left: 50%;
+       bottom: -16px;
+       margin-left:-6px;
+       border-color: rgba(0,0,0,.25) transparent transparent transparent;
+     }
+     &:after{
+       position: absolute;
+       left: 50%;
+       bottom: -15px;
+       margin-left:-6px;
+       border-color: #FFF transparent transparent transparent;
+     }
+   }
+ }
 }

@@ -34,6 +34,7 @@
   font-weight:bold;
   font-size:14px;
   background:#f5f5f5;
+  white-space:nowrap;
   cursor:default;
 }
 
@@ -64,6 +65,16 @@ table.table{
   & > thead > tr > th{
     color:#000;
     @include table-th;
+  }
+  & > tbody > tr > td{
+    line-height:20px;
+    padding:5px 12px;
+    font-size:13px;
+    &.disabled{
+      background:#fafafa !important;
+      color:#e6e6e6 !important;
+      border-color:#e0e0e0 !important;
+    }
   }
   &.table-striped{
     & > tbody > tr:nth-child(even) > td{

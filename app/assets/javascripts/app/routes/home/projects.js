@@ -26,7 +26,8 @@
                 templateUrl: 'home/projects/create.html',
                 resolve: {
                     project: getProject
-                }
+                },
+                controller: 'HomeProjectCreateController'
             })
             .state('base.home.projects.create.design', {
                 url: '',

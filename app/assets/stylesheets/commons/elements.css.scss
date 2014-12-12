@@ -22,9 +22,6 @@
   overflow:hidden;
   margin:12px 0;
 }
-.clear{
-  clear: both;
-}
 .aligm-middle{
   vertical-align: middle;
 }
@@ -90,4 +87,19 @@
 
 .draggable-handler{
   cursor:move !important;
+}
+
+.disabled{
+  position:relative;
+  cursor:no-drop !important;
+  background:#f0f0f0 !important;
+  color:#c8c8c8 !important;
+  border-color:#c8c8c8 !important;
+  .mask{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+  }
 }
