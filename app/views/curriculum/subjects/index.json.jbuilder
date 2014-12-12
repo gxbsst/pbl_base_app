@@ -1,3 +1,3 @@
 json.data do
-  json.array! @subjectss
+  json.array! @subjects
 end

@@ -1,6 +1,11 @@
 if @subject.success?
   json.data do
-    json.extract! @subject
+    json.id @subject.id
+    json.name @subject.name
+    json.position @subject.position
+    json.phases do
+      json.array! @subject.phases
+    end
   end
 else
   json.extract! @subject, :code, :body, :headers
