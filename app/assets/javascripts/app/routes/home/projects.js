@@ -26,17 +26,18 @@
                 templateUrl: 'home/projects/create.html',
                 resolve: {
                     project: getProject
-                }
+                },
+                controller: 'HomeProjectCreateController'
             })
             .state('base.home.projects.create.design', {
                 url: '',
                 templateUrl: 'home/projects/create/steps/design.html',
                 controller:'HomeProjectCreateDesignController as vm'
             })
-            .state('base.home.projects.create.rubrics', {
-                url: '/rubrics',
-                templateUrl: 'home/projects/create/steps/rubrics.html',
-                controller:'HomeProjectCreateRubricsController as vm'
+            .state('base.home.projects.create.gauges', {
+                url: '/gauges',
+                templateUrl: 'home/projects/create/steps/gauges.html',
+                controller:'HomeProjectCreateGaugesController as vm'
             })
             .state('base.home.projects.create.new', {
                 url: '/new',

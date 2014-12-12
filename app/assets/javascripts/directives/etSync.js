@@ -10,19 +10,23 @@
     function etSync($injector){
         return {
             restrict: 'A',
-            scope: {
-                ngModel: '=?',
-                $config: '=?etSync'
-            },
+            scope: true,
             link: etSyncLink
         };
 
         function etSyncLink(scope, element, attr){
-            element.on('focus', function () {
+            scope.$watch(attr.etSync, function (config) {
+                scope.$config = config;
+            }, true);
+            scope.$watch(attr.ngModel, function (ngModel) {
+                scope.ngModel = ngModel;
+            });
+            element.on('focusin', function () {
                 scope.model = scope.ngModel;
             });
-            element.on('blur', function () {
+            element.on('focusout', function () {
                 if (scope.model != scope.ngModel) {
+                    scope.model = scope.ngModel;
                     var service = $injector.get(scope.$config.$service);
                     service.update(scope.$config);
                 }

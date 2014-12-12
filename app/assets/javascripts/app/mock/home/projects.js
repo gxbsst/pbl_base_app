@@ -79,6 +79,20 @@
                 'explain':'@PARAGRAPH'
             }]
         })
+        .mock('/projects/:projectId/gauges', 'GET', {
+            'data|2-5':[{
+                'id':'@guid',
+                'gauge':['@skill', '@name', '@percent', '@title', '@title', '@title', '@title', '@title']
+            }]
+        })
+        .mock('/projects/:projectId/gauges', 'POST', {
+            'data': {'result':'success'}
+        })
+        .mock('/projects/:projectId/gauges/:gaugeId', 'PUT', {
+            'data': {'result':'success'}
+        })
+        .mock('/projects/:projectId/gauges/:gaugeId', 'DELETE', {
+            'data': {'result':'success'}
+        })
         ;
-
 })();

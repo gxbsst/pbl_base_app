@@ -5,7 +5,9 @@
         .module('app.directives')
         .directive('etTags', etTags);
 
-    function etTags() {
+    etTags.$inject = ['$timeout'];
+
+    function etTags($timeout) {
         return {
             restrict: 'A',
             replace: true,
@@ -16,56 +18,65 @@
             templateUrl: 'directives/et-tags.html',
             link: etTagsLink
         };
-    }
 
-    function etTagsLink(scope, element, attr) {
+        function etTagsLink(scope, element, attr) {
 
-        scope.$input = '';
-        scope.$tags = [];
-        scope.add = add;
-        scope.remove = remove;
-        scope.onKeypress = onKeypress;
-        scope.setFocus = setFocus;
+            var inputElement = element.find('.et-tag-input');
 
-        scope.$watch(function () {
-            return scope.ngModel;
-        }, function (tags) {
-            if(tags){
-                scope.$tags = tags.split(',');
-            }
-        });
-
-        function onKeypress($event) {
-            if ($event.which == 13) {
-                $event.preventDefault();
-                scope.add(scope.$input);
-            }
-        }
-
-        function setFocus() {
-            element.find('.et-tag-input').focus();
-        }
-
-        function add(tag) {
-            if(!exist(tag)){
-                scope.$tags.push(tag);
-                scope.ngModel = scope.$tags.join(',');
-            }
             scope.$input = '';
-        }
+            scope.$tags = [];
+            scope.add = add;
+            scope.remove = remove;
+            scope.onKeypress = onKeypress;
+            scope.setFocus = setFocus;
 
-        function remove(tag){
-            scope.$tags.remove(function (t) {
-                return t == tag;
+            scope.$watch(function () {
+                return scope.ngModel;
+            }, function (tags) {
+                if(tags){
+                    scope.$tags = tags.split(',');
+                }
             });
-        }
 
-        function exist(tag) {
-            return scope.$tags.has(function (t) {
-                return t == tag;
+            function onKeypress($event) {
+                if ($event.which == 13) {
+                    $event.preventDefault();
+                    scope.add(scope.$input);
+                }
+            }
+
+            inputElement.on('focusout', function () {
+                element.trigger('focusout');
             });
-        }
 
+            function setFocus() {
+                inputElement.focus();
+            }
+
+            function add(tag) {
+                tag = tag.trim();
+                if(tag && !exist(tag)){
+                    scope.$tags.push(tag);
+                    scope.ngModel = scope.$tags.join(',');
+                }
+                scope.$input = '';
+            }
+
+            function remove(tag,$event){
+                $event.stopPropagation();
+                scope.ngModel = scope.$tags.remove(function (t) {
+                    return t == tag;
+                }).join(',');
+                setFocus();
+            }
+
+            function exist(tag) {
+                return scope.$tags.has(function (t) {
+                    return t == tag;
+                });
+            }
+
+        }
     }
 
 })();

@@ -1,5 +1,5 @@
 <div class="et-tags form-control" ng-click="setFocus()">
     <input type="hidden" ng-model="ngModel"/>
-    <div ng-repeat="tag in $tags" class="et-tags-item">{{ tag }}<i class="pf-cross" ng-click="remove(tag)"></i></div>
+    <div ng-repeat="tag in $tags" class="et-tags-item">{{ tag }}<i class="pf-cross" ng-click="remove(tag,$event)"></i></div>
     <input type="text" class="et-tag-input" ng-model="$input" ng-keypress="onKeypress($event)" placeholder="{{placeholder}}"/>
 </div>
