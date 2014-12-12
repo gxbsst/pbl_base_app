@@ -11,7 +11,8 @@
                 remove: {method: 'DELETE'}
             },
             PATHS: {
-                image: 'http://img.edutec.com/'
+                image: 'http://img.edutec.com',
+                'static': 'http://static.edutec.com'
             },
             TOOLBARS: [
                 {
