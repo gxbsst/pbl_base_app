@@ -46,7 +46,8 @@
             })
             .state('base.home.projects.create.scaffold', {
                 url: '/scaffold',
-                templateUrl: 'home/projects/create/steps/scaffold.html'
+                templateUrl: 'home/projects/create/steps/scaffold.html',
+                controller:'HomeProjectCreateScaffoldController as vm'
             })
             .state('base.home.projects.create.release', {
                 url: '/release',

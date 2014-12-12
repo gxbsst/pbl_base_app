@@ -10,6 +10,7 @@
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
         .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController)
+        .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController)
     ;
 
 
@@ -191,6 +192,30 @@
     function HomeProjectCreateInfoController($state, Projects, project) {
         var vm = this;
         vm.project = project;
+    }
+
+    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project'];
+
+    function HomeProjectCreateScaffoldController($state, Projects, project) {
+        var vm = this;
+
+        project.knowledges = project.knowledges || [];
+        vm.project = project;
+        vm.tempKnowledge='';
+        vm.addKnowledge=addKnowledge;
+        vm.removeKnowledge=removeKnowledge;
+
+        console.log(vm.project.tasks);
+
+        function addKnowledge(){
+            vm.project.knowledges.push(vm.tempKnowledge);
+        }
+        function removeKnowledge(knowledge){
+            var result = vm.project.knowledges.remove(function(item){
+                return item == knowledge;
+            });
+            console.log(result);
+        }
     }
 
 })();
