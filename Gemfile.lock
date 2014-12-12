@@ -1,9 +1,9 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
-  revision: 4107ac919dcf41d57008e81cbf3029e6be04b867
+  revision: eaeb5daf2801342c13ea1c64a4431312c1f9bcb6
   branch: master
   specs:
-    pbl_service_client (0.0.2)
+    pbl_service_client (0.0.3)
       activemodel
       addressable
       typhoeus
