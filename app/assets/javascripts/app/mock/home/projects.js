@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     Mock
-        //
+
         ////查询PBL列表
         //.mock('/projects', {
         //    'data|1-20':[{
@@ -67,6 +67,53 @@
         //        }],
         //        'gauges':{
         //
+        //        },
+        //        'knowledge':[],
+        //        'task':{
+        //            'description':'@PARAGRAPH',
+        //            'site': '@TITLE',
+        //            'teacher_tools': '@TITLE',
+        //            'student_tools': '@TITLE',
+        //            'types':'@ID',
+        //            'test':{
+        //                'discipline':{
+        //                    'id': '@GUID',
+        //                    'title': '@TITLE'
+        //                }
+        //            },
+        //            'evaluation':{
+        //                'duration':{
+        //                    'time_span': '@integer',
+        //                    'cycle': {
+        //                        'id': '@GUID',
+        //                        'title': '@TITLE'
+        //                    }
+        //                },
+        //                'results':{
+        //                    'id':'@GUID',
+        //                    'worksform':{
+        //                        'id':'@GUID',
+        //                        'title': '@TITLE'
+        //                    },
+        //                    'description': '@PARAGRAPH',
+        //                    'example': ['@GUID']
+        //                },
+        //                'gauge':{}
+        //            },
+        //            'event':{
+        //                'duration':{
+        //                    'time_span': '@integer',
+        //                    'cycle': {
+        //                        'id': '@GUID',
+        //                        'title': '@TITLE'
+        //                    }
+        //                }
+        //            },
+        //            'resource|1-3':[{
+        //                'id': '@GUID',
+        //                'title': '@TITLE',
+        //                'type':'@TITLE'
+        //            }]
         //        }
         //    }
         //})

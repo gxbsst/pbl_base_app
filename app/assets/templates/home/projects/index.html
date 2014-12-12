@@ -1,6 +1,7 @@
-<h3>PBL项目列表</h3><span ui-sref="base.home.projects.create.design" ng-bind="'create'|i18n" class="btn btn-sm btn-blue"></span>
+<h3>PBL项目列表</h3>
+<span ui-sref="base.home.projects.create.design" ng-bind="'create'|i18n" class="btn btn-sm btn-blue"></span>
 <ul>
-        <li ng-repeat="pbl in vm.projects"><a ui-sref="base.home.projects.create.design({pblId:pbl.id})" ui-sref-active="active">title:<span ng-bind="pbl.title"></span></a></li>
-
+    <li ng-repeat="project in vm.projects.data">
+        <a ui-sref="base.home.projects.create.design({projectId:project.id})" ui-sref-active="active" ng-bind="project.title || '未命名项目'"></a>
+    </li>
 </ul>
-
