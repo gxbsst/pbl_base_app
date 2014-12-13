@@ -1,6 +1,1 @@
-json.data do
-  json.array! @projects do |project|
-    json.id project.id
-    json.title project.name
-  end
-end
+json.extract! @projects, :data, :meta if @projects

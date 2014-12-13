@@ -1,8 +1,8 @@
 module Curriculum
-  class PhasesController < ApplicationController
+  class PhasesController < ApplicationBaseController
 
     def show
-      @phase = Curriculum::Phase.look_for(params[:id], include: 'standards')
+      @phase = Curriculum::Phase.find(params[:id], include_param)
     end
 
   end

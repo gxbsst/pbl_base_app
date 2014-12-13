@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Pbl::Project.all
+    @projects = Pbl::Project.all(project_query_params)
   end
 
   def create
@@ -22,5 +22,11 @@ class ProjectsController < ApplicationController
     @project =  Pbl::Project.destroy(params[:id])
     render :show
   end
+
+  private
+
+    def project_query_params
+      params.permit(:name)
+    end
 
 end

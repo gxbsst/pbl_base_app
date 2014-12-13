@@ -1,0 +1,1 @@
+json.extract! @standard_decompositions, :data, :meta if @standard_decompositions

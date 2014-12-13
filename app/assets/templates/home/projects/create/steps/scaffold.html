@@ -1,8 +1,127 @@
-脚手架
 <div class="project-create-scaffold">
     <form class="form-horizontal">
         <div class="form-group">
-            创建：
+            <label class="control-label">项目名称：<span ng-bind="vm.project.project_name"></span></label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">请填写本项目中学生应该掌握的知识：</label>
+            <div class="col-1-1">
+                <div class="col-8-12">
+                    <input type="text" id="project[tempKnowledge]" ng-model="vm.tempKnowledge" class="form-control"/>
+
+                </div>
+                <div class="col-4-12">
+
+                    <span class="btn btn-gray btn-sm" role="button" ng-click="vm.addKnowledge()" ><i class="pf-plus"></i> 新增知识点</span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="knowledge in vm.project.knowledges track by $index"><span ng-bind="knowledge"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeKnowledge(knowledge)"></i></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label">任务列表： <span class="btn btn-gray btn-sm" role="button" ng-click="vm.addTask()" ><i class="pf-plus"></i> 增加任务</span></label>
+            <div class="col-1-1">
+                <div class="" ng-repeat="task in vm.project.tasks track by $index"><span class="control-label" ng-bind="'任务'+($index+1)"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeTask(task)"></i>
+                    <div class="col-1-1">
+                        <label>任务描述：</label>
+                        <div class="col-1-1">
+                            <textarea  cols="30" rows="5" ng-model="task.description" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>场地：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.site" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>教具：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.teacher_tools" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>学生自备工具：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.student_tools" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>任务类型：</label>
+                        <div class="col-1-1">
+                            <span class="btn btn-gray" role="button">测量</span>
+                            <span class="btn  btn-blue margin-left-8 margin-right-8" role="button">评价类任务</span>
+                            <span class="btn btn-gray" role="button">事件</span>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>测试：</label>
+                        <div class="col-1-1">
+                            <label class=" col-1-8">学科：</label>
+                            <div class="col-7-8">
+                                <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.test.discipline" ng-options="discipline.title for discipline in vm.disciplines">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>评价类任务：</label>
+                        <div class="col-1-1 margin-bottom-8">
+                            <label class=" col-1-8">任务时长：</label>
+                            <div class="col-7-8">
+                                <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.evaluation.duration.time_span" class="form-control"/>
+                                <select style="width: 70px; height: 30px;" ng-model="task.evaluation.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1-1">
+                            <label class=" col-1-8">对应成果：</label>
+                            <div class="col-7-8">
+                                <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()"  ng-model="task.evaluation.results" ng-options="stage.title for stage in vm.project.stage_products">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1-1" >
+                            <div class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
+                                <label class="control-label" ng-bind="task.evaluation.results.title"></label>
+                                <div class="col-1-1">
+                                    <span ng-bind="task.evaluation.results.worksform.title" ng-hide="stage.worksform==null"></span>
+                                </div>
+                                <div class="col-1-1"  ng-bind="task.evaluation.results.description">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1-1">
+                        <label>对应量规：</label>
+                        <div class="offset-1-12 col-11-12">
+                            <span class="btn btn-gray" role="button">选择量规</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>事件：</label>
+                        <div class="col-1-1">
+                            <label class=" col-1-8">任务时长：</label>
+                            <div class="col-7-8">
+                                <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.event.duration.time_span" class="form-control"/>
+                                <select style="width: 70px; height: 30px;" ng-model="task.event.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>任务资源：</label>
+                        <div class="offset-1-12 col-11-12">
+                            <span class="btn btn-gray" role="button">上传文件</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="form-group col-1-1" >

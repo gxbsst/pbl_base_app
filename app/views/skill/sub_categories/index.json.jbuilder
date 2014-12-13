@@ -1,3 +1,1 @@
-json.data do
-  json.array! @sub_categories
-end
+json.extract! @sub_categories, :data, :meta if @sub_categories

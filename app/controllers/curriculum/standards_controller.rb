@@ -1,8 +1,8 @@
 module Curriculum
-  class StandardsController < ApplicationController
+  class StandardsController < ApplicationBaseController
 
     def show
-      @standard = Pbl::Models::Curriculum::Standard.look_for(params[:id], include: 'items')
+      @standard = Curriculum::Standard.find(params[:id], include_param)
     end
 
   end
