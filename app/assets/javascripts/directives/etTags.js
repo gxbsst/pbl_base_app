@@ -21,21 +21,28 @@
 
         function etTagsLink(scope, element, attr) {
 
-            var inputElement = element.find('.et-tag-input');
+            var vm = this,
+                onAdd = scope.$parent.$eval(attr.onAdd) || angular.noop,
+                onRemove = scope.$parent.$eval(attr.onRemove) || angular.noop,
+                onChange = scope.$parent.$eval(attr.onChange) || angular.noop;
 
             scope.$input = '';
             scope.$tags = [];
             scope.add = add;
             scope.remove = remove;
+            scope.onChange = onChange;
             scope.onKeypress = onKeypress;
-            scope.setFocus = setFocus;
 
             scope.$watch(function () {
                 return scope.ngModel;
             }, function (tags) {
-                if(tags){
+                if (tags) {
                     scope.$tags = tags.split(',');
                 }
+            });
+
+            element.on('click', function () {
+                element.find('.et-tag-input').focus();
             });
 
             function onKeypress($event) {
@@ -45,29 +52,24 @@
                 }
             }
 
-            inputElement.on('focusout', function () {
-                element.trigger('focusout');
-            });
-
-            function setFocus() {
-                inputElement.focus();
-            }
-
             function add(tag) {
                 tag = tag.trim();
-                if(tag && !exist(tag)){
+                if (tag && !exist(tag)) {
                     scope.$tags.push(tag);
                     scope.ngModel = scope.$tags.join(',');
+                    onAdd.call(vm, tag, scope.ngModel);
+                    onChange.call(vm, tag, scope.ngModel);
                 }
                 scope.$input = '';
             }
 
-            function remove(tag,$event){
+            function remove(tag, $event) {
                 $event.stopPropagation();
                 scope.ngModel = scope.$tags.remove(function (t) {
                     return t == tag;
                 }).join(',');
-                setFocus();
+                onRemove.call(vm, tag, scope.ngModel);
+                onChange.call(vm, tag, scope.ngModel);
             }
 
             function exist(tag) {

@@ -1,9 +1,9 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
-  revision: eaeb5daf2801342c13ea1c64a4431312c1f9bcb6
+  revision: 19703dccfcf59c370dfcbe0bd6865db69d7ef2e1
   branch: master
   specs:
-    pbl_service_client (0.0.3)
+    pbl_service_client (0.0.4)
       activemodel
       addressable
       typhoeus
@@ -116,7 +116,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (1.25.1)
-    minitest (5.4.3)
+    minitest (5.5.0)
     multi_json (1.10.1)
     netrc (0.10.0)
     orm_adapter (0.5.0)
@@ -148,8 +148,6 @@ GEM
       rails-assets-angular (= 1.2.27)
     rails-assets-angular-ui-router (0.2.13)
       rails-assets-angular (>= 1.0.8)
-    rails-assets-angular-ui-select (0.9.4)
-      rails-assets-angular (>= 1.2.18)
     rails-assets-angular-validation (1.2.6)
     rails-assets-css3-mediaqueries-js (1.0.0)
     rails-assets-es5-shim (4.0.5)
@@ -258,7 +256,6 @@ DEPENDENCIES
   rails-assets-angular-route (~> 1.2.0)
   rails-assets-angular-sanitize (~> 1.2.0)
   rails-assets-angular-ui-router (~> 0.2.12)
-  rails-assets-angular-ui-select (~> 0.9.4)
   rails-assets-angular-validation (~> 1.2.0)
   rails-assets-css3-mediaqueries-js
   rails-assets-es5-shim
