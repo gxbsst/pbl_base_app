@@ -71,11 +71,12 @@
                 },
                 'knowledges|3-5':['@TITLE'],
                 'tasks|2-2':[{
+                    'id':'@GUID',
                     'description':'@PARAGRAPH',
                     'site': '@TITLE',
                     'teacher_tools': '@TITLE',
                     'student_tools': '@TITLE',
-                    'types':'@ID',
+                    'tasktype':'@NATURAL(1, 3)',
                     'test':{
                         'discipline':{
                             'id': '@GUID',
@@ -84,7 +85,7 @@
                     },
                     'evaluation':{
                         'duration':{
-                            'time_span': '@integer',
+                            'time_span': '@NATURAL(1, 24)',
                             'cycle': {
                                 'id': '@GUID',
                                 'title': '@TITLE'
@@ -111,10 +112,10 @@
                             }
                         }
                     },
-                    'resource|1-3':[{
+                    'resources|1-3':[{
                         'id': '@GUID',
                         'title': '@TITLE',
-                        'type':'@TITLE'
+                        'ext':'@TITLE'
                     }]
                 }]
             }
