@@ -54,7 +54,11 @@
                         'title': '@TITLE'
                     },
                     'description': '@PARAGRAPH',
-                    'example': '@GUID'
+                    'example': [{
+                        'id': '@GUID',
+                        'title': '@TITLE',
+                        'ext':'@TITLE'
+                    }]
                 },
                 'stage_products|1-10':[{
                     'id':'@GUID',
@@ -64,7 +68,11 @@
                         'title': '@TITLE'
                     },
                     'description': '@PARAGRAPH',
-                    'example': ['@GUID']
+                    'example': [{
+                        'id': '@GUID',
+                        'title': '@TITLE',
+                        'ext':'@TITLE'
+                    }]
                 }],
                 'gauges':{
 
