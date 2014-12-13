@@ -6,7 +6,6 @@
         'app.tabs',
         'app.modal',
         'app.scrollbar',
-        'app.selector',
         'validation'
     ]);
 
