@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :home, only: %w(index)
   resources :projects, defaults: {format: 'json'}
+  resources :products, defaults: {format: 'json'}
+  resources :standard_decompositions, defaults: {format: 'json'}
 
   resources :qiniu_tokens, format: :json, only: %w(create)
   resources :qiniu_stat, format: :json, only: %w(index)

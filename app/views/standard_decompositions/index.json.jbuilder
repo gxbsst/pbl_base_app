@@ -1,3 +1,1 @@
-json.data do
-  json.array! @standard_decompositions
-end
+json.extract! @standard_decompositions, :data, :meta if @standard_decompositions

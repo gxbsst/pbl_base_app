@@ -1,3 +1,1 @@
-json.data do
-  json.array! @standards
-end
+json.extract! @standards, :data, :meta if @standards

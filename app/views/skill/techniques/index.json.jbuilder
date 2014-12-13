@@ -1,3 +1,1 @@
-json.data do
-  json.array! @technique
-end
+json.extract! @techniques, :data, :meta if @techniques

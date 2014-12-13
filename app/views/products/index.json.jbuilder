@@ -1,3 +1,1 @@
-json.data do
-  json.array! @products
-end
+json.extract! @products, :data, :meta if @products

@@ -20,11 +20,7 @@
     <div class="form-group">
         <label class="control-label">选择标签：</label>
         <div class="form-group">
-            <input type="text" ng-model="vm.project.tags" placeholder="请选择标签" et-sync="{projectId:vm.project.id,project:{tags:vm.project.tags},$service:'Projects'}" et-tags/>
-        </div>
-        <div tagging-label="(custom 'new' label)" ng-model="multipleDemo.colors" theme="bootstrap" ng-disabled="disabled" multiple tagging ui-select>
-            <div placeholder="请填写标签..." ui-select-match>{{$item}}</div>
-            <div repeat="color in availableColors | filter:$select.search" ui-select-choices>{{color}}</div>
+            <input type="text" ng-model="vm.project.tags" placeholder="请选择标签" on-change="onChange()" et-tags/>
         </div>
     </div>
     <div class="hr"></div>

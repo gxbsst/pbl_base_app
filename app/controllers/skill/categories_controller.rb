@@ -1,4 +1,4 @@
-class Skill::CategoriesController < ApplicationController
+class Skill::CategoriesController < ApplicationBaseController
 
   def index
     @categories = Skills::Category.all
@@ -10,11 +10,7 @@ class Skill::CategoriesController < ApplicationController
   end
 
   def show
-    if params[:include]
-      @category = Skills::Category.find(params[:id], include: params[:include])
-    else
-      @category = Skills::Category.find(params[:id])
-    end
+    @category = Skills::Category.find(params[:id], include_param)
   end
 
   def update
