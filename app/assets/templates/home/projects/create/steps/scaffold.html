@@ -59,7 +59,7 @@
                             <span class="btn " ng-class="{'btn-blue':task.tasktype==3,'btn-gray':task.tasktype!=3}"  role="button" ng-click="vm.chooseType(task,3)">事件</span>
                         </div>
                     </div>
-                    <div class="col-1-1" ng-if="task.tasktype==1">
+                    <div class="col-1-1" ng-show="task.tasktype==1">
                         <div class="col-1-1">
                             <label class=" col-1-8">学科：</label>
                             <div class="col-7-8">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-1-1" ng-if="task.tasktype==2">
+                    <div class="col-1-1" ng-show="task.tasktype==2">
                         <div class="col-1-1 margin-bottom-8">
                             <label class=" col-1-8">任务时长：</label>
                             <div class="col-7-8">
@@ -82,6 +82,7 @@
                             <div class="col-7-8">
                                 <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()"  ng-model="task.evaluation.results" ng-options="stage.title for stage in vm.project.stage_products">
                                 </select>
+                                展示视频
                             </div>
                         </div>
                         <div class="col-1-1" >
@@ -101,7 +102,7 @@
                         </div>
                     </div>
                     </div>
-                    <div class="col-1-1" ng-if="task.tasktype==3">
+                    <div class="col-1-1" ng-show="task.tasktype==3">
                         <div class="col-1-1">
                             <label class=" col-1-8">任务时长：</label>
                             <div class="col-7-8">
@@ -119,7 +120,7 @@
                         <div class="offset-1-12 col-11-12">
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="resource in task.resources">
-                                    <span ng-bind="resource.title"></span><span ng-if="resource.state==false">正在上传</span><span ng-if="resource.state==true">上传成功</span>
+                                    <span ng-bind="resource.title"></span><span ng-show="resource.state==false">正在上传</span><span ng-show="resource.state==true">上传成功</span>
                                     <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(task,resource)"></i>
                                 </li>
                             </ul>
