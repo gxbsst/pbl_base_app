@@ -1,16 +1,12 @@
 module Curriculum
-  class SubjectsController < ApplicationController
+  class SubjectsController < ApplicationBaseController
 
     def index
       @subjects = Curriculum::Subject.all
     end
 
     def show
-      if params[:include]
-        @subject = Curriculum::Subject.find(params[:id], include: params[:include])
-      else
-        @subject = Curriculum::Subject.find(params[:id])
-      end
+      @subject = Curriculum::Subject.find(params[:id], include_param)
     end
 
   end

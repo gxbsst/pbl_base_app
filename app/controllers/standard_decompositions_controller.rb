@@ -1,8 +1,4 @@
-class StandardDecompositionController < ApplicationController
-
-  def index
-    @standard_decompositions = Pbl::StandardDecomposition.where(params)
-  end
+class StandardDecompositionsController < ApplicationController
 
   def create
     @standard_decomposition = Pbl::StandardDecomposition.create(params[:standard_decomposition])

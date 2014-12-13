@@ -1,7 +1,7 @@
-class ProductController < ApplicationController
+class ProductsController < ApplicationController
 
   def index
-    @products = Pbl::Product.where(params)
+    @products = Pbl::Product.all(product_query_params)
   end
 
   def create
@@ -22,5 +22,11 @@ class ProductController < ApplicationController
     @product = Pbl::Product.destroy(params[:id])
     render :show
   end
+
+  private
+
+    def product_query_params
+      params.permit(:project_id)
+    end
 
 end

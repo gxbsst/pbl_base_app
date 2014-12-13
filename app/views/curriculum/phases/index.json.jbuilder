@@ -1,3 +1,1 @@
-json.data do
-  json.array! @phases
-end
+json.extract! @phases, :data, :meta if @phases

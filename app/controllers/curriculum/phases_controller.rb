@@ -1,12 +1,8 @@
 module Curriculum
-  class PhasesController < ApplicationController
+  class PhasesController < ApplicationBaseController
 
     def show
-      if params[:include]
-        @phase = Curriculum::Phase.find(params[:id], include: params[:include])
-      else
-        @phase = Curriculum::Phase.find(params[:id])
-      end
+      @phase = Curriculum::Phase.find(params[:id], include_param)
     end
 
   end
