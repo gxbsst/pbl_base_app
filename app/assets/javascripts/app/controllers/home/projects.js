@@ -194,9 +194,9 @@
         vm.project = project;
     }
 
-    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project'];
+    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles'];
 
-    function HomeProjectCreateScaffoldController($state, Projects, project) {
+    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
@@ -204,8 +204,21 @@
         vm.tempKnowledge='';
         vm.addKnowledge=addKnowledge;
         vm.removeKnowledge=removeKnowledge;
+        vm.disciplines=[];
+        Disciplines.all(function(data){
+            vm.disciplines=data.data;
+            //测试ng-model绑定
+            //vm.disciplines.push(vm.project.tasks[0].test.discipline);
+        });
+        vm.cycles=[];
+        vm.cycles=Cycles.all();
 
-        console.log(vm.project.tasks);
+        vm.selectchange=selectchange;
+
+
+        function selectchange(){
+            console.log(vm.project.tasks);
+        }
 
         function addKnowledge(){
             vm.project.knowledges.push(vm.tempKnowledge);

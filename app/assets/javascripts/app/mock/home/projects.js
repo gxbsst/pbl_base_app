@@ -58,6 +58,7 @@
                 },
                 'stage_products|1-10':[{
                     'id':'@GUID',
+                    'title': '@TITLE',
                     'worksform':{
                         'id':'@GUID',
                         'title': '@TITLE'
@@ -69,7 +70,7 @@
 
                 },
                 'knowledges|3-5':['@TITLE'],
-                'tasks|2':[{
+                'tasks|2-2':[{
                     'description':'@PARAGRAPH',
                     'site': '@TITLE',
                     'teacher_tools': '@TITLE',
@@ -91,6 +92,7 @@
                         },
                         'results':{
                             'id':'@GUID',
+                            'title': '@TITLE',
                             'worksform':{
                                 'id':'@GUID',
                                 'title': '@TITLE'
@@ -102,7 +104,7 @@
                     },
                     'event':{
                         'duration':{
-                            'time_span': '@integer',
+                            'time_span': '@NATURAL(1, 24)',
                             'cycle': {
                                 'id': '@GUID',
                                 'title': '@TITLE'
@@ -126,6 +128,15 @@
                 'explain':'@PARAGRAPH'
             }]
         })
+
+        //获取学科列表
+        .mock('/disciplines', {
+            'data|20':[{
+                'id':'@GUID',
+                'title':'@TITLE'
+            }]
+        })
+
         .mock('/projects/:projectId/gauges', 'GET', {
             'data|2-5':[{
                 'id':'@guid',
