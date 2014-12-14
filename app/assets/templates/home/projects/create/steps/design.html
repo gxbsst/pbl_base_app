@@ -8,7 +8,7 @@
     <div class="form-group">
         <label class="control-label">请选择1-3条课程标准：</label>
         <input type="hidden" ng-model="vm.project.standards"/>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='StandardsController as vm';src='home/projects/create/standards.html'"><i class="pf-plus"></i> 选择课标</span>
+        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='CurriculumController as vm';src='home/projects/create/curriculum.html'"><i class="pf-plus"></i> 选择课标</span>
         <div class="col-1-1">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
@@ -18,7 +18,7 @@
     <div class="form-group">
         <label class="control-label">请选择本项目中学生需要使用的技能：</label>
         <input type="hidden" ng-model="vm.project.skills"/>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/create/skills.html'"><i class="pf-plus"></i> 选择技能</span>
+        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择技能';padding=0;controller='SkillController as vm';src='home/projects/create/skill.html'"><i class="pf-plus"></i> 选择技能</span>
         <div class="col-1-1">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>

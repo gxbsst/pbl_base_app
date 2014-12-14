@@ -1,0 +1,29 @@
+<div class="selector">
+    <dl class="table">
+        <dt class="col-1-5">技能种类</dt>
+        <dt class="col-1-5">分类</dt>
+        <dt class="col-3-5">技能</dt>
+        <dd class="col-1-5">
+            <ul class="categories">
+                <li ng-repeat="entry in vm.categories.data" ng-class="{active:entry.id==vm.category.data.id}" ng-bind="entry.name" ng-click="vm.getCategory(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-1-5">
+            <i class="remark" ng-if="!vm.category.data.sub_categories.length">请选择学科</i>
+            <ul class="categories">
+                <li ng-repeat="entry in vm.category.data.sub_categories" ng-class="{active:entry.id==vm.phase.data.id}" ng-bind="entry.name" ng-click="vm.getSubCategory(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-3-5">
+            <div class="selector-entries scrollbar-macosx" et-scrollbar>
+                <i class="remark" ng-if="!vm.sub_category.data.techniques.length">请选择年级</i>
+                <div ng-repeat="entry in vm.sub_category.data.techniques">
+                    <label class="row selector-entry" ng-bind="entry.title"></label>
+                    <div class="selector-entry-children">
+                        <label ng-repeat="item in entry.items" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.title"></span></label>
+                    </div>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>

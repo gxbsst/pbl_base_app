@@ -18,16 +18,12 @@
             <div class="selector-entries scrollbar-macosx" et-scrollbar>
                 <i class="remark" ng-if="!vm.phase.data.standards.length">请选择年级</i>
                 <div ng-repeat="entry in vm.phase.data.standards">
-                    <label class="row selector-entry"><!--<input type="checkbox" ng-model="entry.selected" ng-change="vm.parentChange(entry)" ng-checked="vm.isSelected(entry)"/>--><span ng-bind="entry.title"></span></label>
+                    <label class="row selector-entry" ng-bind="entry.title"></label>
                     <div class="selector-entry-children">
-                        <label ng-repeat="child in entry.items" ng-init="child.selected=vm.isSelected(child)" class="row"><input type="checkbox" ng-model="child.selected" ng-change="vm.childChange(child,entry)"/> <span ng-bind="child.title"></span></label>
+                        <label ng-repeat="item in entry.items" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.title"></span></label>
                     </div>
                 </div>
             </div>
-            <!--<div class="selector-footer">
-                <button class="btn btn-blue" ng-click="vm.setStandards()" role="button">导入选中课标</button>
-                <button class="btn btn-gray" ng-click="destroyModal()" role="button">取消</button>
-            </div>-->
         </dd>
     </dl>
 </div>
