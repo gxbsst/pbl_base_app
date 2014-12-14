@@ -27,4 +27,6 @@ Rails.application.routes.draw do
     resources :phases, defaults: {format: 'json'}
     resources :standards, defaults: {format: 'json'}
   end
+
+  resources :gauges, defaults: {format: 'json'}
 end

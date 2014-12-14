@@ -233,41 +233,50 @@
         vm.project = project;
     }
 
-    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project', 'Disciplines', 'Cycles'];
+    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles'];
 
-    function HomeProjectCreateScaffoldController($state, Projects, project, Disciplines, Cycles) {
+    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
+        project.tasks=project.tasks || [];
         vm.project = project;
-        vm.tempKnowledge = '';
-        vm.addKnowledge = addKnowledge;
-        vm.removeKnowledge = removeKnowledge;
-        vm.disciplines = [];
-        Disciplines.all(function (data) {
-            vm.disciplines = data.data;
+        vm.tempKnowledge='';
+        vm.addKnowledge=addKnowledge;
+        vm.removeKnowledge=removeKnowledge;
+        vm.disciplines=[];
+        Disciplines.all(function(data){
+            vm.disciplines=data.data;
             //测试ng-model绑定
             //vm.disciplines.push(vm.project.tasks[0].test.discipline);
         });
-        vm.cycles = [];
-        vm.cycles = Cycles.all();
+        vm.cycles=[];
+        vm.cycles=Cycles.all();
 
-        vm.selectchange = selectchange;
+        vm.selectchange=selectchange;
 
 
-        function selectchange() {
+        function selectchange(){
             console.log(vm.project.tasks);
         }
 
-        function addKnowledge() {
+        function addKnowledge(){
             vm.project.knowledges.push(vm.tempKnowledge);
         }
-
-        function removeKnowledge(knowledge) {
-            var result = vm.project.knowledges.remove(function (item) {
+        function removeKnowledge(knowledge){
+            var result = vm.project.knowledges.remove(function(item){
                 return item == knowledge;
             });
-            console.log(result);
+        }
+        function removeResource(task,resource){
+            task.resources.remove(function(item){
+                return item == resource;
+            });
+        }
+
+        function addTask(){
+            vm.project.tasks.splice(vm.project.tasks.length, 0, {resources:[]});
+            console.log(vm.project.tasks);
         }
     }
 
