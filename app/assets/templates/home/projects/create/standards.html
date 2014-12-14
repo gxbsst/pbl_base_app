@@ -5,22 +5,22 @@
         <dt class="col-3-5">课程标准</dt>
         <dd class="col-1-5">
             <ul class="categories">
-                <li ng-repeat="entry in vm.subjects.data" ng-class="{active:entry.id==vm.subject.id}" ng-bind="entry.title" ng-click="vm.setSubject(entry)"></li>
+                <li ng-repeat="entry in vm.subjects.data" ng-class="{active:entry.id==vm.subject.data.id}" ng-bind="entry.name" ng-click="vm.getSubject(entry)"></li>
             </ul>
         </dd>
         <dd class="col-1-5">
-            <i class="remark" ng-if="!vm.grades.data.length">请选择学科</i>
+            <i class="remark" ng-if="!vm.subject.data.phases.length">请选择学科</i>
             <ul class="categories">
-                <li ng-repeat="entry in vm.grades.data" ng-class="{active:entry.id==vm.grade.id}" ng-bind="entry.title" ng-click="vm.setGrade(entry)"></li>
+                <li ng-repeat="entry in vm.subject.data.phases" ng-class="{active:entry.id==vm.phase.data.id}" ng-bind="entry.name" ng-click="vm.getPhase(entry)"></li>
             </ul>
         </dd>
         <dd class="col-3-5">
             <div class="selector-entries scrollbar-macosx" et-scrollbar>
-                <i class="remark" ng-if="!vm.standards.data.length">请选择年级</i>
-                <div ng-repeat="entry in vm.standards.data">
+                <i class="remark" ng-if="!vm.phase.data.standards.length">请选择年级</i>
+                <div ng-repeat="entry in vm.phase.data.standards">
                     <label class="row selector-entry"><!--<input type="checkbox" ng-model="entry.selected" ng-change="vm.parentChange(entry)" ng-checked="vm.isSelected(entry)"/>--><span ng-bind="entry.title"></span></label>
                     <div class="selector-entry-children">
-                        <label ng-repeat="child in entry.children" ng-init="child.selected=vm.isSelected(child)" class="row"><input type="checkbox" ng-model="child.selected" ng-change="vm.childChange(child,entry)"/> <span ng-bind="child.title"></span></label>
+                        <label ng-repeat="child in entry.items" ng-init="child.selected=vm.isSelected(child)" class="row"><input type="checkbox" ng-model="child.selected" ng-change="vm.childChange(child,entry)"/> <span ng-bind="child.title"></span></label>
                     </div>
                 </div>
             </div>

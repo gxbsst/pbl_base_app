@@ -4,9 +4,13 @@
   @include box-sizing(border-box);
 }
 
-dl,dt,dd{
+dl, dt, dd{
   margin:0;
   padding:0;
+}
+
+textarea{
+  resize:none;
 }
 
 .container,

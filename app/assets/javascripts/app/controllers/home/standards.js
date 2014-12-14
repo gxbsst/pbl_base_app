@@ -5,16 +5,16 @@
         .module('app.pbl')
         .controller('StandardsController', StandardsController);
 
-    StandardsController.$inject = ['$scope', '$stateParams', 'Standards', 'ProjectStandards'];
+    StandardsController.$inject = ['$scope', '$stateParams', 'Curriculum', 'Standards', 'ProjectStandards'];
 
-    function StandardsController($scope, $stateParams, Standards, ProjectStandards) {
+    function StandardsController($scope, $stateParams, Curriculum, Standards, ProjectStandards) {
 
         var vm = this;
         vm.selected = [];
-        vm.subjects = Standards.all();
+        vm.subjects = Curriculum.all({action: 'subjects'});
         vm.isSelected = isSelected;
-        vm.setSubject = setSubject;
-        vm.setGrade = setGrade;
+        vm.getSubject = getSubject;
+        vm.getPhase = getPhase;
         vm.parentChange = parentChange;
         vm.childChange = childChange;
         vm.setStandards = setStandards;
@@ -26,14 +26,12 @@
                 vm.selected = result.data;
             });
 
-        function setSubject(subject) {
-            vm.subject = subject;
-            vm.grades = Standards.all({subjectId: subject.id});
+        function getSubject(subject) {
+            vm.subject = Curriculum.all({action: 'subjects', id: subject.id, include: 'phases'});
         }
 
-        function setGrade(grade) {
-            vm.grade = grade;
-            vm.standards = Standards.all({action: 'grades', gradeId: grade.id});
+        function getPhase(phase) {
+            vm.phase = Curriculum.all({action: 'phases', id: phase.id, include: 'standards'});
         }
 
         function parentChange(entry) {

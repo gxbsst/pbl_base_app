@@ -57,6 +57,7 @@ table.table{
   color:#454545;
   border-collapse:collapse;
   border-spacing:0;
+  width:100%;
   @include table-style;
   border-width:1px 1px 0 0;
   & > thead > tr > th, & > tbody > tr > td{

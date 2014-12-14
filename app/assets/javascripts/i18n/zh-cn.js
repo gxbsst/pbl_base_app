@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -14,12 +14,18 @@
                 name: '桥 ● 全球教育共同体'
             },
 
-            DIRECTIVE:{
+            DIRECTIVE: {
                 Collapse: '收起',
                 Expand: '展开'
             },
 
-            VALIDATION:{
+            GAUGE_HEAD: [
+                ['不及格', '及格', '一般', '良好', '优秀'],
+                ['A', 'B', 'C', 'D', 'E'],
+                ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★']
+            ],
+
+            VALIDATION: {
                 required: {
                     error: '此处不能为空！',
                     success: '已填写'

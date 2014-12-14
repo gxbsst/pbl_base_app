@@ -41,9 +41,11 @@
                 }
             });
 
-            element.on('click', function () {
+            element.on('click', setFocus);
+
+            function setFocus(){
                 element.find('.et-tag-input').focus();
-            });
+            }
 
             function onKeypress($event) {
                 if ($event.which == 13) {
@@ -57,6 +59,7 @@
                 if (tag && !exist(tag)) {
                     scope.$tags.push(tag);
                     scope.ngModel = scope.$tags.join(',');
+                    setFocus();
                     onAdd.call(vm, tag, scope.ngModel);
                     onChange.call(vm, tag, scope.ngModel);
                 }
@@ -68,6 +71,7 @@
                 scope.ngModel = scope.$tags.remove(function (t) {
                     return t == tag;
                 }).join(',');
+                setFocus();
                 onRemove.call(vm, tag, scope.ngModel);
                 onChange.call(vm, tag, scope.ngModel);
             }

@@ -1,47 +1,40 @@
-<div class="form-horizontal">
+<div class="form-horizontal gauges">
     <div class="form-group">
-        <div class="control-label">项目量规：</div>
         <table class="table">
             <thead>
             <tr>
-                <th ng-repeat="th in vm.columns" ng-click="th.disabled=!th.disabled" ng-class="{disabled:th.disabled}">{{ th.name }}</th>
+                <th>对应技能</th>
+                <th>量规标准</th>
+                <th width="60">权重</th>
+                <th ng-repeat="column in vm.project.gaugeHead" ng-bind="$index|gauge:vm.project.gaugeType" ng-click="vm.setDisabled(!column.disabled, $index)" ng-class="{disabled:column.disabled}"></th>
+                <th class="gauge-btn" et-modal="title='选择量规标头';project=vm.project;controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="entry in vm.gauges.data">
-                <td ng-repeat="gauge in entry.gauge track by $index" ng-bind="gauge" ng-class="{disabled:vm.columns[$index].disabled}"></td>
+            <tr ng-repeat="gauge in vm.gauges.data" class="gauge-item">
+                <td et-gauge>
+                    <textarea ng-model="gauge.technique.title" spellcheck="false"></textarea>
+                </td>
+                <td et-gauge>
+                    <textarea ng-model="gauge.standard" spellcheck="false"></textarea>
+                </td>
+                <td et-gauge>
+                    <textarea class="center" ng-model="gauge.weight" spellcheck="false"></textarea>
+                </td>
+                <td ng-repeat="level in [1,2,3,4,5]" ng-class="{disabled:vm.project.gaugeHead[$index].disabled}" et-gauge>
+                    <textarea ng-model="gauge['level_'+level]" spellcheck="false" ng-readonly="vm.project.gaugeHead[$index].disabled"></textarea>
+                </td>
+                <td class="gauge-btn" ng-click="vm.removeRow(gauge)"><i class="pf-trash-o"></i></td>
+            </tr>
+            <tr>
+                <td colspan="9" class="gauge-add-btn center"><div><i class="pf-plus"></i> 添加一条新的量规</div></td>
             </tr>
             </tbody>
         </table>
-    </div>
-</div>
-<form class="form-horizontal">
-    <div class="form-group">
-        课标分解：（根据课标对于学生的要求，分解出要做的事情：动词+名词）
-        <table class="table table-bordered col-1-1 margin-bottom-8">
-            <tr>
-                <td class="text-center">动词</td>
-                <td class="text-center">名词</td>
-                <td class="text-center">现实世界中的角色</td>
-                <td class="text-center">现实世界的产品</td>
-            </tr>
-            <tr ng-repeat="decomposition in vm.project.standard_decompositions">
-                <td><input type="text" ng-model="decomposition.verb" class="form-control ng-pristine ng-valid"/></td>
-                <td><input type="text" ng-model="decomposition.noun" class="form-control ng-pristine ng-valid"/></td>
-                <td><input type="text" ng-model="decomposition.role" class="form-control ng-pristine ng-valid"/></td>
-                <td><input type="text" ng-model="decomposition.products" class="form-control ng-pristine ng-valid"/></td>
-            </tr>
-            <tr>
-                <td colspan="4" class="text-center">
-                    <span class="btn btn-gray btn-sm control-label" role="button" ng-click="vm.addObjArray(vm.project.standard_decompositions)"><i class="pf-plus"></i>继续添加</span>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-    <div class="form-group col-1-1" >
+        <span class="btn btn-gray margin-top-12">从量规库中导入</span>
+        <div class="hr"></div>
         <div class="col-1-1 text-right">
             <span class="btn btn-blue" role="button" ng-click="next('info')">下一步</span>
         </div>
     </div>
-</form>
+</div>

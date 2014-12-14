@@ -9,6 +9,7 @@
         .controller('HomeProjectCreateController', HomeProjectCreateController)
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController)
         .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
+        .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController)
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController)
     ;
@@ -165,10 +166,22 @@
 
         var vm = this;
         vm.project = project;
-        vm.columns = [{name: '对应技能'}, {name: '量规标准'}, {name: '权重'}, {name: '不及格'}, {name: '及格'}, {name: '一般'}, {name: '良好'}, {name: '优秀'}];
-        vm.gauges = ProjectGauges.all({projectId: project.id});
+        vm.project.gaugeType = 2;
+        vm.project.gaugeHead = '00110'.split('').map(function (v, i) {
+            return {
+                disabled: v == 0
+            }
+        });
+        vm.setDisabled = setDisabled;
         vm.addRow = addRow;
         vm.addColumn = addColumn;
+        vm.removeRow = removeRow;
+
+        refresh();
+
+        function setDisabled(disabled, $index){
+            vm.project.gaugeHead[$index].disabled = disabled;
+        }
 
         function addRow(content, level) {
             ProjectGauges.add({
@@ -185,6 +198,32 @@
         function addColumn() {
 
         }
+
+        function removeRow(gauge){
+            ProjectGauges.remove({
+                projectId: project.id,
+                gaugeId: gauge.id
+            }, refresh);
+        }
+
+        function refresh(){
+            vm.gauges = ProjectGauges.all({projectId: project.id});
+        }
+    }
+
+    HomeProjectCreateGaugesTypeController.$inject = ['$scope', '$filter'];
+
+    function HomeProjectCreateGaugesTypeController($scope, $filter){
+
+        var vm = this;
+
+        vm.gaugeTypes = $filter('i18n')('GAUGE_HEAD');
+
+        vm.setGaugeType = setGaugeType;
+
+        function setGaugeType(type){
+            $scope.$config.project.gaugeType = type;
+        }
     }
 
     HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project'];
@@ -194,37 +233,38 @@
         vm.project = project;
     }
 
-    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles'];
+    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project', 'Disciplines', 'Cycles'];
 
-    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles) {
+    function HomeProjectCreateScaffoldController($state, Projects, project, Disciplines, Cycles) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
         vm.project = project;
-        vm.tempKnowledge='';
-        vm.addKnowledge=addKnowledge;
-        vm.removeKnowledge=removeKnowledge;
-        vm.disciplines=[];
-        Disciplines.all(function(data){
-            vm.disciplines=data.data;
+        vm.tempKnowledge = '';
+        vm.addKnowledge = addKnowledge;
+        vm.removeKnowledge = removeKnowledge;
+        vm.disciplines = [];
+        Disciplines.all(function (data) {
+            vm.disciplines = data.data;
             //测试ng-model绑定
             //vm.disciplines.push(vm.project.tasks[0].test.discipline);
         });
-        vm.cycles=[];
-        vm.cycles=Cycles.all();
+        vm.cycles = [];
+        vm.cycles = Cycles.all();
 
-        vm.selectchange=selectchange;
+        vm.selectchange = selectchange;
 
 
-        function selectchange(){
+        function selectchange() {
             console.log(vm.project.tasks);
         }
 
-        function addKnowledge(){
+        function addKnowledge() {
             vm.project.knowledges.push(vm.tempKnowledge);
         }
-        function removeKnowledge(knowledge){
-            var result = vm.project.knowledges.remove(function(item){
+
+        function removeKnowledge(knowledge) {
+            var result = vm.project.knowledges.remove(function (item) {
                 return item == knowledge;
             });
             console.log(result);

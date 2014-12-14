@@ -1,0 +1,91 @@
+@import "compass/css3";
+
+.gauges{
+  .table{
+    .gauge-btn{
+      color:#f06961;
+      padding:0;
+      width:33px;
+      text-align:center;
+      cursor:pointer;
+      i{
+        display:block;
+        @include transition(.2s ease all);
+        @include transform(translate3d(0, 0, 0));
+        @include transform(scale(1, 1));
+      }
+      &:hover{
+        color:#bb0000;
+        i{
+          @include transform(scale(1.3, 1.3));
+        }
+      }
+    }
+    th.gauge-btn{
+      color:#4b8ef0;
+      &:hover{
+        color:#0064f0;
+      }
+    }
+    .gauge-item{
+      & > td{
+        padding:0 !important;
+        line-height:0;
+        cursor:text;
+        & > textarea{
+          border:none;
+          width:100%;
+          padding:8px;
+          background:transparent;
+        }
+        &.disabled{
+          & > textarea{
+            color:#c6c6c6;
+            cursor:no-drop;
+          }
+        }
+        &.gauge-btn{
+          cursor:pointer;
+        }
+      }
+    }
+    .gauge-add-btn{
+      position:relative;
+      height:35px;
+      & > div{
+        position:absolute;
+        display:block;
+        top:-1px;
+        right:-1px;
+        bottom:-1px;
+        left:-1px;
+        line-height:35px;
+        border:1px dotted #ccc;
+        background:#fff;
+      }
+    }
+  }
+}
+
+.gauge-type{
+  margin:5px;
+  thead > tr > th{
+    cursor:pointer !important;
+  }
+  &:hover{
+    border-color:#b6d2ff;
+    thead > tr > th{
+      color:#000;
+      background:#ebf2ff;
+      border-color:#b6d2ff;
+    }
+  }
+  &.active{
+    border-color:#0064f0;
+    thead > tr > th{
+      color:#fff;
+      background:#4b8ef0;
+      border-color:#0064f0;
+    }
+  }
+}

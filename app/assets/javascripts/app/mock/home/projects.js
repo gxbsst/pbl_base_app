@@ -139,8 +139,16 @@
 
         .mock('/projects/:projectId/gauges', 'GET', {
             'data|2-5':[{
-                'id':'@guid',
-                'gauge':['@skill', '@name', '@percent', '@title', '@title', '@title', '@title', '@title']
+                id:'@guid',
+                technique: '@skillObject',
+                standard: '@title',
+                gauge: '@guid',
+                'weight|10-60': 1,
+                level_1: '@title',
+                level_2: '@title',
+                level_3: '@title',
+                level_4: '@title',
+                level_5: '@title'
             }]
         })
         .mock('/projects/:projectId/gauges', 'POST', {
