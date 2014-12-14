@@ -12,22 +12,20 @@
             </thead>
             <tbody>
             <tr ng-repeat="gauge in vm.gauges.data" class="gauge-item">
-                <td et-gauge>
-                    <textarea ng-model="gauge.technique.title" spellcheck="false"></textarea>
-                </td>
-                <td et-gauge>
+                <td ng-bind="gauge.technique.title||'选择技能'" class="center cur-pointer" ng-class="{'text-red':gauge.technique}"></td>
+                <td class="et-gauge">
                     <textarea ng-model="gauge.standard" spellcheck="false"></textarea>
                 </td>
-                <td et-gauge>
+                <td class="et-gauge">
                     <textarea class="center" ng-model="gauge.weight" spellcheck="false"></textarea>
                 </td>
-                <td ng-repeat="level in [1,2,3,4,5]" ng-class="{disabled:vm.project.gaugeHead[$index].disabled}" et-gauge>
+                <td ng-repeat="level in [1,2,3,4,5]" ng-class="{disabled:vm.project.gaugeHead[$index].disabled}" class="et-gauge">
                     <textarea ng-model="gauge['level_'+level]" spellcheck="false" ng-readonly="vm.project.gaugeHead[$index].disabled"></textarea>
                 </td>
                 <td class="gauge-btn" ng-click="vm.removeRow(gauge)"><i class="pf-trash-o"></i></td>
             </tr>
             <tr>
-                <td colspan="9" class="gauge-add-btn center"><div><i class="pf-plus"></i> 添加一条新的量规</div></td>
+                <td colspan="9" class="gauge-add-btn center"><div ng-click="add"><i class="pf-plus"></i> 添加一条新的量规</div></td>
             </tr>
             </tbody>
         </table>

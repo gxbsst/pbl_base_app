@@ -5,11 +5,11 @@
         .module('app.directives')
         .directive('etGauge', etGauge);
 
-    etGauge.$inject = ['$parse', '$timeout'];
+    etGauge.$inject = ['$timeout'];
 
-    function etGauge($parse, $timeout) {
+    function etGauge($timeout) {
         return {
-            restrict: 'A',
+            restrict: 'C',
             link: etGaugeLink
         };
 

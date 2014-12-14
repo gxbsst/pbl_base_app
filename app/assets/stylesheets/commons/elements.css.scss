@@ -107,3 +107,9 @@
     bottom:0;
   }
 }
+
+@each $type in default, move, text, pointer{
+  .cur-#{$type}{
+    cursor:$type !important;
+  }
+}

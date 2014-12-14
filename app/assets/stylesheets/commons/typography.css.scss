@@ -10,6 +10,15 @@
   }
 }
 
+@each $color in blue, green, red, yellow, gray, silver{
+  .text-#{$color}{
+    color:$color !important;
+  }
+  .bg-#{$color}{
+    color:$color;
+  }
+}
+
 @each $int in 2, 6, 8, 10, 12, 16, 20{
   .space-#{$int}{
     height:$int + px !important;

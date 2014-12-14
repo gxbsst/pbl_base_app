@@ -184,7 +184,7 @@
         }
 
         function addRow(content, level) {
-            ProjectGauges.add({
+            /*ProjectGauges.add({
                 projectId: project.id,
                 gauge: {
                     content: content,
@@ -192,7 +192,7 @@
                 }
             }, function () {
 
-            });
+            });*/
         }
 
         function addColumn() {

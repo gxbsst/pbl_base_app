@@ -29,9 +29,12 @@
     }
     .gauge-item{
       & > td{
-        padding:0 !important;
-        line-height:0;
-        cursor:text;
+        padding:8px;
+        &.et-gauge{
+          padding:0 !important;
+          line-height:0;
+          cursor:text;
+        }
         & > textarea{
           border:none;
           width:100%;
