@@ -1,0 +1,18 @@
+<style type="text/css">
+    .scrollbar{
+        max-height:300px;
+        margin-bottom: 10px;
+        overflow:auto;
+    }
+</style>
+<form class="form-horizontal">
+    <div class="col-1-1 form-group" ng-controller="ScrollbarDemoController">
+        <div class="scrollbar scrollbar-macosx" et-scrollbar>
+            <ng-include src="'home/projects/create/taskform.html'"></ng-include>
+        </div>
+    </div>
+    <hr/>
+    <div class="et-modal-title text-right">
+        <span class="btn btn-blue" role="button" ng-click="modalEmit()">确定</span>
+    </div>
+</form>

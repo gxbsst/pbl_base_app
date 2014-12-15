@@ -31,6 +31,7 @@
         vm.removeResource=removeResource;
         vm.addTask=addTask;
 
+        $scope.$on('setAddTask', setAddTask);
 
         vm.onBegin = onBegin;
         vm.onProgress = onProgress;
@@ -113,9 +114,8 @@
             });
         }
 
-        function addTask(){
-            vm.project.tasks.splice(vm.project.tasks.length, 0, {resources:[]});
-            console.log(vm.project.tasks);
+        function setAddTask(event, task) {
+            vm.project.tasks.splice(vm.project.tasks.length, 0, task);
         }
     }
 
