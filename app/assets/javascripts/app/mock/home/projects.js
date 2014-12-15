@@ -125,7 +125,12 @@
                         'title': '@TITLE',
                         'ext':'@TITLE'
                     }]
-                }]
+                }],
+                'duration':'@NATURAL(1, 24)',
+                'duration_unit'=:'@NATURAL(1, 3)',
+                'public':'@BOOLEAN',
+                'tag_list':[],
+                'description':'@TITLE'
             }
         })*/
 
