@@ -1,11 +1,11 @@
 <div class="project-create-release et-tabs padding-left-16 padding-top-20 padding-right-16 padding-bottom-20">
 <div class="col-1-1"> <img class="et-tabs pull-left margin-right-20" src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/158/h/198/q/90/format/JPG"/>
 
-<h2>项目名称：制作重庆的一份旅游指南</h2>
+<h2>项目名称：<span ng-bind="vm.project.name"></span></h2>
  <h2>项目概述：</h2>
-    <p>它依山建筑是“山城”，它云轻雾重是“雾都”，它夏长酷热是“火炉”，风景秀美的城市。重庆小吃挺不错，吃货大爱，美食美景美人……</p>
-    <b>课程时长：</b><span>4周</span><br/>
-    <b>学科标签：</b><span>PBL， BIE， 项目学习，巴克教育研究所</span>
+    <p ng-bind="vm.project.description"></p>
+    <b>课程时长：</b><span ng-bind="vm.project.duration+'-'+vm.project.cycle"></span><br/>
+    <b>学科标签：</b><span ng-bind="vm.project.tags"></span>
 </div>
 <div class="hr padding-top-10"></div>
 
@@ -40,14 +40,12 @@
     <div class="hr padding-top-20"></div>
     <div class="col-2-4 padding-right-20">
       <h2>驱动性问题：</h2>
-        <p>驱动性问题设计模型和评价模型运用于教学实践的实证研究，首先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析……</p>
+        <p  ng-bind="vm.project.driven_issue"></p>
 
     </div>
     <div class="col-2-4">
         <h2>知识列表：</h2>
-      <span>1.三角函数的定义</span><br/>
-      <span>2.三角形面积的计算方法</span><br/>
-      <span>3.三角形在结构力学中的作用</span>
+      <span ng-repeat="knowledge in vm.project.knowledges" > <span bg-bind="knowledge.title"></span><br/></span>
     </div>
     <div class="hr padding-top-20"></div>
     <h2>量规：</h2>

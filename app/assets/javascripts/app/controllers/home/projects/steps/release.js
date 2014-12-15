@@ -5,10 +5,12 @@
         .module('app.pbl')
         .controller('HomeProjectCreateReleaseController', HomeProjectCreateReleaseController);
 
-    HomeProjectCreateReleaseController.$inject = ['$scope'];
+    HomeProjectCreateReleaseController.$inject = ['$scope','$state', 'Projects', 'project','Cycles'];
 
-    function HomeProjectCreateReleaseController($scope){
-
+    function HomeProjectCreateReleaseController($scope,$state, Projects, project,Cycles){
+        var vm = this;
+        vm.project = project;
+        console.log(vm.project);
     }
 
 })();

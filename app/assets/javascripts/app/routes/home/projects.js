@@ -51,7 +51,8 @@
             })
             .state('base.home.projects.create.release', {
                 url: '/release',
-                templateUrl: 'home/projects/create/steps/release.html'
+                templateUrl: 'home/projects/create/steps/release.html',
+                controller:'HomeProjectCreateReleaseController as vm'
             })
             .state('base.home.projects.show', {
                 url: '/:projectId',
