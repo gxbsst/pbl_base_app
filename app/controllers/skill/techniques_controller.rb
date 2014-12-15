@@ -1,7 +1,7 @@
 class Skill::TechniquesController < ApplicationBaseController
 
   def index
-    @techniques = Skills::Technique.all
+    @techniques = Skills::Technique.where(params.permit(:sub_category_id))
   end
 
   def create
@@ -10,7 +10,7 @@ class Skill::TechniquesController < ApplicationBaseController
   end
 
   def show
-    @technique = Skills::Techniquey.find(params[:id], include_param)
+    @technique = Skills::Technique.find(params[:id], include_param)
   end
 
   def update

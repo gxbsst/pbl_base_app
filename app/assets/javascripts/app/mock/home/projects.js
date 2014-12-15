@@ -3,22 +3,22 @@
     Mock
 
         //查询PBL列表
-        .mock('/projects', {
+        /*.mock('/projects', {
             'data|1-20':[{
                 'id':'@GUID',
                 'title':'@TITLE'
             }]
-        })
+        })*/
 
         //创建一个新的PBL，返回PBL的ID，空标题的PBL作为未命名的PBL
-        .mock('/projects', 'POST', {
+        /*.mock('/projects', 'POST', {
             'data': {'id':'@GUID'}
-        })
+        })*/
 
         //提交一个PBL表单,UPDATE
-        .mock('/projects/:projectId', 'PUT', {
+        /*.mock('/projects/:projectId', 'PUT', {
             'data': {'result':'success'}
-        })
+        })*/
 
         //删除一个PBL表单,DELETE,暂时不用
         .mock('/projects', 'DELETE', {
@@ -26,7 +26,7 @@
         })
 
         //调用一个PBL
-        .mock('/projects/:projectId', 'GET', {
+        /*.mock('/projects/:projectId', 'GET', {
             'data': {
                 'id': '@GUID',
                 'project_name': '@TITLE',
@@ -127,7 +127,7 @@
                     }]
                 }]
             }
-        })
+        })*/
 
         //获取作品形态列表
         .mock('/worksforms', {
