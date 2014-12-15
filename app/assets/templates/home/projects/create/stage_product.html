@@ -1,0 +1,21 @@
+<div class="form-horizontal stage-product">
+    <div class="form-group">
+        <label for="{{'project[stage_products]['+$index+']'}}" class="control-label">阶段性产品标题：</label>
+        <div class="row">
+            <input id="{{'project[stage_products]['+$index+']'}}" name="{{'project[stage_products]['+$index+']'}}" type="text" ng-model="stage.title" class="form-control"/>
+        </div>
+    </div>
+    <div class="row">
+        <span class="btn btn-sm" role="button"
+              ng-click="vm.chooseWorksform('stage',$index)"
+              et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"
+              ng-bind="stage.worksform.title||'选择作品形态'"></span>
+        <span class="btn btn-gray btn-sm" role="button"
+              et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'">上传示例</span>
+        <span ng-if="stage.id" class="btn btn-red btn-sm pull-right" ng-click="vm.removeProduct(stage)">删除</span>
+    </div>
+    <div ng-if="!stage.id" class="row">
+        <div class="hr"></div>
+        <span class="btn btn-blue pull-right">确定</span>
+    </div>
+</div>

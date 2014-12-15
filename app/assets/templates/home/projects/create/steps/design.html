@@ -1,7 +1,7 @@
 <form class="form-horizontal">
     <div class="form-group">
         <label for="project[name]" class="control-label">项目名称：</label>
-        <div class="col-1-1">
+        <div class="row">
             <input type="text" id="project[name]" ng-model="vm.project.name" class="form-control" et-sync="{projectId:vm.project.id,project:{name:vm.project.name},$service:'Projects'}"/>
         </div>
     </div>
@@ -9,7 +9,7 @@
         <label class="control-label">请选择1-3条课程标准：</label>
         <input type="hidden" ng-model="vm.project.standards"/>
         <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i class="pf-plus"></i> 选择课标</span>
-        <div class="col-1-1">
+        <div class="row">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
             </ul>
@@ -19,7 +19,7 @@
         <label class="control-label">请选择本项目中学生需要使用的技能：</label>
         <input type="hidden" ng-model="vm.project.skills"/>
         <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/create/skills.html'"><i class="pf-plus"></i> 选择技能</span>
-        <div class="col-1-1">
+        <div class="row">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>
             </ul>
@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="project[driven_issue]" class="control-label">驱动性问题：</label>
-        <div class="col-1-1">
+        <div class="row">
             <textarea  id="project[driven_issue]" cols="30" rows="5" ng-model="vm.project.driven_issue" class="form-control" et-sync="{projectId:vm.project.id,project:{driven_issue:vm.project.driven_issue},$service:'Projects'}"></textarea>
         </div>
     </div>
@@ -42,7 +42,7 @@
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
         <label for="project[standard_analysis]" class="control-label">课标解读：（请填写这些标准对于现实世界的价值，您希望学生从中得到什么理解？）</label>
-        <div class="col-1-1">
+        <div class="row">
             <textarea name=""  cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
         </div>
     </div>
@@ -67,9 +67,8 @@
                 </td>
             </tr>
         </table>
-
         <div class="col-1-1">
-            <label for="project[final_product]" class="control-label">考虑规划的学生实现角色和最终产品，匹配选用的技能，缩小最终角色和产品的范围</label>
+            <strong>考虑规划的学生实现角色和最终产品，匹配选用的技能，缩小最终角色和产品的范围</strong>
         </div>
         <div class="col-1-1">
             <ul class="list-group">
@@ -86,53 +85,31 @@
             </ul>
         </div>
     </div>
-    <div class="form-group col-1-1">
-        <div class="col-1-1">
-            <label for="project[final_product]" class="control-label">最终产品：</label>
-        </div>
-        <div>
-            <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform('final_product',$index)" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"><span ng-bind="vm.project.final_product.worksform.title" ng-hide="vm.project.final_product.worksform==null"></span><span ng-show="vm.project.final_product.worksform==null"><i class="pf-plus"></i>选择作品形态</span></span>
-            <span class="btn" qn-upload="{multiple:true}" on-begin="vm.onBegin(vm.project.final_product)" on-progress="vm.onProgress()" on-success="vm.onSuccess(vm.project.final_product)" on-completed="vm.onCompleted()" on-error="vm.onError()"><i class="pf-arrowhead-up"></i> 上传文件</span>
-            <div class="col-1-1">
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="resource in vm.project.final_product.example">
-                        <span ng-bind="resource.title"></span><span ng-show="resource.state==false">正在上传</span><span ng-show="resource.state==true">上传成功</span>
-                        <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(vm.project.final_product,resource)"></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="form-group col-1-1" >
-        <div class="col-1-1">
-            <span class="btn btn-gray btn-sm control-label" role="button" ng-click="vm.addObjArray(vm.project.stage_products)"><i class="pf-plus"></i>新增阶段性产品</span>
-        </div>
-    </div>
-    <div class="form-group col-1-1" >
-        <div ng-repeat="stage in vm.project.stage_products" class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
-            <label for="project[name]" class="control-label">阶段性产品标题：</label>
-            <i class="btn-mini pf-cross pull-right" ng-click="vm.removeObjArray(vm.project.stage_products,stage)"></i>
-            <div class="col-1-1 margin-bottom-8">
-                <input type="text" ng-model="stage.title" class="form-control"/>
-            </div>
-            <div class="col-1-1">
-                <span class="btn btn-gray btn-sm" role="button" ng-click="vm.chooseWorksform('stage',$index)" et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"><span ng-bind="stage.worksform.title" ng-hide="stage.worksform==null"></span><span ng-show="stage.worksform==null"><i class="pf-plus"></i>选择作品形态</span></span>
-                <span class="btn" qn-upload="{multiple:true}" on-begin="vm.onBegin(stage)" on-progress="vm.onProgress()" on-success="vm.onSuccess(stage)" on-completed="vm.onCompleted()" on-error="vm.onError()"><i class="pf-arrowhead-up"></i> 上传示例</span>
-                <div class="col-1-1">
-                    <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="resource in stage.example">
-                            <span ng-bind="resource.title"></span><span ng-show="resource.state==false">正在上传</span><span ng-show="resource.state==true">上传成功</span>
-                            <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(vm.project.final_product,resource)"></i>
-                        </li>
-                    </ul>
+    <div class="form-group">
+        <span class="control-label">最终产品：</span>
+        <div class="row">
+            <span class="btn btn-sm" role="button"
+                  ng-click="vm.chooseWorksform('final_product',$index)"
+                  et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"
+                  ng-bind="vm.project.final_product.worksform.title||'选择作品形态'"></span>
+            <span class="btn btn-gray btn-sm" role="button"
+                  et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'">上传示例</span>
+            <!--<div class="col-1-1 progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
-    <div class="clearfix"></div>
+    <div class="hr"></div>
+    <div class="form-group">
+        <span class="control-label">阶段性产品：</span>
+        <span class="btn btn-gray btn-sm" role="button" et-modal="title='新增阶段性产品';project=vm.project;controller='StageProductController';src='home/projects/create/stage_product.html'"><i class="pf-plus"></i> 新增阶段性产品</span>
+        <div ng-repeat="stage in vm.project.stage_products" class="row" ng-include="'home/projects/create/stage_product.html'"></div>
+    </div>
     <div class="form-group col-1-1" >
+        <div class="hr"></div>
         <div class="col-1-1 text-right">
-            <span class="btn" role="button" ng-click="vm.saveProject()">保存草稿</span>
             <span class="btn btn-blue" role="button" ng-click="next('gauges')">下一步</span>
         </div>
     </div>
