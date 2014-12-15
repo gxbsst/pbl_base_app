@@ -1,0 +1,29 @@
+<div class="selector">
+    <dl class="table">
+        <dt class="col-1-5">学科</dt>
+        <dt class="col-1-5">年级</dt>
+        <dt class="col-3-5">课程标准</dt>
+        <dd class="col-1-5">
+            <ul class="categories">
+                <li ng-repeat="entry in vm.subjects.data" ng-class="{active:entry.id==vm.subject.id}" ng-bind="entry.name" ng-click="vm.getPhases(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-1-5">
+            <i class="remark" ng-if="!vm.phases.data.length">请选择学科</i>
+            <ul class="categories">
+                <li ng-repeat="entry in vm.phases.data" ng-class="{active:entry.id==vm.phase.id}" ng-bind="entry.name" ng-click="vm.getStandards(entry)"></li>
+            </ul>
+        </dd>
+        <dd class="col-3-5">
+            <div class="selector-entries scrollbar-macosx" et-scrollbar>
+                <i class="remark" ng-if="!vm.standards.data.length">请选择年级</i>
+                <div ng-repeat="entry in vm.standards.data">
+                    <label class="row selector-entry" ng-bind="entry.title"></label>
+                    <div class="selector-entry-children">
+                        <label ng-repeat="item in entry.items" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.content"></span></label>
+                    </div>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>

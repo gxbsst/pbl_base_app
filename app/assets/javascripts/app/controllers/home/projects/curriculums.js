@@ -3,45 +3,47 @@
 
     angular
         .module('app.pbl')
-        .controller('SkillController', SkillController);
+        .controller('CurriculumsController', CurriculumsController);
 
-    SkillController.$inject = ['$scope', '$stateParams', 'Skill', 'ProjectSkills'];
+    CurriculumsController.$inject = ['$scope', '$stateParams', 'Curriculums', 'ProjectStandards'];
 
-    function SkillController($scope, $stateParams, Skill, ProjectSkills) {
+    function CurriculumsController($scope, $stateParams, Curriculums, ProjectStandards) {
 
         var vm = this;
         vm.selected = [];
-        vm.categories = Skill.all({action: 'categories'});
+        vm.subjects = Curriculums.all({action: 'subjects'});
         vm.isSelected = isSelected;
-        vm.getCategory = getCategory;
-        vm.getSubCategory = getSubCategory;
+        vm.getPhases = getPhases;
+        vm.getStandards = getStandards;
         vm.onChange = onChange;
 
-        ProjectSkills
+        ProjectStandards
             .all({
                 projectId: $stateParams.projectId
             }, function (result) {
                 vm.selected = result.data;
             });
 
-        function getCategory(subject) {
-            vm.category = Skill.all({action: 'categories', id: subject.id, include: 'sub_categories'});
+        function getPhases(subject) {
+            vm.subject = subject;
+            vm.phases = Curriculums.all({action: 'phases', subject_id: subject.id});
         }
 
-        function getSubCategory(phase) {
-            vm.sub_category = Skill.all({action: 'sub_categories', id: phase.id, include: 'techniques'});
+        function getStandards(phase) {
+            vm.phase = phase;
+            vm.standards = Curriculums.all({action: 'standards', phase_id: phase.id, include: 'items'});
         }
 
         function onChange(item) {
             if(item.selected){
-                ProjectSkills
+                ProjectStandards
                     .add({
                         projectId: $stateParams.projectId
                     }, {
                         id: item.id
                     }, emit);
             }else{
-                ProjectSkills
+                ProjectStandards
                     .remove({
                         projectId: $stateParams.projectId,
                         standardId: item.id
@@ -49,7 +51,7 @@
             }
 
             function emit(){
-                $scope.$emit('onProjectSkills');
+                $scope.$emit('onProjectStandards');
             }
         }
 

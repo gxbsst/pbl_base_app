@@ -3,11 +3,11 @@
 
     angular
         .module('app.services')
-        .service('Skill', Skill);
+        .service('Skills', Skills);
 
-    Skill.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    Skills.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
-    function Skill($resource, RESOURCE_ACTIONS) {
+    function Skills($resource, RESOURCE_ACTIONS) {
         return $resource('/skill/:action/:id', {action: '@action', id: '@id'}, RESOURCE_ACTIONS);
     }
 

@@ -87,7 +87,7 @@
         }
 
         function removeSkill(skill) {
-            Projectskills
+            ProjectSkills
                 .remove({
                     projectId: project.id,
                     skillId: skill.id
