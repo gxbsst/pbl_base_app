@@ -6,10 +6,10 @@
             <div class="form-group" style="position: relative;">
                 <label class="control-label col-1-8">课程时长：</label>
                <div class="col-7-8">
-                   <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="vm.project.duration.time_span" class="form-control"/>
-                   <select style="width: 70px; height: 30px;" ng-model="vm.project.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+                   <input style="width: 100px; height: 30px; display: inline-block"  type="number"  ng-model="vm.project.duration" class="form-control" et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
+                   <select style="width: 70px; height: 30px;" ng-model="vm.project.duration_unit" ng-options="cycle.title for cycle in vm.cycles">
                    </select>
-                  <input type="checkbox" ng-model="vm.project.recruit"/> 公开招募
+                  <input type="checkbox" ng-model="vm.project.public"/> 公开招募
                 <input type="file" style="display: none;" class="pull-right">
                 <span class="file-up">
                    <p class="circle"><i class="pf-camera"></i></p>
@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label">添加标签：</label>
                   <div class="col-1-1">
-                     <input type="text" ng-model="vm.project.tags" placeholder="请选择标签" on-change="vm.onChange()" et-tags/>
+                     <input type="text" ng-model="vm.project.tag_list" placeholder="请选择标签" on-change="vm.onChange()" et-tags/>
                   </div>
             </div>
             <div class="form-group">
@@ -44,8 +44,7 @@
 
         <div class="form-group col-1-1" >
             <div class="col-1-1 text-right">
-                <span class="btn">保存草稿</span>
-                <span class="btn btn-blue" role="button" ng-click="vm.goNew()">下一步</span>
+                <span class="btn btn-blue" role="button" ng-click="next('scaffold')">下一步</span>
             </div>
         </div>
     </form>
