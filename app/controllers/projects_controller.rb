@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < ApplicationBaseController
 
   def index
     @projects = Pbl::Project.all(project_query_params)
@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Pbl::Project.find(params[:id])
+    @project = Pbl::Project.find(params[:id], include_param)
   end
 
   def update
