@@ -1,7 +1,7 @@
 class RuleController < ApplicationController
 
   def index
-    @rules = Pbl::Rule.all(params[:project_id])
+    @rules = Pbl::Rule.all(params.permit(:project_id))
   end
 
   def create
