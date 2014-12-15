@@ -2,7 +2,7 @@ module Curriculum
   class StandardsController < ApplicationBaseController
 
     def index
-      @standards = Curriculum::Standard.all(params[:phase_id])
+      @standards = Curriculum::Standard.where(params.permit(:phase_id))
     end
 
     def show
