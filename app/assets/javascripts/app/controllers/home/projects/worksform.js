@@ -3,8 +3,7 @@
 
     angular
         .module('app.pbl')
-        .controller('WorksformController', WorksformController)
-    ;
+        .controller('WorksformController', WorksformController);
 
     WorksformController.$inject = ['$scope', 'Worksforms'];
 
