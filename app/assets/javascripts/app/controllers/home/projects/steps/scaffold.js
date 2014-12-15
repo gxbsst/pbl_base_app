@@ -29,7 +29,6 @@
         vm.selectchange=selectchange;
         vm.chooseType=chooseType;
         vm.removeResource=removeResource;
-        vm.addTask=addTask;
 
         $scope.$on('setAddTask', setAddTask);
 

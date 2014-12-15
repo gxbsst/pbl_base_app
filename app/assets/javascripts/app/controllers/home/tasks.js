@@ -11,48 +11,7 @@
     function addTaskController($scope,Disciplines,Cycles) {
         var vm = this;
         $scope.task={
-            'id':'',
-            'title':'',
-            'description':'',
-            'site': '',
-            'teacher_tools': '',
-            'student_tools': '',
-            'tasktype':'1',
-            'test':{
-                'discipline':{
-                    'id': '',
-                    'title': ''
-                }
-            },
-            'evaluation':{
-                'duration':{
-                    'time_span': '',
-                    'cycle': {
-                        'id': '',
-                        'title': ''
-                    }
-                },
-                'results':{
-                    'id':'',
-                    'title': '',
-                    'worksform':{
-                        'id':'',
-                        'title': ''
-                    },
-                    'example': ['']
-                },
-                'gauge':{}
-            },
-            'event':{
-                'duration':{
-                    'time_span': '',
-                    'cycle': {
-                        'id': '',
-                        'title': ''
-                    }
-                }
-            },
-            'resources':[]
+            'tasktype':'1'
         };
 
         vm.disciplines=[];
@@ -65,6 +24,7 @@
         //周期未使用异步调用
         vm.cycles=Cycles.all();
 
+        vm.project=$scope.$config.project;
         $scope.modalEmit = modalEmit;
 
         function modalEmit() {
