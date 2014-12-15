@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles','Knowledges'];
+    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledges'];
 
-    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles,Knowledges) {
+    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledges) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
@@ -24,11 +24,13 @@
         });
         vm.cycles=[];
         //周期未使用异步调用
-        vm.cycles=Cycles.all();
+        vm.cycles=Cycles;
 
         vm.selectchange=selectchange;
         vm.chooseType=chooseType;
         vm.removeResource=removeResource;
+
+        vm.showProjectInfo = showProjectInfo;
 
         $scope.$on('setAddTask', setAddTask);
 
@@ -99,9 +101,13 @@
             task.tasktype=typeval;
         }
 
+        function showProjectInfo() {
+            vm.switchProjectInfo = !vm.switchProjectInfo;
+        }
+
         function addKnowledge(){
             //vm.project.knowledges.push(vm.tempKnowledge);
-            Knowledges.add({title:vm.tempKnowledge},function(){
+            Knowledges.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},function(){
                 vm.tempKnowledge="";
                 vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
             });
@@ -110,8 +116,9 @@
             //vm.project.knowledges.remove(function(item){
             //    return item == knowledge;
             //});
-
-            vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
+            Knowledges.remove({knowledgeId:knowledge.id},function(){
+                vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
+            });
         }
         function removeResource(task,resource){
             task.resources.remove(function(item){

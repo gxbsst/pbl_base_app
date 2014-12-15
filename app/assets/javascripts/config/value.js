@@ -41,6 +41,11 @@
                 mp4: 'http://mooc-video-mp4.qiniudn.com',
                 ogv: 'http://mooc-video-ogv.qiniudn.com',
                 image: 'http://mooc-images.qiniudn.com'
-            }
+            },
+            Cycles:[
+                {'id':'1','title':'小时'},
+                {'id':'2','title':'日'},
+                {'id':'3','title':'周'}
+            ]
         })
 })();

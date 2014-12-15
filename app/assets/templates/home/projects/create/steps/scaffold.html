@@ -1,7 +1,27 @@
 <div class="project-create-scaffold">
     <form class="form-horizontal">
         <div class="form-group">
-            <label class="control-label">项目名称：<span ng-bind="vm.project.project_name"></span></label>
+            <label class="control-label">项目名称：
+                <a href="javascript:void(0);" ng-click="vm.showProjectInfo()">
+                    <span ng-bind="vm.project.name"></span>
+                    <span ng-show="vm.switchProjectInfo">↑</span>
+                    <span ng-hide="vm.switchProjectInfo">↓</span>
+                </a>
+            </label>
+        </div>
+        <div class="form-group" ng-show="vm.switchProjectInfo">
+            <label class="control-label">驱动问题：</label>
+            <div ng-bind="vm.project.driven_issue"></div>
+            <label class="control-label">任务分解小贴士：</label>
+            <div>
+                1.一个任务的学习范围最好限定在2个课标中涉及的知识点和1个现实社会的技能目标。 <br/>
+                2.充分考虑每个任务的要素： <br/>
+                ● 你希望学生了解的东西 <br/>
+                ● 课标中要求的学习事项 <br/>
+                ● 作业：学生如何展示自己对于知识和技能的掌握 <br/>
+                ● 评估：根据什么标准来评定学生的表现和理解程度 <br/>
+                ● 学习成果
+            </div>
         </div>
         <div class="form-group">
             <label class="control-label">请填写本项目中学生应该掌握的知识：</label>
@@ -17,7 +37,7 @@
             </div>
             <div class="col-1-1">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="knowledge in vm.project.knowledges track by $index"><span ng-bind="knowledge"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeKnowledge(knowledge)"></i></li>
+                    <li class="list-group-item" ng-repeat="knowledge in vm.project.knowledges"><span ng-bind="knowledge"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeKnowledge(knowledge)"></i></li>
                 </ul>
             </div>
         </div>

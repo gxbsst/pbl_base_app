@@ -2,11 +2,14 @@
     <form class="form-horizontal">
         <div class="form-group">
           <h2>基本信息填写</h2>
-            <p>项目名称:制作重庆的一份旅游指南</p>
+            <p>项目名称: <span ng-bind="vm.project.name"></span></p>
             <div class="form-group" style="position: relative;">
                 <label class="control-label col-1-8">课程时长：</label>
-               <div class="col-7-8"> <select style="width: 300px; height: 30px;"></select>
-                  <input type="checkbox"/> 公开招募
+               <div class="col-7-8">
+                   <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="vm.project.duration.time_span" class="form-control"/>
+                   <select style="width: 70px; height: 30px;" ng-model="vm.project.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+                   </select>
+                  <input type="checkbox" ng-model="vm.project.recruit"/> 公开招募{{vm.project.recruit}}
                 <input type="file" style="display: none;" class="pull-right">
                 <span class="file-up">
                    <p class="circle"><i class="pf-camera"></i></p>
@@ -16,11 +19,13 @@
             </div>
             <div class="form-group">
                 <label class="control-label">添加标签：</label>
-                  <div class="col-1-1">  <input type="text" class="form-control"></div>
+                  <div class="col-1-1">
+                     <input type="text" ng-model="vm.project.tags" placeholder="请选择标签" on-change="vm.onChange()" et-tags/>
+                  </div>
             </div>
             <div class="form-group">
                 <label class="control-label">项目概述：</label>
-                <div class="col-1-1"><textarea class="form-control"></textarea></div>
+                <div class="col-1-1"><textarea ng-model="vm.project.description" class="form-control"></textarea></div>
             </div>
             <div class="form-group">
                 <label class="control-label">启动文档：</label>

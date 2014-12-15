@@ -22,7 +22,7 @@
         });
         vm.cycles=[];
         //周期未使用异步调用
-        vm.cycles=Cycles.all();
+        vm.cycles=Cycles;
 
         vm.project=$scope.$config.project;
         $scope.modalEmit = modalEmit;
