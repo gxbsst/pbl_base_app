@@ -5,18 +5,20 @@
         .module('app.directives')
         .directive('etConfig', etConfig);
 
-    function etConfig(){
+    etConfig.$inject = ['utils'];
+
+    function etConfig(utils) {
         return {
+            require: 'etConfig',
             restrict: 'A',
-            priority: 9999,
-            link: etConfigLink
+            priority: 1000,
+            link: etConfigLink,
+            controller: angular.noop
         };
-    }
 
-    function etConfigLink(scope, element, attr){
-
-        attr.etConfig.parseConfig(scope);
-
+        function etConfigLink(scope, element, attr, ctrl) {
+            utils.params(scope, attr.etConfig, ctrl);
+        }
     }
 
 })();

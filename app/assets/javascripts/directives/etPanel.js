@@ -5,33 +5,39 @@
         .module('app.directives')
         .directive('etPanel', etPanel);
 
-    function etPanel(){
+    etPanel.$inject = ['utils'];
+
+    function etPanel(utils){
         return {
+            require: ['etPanel', '?etConfig'],
             restrict: 'A',
             transclude: true,
             replace: true,
             scope: true,
             templateUrl: 'directives/et-panel.html',
-            link: etPanelLink
+            link: etPanelLink,
+            controller: angular.noop,
+            controllerAs: 'vm'
         };
-    }
 
-    function etPanelLink(scope, element, attr){
+        function etPanelLink(scope, element, attr, ctrl){
 
-        scope.$config = scope.$config || {};
-        scope.status = true;
-        scope.toggle = toggle;
+            var vm = ctrl[0];
 
-        scope.$watch(attr.etPanel, etPanelWatch);
+            utils.merge(scope, ctrl[1], vm);
 
-        function etPanelWatch(title){
-            scope.$config.title = title;
+            vm.status = true;
+            vm.toggle = toggle;
+
+            scope.$watch(attr.etPanel, function (title) {
+                vm.title = title;
+            });
+
+            function toggle(o){
+                vm.status = typeof o != 'undefined' ? o : !vm.status;
+            }
+
         }
-
-        function toggle(o){
-            scope.status = typeof o != 'undefined' ? o : !scope.status;
-        }
-
     }
 
 })();

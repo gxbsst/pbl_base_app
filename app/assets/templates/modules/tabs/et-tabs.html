@@ -1,6 +1,6 @@
 <div class="et-tabs">
     <div class="et-tabs-titles">
-        <div class="et-tabs-title" ng-repeat="pane in panes" ng-class="classes(pane)" ng-click="select(pane)" ng-bind-html="pane.$config.title"></div>
+        <div class="et-tabs-title" ng-repeat="panel in vm.panels" ng-class="vm.classes(panel)" ng-click="vm.select(panel)" ng-bind-html="panel.title"></div>
     </div>
     <div class="et-tabs-contents col-1-1" ng-transclude></div>
 </div>

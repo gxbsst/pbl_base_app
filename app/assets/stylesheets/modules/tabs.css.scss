@@ -1,19 +1,33 @@
 .et-tabs{
-  border:1px solid #ccc;
   &:after{
     content:"";
     display:table;
     clear:both;
   }
   .et-tabs-titles{
+    position:relative;
     .et-tabs-title{
       float:left;
+      padding:0 12px !important;
+      line-height:35px;
+      text-align:center;
+      color:#999;
+      border-bottom:2px solid #e5e5e5;
+      cursor:pointer;
+      &:hover{
+        color:#000;
+        border-color:#c7e1ff;
+      }
       &.active{
-
+        color:#000;
+        font-weight:bold;
+        border-color:#216fed;
       }
     }
   }
   .et-tabs-contents{
-    padding: 0 !important;
+    border-top:2px solid #e5e5e5;
+    margin-top:-2px;
+    padding:12px;
   }
 }

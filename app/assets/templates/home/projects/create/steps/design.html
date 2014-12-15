@@ -101,11 +101,12 @@
             </div>-->
         </div>
     </div>
-    <div class="hr"></div>
     <div class="form-group">
         <span class="control-label">阶段性产品：</span>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="title='新增阶段性产品';project=vm.project;controller='StageProductController';src='home/projects/create/stage_product.html'"><i class="pf-plus"></i> 新增阶段性产品</span>
         <div ng-repeat="stage in vm.project.stage_products" class="row" ng-include="'home/projects/create/stage_product.html'"></div>
+        <div class="row">
+            <span class="btn btn-gray btn-sm" role="button" et-modal="title='新增阶段性产品';project=vm.project;controller='StageProductController';src='home/projects/create/stage_product.html'"><i class="pf-plus"></i> 新增阶段性产品</span>
+        </div>
     </div>
     <div class="form-group col-1-1" >
         <div class="hr"></div>

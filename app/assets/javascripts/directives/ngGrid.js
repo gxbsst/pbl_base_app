@@ -19,7 +19,7 @@
                 }, scope.$eval(attr.ngGrid || '{}'));
             },
             controller: function ($scope) {
-                var panes = $scope.panes = [];
+                var panes = $scope.panels = [];
                 $scope.select = function (pane) {
                     angular.forEach(panes, function (pane) {
                         pane.selected = false;
