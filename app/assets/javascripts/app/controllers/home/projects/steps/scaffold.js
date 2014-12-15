@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles'];
+    HomeProjectCreateScaffoldController.$inject = ['$state', 'Projects', 'project','Disciplines','Cycles','Knowledges'];
 
-    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles) {
+    function HomeProjectCreateScaffoldController($state, Projects, project,Disciplines,Cycles,Knowledges) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
@@ -100,12 +100,18 @@
         }
 
         function addKnowledge(){
-            vm.project.knowledges.push(vm.tempKnowledge);
+            //vm.project.knowledges.push(vm.tempKnowledge);
+            Knowledges.add({title:vm.tempKnowledge},function(){
+                vm.tempKnowledge="";
+                vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
+            });
         }
         function removeKnowledge(knowledge){
-            var result = vm.project.knowledges.remove(function(item){
-                return item == knowledge;
-            });
+            //vm.project.knowledges.remove(function(item){
+            //    return item == knowledge;
+            //});
+
+            vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
         }
         function removeResource(task,resource){
             task.resources.remove(function(item){
