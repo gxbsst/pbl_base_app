@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
   private
 
     def project_query_params
-      params.permit(:name)
+      params.permit(:name, :include)
     end
 
 end

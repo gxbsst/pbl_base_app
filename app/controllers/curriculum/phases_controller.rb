@@ -2,7 +2,7 @@ module Curriculum
   class PhasesController < ApplicationBaseController
 
     def index
-      @phases = Curriculum::Phase.all(params[:subject_id])
+      @phases = Curriculum::Phase.where(params.permit(:subject_id, :include))
     end
 
     def show

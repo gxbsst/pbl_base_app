@@ -1,5 +1,9 @@
 class StandardDecompositionsController < ApplicationController
 
+  def index
+    @standard_decompositions = Pbl::StandardDecomposition.where(params.permit(:project_id))
+  end
+
   def create
     @standard_decomposition = Pbl::StandardDecomposition.create(params[:standard_decomposition])
     render :show
