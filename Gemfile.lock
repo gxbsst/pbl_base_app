@@ -1,9 +1,9 @@
 GIT
   remote: git@124.202.141.250:pbl/pbl_service_client.git
-  revision: 19703dccfcf59c370dfcbe0bd6865db69d7ef2e1
+  revision: e03ad5ff55f4bdf7b5daaf9164faebb9f7bb765e
   branch: master
   specs:
-    pbl_service_client (0.0.4)
+    pbl_service_client (0.0.5)
       activemodel
       addressable
       typhoeus
@@ -118,7 +118,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.5.0)
     multi_json (1.10.1)
-    netrc (0.10.0)
+    netrc (0.10.1)
     orm_adapter (0.5.0)
     qiniu (6.3.2)
       json (~> 1.7)

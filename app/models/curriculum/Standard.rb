@@ -1,4 +1,3 @@
 module Curriculum
-  class Standard < Pbl::Models::Curriculum::Standard
-  end
+  Standard = Pbl::Models::Curriculum::Standard
 end

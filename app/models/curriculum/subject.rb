@@ -1,4 +1,3 @@
 module Curriculum
-  class Subject < Pbl::Models::Curriculum::Subject
-  end
+  Subject = Pbl::Models::Curriculum::Subject
 end
