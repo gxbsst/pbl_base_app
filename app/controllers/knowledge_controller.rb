@@ -3,7 +3,7 @@
 class KnowledgeController < ApplicationBaseController
 
   def index
-    @knowledges = Pbl::Knowledge.all(params.permit(:project_id))
+    @all_knowledge = Pbl::Knowledge.all(params.permit(:project_id))
   end
 
   def create
