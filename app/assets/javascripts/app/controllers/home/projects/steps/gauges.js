@@ -62,13 +62,12 @@
     function HomeProjectCreateGaugesTypeController($scope, $filter){
 
         var vm = this;
-
         vm.gaugeTypes = $filter('i18n')('GAUGE_HEAD');
 
         vm.setGaugeType = setGaugeType;
 
         function setGaugeType(type){
-            $scope.$config.project.gaugeType = type;
+            $scope.project.gaugeType = type;
         }
     }
 

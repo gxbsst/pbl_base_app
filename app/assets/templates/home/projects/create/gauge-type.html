@@ -1,5 +1,5 @@
 <div ng-repeat="type in vm.gaugeTypes track by $index">
-    <table class="table gauge-type" ng-class="{active:$config.project.gaugeType==$index}">
+    <table class="table gauge-type" ng-class="{active:project.gaugeType==$index}">
         <thead>
         <tr ng-click="vm.setGaugeType($index)">
             <th width="20%" ng-repeat="column in type track by $index" ng-bind="column"></th>

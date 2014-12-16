@@ -24,7 +24,12 @@
         angular.forEach(string.split(';'), function (config) {
             config = config.split('=');
             scope.$watch(config[1], function (value) {
-                object[config[0]] = value;
+                var key = config[0];
+                if (/^\$/.test(key)) {
+                    scope[key.substr(1)] = value;
+                } else {
+                    object[key] = value;
+                }
             });
         });
     }

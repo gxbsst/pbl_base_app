@@ -13,7 +13,8 @@
             restrict: 'A',
             priority: 1000,
             link: etConfigLink,
-            controller: angular.noop
+            controller: angular.noop,
+            controllerAs: 'etConfig'
         };
 
         function etConfigLink(scope, element, attr, ctrl) {

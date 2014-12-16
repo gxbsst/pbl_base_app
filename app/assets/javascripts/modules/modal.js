@@ -34,10 +34,9 @@
 
         var body = $document.find('body');
 
-        return function showModal(scope) {
+        return function showModal(config) {
 
-            var config = scope.$config,
-                defer = $q.defer();
+            var defer = $q.defer();
 
             $template(config).then(function (template) {
 
@@ -50,7 +49,7 @@
                     modalElement = $compile(angular.element(template))(childScope),
                     container = modalElement.find('.et-modal-container');
 
-                childScope.modalResize = function () {
+                config.modalResize = function () {
                     container.css({
                         marginLeft: -container.outerWidth() / 2,
                         marginTop: -container.outerHeight() / 2
@@ -92,28 +91,33 @@
 
     }
 
-    etModal.$inject = ['$rootScope', 'modalFactory'];
+    etModal.$inject = ['$rootScope', 'modalFactory', 'utils'];
 
-    function etModal($rootScope, modalFactory) {
+    function etModal($rootScope, modalFactory, utils) {
 
         return {
+            require: 'etModal',
             restrict: 'A',
             scope: true,
-            link: etModalLink
+            link: etModalLink,
+            controller: angular.noop,
+            controllerAs: 'modalConfig'
         };
 
-        function etModalLink(scope, element, attr) {
+        function etModalLink(scope, element, attr, ctrl) {
 
-            scope.$config = angular.extend({
+            angular.extend(ctrl, {
                 $scope: scope,
                 overlay: true,
                 disableBodyScroll: true,
                 templateUrl: 'modules/modal/et-modal.html'
-            }, attr.etModal.parseConfig(scope));
+            });
+
+            utils.params(scope, attr.etModal, ctrl);
 
             element.on('click', function () {
                 !$rootScope.modals[scope.$id] && scope.$apply(function () {
-                    modalFactory(scope).then(function (modal) {
+                    modalFactory(ctrl).then(function (modal) {
                         $rootScope.modals[scope.$id] = modal;
                     });
                 });

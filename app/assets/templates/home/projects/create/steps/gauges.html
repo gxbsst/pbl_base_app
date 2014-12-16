@@ -7,7 +7,7 @@
                 <th>量规标准</th>
                 <th width="60">权重</th>
                 <th ng-repeat="column in vm.project.gaugeHead" ng-bind="$index|gauge:vm.project.gaugeType" ng-click="vm.setDisabled(!column.disabled, $index)" ng-class="{disabled:column.disabled}"></th>
-                <th class="gauge-btn" et-modal="title='选择量规标头';project=vm.project;controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
+                <th class="gauge-btn" et-modal="$project=vm.project;title='选择量规标头';controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
             </tr>
             </thead>
             <tbody>

@@ -17,7 +17,7 @@
             templateUrl: 'modules/tabs/et-tabs.html',
             link: etTabsLink,
             controller: etTabsController,
-            controllerAs: 'vm'
+            controllerAs: 'tabsConfig'
         };
 
         function etTabsLink(scope, element, attr, ctrl){
@@ -79,7 +79,7 @@
             templateUrl: 'modules/tabs/et-tab.html',
             link: etTabLink,
             controller: angular.noop,
-            controllerAs: 'vm'
+            controllerAs: 'tabConfig'
         };
 
         function etTabLink(scope, element, attr, ctrl) {

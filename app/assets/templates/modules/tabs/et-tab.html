@@ -1,4 +1,4 @@
-<div class="et-tabs-content" ng-class="{active:vm.selected}" ng-if="vm.selected">
-    <div ng-if="!vm.src" ng-transclude></div>
-    <div ng-if="vm.src" ng-include="vm.src"></div>
+<div class="et-tabs-content" ng-class="{active:tabConfig.selected}" ng-if="tabConfig.selected">
+    <div ng-if="!etConfig.src" ng-transclude></div>
+    <div ng-if="etConfig.src" ng-include="etConfig.src"></div>
 </div>
