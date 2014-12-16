@@ -10,7 +10,7 @@ class GaugesController < ApplicationBaseController
   end
 
   def show
-    @gauge = Gauge.find(params[:id])
+    @gauge = Gauge.find(params[:id], include_param)
   end
 
   def update
