@@ -34,4 +34,8 @@ Rails.application.routes.draw do
   resources :techniques, defaults: {format: 'json'}
 
   resources :knowledge, defaults: {format: 'json'}
+
+  resources :roles, defaults: {format: 'json'}
+
+  resources :assignments, defaults: {format: 'json'}
 end
