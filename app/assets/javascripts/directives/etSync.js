@@ -21,16 +21,33 @@
             scope.$watch(attr.ngModel, function (ngModel) {
                 scope.ngModel = ngModel;
             });
+
             element.on('focusin', function () {
                 scope.model = scope.ngModel;
             });
-            element.on('focusout', function () {
+            console.log(element.context.localName);
+            switch(element.context.localName)
+            {
+                case "select":
+                    //对象参数应绑定至ID
+                    //example：{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit.id},$service:'Projects'}
+                    element.on('change', modelUpdate);
+                    break;
+
+                //element 类型为input或其他
+                case "input":
+                default:
+
+                    element.on('focusout', modelUpdate);
+            }
+
+            function modelUpdate(){
                 if (scope.model != scope.ngModel) {
                     scope.model = scope.ngModel;
                     var service = $injector.get(scope.$config.$service);
                     service.update(scope.$config);
                 }
-            });
+            }
 
             /*function toJSON(model, data, vm){
                 if(typeof model == 'string'){
