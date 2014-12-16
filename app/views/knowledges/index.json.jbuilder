@@ -1,1 +1,0 @@
-json.extract! @knowledges, :data, :meta if @knowledges

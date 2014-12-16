@@ -1,0 +1,1 @@
+json.extract! @techniques, :data, :meta if @techniques

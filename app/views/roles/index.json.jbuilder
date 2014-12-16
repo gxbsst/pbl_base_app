@@ -1,0 +1,1 @@
+json.extract! @roles, :data, :meta if @rules

@@ -30,5 +30,12 @@ Rails.application.routes.draw do
 
   resources :gauges, defaults: {format: 'json'}
 
-  resources :knowledges, defaults: {format: 'json'}
+  resources :standard_items, defaults: {format: 'json'}
+  resources :techniques, defaults: {format: 'json'}
+
+  resources :knowledge, defaults: {format: 'json'}
+
+  resources :roles, defaults: {format: 'json'}
+
+  resources :assignments, defaults: {format: 'json'}
 end

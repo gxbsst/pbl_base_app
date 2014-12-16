@@ -1,7 +1,7 @@
 class GaugesController < ApplicationBaseController
 
   def index
-    @gauges = Gauge.all()
+    @gauges = Gauge.where(params.permit(:include))
   end
 
   def create
@@ -10,7 +10,7 @@ class GaugesController < ApplicationBaseController
   end
 
   def show
-    @gauge = Gauge.find(params[:id])
+    @gauge = Gauge.find(params[:id], include_param)
   end
 
   def update
