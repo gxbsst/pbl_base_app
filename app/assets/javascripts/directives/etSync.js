@@ -25,7 +25,6 @@
             element.on('focusin', function () {
                 scope.model = scope.ngModel;
             });
-            console.log(element.context.localName);
             switch(element.context.localName)
             {
                 case "select":

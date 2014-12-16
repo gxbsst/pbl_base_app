@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <label class="control-label">任务列表：
-                <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';project=vm.project;controller='addTaskController';width='70%';src='home/projects/create/addtask.html'"><span ><i class="pf-plus"></i>增加任务</span></span>
+                <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';width='70%';src='home/projects/create/addtask.html'"><span ><i class="pf-plus"></i>增加任务</span></span>
             </label>
             <div class="col-1-1">
                 <div class="" ng-repeat="task in vm.project.tasks track by $index"><span class="control-label" ng-bind="'任务'+($index+1)"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeTask(task)"></i>

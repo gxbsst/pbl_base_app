@@ -24,7 +24,7 @@
         //周期未使用异步调用
         vm.cycles=Cycles;
 
-        vm.project=$scope.$config.project;
+        vm.project=$scope.project;
         $scope.modalEmit = modalEmit;
 
         function modalEmit() {
