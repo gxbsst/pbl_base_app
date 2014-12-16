@@ -4,7 +4,8 @@
     angular
         .module('app.pbl')
         .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
-        .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController);
+        .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
+        .controller('GaugesSystemController', GaugesSystemController);
 
     HomeProjectCreateGaugesController.$inject = ['$state', 'ProjectGauges', 'project'];
 
@@ -69,6 +70,15 @@
         function setGaugeType(type){
             $scope.project.gaugeType = type;
         }
+    }
+
+    GaugesSystemController.$inject = ['$scope', 'Gauges'];
+
+    function GaugesSystemController($scope, Gauges){
+
+        var vm = this;
+        vm.gauges = Gauges.all();
+
     }
 
 })();

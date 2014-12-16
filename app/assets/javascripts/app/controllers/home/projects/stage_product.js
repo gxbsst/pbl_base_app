@@ -9,7 +9,7 @@
 
     function StageProductController($scope) {
 
-        console.log($scope.$config.project)
+        
 
     }
 
