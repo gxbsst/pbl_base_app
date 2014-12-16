@@ -29,4 +29,6 @@ Rails.application.routes.draw do
   end
 
   resources :gauges, defaults: {format: 'json'}
+
+  resources :knowledges, defaults: {format: 'json'}
 end
