@@ -1,7 +1,9 @@
 .home-controller{
 
 }
-
+.clear{
+  clear: both;
+}
 .selector{
   width:650px;
   dl.table{
@@ -151,7 +153,16 @@
 
 .project-create-release{
   border-radius:3px;
+  border:#ccc solid 1px;
+  position: relative;
   /*@include border-radius(2px);*/
+  .pf-preview-flag{
+    left: -5px;
+    top: -26px;
+    font-size: 68px;
+    color: #77c84f;
+    position: absolute;
+  }
   h2{
     font-size:14px;
   }
