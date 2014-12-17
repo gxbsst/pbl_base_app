@@ -1,1 +1,0 @@
-ProductForm = Pbl::Models::ProductForm

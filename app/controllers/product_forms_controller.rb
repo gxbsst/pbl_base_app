@@ -1,32 +1,26 @@
 class ProductFormsController < ApplicationController
 
   def index
-    @products = ProductForm.all(product_query_params)
+    @products = Pbl::Models::Projects::ProductForm.where(params.permit(:project_id))
   end
 
   def create
-    @product = ProductForm.create(params[:product])
+    @product = Pbl::Models::Projects::ProductForm.create(params[:product])
     render :show
   end
 
   def show
-    @product = ProductForm.find(params[:id])
+    @product = Pbl::Models::Projects::ProductForm.find(params[:id])
   end
 
   def update
-    @product = ProductForm.update(params[:id], params[:product])
+    @product = Pbl::Models::Projects::ProductForm.update(params[:id], params[:product])
     render :show
   end
 
   def destroy
-    @product = ProductForm.destroy(params[:id])
+    @product = Pbl::Models::Projects::ProductForm.destroy(params[:id])
     render :show
-  end
-
-  private
-
-  def product_query_params
-    params.permit(:project_id)
   end
 
 end
