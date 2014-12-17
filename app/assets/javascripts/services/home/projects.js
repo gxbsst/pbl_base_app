@@ -12,7 +12,7 @@
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Projects($resource, RESOURCE_ACTIONS) {
-        return $resource('/projects/:projectId?include=knowledge    ', {projectId: '@projectId'}, RESOURCE_ACTIONS);
+        return $resource('/projects/:projectId', {projectId: '@projectId', include: 'techniques'}, RESOURCE_ACTIONS);
     }
 
     ProjectStandards.$inject = ['$resource', 'RESOURCE_ACTIONS'];

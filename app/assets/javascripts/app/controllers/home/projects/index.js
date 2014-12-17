@@ -28,7 +28,7 @@
 
     function HomeProjectIndexController(Projects) {
         var vm = this;
-        vm.projects = Projects.all();
+        vm.projects = Projects.all({});
     }
 
     HomeProjectCreateController.$inject = ['$state', '$scope', 'project'];

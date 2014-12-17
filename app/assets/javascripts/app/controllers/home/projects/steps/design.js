@@ -60,7 +60,7 @@
 
         function onProjectStandards() {
             ProjectStandards.all({
-                projectId: vm.project.id
+                project_id: vm.project.id
             }, function (result) {
                 vm.project.standards = result.data;
             });
@@ -69,8 +69,7 @@
         function removeStandard(standard) {
             ProjectStandards
                 .remove({
-                    projectId: project.id,
-                    standardId: standard.id
+                    standard_item_id: standard.id
                 }, onProjectStandards);
             //vm.project.standards.remove(function (a) {
             //    return a.id === standard.id;
@@ -80,7 +79,7 @@
 
         function onProjectSkills() {
             ProjectSkills.all({
-                projectId: vm.project.id
+                project_id: vm.project.id
             }, function (result) {
                 vm.project.skills = result.data;
             });
@@ -89,8 +88,8 @@
         function removeSkill(skill) {
             ProjectSkills
                 .remove({
-                    projectId: project.id,
-                    skillId: skill.id
+                    project_id: project.id,
+                    technique_id: skill.id
                 }, onProjectSkills);
             //vm.project.standards.remove(function (a) {
             //    return a.id === standard.id;
