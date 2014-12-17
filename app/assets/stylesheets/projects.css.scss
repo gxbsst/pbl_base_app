@@ -84,11 +84,11 @@
     }
   }
   &.active{
-    border-color:#0064f0;
+    border-color:#1e78f0;
     thead > tr > th{
       color:#fff;
-      background:#4b8ef0;
-      border-color:#0064f0;
+      background:#3c96fa;
+      border-color:#1e78f0;
     }
   }
 }
@@ -96,4 +96,125 @@
 .stage-product{
   width:600px;
   margin-top:-12px;
+}
+
+.gauges-selector{
+  width:800px;
+  height:100%;
+  margin:-18px 0;
+  .gauges-list{
+    margin:0 -12px 6px;
+  }
+}
+
+.technique-selector{
+  & > ul{
+    color:#333;
+    & > li{
+      position:relative;
+      padding:0 22px;
+      border-bottom:1px solid #e0e0e0;
+      line-height:30px;
+      cursor:pointer;
+      &.active{
+        color:#0077ff;
+        //background:#509bfa;
+        &:before{
+          position:absolute;
+          left:2px;
+          top:5px;
+          display:block;
+          width:20px;
+          height:20px;
+          line-height:20px;
+          text-align:center;
+          font-family:'PblIconFont';
+          speak:none;
+          font-size:14px;
+          content:'\e633';
+        }
+      }
+      &:last-of-type{
+        border:none;
+      }
+    }
+    &:hover{
+      & > li{
+        &.active{
+          //color:#509bfa;
+          background:none;
+        }
+        &:hover{
+          color:#fff;
+          background:#509bfa;
+        }
+      }
+    }
+  }
+}
+
+.project-create-new{
+  cursor:pointer;
+  &:after{
+    display:block;
+    clear:both;
+    visibility:hidden;
+    height:0;
+    overflow:hidden;
+    content:".";
+  }
+  h2{
+    font-size:16px;
+  }
+  .file-up{
+    right:0;
+    width:93px;
+    height:93px;
+    bottom:-10px;
+    text-align:center;
+    border:dashed 1px #e8e8e8;
+    position:absolute;
+
+    .circle{
+      width:55px;
+      height:55px;
+      color:#ddd;
+      margin:10px auto -10px;
+      line-height:55px;
+      border-radius:50%;
+      background:#f6f6f6;
+      .pf-camera{
+        color:#d2d2d2;
+        font-size:20px;
+        vertical-align:top;
+      }
+    }
+  }
+  & .pf-search{
+    color:#d2d2d2;
+    font-size:23px;
+    position:absolute;
+    left:2px;
+    top:6px;
+  }
+}
+
+.project-create-release{
+  border-radius:3px;
+  border:#ccc solid 1px;
+  position:relative;
+  /*@include border-radius(2px);*/
+  .pf-preview-flag{
+    left:-5px;
+    top:-26px;
+    font-size:68px;
+    color:#77c84f;
+    position:absolute;
+  }
+  h2{
+    font-size:14px;
+  }
+  .mar-2 img{
+    margin-right:2px;
+  }
 }

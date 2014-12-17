@@ -7,18 +7,12 @@
         .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
         .controller('GaugesSystemController', GaugesSystemController);
 
-    HomeProjectCreateGaugesController.$inject = ['$state', 'ProjectGauges', 'project'];
+    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectGauges', 'Projects', 'project'];
 
-    function HomeProjectCreateGaugesController($state, ProjectGauges, project) {
+    function HomeProjectCreateGaugesController($scope, ProjectGauges, Projects, project) {
 
         var vm = this;
         vm.project = project;
-        vm.project.gaugeType = 2;
-        vm.project.gaugeHead = '00110'.split('').map(function (v, i) {
-            return {
-                disabled: v == 0
-            }
-        });
         vm.setDisabled = setDisabled;
         vm.addRow = addRow;
         vm.addColumn = addColumn;
@@ -26,8 +20,27 @@
 
         refresh();
 
-        function setDisabled(disabled, $index){
-            vm.project.gaugeHead[$index].disabled = disabled;
+        $scope.$watch(function () {
+            return vm.project.rule_head;
+        }, function (heads) {
+            vm.project.ruleHeads = (heads || '11111').substr(0, 5).split('').map(function (v, i) {
+                return {
+                    disabled: v == 0
+                }
+            });
+        });
+
+        function setDisabled(disabled, $index) {
+            vm.project.ruleHeads[$index].disabled = disabled;
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {
+                    rule_head: (vm.project.ruleHeads.map(function (head) {
+                        return head.disabled ? 0 : 1;
+                    }).join('') + '11111').substr(0, 5)
+                }
+            });
         }
 
         function addRow(content, level) {
@@ -46,38 +59,53 @@
 
         }
 
-        function removeRow(gauge){
+        function removeRow(gauge) {
             ProjectGauges.remove({
                 projectId: project.id,
                 gaugeId: gauge.id
             }, refresh);
         }
 
-        function refresh(){
+        function refresh() {
             vm.gauges = ProjectGauges.all({projectId: project.id});
         }
     }
 
-    HomeProjectCreateGaugesTypeController.$inject = ['$scope', '$filter'];
+    HomeProjectCreateGaugesTypeController.$inject = ['$scope', '$filter', 'Projects'];
 
-    function HomeProjectCreateGaugesTypeController($scope, $filter){
+    function HomeProjectCreateGaugesTypeController($scope, $filter, Projects) {
 
         var vm = this;
-        vm.gaugeTypes = $filter('i18n')('GAUGE_HEAD');
+        vm.ruleTemplates = $filter('i18n')('GAUGE_HEAD');
+        vm.setRuleTemplate = setRuleTemplate;
 
-        vm.setGaugeType = setGaugeType;
-
-        function setGaugeType(type){
-            $scope.project.gaugeType = type;
+        function setRuleTemplate(type) {
+            $scope.project.rule_template = type;
+            Projects.update({
+                projectId: $scope.project.id
+            }, {
+                project: {
+                    rule_template: type
+                }
+            });
         }
     }
 
-    GaugesSystemController.$inject = ['$scope', 'Gauges'];
+    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectGauges'];
 
-    function GaugesSystemController($scope, Gauges){
+    function GaugesSystemController($scope, Gauges, ProjectGauges) {
 
         var vm = this;
         vm.gauges = Gauges.all();
+        vm.onChange = onChange;
+
+        function onChange(gauge){
+            if(gauge.selected){
+
+            }else{
+
+            }
+        }
 
     }
 

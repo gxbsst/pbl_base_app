@@ -19,7 +19,7 @@
 
         ProjectStandards
             .all({
-                projectId: $stateParams.projectId
+                project_id: $stateParams.projectId
             }, function (result) {
                 vm.selected = result.data;
             });
@@ -35,22 +35,25 @@
         }
 
         function onChange(item) {
-            if(item.selected){
+            if (item.selected) {
                 ProjectStandards
                     .add({
-                        projectId: $stateParams.projectId
-                    }, {
-                        id: item.id
+                        standard_item: {
+                            project_id: $stateParams.projectId,
+                            standard_item_id: item.id
+                        }
                     }, emit);
-            }else{
+            } else {
                 ProjectStandards
                     .remove({
-                        projectId: $stateParams.projectId,
-                        standardId: item.id
+                        standard_item: {
+                            project_id: $stateParams.projectId,
+                            standard_item_id: item.id
+                        }
                     }, emit);
             }
 
-            function emit(){
+            function emit() {
                 $scope.$emit('onProjectStandards');
             }
         }

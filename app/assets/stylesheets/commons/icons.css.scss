@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?a3nt5t');
-  src:font_url('PblIconFont.eot?#iefixa3nt5t') format('embedded-opentype'),
-  font_url('PblIconFont.woff?a3nt5t') format('woff'),
-  font_url('PblIconFont.ttf?a3nt5t') format('truetype'),
-  font_url('PblIconFont.svg?a3nt5t#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?w2a4zb');
+  src:font_url('PblIconFont.eot?#iefixw2a4zb') format('embedded-opentype'),
+  font_url('PblIconFont.woff?w2a4zb') format('woff'),
+  font_url('PblIconFont.ttf?w2a4zb') format('truetype'),
+  font_url('PblIconFont.svg?w2a4zb#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -211,6 +211,9 @@
 }
 .pf-cross:before {
   content: "\e117";
+}
+.pf-checkmark:before {
+  content: "\e633";
 }
 .pf-folder:before {
   content: "\e627";

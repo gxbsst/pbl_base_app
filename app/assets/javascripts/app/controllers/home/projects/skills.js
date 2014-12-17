@@ -19,7 +19,7 @@
 
         ProjectSkills
             .all({
-                projectId: $stateParams.projectId
+                project_id: $stateParams.projectId
             }, function (result) {
                 vm.selected = result.data;
             });

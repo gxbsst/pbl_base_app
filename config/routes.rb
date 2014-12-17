@@ -31,8 +31,10 @@ Rails.application.routes.draw do
   resources :gauges, defaults: {format: 'json'}
   resources :product_forms, defaults: {format: 'json'}
 
-  resources :standard_items, defaults: {format: 'json'}
-  resources :techniques, defaults: {format: 'json'}
+  namespace :project do
+    resources :standard_items, defaults: {format: 'json'}, only: %w(index destroy create)
+    resources :techniques, defaults: {format: 'json'}, only: %w(index destroy create)
+  end
 
   resources :knowledge, defaults: {format: 'json'}
 

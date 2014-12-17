@@ -5,8 +5,8 @@
         .module('app.services')
         .service('Projects', Projects)
         .service('ProjectStandards', ProjectStandards)
-        .service('ProjectGauges', ProjectGauges)
-        .service('ProjectSkills', ProjectSkills);
+        .service('ProjectSkills', ProjectSkills)
+        .service('ProjectGauges', ProjectGauges);
 
 
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
@@ -18,19 +18,19 @@
     ProjectStandards.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function ProjectStandards($resource, RESOURCE_ACTIONS) {
-        return $resource('/projects/:projectId/standards/:standardId', {projectId: '@projectId', standardId: '@standardId'}, RESOURCE_ACTIONS);
+        return $resource('/project/standard_items/:action/:standardItemId', {action: '@action', standardItemId: '@standardItemId'}, RESOURCE_ACTIONS);
+    }
+
+    ProjectSkills.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function ProjectSkills($resource, RESOURCE_ACTIONS) {
+        return $resource('/project/techniques/:action/:techniqueId', {action: '@action', techniqueId: '@techniqueId'}, RESOURCE_ACTIONS);
     }
 
     ProjectGauges.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function ProjectGauges($resource, RESOURCE_ACTIONS) {
         return $resource('/projects/:projectId/gauges/:gaugeId', {projectId: '@projectId', gaugeId: '@gaugeId'}, RESOURCE_ACTIONS);
-    }
-
-    ProjectSkills.$inject = ['$resource', 'RESOURCE_ACTIONS'];
-
-    function ProjectSkills($resource, RESOURCE_ACTIONS) {
-        return $resource('/projects/:projectId/skills/:skillId', {skillId: '@skillId', action: '@action', categorieId: '@categorieId'}, RESOURCE_ACTIONS);
     }
 
 })();
