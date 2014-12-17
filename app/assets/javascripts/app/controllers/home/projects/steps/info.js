@@ -24,7 +24,7 @@
             Projects.update({
                 projectId: vm.project.id
             }, {
-                project: {tags: model}
+                project: {tag_list: model}
             });
         }
     }
