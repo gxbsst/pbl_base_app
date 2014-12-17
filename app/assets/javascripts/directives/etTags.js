@@ -25,11 +25,12 @@
                 onRemove = scope.$eval(attr.onRemove) || angular.noop,
                 onChange = scope.$eval(attr.onChange) || angular.noop;
 
-            ctrl.tags = [];
-
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.ngModel = ngModel;
                 ctrl.tags = typeof ngModel == 'string' ? ngModel.split(',') : ngModel;
+                if(ctrl.tags === undefined){
+                    ctrl.tags = [];
+                }
             });
 
             scope.$watch(function () {
