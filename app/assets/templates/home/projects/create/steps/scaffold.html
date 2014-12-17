@@ -37,7 +37,7 @@
             </div>
             <div class="col-1-1">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="knowledge in vm.project.knowledges"><span ng-bind="knowledge"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeKnowledge(knowledge)"></i></li>
+                    <li class="list-group-item" ng-repeat="knowledge in vm.project.knowledges"><span ng-bind="knowledge.description"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeKnowledge(knowledge)"></i></li>
                 </ul>
             </div>
         </div>

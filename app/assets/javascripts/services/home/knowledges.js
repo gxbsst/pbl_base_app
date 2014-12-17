@@ -8,7 +8,7 @@
     Knowledges.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Knowledges($resource, RESOURCE_ACTIONS) {
-        return $resource('/knowledges/:knowledgeId', {worksformId: '@knowledgeId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/knowledge/:knowledgeId', {worksformId: '@knowledgeId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
 })();
