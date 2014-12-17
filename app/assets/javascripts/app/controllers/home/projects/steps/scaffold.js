@@ -109,7 +109,11 @@
             //vm.project.knowledges.push(vm.tempKnowledge);
             Knowledges.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},function(){
                 vm.tempKnowledge="";
-                vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
+                Knowledges.all({project_id: vm.project.id},function(data){
+                    vm.project.knowledges =data.data;
+                    console.log(data);
+                });
+
             });
         }
         function removeKnowledge(knowledge){
@@ -117,7 +121,10 @@
             //    return item == knowledge;
             //});
             Knowledges.remove({knowledgeId:knowledge.id},function(){
-                vm.project.knowledges = Knowledges.all({project_id: vm.project.id});
+                Knowledges.all({project_id: vm.project.id},function(data){
+                    vm.project.knowledges =data.data;
+                    console.log(data);
+                });
             });
         }
         function removeResource(task,resource){
