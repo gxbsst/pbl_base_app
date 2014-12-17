@@ -22,7 +22,7 @@ class KnowledgeController < ApplicationBaseController
 
   def destroy
     @knowledge = Pbl::Knowledge.destroy(params[:id])
-    render :show
+    render json: {id: @knowledge.id}
   end
 
 end
