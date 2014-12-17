@@ -14,7 +14,7 @@
         vm.cycles=[];
         //周期未使用异步调用
         vm.cycles=Cycles;
-
+        console.log(vm.project);
 
         vm.onChange = function () {
             return updateTags;

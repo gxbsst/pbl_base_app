@@ -11,7 +11,7 @@
     function addTaskController($scope,Disciplines,Cycles) {
         var vm = this;
         $scope.task={
-            'tasktype':'1'
+            'task_type':'1'
         };
 
         vm.disciplines=[];
