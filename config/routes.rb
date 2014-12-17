@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   resources :home, only: %w(index)
   resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete)
-  resources :products, defaults: {format: 'json'}
   resources :standard_decompositions, defaults: {format: 'json'}
 
   resources :qiniu_tokens, format: :json, only: %w(create)
@@ -34,6 +33,7 @@ Rails.application.routes.draw do
   namespace :project do
     resources :standard_items, defaults: {format: 'json'}, only: %w(index destroy create)
     resources :techniques, defaults: {format: 'json'}, only: %w(index destroy create)
+    resources :products, defaults: {format: 'json'}
     resources :rules, defaults: {format: 'json'}, only: %w(index destroy create)
   end
 

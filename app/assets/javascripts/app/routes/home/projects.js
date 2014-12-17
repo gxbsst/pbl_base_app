@@ -65,6 +65,14 @@
             var defer = $q.defer();
             if($stateParams.projectId){
                 Projects.get({projectId:$stateParams.projectId}, function (result) {
+                    var products = result.data.products || [],
+                        findFinal = function (product) {
+                            return product.is_final;
+                        };
+                    result.data.final_product = products.findOne(findFinal);
+                    if(result.data.final_product){
+                        products.remove(findFinal);
+                    }
                     defer.resolve(result.data);
                 });
             }else{

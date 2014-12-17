@@ -21,7 +21,7 @@ module Project
 
     def destroy
       @standard_item = Pbl::StandardItem.destroy(params[:id])
-      render :show
+      render json: @standard_item.success? ? {id: @standard_item.id} : {error: @standard_item.error}
     end
 
   end

@@ -108,6 +108,12 @@
   }
 }
 
+.loading{
+  text-align:center;
+  padding:6px 0;
+  color:#999;
+}
+
 @each $type in default, move, text, pointer{
   .cur-#{$type}{
     cursor:$type !important;

@@ -33,6 +33,8 @@
         $scope.$on('onProjectSkills', onProjectSkills);
         $scope.$on('setWorksforms', setWorksforms);
 
+        onProjectStandards();
+
         function showStandardAnalysis() {
             vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
         }
@@ -59,9 +61,11 @@
         }
 
         function onProjectStandards() {
+            vm.project.$standardsStatus = 'loading';
             ProjectStandards.all({
                 project_id: vm.project.id
             }, function (result) {
+                vm.project.$standardsStatus = 'loaded';
                 vm.project.standards = result.data;
             });
         }
@@ -69,11 +73,8 @@
         function removeStandard(standard) {
             ProjectStandards
                 .remove({
-                    standard_item_id: standard.id
+                    standardItemId: standard.id
                 }, onProjectStandards);
-            //vm.project.standards.remove(function (a) {
-            //    return a.id === standard.id;
-            //});
         }
 
 

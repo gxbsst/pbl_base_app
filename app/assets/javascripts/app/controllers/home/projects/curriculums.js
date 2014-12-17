@@ -60,7 +60,7 @@
 
         function isSelected(entry) {
             return vm.selected.has(function (item) {
-                return item.id === entry.id;
+                return item.standard_item_id === entry.id;
             });
         }
 

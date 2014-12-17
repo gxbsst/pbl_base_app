@@ -10,8 +10,9 @@
         <input type="hidden" ng-model="vm.project.standards"/>
         <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i class="pf-plus"></i> 选择课标</span>
         <div class="row">
+            <div ng-if="vm.project.$standardsStatus=='loading'" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
+                <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
             </ul>
         </div>
     </div>
@@ -43,7 +44,7 @@
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
         <label for="project[standard_analysis]" class="control-label">课标解读：（请填写这些标准对于现实世界的价值，您希望学生从中得到什么理解？）</label>
         <div class="row">
-            <textarea name=""  cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
+            <textarea id="project[standard_analysis]" name="project[standard_analysis]" cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
         </div>
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
