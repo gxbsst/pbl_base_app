@@ -1,0 +1,1 @@
+json.extract! @tasks, :data, :meta if @tasks

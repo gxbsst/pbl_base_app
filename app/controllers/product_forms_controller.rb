@@ -1,7 +1,7 @@
 class ProductFormsController < ApplicationController
 
   def index
-    @products = Pbl::Models::Projects::ProductForm.where(params.permit(:project_id))
+    @products = Pbl::Models::Projects::ProductForm.all
   end
 
   def create
