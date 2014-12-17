@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :techniques, defaults: {format: 'json'}, only: %w(index destroy create)
     resources :products, defaults: {format: 'json'}
     resources :rules, defaults: {format: 'json'}, only: %w(index destroy create)
+    resources :tasks, defaults: {format: 'json'}
   end
 
   resources :knowledge, defaults: {format: 'json'}
@@ -42,4 +43,6 @@ Rails.application.routes.draw do
   resources :roles, defaults: {format: 'json'}
 
   resources :assignments, defaults: {format: 'json'}
+
+  resources :disciplines, defaults: {format: 'json'}
 end
