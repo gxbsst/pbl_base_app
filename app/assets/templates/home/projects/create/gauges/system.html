@@ -2,7 +2,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th></th>
+            <th>&nbsp;</th>
             <th>对应技能</th>
             <th>量规标准</th>
             <th width="60">权重</th>
@@ -11,7 +11,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="gauge in vm.gauges.data" class="gauge-item">
-            <td><input type="checkbox" ng-model="gauge.selected" ng-change="vm.onChange(gauge)"/></td>
+            <td class="padding-6"><input type="checkbox" ng-model="gauge.selected" ng-change="vm.onChange(gauge)" ng-init="gauge.selected=vm.isSelected(gauge)"/></td>
             <td ng-bind="gauge.technique.title"></td>
             <td ng-bind="gauge.standard"></td>
             <td class="center" ng-bind="gauge.weight"></td>

@@ -98,6 +98,7 @@
         var vm = this;
         vm.gauges = Gauges.all();
         vm.onChange = onChange;
+        vm.isSelected = isSelected;
 
         function onChange(gauge){
             if(gauge.selected){
@@ -105,6 +106,12 @@
             }else{
 
             }
+        }
+
+        function isSelected(gauge){
+            return ($scope.project.gauges || []).has(function (g) {
+                return g.gauge_id === gauge.id;
+            });
         }
 
     }

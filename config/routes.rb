@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :index, only: %w(index)
 
   resources :home, only: %w(index)
-  resources :projects, defaults: {format: 'json'}
+  resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete)
   resources :products, defaults: {format: 'json'}
   resources :standard_decompositions, defaults: {format: 'json'}
 
@@ -14,22 +14,22 @@ Rails.application.routes.draw do
   resources :qiniu_stat, format: :json, only: %w(index)
 
   namespace :skill do
-    resources :categories, defaults: { format: :json }
-    resources :sub_categories, defaults: { format: :json }
-    resources :techniques, defaults: { format: :json }
+    resources :categories, defaults: { format: :json }, only: %w(index)
+    resources :sub_categories, defaults: { format: :json }, only: %w(index)
+    resources :techniques, defaults: { format: :json }, only: %w(index)
   end
   #resources :posts, defaults: { format: :json }
 
   #resources :user, defaults: { format: :json }, only: %w(index)
 
   namespace :curriculum do
-    resources :subjects, defaults: {format: 'json'}
-    resources :phases, defaults: {format: 'json'}
-    resources :standards, defaults: {format: 'json'}
+    resources :subjects, defaults: {format: 'json'}, only: %w(index)
+    resources :phases, defaults: {format: 'json'}, only: %w(index)
+    resources :standards, defaults: {format: 'json'}, only: %w(index)
   end
 
-  resources :gauges, defaults: {format: 'json'}
-  resources :product_forms, defaults: {format: 'json'}
+  resources :gauges, defaults: {format: 'json'}, only: %w(index)
+  resources :product_forms, defaults: {format: 'json'}, only: %w(index)
 
   namespace :project do
     resources :standard_items, defaults: {format: 'json'}, only: %w(index destroy create)
