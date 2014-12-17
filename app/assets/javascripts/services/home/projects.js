@@ -14,7 +14,7 @@
     function Projects($resource, RESOURCE_ACTIONS) {
         return $resource('/projects/:projectId', {
             projectId: '@projectId',
-            include: 'techniques,knowledge'
+            include: 'techniques,knowledge,tasks'
         }, RESOURCE_ACTIONS);
     }
 

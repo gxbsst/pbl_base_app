@@ -10,21 +10,11 @@
 
     function addTaskController($scope,Disciplines,Cycles) {
         var vm = this;
+        $scope.disabled=true;
         $scope.task={
             'task_type':'1'
         };
 
-        vm.disciplines=[];
-        Disciplines.all(function(data){
-            vm.disciplines=data.data;
-            //测试ng-model绑定
-            //vm.disciplines.push(vm.project.tasks[0].test.discipline);
-        });
-        vm.cycles=[];
-        //周期未使用异步调用
-        vm.cycles=Cycles;
-
-        vm.project=$scope.project;
         $scope.modalEmit = modalEmit;
 
         function modalEmit() {

@@ -98,8 +98,11 @@
             console.log(vm.project.tasks);
         }
 
-        function chooseType(task,typeval){
+        function chooseType(task,typeval,disabled){
             task.task_type=typeval;
+            if(!disabled){
+                Tasks.update({'taskID':task.id,'task':{'task_type':typeval}});
+            }
         }
 
         function showProjectInfo() {
@@ -139,7 +142,7 @@
         }
 
         function removeTask(task) {
-            vm.project.tasks.splice(vm.project.tasks.length, 0, task);
+            //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
             Tasks.remove({taskId:task.id},onProjectTasks);
         }
 
