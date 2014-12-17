@@ -144,12 +144,12 @@
         })
 
         //获取学科列表
-        .mock('/disciplines', {
-            'data|20':[{
-                'id':'@GUID',
-                'title':'@TITLE'
-            }]
-        })
+        //.mock('/disciplines', {
+        //    'data|20':[{
+        //        'id':'@GUID',
+        //        'title':'@TITLE'
+        //    }]
+        //})
 
         .mock('/projects/:projectId/gauges', 'GET', {
             'data|2-5':[{

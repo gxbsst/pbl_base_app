@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledges'];
+    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledges','Tasks'];
 
-    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledges) {
+    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledges,Tasks) {
         var vm = this;
 
         project.knowledges = project.knowledges || [];
@@ -32,6 +32,7 @@
 
         vm.showProjectInfo = showProjectInfo;
 
+        vm.removeTask=removeTask;
         $scope.$on('setAddTask', setAddTask);
 
         vm.onBegin = onBegin;
@@ -98,7 +99,7 @@
         }
 
         function chooseType(task,typeval){
-            task.tasktype=typeval;
+            task.task_type=typeval;
         }
 
         function showProjectInfo() {
@@ -107,26 +108,22 @@
 
         function addKnowledge(){
             //vm.project.knowledges.push(vm.tempKnowledge);
-            Knowledges.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},function(){
-                vm.tempKnowledge="";
-                Knowledges.all({project_id: vm.project.id},function(data){
-                    vm.project.knowledges =data.data;
-                    console.log(data);
-                });
-
-            });
+            Knowledges.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},onProjectKnowledges);
         }
         function removeKnowledge(knowledge){
-            //vm.project.knowledges.remove(function(item){
-            //    return item == knowledge;
-            //});
-            Knowledges.remove({knowledgeId:knowledge.id},function(){
-                Knowledges.all({project_id: vm.project.id},function(data){
+            Knowledges.remove({knowledgeId:knowledge.id},onProjectKnowledges);
+        }
+
+        function onProjectKnowledges() {
+            Knowledges.all(
+                {project_id: vm.project.id},
+                function(data){
                     vm.project.knowledges =data.data;
                     console.log(data);
                 });
-            });
         }
+
+
         function removeResource(task,resource){
             task.resources.remove(function(item){
                 return item == resource;
@@ -134,7 +131,26 @@
         }
 
         function setAddTask(event, task) {
+            //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
+            console.log(task);
+            task.project_id=vm.project.id;
+            console.log(task);
+            Tasks.add({"task":task},onProjectTasks);
+        }
+
+        function removeTask(task) {
             vm.project.tasks.splice(vm.project.tasks.length, 0, task);
+            Tasks.remove({taskId:task.id},onProjectTasks);
+        }
+
+
+        function onProjectTasks() {
+            Tasks.all(
+                {project_id: vm.project.id},
+                function(data){
+                    vm.project.tasks =data.data;
+                    console.log(data);
+                });
         }
     }
 

@@ -50,7 +50,111 @@
             <div class="col-1-1">
                 <div class="" ng-repeat="task in vm.project.tasks track by $index"><span class="control-label" ng-bind="'任务'+($index+1)"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeTask(task)"></i>
 
-                    <ng-include src="'home/projects/create/taskform.html'"></ng-include>
+                    <div class="col-1-1">
+                        <label>任务名称：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.title" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>任务描述：</label>
+                        <div class="col-1-1">
+                            <textarea  cols="30" rows="5" ng-model="task.description" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>场地：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.site" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>教具：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.teacher_tools" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>学生自备工具：</label>
+                        <div class="col-1-1">
+                            <input type="text"  ng-model="task.student_tools" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>任务类型：</label>
+                        <div class="col-1-1 margin-bottom-8">
+                            <span class="btn" ng-class="{'btn-blue':task.task_type==1,'btn-gray':task.task_type!=1}" role="button" ng-click="vm.chooseType(task,1)">测量</span>
+                            <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type==2,'btn-gray':task.task_type!=2}" role="button" ng-click="vm.chooseType(task,2)">评价类任务</span>
+                            <span class="btn " ng-class="{'btn-blue':task.task_type==3,'btn-gray':task.task_type!=3}"  role="button" ng-click="vm.chooseType(task,3)">事件</span>
+                        </div>
+                    </div>
+                    <div class="col-1-1" ng-show="task.task_type==1">
+                        <div class="col-1-1">
+                            <label class=" col-1-8">学科：</label>
+                            <div class="col-7-8">
+                                <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.discipline_id" ng-options="discipline.id as discipline.title for discipline in vm.disciplines">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-1" ng-show="task.task_type==2">
+                        <div class="col-1-1 margin-bottom-8">
+                            <label class=" col-1-8">任务时长：</label>
+                            <div class="col-7-8">{{task.evaluation_cycle}}
+                                <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.evaluation_duration" class="form-control"/>
+                                <select style="width: 70px; height: 30px;" ng-model="task.evaluation_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+                                    <option value="">-- 请选择 --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1-1">
+                            <label class=" col-1-8">对应成果：</label>
+                            <div class="col-7-8">
+                                <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()"  ng-model="task.product_id" ng-options="stage.id as stage.title for stage in vm.project.stage_products">
+                                </select>
+                                展示视频
+                            </div>
+                        </div>
+                        <div class="col-1-1" >
+                            <div class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
+                                <label class="control-label" ng-bind="task.evaluation.results.title"></label>
+                                <div class="col-1-1">
+                                    <span ng-bind="task.evaluation.results.worksform.title" ng-hide="task.evaluation.results.worksform==null"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1-1">
+                            <label>对应量规：</label>
+                            <div class="offset-1-12 col-11-12">
+                                <span class="btn btn-gray" role="button">选择量规</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-1" ng-show="task.task_type==3">
+                        <div class="col-1-1">
+                            <label class=" col-1-8">任务时长：</label>
+                            <div class="col-7-8">
+                                <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.event_duration" class="form-control"/>
+                                <select style="width: 70px; height: 30px;" ng-model="task.event_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+                                    <option value="">-- 请选择 --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-1">
+                        <label>任务资源：</label>
+                        <div class="offset-1-12 col-11-12">
+                            <span class="btn" qn-upload="{multiple:true}" on-begin="vm.onBegin(task)" on-progress="vm.onProgress()" on-success="vm.onSuccess(task)" on-completed="vm.onCompleted()" on-error="vm.onError()"><i class="pf-arrowhead-up"></i> 上传文件</span>
+                        </div>
+                        <div class="offset-1-12 col-11-12">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="resource in task.resources">
+                                    <span ng-bind="resource.title"></span><span ng-show="resource.state==false">正在上传</span><span ng-show="resource.state==true">上传成功</span>
+                                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(task,resource)"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
                 </div>
             </div>

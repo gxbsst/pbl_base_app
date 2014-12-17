@@ -31,33 +31,34 @@
 <div class="col-1-1">
     <label>任务类型：</label>
     <div class="col-1-1 margin-bottom-8">
-        <span class="btn" ng-class="{'btn-blue':task.tasktype==1,'btn-gray':task.tasktype!=1}" role="button" ng-click="vm.chooseType(task,1)">测量</span>
-        <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.tasktype==2,'btn-gray':task.tasktype!=2}" role="button" ng-click="vm.chooseType(task,2)">评价类任务</span>
-        <span class="btn " ng-class="{'btn-blue':task.tasktype==3,'btn-gray':task.tasktype!=3}"  role="button" ng-click="vm.chooseType(task,3)">事件</span>
+        <span class="btn" ng-class="{'btn-blue':task.task_type==1,'btn-gray':task.task_type!=1}" role="button" ng-click="vm.chooseType(task,1)">测量</span>
+        <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type==2,'btn-gray':task.task_type!=2}" role="button" ng-click="vm.chooseType(task,2)">评价类任务</span>
+        <span class="btn " ng-class="{'btn-blue':task.task_type==3,'btn-gray':task.task_type!=3}"  role="button" ng-click="vm.chooseType(task,3)">事件</span>
     </div>
 </div>
-<div class="col-1-1" ng-show="task.tasktype==1">
+<div class="col-1-1" ng-show="task.task_type==1">
     <div class="col-1-1">
         <label class=" col-1-8">学科：</label>
         <div class="col-7-8">
-            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.test.discipline" ng-options="discipline.title for discipline in vm.disciplines">
+            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.discipline_id" ng-options="discipline.id as discipline.title for discipline in vm.disciplines">
             </select>
         </div>
     </div>
 </div>
-<div class="col-1-1" ng-show="task.tasktype==2">
+<div class="col-1-1" ng-show="task.task_type==2">
     <div class="col-1-1 margin-bottom-8">
         <label class=" col-1-8">任务时长：</label>
         <div class="col-7-8">
-            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.evaluation.duration.time_span" class="form-control"/>
-            <select style="width: 70px; height: 30px;" ng-model="task.evaluation.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.evaluation_duration" class="form-control"/>
+            <select style="width: 70px; height: 30px;" ng-model="task.evaluation_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+                <option value="">-- 请选择 --</option>
             </select>
         </div>
     </div>
     <div class="col-1-1">
         <label class=" col-1-8">对应成果：</label>
         <div class="col-7-8">
-            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()"  ng-model="task.evaluation.results" ng-options="stage.title for stage in vm.project.stage_products">
+            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()"  ng-model="task.product_id" ng-options="stage.id as stage.title for stage in vm.project.stage_products">
             </select>
             展示视频
         </div>
@@ -77,12 +78,13 @@
         </div>
     </div>
 </div>
-<div class="col-1-1" ng-show="task.tasktype==3">
+<div class="col-1-1" ng-show="task.task_type==3">
     <div class="col-1-1">
         <label class=" col-1-8">任务时长：</label>
         <div class="col-7-8">
-            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.event.duration.time_span" class="form-control"/>
-            <select style="width: 70px; height: 30px;" ng-model="task.event.duration.cycle" ng-options="cycle.title for cycle in vm.cycles">
+            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.event_duration" class="form-control"/>
+            <select style="width: 70px; height: 30px;" ng-model="task.event_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+                <option value="">-- 请选择 --</option>
             </select>
         </div>
     </div>
