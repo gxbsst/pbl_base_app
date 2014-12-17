@@ -30,6 +30,12 @@
                 ctrl.tags = ngModel ? ngModel.split(',') : [];
             });
 
+            scope.$watch(function () {
+                return attr.placeholder;
+            }, function (placeholder) {
+                ctrl.placeholder = placeholder;
+            });
+
             ctrl.input = '';
             ctrl.tags = [];
             ctrl.add = add;
