@@ -1,0 +1,1 @@
+json.extract! @product_forms, :data, :meta if @product_forms
