@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   namespace :project do
     resources :standard_items, defaults: {format: 'json'}, only: %w(index destroy create)
     resources :techniques, defaults: {format: 'json'}, only: %w(index destroy create)
+    resources :rules, defaults: {format: 'json'}, only: %w(index destroy create)
   end
 
   resources :knowledge, defaults: {format: 'json'}
