@@ -61,13 +61,15 @@
 
         function removeRow(gauge) {
             ProjectGauges.remove({
-                projectId: project.id,
+                project_id: project.id,
                 gaugeId: gauge.id
             }, refresh);
         }
 
         function refresh() {
-            vm.gauges = ProjectGauges.all({projectId: project.id});
+            vm.gauges = ProjectGauges.all({
+                project_id: project.id
+            });
         }
     }
 

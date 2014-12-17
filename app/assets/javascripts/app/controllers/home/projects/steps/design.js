@@ -27,7 +27,6 @@
         vm.saveProject = saveProject;
         vm.removeObjArray = removeObjArray;
         vm.addObjArray = addObjArray;
-        vm.chooseWorksform = chooseWorksform;
         vm.showStandardAnalysis = showStandardAnalysis;
         $scope.$on('onProjectStandards', onProjectStandards);
         $scope.$on('onProjectSkills', onProjectSkills);
@@ -37,12 +36,6 @@
 
         function showStandardAnalysis() {
             vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
-        }
-
-        function chooseWorksform(obj, index) {
-            vm.chooseitem = {
-                'obj': obj, 'index': index
-            };
         }
 
         function addObjArray(obj) {
@@ -61,12 +54,10 @@
         }
 
         function onProjectStandards() {
-            vm.project.$standardsStatus = 'loading';
             ProjectStandards.all({
                 project_id: vm.project.id
             }, function (result) {
-                vm.project.$standardsStatus = 'loaded';
-                vm.project.standards = result.data;
+                vm.project.standard_items = result.data;
             });
         }
 

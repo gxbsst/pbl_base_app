@@ -10,19 +10,12 @@
     function CurriculumsController($scope, $stateParams, Curriculums, ProjectStandards) {
 
         var vm = this;
-        vm.selected = [];
+        vm.selected = $scope.project.standard_items || [];
         vm.subjects = Curriculums.all({action: 'subjects'});
         vm.isSelected = isSelected;
         vm.getPhases = getPhases;
         vm.getStandards = getStandards;
         vm.onChange = onChange;
-
-        ProjectStandards
-            .all({
-                project_id: $stateParams.projectId
-            }, function (result) {
-                vm.selected = result.data;
-            });
 
         function getPhases(subject) {
             vm.subject = subject;

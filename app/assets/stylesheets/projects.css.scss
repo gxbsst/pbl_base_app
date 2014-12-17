@@ -108,48 +108,40 @@
 }
 
 .technique-selector{
-  & > ul{
-    color:#333;
-    & > li{
-      position:relative;
-      padding:0 22px;
-      border-bottom:1px solid #e0e0e0;
-      line-height:30px;
-      cursor:pointer;
-      &.active{
-        color:#0077ff;
-        //background:#509bfa;
-        &:before{
-          position:absolute;
-          left:2px;
-          top:5px;
-          display:block;
-          width:20px;
-          height:20px;
-          line-height:20px;
-          text-align:center;
-          font-family:'PblIconFont';
-          speak:none;
-          font-size:14px;
-          content:'\e633';
-        }
-      }
-      &:last-of-type{
-        border:none;
-      }
-    }
-    &:hover{
-      & > li{
-        &.active{
-          //color:#509bfa;
-          background:none;
-        }
-        &:hover{
-          color:#fff;
-          background:#509bfa;
-        }
-      }
-    }
+  ul.selection > li:last-of-type{
+    border:none;
+  }
+}
+
+.product-forms{
+  position:relative;
+  width:650px;
+  height:300px;
+  .product-forms-list{
+    position:absolute;
+    left:0;
+    right:70%;
+    top:0;
+    bottom:0;
+    border-right:1px solid #e0e0e0;
+    overflow:auto;
+  }
+  .product-forms-content{
+    position:absolute;
+    left:30%;
+    right:0;
+    top:0;
+    bottom:60px;
+    overflow:auto;
+  }
+  .product-forms-footer{
+    position:absolute;
+    left:30%;
+    right:0;
+    bottom:0;
+    height:60px;
+    border-top:1px solid #e0e0e0;
+    text-align:right;
   }
 }
 
