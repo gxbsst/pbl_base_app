@@ -28,23 +28,13 @@
         }
 
         function onChange(item) {
-            if (item.selected) {
-                ProjectStandards
-                    .add({
-                        standard_item: {
-                            project_id: $stateParams.projectId,
-                            standard_item_id: item.id
-                        }
-                    }, emit);
-            } else {
-                ProjectStandards
-                    .remove({
-                        standard_item: {
-                            project_id: $stateParams.projectId,
-                            standard_item_id: item.id
-                        }
-                    }, emit);
-            }
+            var params = {
+                standard_item: {
+                    project_id: $stateParams.projectId,
+                    standard_item_id: item.id
+                }
+            };
+            ProjectStandards[item.selected ? 'add' : 'remove'](params, emit);
 
             function emit() {
                 $scope.$emit('onProjectStandards');

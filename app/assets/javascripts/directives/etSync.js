@@ -41,10 +41,14 @@
             }
 
             function modelUpdate(){
-                if (scope.model != scope.ngModel) {
-                    scope.model = scope.ngModel;
-                    var service = $injector.get(scope.$config.$service);
-                    service.update(scope.$config);
+                if(!scope.$config.$disabled){
+                    if (scope.model != scope.ngModel) {
+                        scope.model = scope.ngModel;
+                        var service = $injector.get(scope.$config.$service);
+                        service.update(scope.$config);
+                    }else{
+                        console.log(scope.$config.$disabled);
+                    }
                 }
             }
 

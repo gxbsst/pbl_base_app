@@ -5,15 +5,17 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project','Cycles'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project','Cycles','Grades'];
 
-    function HomeProjectCreateInfoController($state, Projects, project,Cycles) {
+    function HomeProjectCreateInfoController($state, Projects, project,Cycles,Grades) {
         var vm = this;
         vm.project = project;
 
         vm.cycles=[];
-        //周期未使用异步调用
         vm.cycles=Cycles;
+
+        vm.grades=[];
+        vm.grades=Grades;
         console.log(vm.project);
 
         vm.onChange = function () {

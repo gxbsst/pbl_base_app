@@ -61,11 +61,15 @@
 
     <div class="col-1-1 padding-right-20 margin-top-20 margin-bottom-20">
       <h2>驱动性问题：</h2>
-      <span class="padding-left-6" ng-bind="driven_issue"></span>
+      <span class="padding-left-6" ng-bind="vm.project.driven_issue"></span>
      <h2>知识列表：</h2>
-       <div class="padding-left-6">
-      <span ng-bind="knowledge" ng-repeat="knowledge in vm.project.knowledges"><br/></span>
-      </div>
+        <div class="padding-left-6">
+            <ul>
+                <li ng-repeat="knowledge in vm.project.knowledge">
+                    <span ng-bind="knowledge.description"></span>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <h2>量规：</h2>

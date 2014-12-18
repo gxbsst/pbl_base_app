@@ -5,53 +5,25 @@
         .module('app.pbl')
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController);
 
-    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'ProjectSkills', 'project'];
+    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'Projects', 'ProjectStandards', 'ProjectSkills', 'ProjectProducts', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards, ProjectSkills, project) {
+    function HomeProjectCreateDesignController($scope, $state, Projects, ProjectStandards, ProjectSkills, ProjectProducts, project) {
 
         var vm = this;
 
-        project.standards = project.standards || [];
-        project.skills = project.skills || [];
-        project.standard_decompositions = project.standard_decompositions || [];
-        project.stage_products = project.stage_products || [];
-        project.final_product = project.final_product ||
-        {
-            'worksform': null,
-            'description': '',
-            'example': ''
-        };
         vm.project = project;
-        vm.removeStandard = removeStandard;
-        vm.removeSkill = removeSkill;
+        vm.removeStandardItem = removeStandardItem;
+        vm.removeTechnique = removeTechnique;
+        vm.removeProduct = removeProduct;
         vm.saveProject = saveProject;
-        vm.removeObjArray = removeObjArray;
-        vm.addObjArray = addObjArray;
-        vm.showStandardAnalysis = showStandardAnalysis;
+
         $scope.$on('onProjectStandards', onProjectStandards);
         $scope.$on('onProjectSkills', onProjectSkills);
-        $scope.$on('setWorksforms', setWorksforms);
+        $scope.$on('onProjectProducts', onProjectProducts);
 
         onProjectStandards();
-
-        function showStandardAnalysis() {
-            vm.switchvmStandardAnalysis = !vm.switchvmStandardAnalysis;
-        }
-
-        function addObjArray(obj) {
-            obj.splice(obj.length, 0, {});
-        }
-
-        //function removeObjArray(obj, index) {
-        //    obj.splice(index, 1);
-        //}
-
-        function removeObjArray(objs, obj) {
-            objs.remove(function (a) {
-                console.log("new remove");
-                return a.id === obj.id;
-            });
-        }
+        onProjectSkills();
+        onProjectProducts();
 
         function onProjectStandards() {
             ProjectStandards.all({
@@ -61,43 +33,46 @@
             });
         }
 
-        function removeStandard(standard) {
-            ProjectStandards
-                .remove({
-                    standardItemId: standard.id
-                }, onProjectStandards);
-        }
-
-
         function onProjectSkills() {
             ProjectSkills.all({
                 project_id: vm.project.id
             }, function (result) {
-                vm.project.skills = result.data;
+                vm.project.techniques = result.data;
             });
         }
 
-        function removeSkill(skill) {
-            ProjectSkills
-                .remove({
-                    project_id: project.id,
-                    technique_id: skill.id
-                }, onProjectSkills);
-            //vm.project.standards.remove(function (a) {
-            //    return a.id === standard.id;
-            //});
+        function onProjectProducts() {
+            ProjectProducts.all({
+                project_id: vm.project.id
+            }, function (result) {
+                var products = result.data,
+                    findFinal = function (product) {
+                        return product.is_final;
+                    };
+                vm.project.final_product = products.findOne(findFinal);
+                if (vm.project.final_product) {
+                    products.remove(findFinal);
+                }
+                vm.project.products = result.data;
+            });
         }
 
-        function setWorksforms(event, worksforms) {
-            switch (vm.chooseitem.obj) {
-                case 'final_product':
-                    vm.project.final_product.worksform = worksforms;
-                    break;
-                case 'stage':
-                    console.log(vm.project.stage_products);
-                    vm.project.stage_products[vm.chooseitem.index].worksform = worksforms;
-                    break;
-            }
+        function removeStandardItem(standard) {
+            ProjectStandards.remove({
+                standardItemId: standard.id
+            }, onProjectStandards);
+        }
+
+        function removeTechnique(skill) {
+            ProjectSkills.remove({
+                techniqueId: skill.id
+            }, onProjectSkills);
+        }
+
+        function removeProduct(product) {
+            ProjectProducts.remove({
+                productId: product.id
+            }, onProjectProducts);
         }
 
         function saveProject() {
