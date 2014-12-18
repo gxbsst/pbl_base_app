@@ -18,7 +18,7 @@
         vm.addColumn = addColumn;
         vm.removeRow = removeRow;
 
-        refresh();
+        onProjectGauges();
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -43,16 +43,12 @@
             });
         }
 
-        function addRow(content, level) {
-            /*ProjectGauges.add({
-             projectId: project.id,
-             gauge: {
-             content: content,
-             level: level
-             }
-             }, function () {
-
-             });*/
+        function addRow() {
+            ProjectGauges.add({
+                rule: {
+                    project_id: project.id
+                }
+            }, onProjectGauges);
         }
 
         function addColumn() {
@@ -63,10 +59,10 @@
             ProjectGauges.remove({
                 project_id: project.id,
                 gaugeId: gauge.id
-            }, refresh);
+            }, onProjectGauges);
         }
 
-        function refresh() {
+        function onProjectGauges() {
             vm.gauges = ProjectGauges.all({
                 project_id: project.id
             });
@@ -102,15 +98,15 @@
         vm.onChange = onChange;
         vm.isSelected = isSelected;
 
-        function onChange(gauge){
-            if(gauge.selected){
+        function onChange(gauge) {
+            if (gauge.selected) {
 
-            }else{
+            } else {
 
             }
         }
 
-        function isSelected(gauge){
+        function isSelected(gauge) {
             return ($scope.project.gauges || []).has(function (g) {
                 return g.gauge_id === gauge.id;
             });

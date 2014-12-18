@@ -5,11 +5,17 @@
         .module('app.pbl')
         .controller('TechniqueSelectorController', TechniqueSelectorController);
 
-    TechniqueSelectorController.$inject = ['$scope'];
+    TechniqueSelectorController.$inject = ['$scope', 'ProjectSkills', 'ProjectGauges'];
 
-    function TechniqueSelectorController($scope){
-        var vm = this;
+    function TechniqueSelectorController($scope, ProjectSkills, ProjectGauges){
+
+        var vm = this,
+            project = $scope.project;
         vm.select = select;
+
+        vm.techniques = ProjectSkills.all({
+            project_id: project.id
+        });
 
         function select(technique){
             $scope.gauge.technique = technique;
