@@ -77,7 +77,7 @@
                 'gauges':{
 
                 },
-                'knowledges|3-5':['@TITLE'],
+                'knowledge|3-5':['@TITLE'],
                 'tasks|2-2':[{
                     'id':'@GUID',
                     'description':'@PARAGRAPH',

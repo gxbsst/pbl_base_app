@@ -5,12 +5,12 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledges','Tasks'];
+    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledge','Tasks'];
 
-    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledges,Tasks) {
+    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledge,Tasks) {
         var vm = this;
 
-        project.knowledges = project.knowledges || [];
+        project.knowledge = project.knowledge || [];
         project.tasks=project.tasks || [];
         vm.project = project;
         vm.tempKnowledge='';
@@ -34,6 +34,9 @@
 
         vm.removeTask=removeTask;
         $scope.$on('setAddTask', setAddTask);
+
+        //onProjectTask();
+        //onProjectKnowledge();
 
         vm.onBegin = onBegin;
         vm.onProgress = onProgress;
@@ -110,18 +113,19 @@
         }
 
         function addKnowledge(){
-            //vm.project.knowledges.push(vm.tempKnowledge);
-            Knowledges.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},onProjectKnowledges);
+            //vm.project.knowledge.push(vm.tempKnowledge);
+            Knowledge.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},onProjectKnowledge);
+            vm.tempKnowledge="";
         }
         function removeKnowledge(knowledge){
-            Knowledges.remove({knowledgeId:knowledge.id},onProjectKnowledges);
+            Knowledge.remove({knowledgeId:knowledge.id},onProjectKnowledge);
         }
 
-        function onProjectKnowledges() {
-            Knowledges.all(
+        function onProjectKnowledge() {
+            Knowledge.all(
                 {project_id: vm.project.id},
                 function(data){
-                    vm.project.knowledges =data.data;
+                    vm.project.knowledge =data.data;
                     console.log(data);
                 });
         }
