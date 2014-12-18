@@ -1,0 +1,1 @@
+json.extract! @resources, :data, :meta if @resources
