@@ -3,11 +3,11 @@
 
     angular
         .module('app.services')
-        .service('Knowledges', Knowledges);
+        .service('Knowledge', Knowledge);
 
-    Knowledges.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    Knowledge.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
-    function Knowledges($resource, RESOURCE_ACTIONS) {
+    function Knowledge($resource, RESOURCE_ACTIONS) {
         return $resource('/knowledge/:knowledgeId', {worksformId: '@knowledgeId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
