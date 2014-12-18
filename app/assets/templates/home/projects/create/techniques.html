@@ -1,11 +1,6 @@
 <div class="technique-selector">
+    <div ng-if="!vm.techniques.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
     <ul class="selection">
-        <li ng-click="vm.select()">21世纪技能</li>
-        <li>John Thomas技能</li>
-        <li>21世纪技能</li>
-        <li class="active">John Thomas技能John Thomas技能John Thomas技能John Thomas技能</li>
-        <li>21世纪技能</li>
-        <li>John Thomas技能</li>
-        <li>21世纪技能</li>
+        <li ng-repeat="technique in vm.techniques.data" ng-bind="technique.id" ng-class="{active:vm.selected.id==technique.id}" ng-click="vm.select(technique)"></li>
     </ul>
 </div>

@@ -25,7 +25,7 @@
                 <td class="gauge-btn" ng-click="vm.removeRow(gauge)"><i class="pf-trash-o"></i></td>
             </tr>
             <tr>
-                <td colspan="9" class="gauge-add-btn center"><div ng-click="add"><i class="pf-plus"></i> 添加一条新的量规</div></td>
+                <td colspan="9" class="gauge-add-btn center"><div et-modal="$project=vm.project;title='请选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"><i class="pf-plus"></i> 添加一条新的量规</div></td>
             </tr>
             </tbody>
         </table>
