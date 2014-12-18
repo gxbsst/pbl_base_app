@@ -1,11 +1,15 @@
 <div class="product-forms">
     <div class="product-forms-list scrollbar scrollbar-macosx" et-scrollbar>
+        <div ng-if="!vm.productForms" class="loading"><i class="pf-spinner-2 rotation"></i></div>
         <ul class="selection">
-            <li ng-repeat="form in vm.productForms.data" ng-bind="form.name" ng-click="vm.select(form)" ng-class="{active:vm.selected.id==form.id}"></li>
+            <li ng-repeat="form in vm.productForms" ng-bind="form.name" ng-click="vm.select(form)" ng-class="{active:vm.selected.id==form.id}"></li>
         </ul>
     </div>
-    <div class="product-forms-content" ng-bind-html="vm.selected.description"><i class="text-danger">请选择产品形态</i></div>
-    <div class="product-forms-footer">
-        222
+    <div class="product-forms-content">
+        <div ng-bind-html="vm.selected.description"></div>
+        <i class="text-silver" ng-if="!vm.selected.description">请选择产品形态</i>
+    </div>
+    <div class="product-forms-footer" ng-if="vm.selected.description">
+        <span class="btn btn-blue" ng-click="vm.enter()">选用</span>
     </div>
 </div>

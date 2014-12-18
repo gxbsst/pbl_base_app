@@ -35,20 +35,13 @@
         }
 
         function onChange(item) {
-            if(item.selected){
-                ProjectSkills
-                    .add({
-                        projectId: $stateParams.projectId
-                    }, {
-                        id: item.id
-                    }, emit);
-            }else{
-                ProjectSkills
-                    .remove({
-                        projectId: $stateParams.projectId,
-                        standardId: item.id
-                    }, emit);
-            }
+            var params = {
+                technique: {
+                    project_id: $stateParams.projectId,
+                    technique_id: item.id
+                }
+            };
+            ProjectSkills[item.selected ? 'add' : 'remove'](params, emit);
 
             function emit(){
                 $scope.$emit('onProjectSkills');
@@ -57,7 +50,7 @@
 
         function isSelected(entry) {
             return vm.selected.has(function (item) {
-                return item.id === entry.id;
+                return item.technique_id === entry.id;
             });
         }
 

@@ -114,13 +114,15 @@
 }
 
 .product-forms{
+  $leftWidth:30;
+  $footerHeight:55px;
   position:relative;
   width:650px;
   height:300px;
   .product-forms-list{
     position:absolute;
     left:0;
-    right:70%;
+    right:#{100-$leftWidth+'%'};
     top:0;
     bottom:0;
     border-right:1px solid #e0e0e0;
@@ -128,20 +130,45 @@
   }
   .product-forms-content{
     position:absolute;
-    left:30%;
+    left:#{$leftWidth+'%'};
     right:0;
     top:0;
-    bottom:60px;
+    bottom:$footerHeight;
+    padding:5px 12px;
     overflow:auto;
   }
   .product-forms-footer{
     position:absolute;
-    left:30%;
+    left:#{$leftWidth+'%'};
     right:0;
     bottom:0;
-    height:60px;
+    height:$footerHeight;
     border-top:1px solid #e0e0e0;
     text-align:right;
+    padding:11px;
+    background:#f9f9f9;
+  }
+}
+
+.product-final{
+  position:relative;
+  &:before{
+    position:absolute;
+    right:12px;
+    top:12px;
+    font-size:22px;
+    line-height:22px;
+    color:#dcccb3;
+    content:'最终产品';
+  }
+}
+
+.product-item{
+  position:relative;
+  .product-destroy{
+    position:absolute;
+    right:12px;
+    bottom:12px;
   }
 }
 
