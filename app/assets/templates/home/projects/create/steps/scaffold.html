@@ -8,19 +8,31 @@
                     <span ng-hide="vm.switchProjectInfo">↓</span>
                 </a>
             </label>
-        </div>
-        <div class="form-group" ng-show="vm.switchProjectInfo">
-            <label class="control-label">驱动问题：</label>
-            <div ng-bind="vm.project.driven_issue"></div>
-            <label class="control-label">任务分解小贴士：</label>
-            <div>
-                1.一个任务的学习范围最好限定在2个课标中涉及的知识点和1个现实社会的技能目标。 <br/>
-                2.充分考虑每个任务的要素： <br/>
-                ● 你希望学生了解的东西 <br/>
-                ● 课标中要求的学习事项 <br/>
-                ● 作业：学生如何展示自己对于知识和技能的掌握 <br/>
-                ● 评估：根据什么标准来评定学生的表现和理解程度 <br/>
-                ● 学习成果
+            <div ng-show="vm.switchProjectInfo">
+                <label class="control-label">驱动问题：</label>
+                <div class="control-content" ng-bind="vm.project.driven_issue"></div>
+                <label class="control-label">任务分解小贴士：</label>
+                <div class="control-content">
+                    1.一个任务的学习范围最好限定在2个课标中涉及的知识点和1个现实社会的技能目标。 <br/>
+                    2.充分考虑每个任务的要素： <br/>
+                    <ul>
+                        <li>
+                            ● 你希望学生了解的东西
+                        </li>
+                        <li>
+                            ● 课标中要求的学习事项
+                        </li>
+                        <li>
+                            ● 作业：学生如何展示自己对于知识和技能的掌握
+                        </li>
+                        <li>
+                            ● 评估：根据什么标准来评定学生的表现和理解程度
+                        </li>
+                        <li>
+                            ● 学习成果
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="form-group">
