@@ -29,6 +29,46 @@
   vertical-align:middle;
 }
 
+ul.selection{
+  color:#333;
+  & > li{
+    position:relative;
+    padding:0 22px;
+    border-bottom:1px solid #e0e0e0;
+    line-height:30px;
+    cursor:pointer;
+    &.active{
+      color:#0077ff;
+      &:before{
+        position:absolute;
+        left:2px;
+        top:5px;
+        display:block;
+        width:20px;
+        height:20px;
+        line-height:20px;
+        text-align:center;
+        font-family:'PblIconFont';
+        speak:none;
+        font-size:14px;
+        content:'\e633';
+      }
+    }
+  }
+  &:hover{
+    & > li{
+      &.active{
+        //color:#509bfa;
+        background:none;
+      }
+      &:hover{
+        color:#fff;
+        background:#509bfa;
+      }
+    }
+  }
+}
+
 .toolbar{
   $size:60px;
   position:fixed;

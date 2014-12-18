@@ -31,10 +31,10 @@ Rails.application.routes.draw do
   resources :product_forms, defaults: {format: 'json'}, only: %w(index)
 
   namespace :project do
-    resources :standard_items, defaults: {format: 'json'}, only: %w(index destroy create)
-    resources :techniques, defaults: {format: 'json'}, only: %w(index destroy create)
-    resources :products, defaults: {format: 'json'}
-    resources :rules, defaults: {format: 'json'}, only: %w(index destroy create)
+    resources :standard_items, defaults: {format: 'json'}, only: %w(index create destroy)
+    resources :techniques, defaults: {format: 'json'}, only: %w(index create destroy)
+    resources :products, defaults: {format: 'json'}, only: %w(index create update destroy)
+    resources :rules, defaults: {format: 'json'}, only: %w(index create destroy)
     resources :tasks, defaults: {format: 'json'}
   end
 

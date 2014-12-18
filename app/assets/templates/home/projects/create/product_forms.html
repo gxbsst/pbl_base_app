@@ -1,0 +1,11 @@
+<div class="product-forms">
+    <div class="product-forms-list scrollbar scrollbar-macosx" et-scrollbar>
+        <ul class="selection">
+            <li ng-repeat="form in vm.productForms.data" ng-bind="form.name" ng-click="vm.select(form)" ng-class="{active:vm.selected.id==form.id}"></li>
+        </ul>
+    </div>
+    <div class="product-forms-content" ng-bind-html="vm.selected.description"><i class="text-danger">请选择产品形态</i></div>
+    <div class="product-forms-footer">
+        222
+    </div>
+</div>

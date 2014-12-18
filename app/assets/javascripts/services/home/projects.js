@@ -6,6 +6,7 @@
         .service('Projects', Projects)
         .service('ProjectStandards', ProjectStandards)
         .service('ProjectSkills', ProjectSkills)
+        .service('ProjectProducts', ProjectProducts)
         .service('ProjectGauges', ProjectGauges);
 
 
@@ -33,6 +34,15 @@
         return $resource('/project/techniques/:action/:techniqueId', {
             action: '@action',
             techniqueId: '@techniqueId'
+        }, RESOURCE_ACTIONS);
+    }
+
+    ProjectProducts.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function ProjectProducts($resource, RESOURCE_ACTIONS) {
+        return $resource('/project/products/:action/:productId', {
+            action: '@action',
+            productId: '@productId'
         }, RESOURCE_ACTIONS);
     }
 

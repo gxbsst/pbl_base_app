@@ -7,12 +7,10 @@
     </div>
     <div class="form-group">
         <label class="control-label">请选择1-3条课程标准：</label>
-        <input type="hidden" ng-model="vm.project.standards"/>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i class="pf-plus"></i> 选择课标</span>
+        <span class="btn btn-gray btn-sm" role="button" et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i class="pf-plus"></i> 选择课标</span>
         <div class="row">
-            <div ng-if="vm.project.$standardsStatus=='loading'" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="standard in vm.project.standards"><span ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
+                <li class="list-group-item" ng-repeat="standard in vm.project.standard_items"><span ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
             </ul>
         </div>
     </div>
@@ -90,11 +88,10 @@
         <span class="control-label">最终产品：</span>
         <div class="row">
             <span class="btn btn-sm" role="button"
-                  ng-click="vm.chooseWorksform('final_product',$index)"
-                  et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/create/worksform.html'"
-                  ng-bind="vm.project.final_product.worksform.title||'选择作品形态'"></span>
+                  et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'"
+                  ng-bind="vm.project.final_product.worksform.title||'选择产品形态'"></span>
             <span class="btn btn-gray btn-sm" role="button"
-                  et-modal="title='作品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'">上传示例</span>
+                  et-modal="title='产品形态';controller='ProductFormsController as vm';src='home/projects/pane/modalworksform.html'">上传示例</span>
             <!--<div class="col-1-1 progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                     <span class="sr-only">60% Complete</span>
