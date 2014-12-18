@@ -27,7 +27,7 @@ module Project
     private
 
     def product_query_params
-      params.permit(:project_id)
+      params.permit(:project_id, :include)
     end
 
   end

@@ -2,7 +2,7 @@ module Project
   class TechniquesController < ApplicationBaseController
 
     def index
-      @techniques = Pbl::Technique.all(params.permit(:project_id))
+      @techniques = Pbl::Technique.all(params.permit(:project_id, :include))
     end
 
     def create
