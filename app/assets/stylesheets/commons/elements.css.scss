@@ -154,8 +154,32 @@ ul.selection{
   color:#999;
 }
 
+.hide{
+  display:none !important;
+}
+
 @each $type in default, move, text, pointer{
   .cur-#{$type}{
     cursor:$type !important;
+  }
+}
+
+.block{
+  border:1px solid #e0e0e0;
+  padding:12px;
+  margin-bottom:8px;
+  background:#fafafa;
+  @include border-radius(3px);
+  &.block-blue{
+    border-color:#d0e0ed;
+    background:#f0faff;
+  }
+  &.block-red{
+    border-color:#ead9de;
+    background:#faf0f0;
+  }
+  &.block-yellow{
+    border-color:#e8e6cb;
+    background:#fffff0;
   }
 }

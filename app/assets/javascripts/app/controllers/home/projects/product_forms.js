@@ -9,18 +9,22 @@
 
     function ProductFormsController($scope, ProductForms, ProjectProducts) {
 
-        $scope.choose = choose;
-        $scope.modalEmit = modalEmit;
-
         var vm = this,
             project = $scope.project,
             product = $scope.product,
             isFinal = $scope.isFinal;
 
-        vm.productForms = ProductForms.all();
-        vm.selected = product ? product.form : null;
         vm.select = select;
         vm.enter = enter;
+
+        ProductForms.all(function (result) {
+            vm.productForms = result.data;
+            if(product){
+                vm.selected = vm.productForms.findOne(function (form) {
+                    return form.id == product.product_form_id;
+                }) || {};
+            }
+        });
 
         function select(form) {
             vm.selected = form;
@@ -29,34 +33,28 @@
         function enter() {
             var params = {
                 product: {
-                    form: vm.selected.id
+                    project_id: project.id,
+                    product_form_id: vm.selected.id
                 }
             };
-            if (isFinal) {
-                params.product.is_final = true;
-            }
-            if (!product) {
-                params.project_id = project;
-                ProjectProducts.add(params, destroyModal);
+            if (!product.id) {
+                if (isFinal) {
+                    params.product.is_final = true;
+                    ProjectProducts.add(params, emit);
+                }else{
+                    product.product_form_id = vm.selected.id;
+                    $scope.destroyModal();
+                }
             } else {
                 ProjectProducts.update({
-                    productFormId: product.id
-                }, params, destroyModal);
+                    productId: product.id
+                }, params, emit);
             }
 
-            function destroyModal() {
+            function emit() {
+                $scope.$emit('onProjectProducts');
                 $scope.destroyModal();
             }
-        }
-
-        function modalEmit() {
-            $scope.$emit('setWorksforms', $scope.worksforms[$scope.activeItem]);
-            $scope.destroyModal();
-        }
-
-        function choose(index) {
-            $scope.explain = $scope.worksforms[index].explain;
-            $scope.activeItem = index;
         }
     }
 

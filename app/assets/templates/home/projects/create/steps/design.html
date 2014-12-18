@@ -1,37 +1,54 @@
 <form class="form-horizontal">
     <div class="form-group">
         <label for="project[name]" class="control-label">项目名称：</label>
+
         <div class="row">
-            <input type="text" id="project[name]" ng-model="vm.project.name" class="form-control" et-sync="{projectId:vm.project.id,project:{name:vm.project.name},$service:'Projects'}"/>
+            <input type="text" id="project[name]" ng-model="vm.project.name" class="form-control"
+                   et-sync="{projectId:vm.project.id,project:{name:vm.project.name},$service:'Projects'}"/>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">请选择1-3条课程标准：</label>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i class="pf-plus"></i> 选择课标</span>
+        <span class="btn btn-gray btn-sm" role="button"
+              et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i
+                class="pf-plus"></i> 选择课标</span>
+
         <div class="row">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="standard in vm.project.standard_items"><span ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandard(standard)"></i></li>
+                <li class="list-group-item" ng-repeat="standard in vm.project.standard_items"><span
+                        ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right"
+                                                        ng-click="vm.removeStandardItem(standard)"></i></li>
             </ul>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">请选择本项目中学生需要使用的技能：</label>
         <input type="hidden" ng-model="vm.project.skills"/>
-        <span class="btn btn-gray btn-sm" role="button" et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/create/skills.html'"><i class="pf-plus"></i> 选择技能</span>
+        <span class="btn btn-gray btn-sm" role="button"
+              et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/create/skills.html'"><i
+                class="pf-plus"></i> 选择技能</span>
+
         <div class="row">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>
+                <li class="list-group-item" ng-repeat="technique in vm.project.techniques"><span
+                        ng-bind="technique.id"></span><i class="btn-mini pf-cross pull-right"
+                                                         ng-click="vm.removeTechnique(technique)"></i></li>
+                <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i
+                        class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>
             </ul>
         </div>
     </div>
     <div class="form-group">
         <label for="project[driven_issue]" class="control-label">驱动性问题：</label>
+
         <div class="row">
-            <textarea  id="project[driven_issue]" cols="30" rows="5" ng-model="vm.project.driven_issue" class="form-control" et-sync="{projectId:vm.project.id,project:{driven_issue:vm.project.driven_issue},$service:'Projects'}"></textarea>
+            <textarea id="project[driven_issue]" cols="30" rows="5" ng-model="vm.project.driven_issue"
+                      class="form-control"
+                      et-sync="{projectId:vm.project.id,project:{driven_issue:vm.project.driven_issue},$service:'Projects'}"></textarea>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hide">
         高级选项如何设计驱动性问题：（
         <a href="javascript:void(0);" ng-click="vm.showStandardAnalysis()">点击填写
             <span ng-show="vm.switchvmStandardAnalysis">↑</span>
@@ -41,8 +58,10 @@
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
         <label for="project[standard_analysis]" class="control-label">课标解读：（请填写这些标准对于现实世界的价值，您希望学生从中得到什么理解？）</label>
+
         <div class="row">
-            <textarea id="project[standard_analysis]" name="project[standard_analysis]" cols="30" rows="5" ng-model="vm.project.standard_analysis" class="form-control"></textarea>
+            <textarea id="project[standard_analysis]" name="project[standard_analysis]" cols="30" rows="5"
+                      ng-model="vm.project.standard_analysis" class="form-control"></textarea>
         </div>
     </div>
     <div class="form-group" ng-show="vm.switchvmStandardAnalysis">
@@ -58,11 +77,14 @@
                 <td><input type="text" ng-model="decomposition.verb" class="form-control ng-pristine ng-valid"/></td>
                 <td><input type="text" ng-model="decomposition.noun" class="form-control ng-pristine ng-valid"/></td>
                 <td><input type="text" ng-model="decomposition.role" class="form-control ng-pristine ng-valid"/></td>
-                <td><input type="text" ng-model="decomposition.products" class="form-control ng-pristine ng-valid"/></td>
+                <td><input type="text" ng-model="decomposition.products" class="form-control ng-pristine ng-valid"/>
+                </td>
             </tr>
             <tr>
                 <td colspan="4" class="text-center">
-                    <span class="btn btn-gray btn-sm control-label" role="button" ng-click="vm.addObjArray(vm.project.standard_decompositions)"><i class="pf-plus"></i>继续添加</span>
+                    <span class="btn btn-gray btn-sm control-label" role="button"
+                          ng-click="vm.addObjArray(vm.project.standard_decompositions)"><i
+                            class="pf-plus"></i>继续添加</span>
                 </td>
             </tr>
         </table>
@@ -79,34 +101,54 @@
                     <span ng-bind="decomposition.role"></span>
                     来创建
                     <span ng-bind="decomposition.products"></span>
-                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeObjArray(vm.project.standard_decompositions,decomposition)"></i>
+                    <i class="btn-mini pf-cross pull-right"
+                       ng-click="vm.removeObjArray(vm.project.standard_decompositions,decomposition)"></i>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="form-group">
-        <span class="control-label">最终产品：</span>
+    <div class="form-group block product-final block-yellow">
         <div class="row">
             <span class="btn btn-sm" role="button"
-                  et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'"
-                  ng-bind="vm.project.final_product.worksform.title||'选择产品形态'"></span>
+                  et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
             <span class="btn btn-gray btn-sm" role="button"
                   et-modal="title='产品形态';controller='ProductFormsController as vm';src='home/projects/pane/modalworksform.html'">上传示例</span>
-            <!--<div class="col-1-1 progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    <span class="sr-only">60% Complete</span>
-                </div>
-            </div>-->
         </div>
+        <div class="row margin-top-8" ng-if="vm.project.final_product"><strong>产品形态：</strong><span
+                ng-bind="vm.project.final_product.product_form_id"></span> <span
+                ng-if="vm.project.final_product.resource"><strong>产品示例：</strong><span
+                ng-bind="vm.project.final_product.resource.name"></span></span></div>
     </div>
     <div class="form-group">
-        <span class="control-label">阶段性产品：</span>
-        <div ng-repeat="stage in vm.project.stage_products" class="row" ng-include="'home/projects/create/stage_product.html'"></div>
+        <span class="control-label font-size-125">阶段性产品：</span>
+        <div ng-repeat="product in vm.project.products" class="row block product-item">
+            <input class="form-control" name="{{'project[products]['+$index+']'}}" type="text" ng-model="product.title"
+                   et-sync="{productId:product.id,product:{title:product.title},$service:'ProjectProducts'}"/>
+            <span class="btn btn-red btn-sm pull-right product-destroy" ng-click="vm.removeProduct(product)">删除</span>
+            <div class="row margin-top-8">
+                <span class="btn btn-sm" role="button"
+                      et-modal="$project=vm.project;$product=product;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
+                <span class="btn btn-gray btn-sm" role="button"
+                      et-modal="title='产品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'">上传示例</span>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-2 margin-top-8" ng-if="product.product_form_id">
+                    <strong>产品形态：</strong>
+                    <span ng-bind="product.product_form_id"></span>
+                </div>
+                <div class="col-1-2 margin-top-8" ng-if="product.resource">
+                    <strong>产品示例：</strong>
+                    <span ng-bind="product.resource.name"></span>
+                </div>
+            </div>
+        </div>
         <div class="row">
-            <span class="btn btn-gray btn-sm" role="button" et-modal="$project=vm.project;title='新增阶段性产品';controller='StageProductController';src='home/projects/create/stage_product.html'"><i class="pf-plus"></i> 新增阶段性产品</span>
+            <span class="btn btn-gray btn-sm" role="button"
+                  et-modal="$project=vm.project;title='新增阶段性产品';controller='ProductsController as vm';src='home/projects/create/products.html'"><i
+                    class="pf-plus"></i> 新增阶段性产品</span>
         </div>
     </div>
-    <div class="form-group col-1-1" >
+    <div class="form-group col-1-1">
         <div class="hr"></div>
         <div class="col-1-1 text-right">
             <span class="btn btn-blue" role="button" ng-click="next('gauges')">下一步</span>
