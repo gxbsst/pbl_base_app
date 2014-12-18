@@ -101,7 +101,7 @@
         function chooseType(task,typeval,disabled){
             task.task_type=typeval;
             if(!disabled){
-                Tasks.update({'taskID':task.id,'task':{'task_type':typeval}});
+                Tasks.update({taskId:task.id,task:{'task_type':typeval}});
             }
         }
 

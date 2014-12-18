@@ -40,7 +40,8 @@
     <div class="col-1-1">
         <label class=" col-1-8">学科：</label>
         <div class="col-7-8">
-            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.discipline_id" ng-options="discipline.id as discipline.title for discipline in vm.disciplines">
+            <select style="width: 300px; height: 30px;" ng-change="vm.selectchange()" ng-model="task.discipline_id" ng-options="discipline.id as discipline.name for discipline in vm.disciplines" et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:disabled}">
+                <option value="">-- 请选择 --</option>
             </select>
         </div>
     </div>
@@ -49,8 +50,8 @@
     <div class="col-1-1 margin-bottom-8">
         <label class=" col-1-8">任务时长：</label>
         <div class="col-7-8">
-            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.evaluation_duration" class="form-control"/>
-            <select style="width: 70px; height: 30px;" ng-model="task.evaluation_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+            <input style="width: 100px; height: 30px; display: inline-block"  type="number"  ng-model="task.evaluation_duration" class="form-control" et-sync="{taskId:task.id,task:{evaluation_duration:task.evaluation_duration},$service:'Tasks',$disabled:disabled}"/>
+            <select style="width: 70px; height: 30px;" ng-model="task.evaluation_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles" et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:disabled}">
                 <option value="">-- 请选择 --</option>
             </select>
         </div>
@@ -82,8 +83,8 @@
     <div class="col-1-1">
         <label class=" col-1-8">任务时长：</label>
         <div class="col-7-8">
-            <input style="width: 100px; height: 30px; display: inline-block"  type="text"  ng-model="task.event_duration" class="form-control"/>
-            <select style="width: 70px; height: 30px;" ng-model="task.event_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles">
+            <input style="width: 100px; height: 30px; display: inline-block"  type="number"  ng-model="task.event_duration" class="form-control" et-sync="{taskId:task.id,task:{event_duration:task.event_duration},$service:'Tasks',$disabled:disabled}"/>
+            <select style="width: 70px; height: 30px;" ng-model="task.event_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles" et-sync="{taskId:task.id,task:{event_cycle:task.event_cycle},$service:'Tasks',$disabled:disabled}">
                 <option value="">-- 请选择 --</option>
             </select>
         </div>
