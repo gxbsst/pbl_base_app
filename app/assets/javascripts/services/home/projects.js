@@ -49,7 +49,7 @@
     ProjectGauges.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function ProjectGauges($resource, RESOURCE_ACTIONS) {
-        return $resource('/project/gauges/:gaugeId', {
+        return $resource('/project/rules/:gaugeId', {
             action: '@action',
             gaugeId: '@gaugeId'
         }, RESOURCE_ACTIONS);

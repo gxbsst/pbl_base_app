@@ -42,6 +42,13 @@
                 ogv: 'http://mooc-video-ogv.qiniudn.com',
                 image: 'http://mooc-images.qiniudn.com'
             },
+            RESOURCE_TYPES: {
+                project: {
+                    cover: 'ProjectCover',
+                    product: 'ProjectProduct',
+                    sample: 'ProjectSample'
+                }
+            },
             Cycles:[
                 {'id':'1','title':'小时'},
                 {'id':'2','title':'日'},
