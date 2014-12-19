@@ -6,7 +6,7 @@
                 <p>项目名称: <span ng-bind="vm.project.name"></span></p>
                 <div class="form-group" style="position: relative;">
                     <label class="control-label col-1-8">课程时长：</label>
-                    <div class="col-7-8">{{vm.project.duration_unit}}
+                    <div class="col-7-8">
                         <input style="width: 100px; display: inline-block"  type="number"  ng-model="vm.project.duration" class="form-control" et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
                         <select style="width: 100px; height: 33px;" ng-model="vm.project.duration_unit" ng-options="cycle.id as cycle.title for cycle in vm.cycles" et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}">
                         </select>
@@ -19,13 +19,12 @@
                     </div>
                 </div>
                 <div class="form-group-box-sm" ng-show="vm.project.public">
-                    <lable>人数限制：</lable>{{vm.project.limitation}}
+                    <lable>人数限制：</lable>
                     <input style="width: 100px; display: inline-block"  type="number"  ng-model="vm.project.limitation" class="form-control" et-sync="{projectId:vm.project.id,project:{limitation:vm.project.limitation},$service:'Projects'}"/>
                 </div>
                 <div class="form-group-box-sm" ng-show="vm.project.public">
                     <lable>适用区域：</lable>
-                    <select style="width: 300px; height: 30px;" ng-model="vm.project.location_id" ng-options="location.id as location.name for location in vm.location" et-sync="{project:project.id,project:{location_id:task.location_id},$service:'Location',$disabled:disabled}">
-                        <option value="">-- 请选择 --</option>
+                    <select style="width: 300px; height: 30px;" ng-model="vm.project.location_id" ng-options="location.id as location.name for location in vm.location" et-sync="{project:project.id,project:{location_id:vm.project.location_id},$service:'Projects',$disabled:disabled}">
                     </select>
                 </div>
                 <div class="form-group">
