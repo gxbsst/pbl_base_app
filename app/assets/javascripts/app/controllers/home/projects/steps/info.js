@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project','Cycles','Grades','Location'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project','Cycles','Grades','Location1','Location2','Location3','Location4','Location'];
 
-    function HomeProjectCreateInfoController($state, Projects, project,Cycles,Grades,Location) {
+    function HomeProjectCreateInfoController($state, Projects, project,Cycles,Grades,Location1,Location2,Location3,Location4,Location) {
         var vm = this;
         vm.project = project;
 
@@ -36,16 +36,17 @@
 
 
 
-        vm.location=[];
-        Location.all(function(data){
-            vm.location=data.data;
-            vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
-
-            Projects.update({
-                projectId: vm.project.id
-            }, {
-                project: {location_id:vm.project.location_id}
-            });
+        vm.location1=[];
+        Location1.all(function(data){
+            console.log(data);
+            vm.location1=data.data;
+            //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
+            //
+            //Projects.update({
+            //    projectId: vm.project.id
+            //}, {
+            //    project: {location_id:vm.project.location_id}
+            //});
         });
 
         console.log(vm.project);
@@ -55,14 +56,14 @@
         };
 
 
-        vm.project.duration_unit=selectisexist(vm.project.duration_unit,vm.cycles);
-        vm.project.grade=selectisexist(vm.project.grade,vm.grades);
-
-        Projects.update({
-            projectId: vm.project.id
-        }, {
-            project: {grade:vm.project.grade,duration_unit:vm.project.duration_unit}
-        });
+        //vm.project.duration_unit=selectisexist(vm.project.duration_unit,vm.cycles);
+        //vm.project.grade=selectisexist(vm.project.grade,vm.grades);
+        //
+        //Projects.update({
+        //    projectId: vm.project.id
+        //}, {
+        //    project: {grade:vm.project.grade,duration_unit:vm.project.duration_unit}
+        //});
 
 
 
