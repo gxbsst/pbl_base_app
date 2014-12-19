@@ -16,7 +16,8 @@
 
             DIRECTIVE: {
                 Collapse: '收起',
-                Expand: '展开'
+                Expand: '展开',
+                SelectDefaultLabel: '请选择'
             },
 
             GAUGE_HEAD: [

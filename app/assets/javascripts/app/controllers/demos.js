@@ -8,9 +8,9 @@
         .controller('FromDemoController', FromDemoController)
         .controller('ScrollbarDemoController', ScrollbarDemoController);
 
-    DemosController.$inject = ['$scope', 'Projects'];
+    DemosController.$inject = ['$scope', '$timeout'];
 
-    function DemosController($scope) {
+    function DemosController($scope, $timeout) {
         var vm = this;
         vm.view = 'demos/elements.html';
         vm.head = ['第1列', '第2列', '第3列'];
@@ -39,6 +39,29 @@
         vm.moveRow = function (from, to) {
             vm.body.move(from, to);
         };
+        vm.select = [
+            {id: 1, title: 'item 1'},
+            {id: 2, title: 'item 2 item 2 item 2 '},
+            {id: 3, title: 'item 3'}
+        ];
+
+        $timeout(function () {
+            vm.select = [
+                {id: 4, title: 'item 4'},
+                {id: 'a', title: 'item 5 item 5'},
+                {id: 6, title: 'item 6'}
+            ];
+            $scope.aa.selected = 'a';
+        }, 2000);
+
+        $timeout(function () {
+            vm.select = [
+                {id: 4, title: 'item 4'},
+                {id: 'a', title: 'item 5 item 5'},
+                {id: 6, title: 'item 6'}
+            ];
+            $scope.aa.selected = 6;
+        }, 3000);
     }
 
     ModalDemoController.$inject = ['$scope', '$timeout'];
@@ -74,7 +97,7 @@
 
     function FromDemoController($scope, $filter, Projects) {
 
-        var vm = this;
+        /*var vm = this;
 
         Projects.get({projectId: '5eba304b-47ad-4871-b98f-7563b1576f80'}, function (project) {
             vm.project = project.data;
@@ -96,7 +119,7 @@
             }, {
                 project: {tags: model}
             });
-        }
+        }*/
     }
 
 })();

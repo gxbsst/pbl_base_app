@@ -11,7 +11,7 @@
         return {
             require: 'etConfig',
             restrict: 'A',
-            priority: 1000,
+            priority: 9999,
             link: etConfigLink,
             controller: angular.noop,
             controllerAs: 'etConfig'

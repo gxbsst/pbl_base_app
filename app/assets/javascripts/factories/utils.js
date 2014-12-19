@@ -37,11 +37,11 @@
         });
     }
 
-    function merge(scope, params, object) {
+    function merge(scope, a, b) {
         scope.$watch(function () {
-            return params;
-        }, function (config) {
-            angular.extend(object, config || {});
+            return a;
+        }, function (newValue) {
+            angular.extend(b, newValue || {});
         }, true);
     }
 

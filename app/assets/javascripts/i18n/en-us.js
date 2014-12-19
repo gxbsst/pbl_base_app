@@ -16,7 +16,8 @@
 
             DIRECTIVE:{
                 Collapse: 'Collapse',
-                Expand: 'Expand'
+                Expand: 'Expand',
+                SelectDefaultLabel: 'Select'
             },
 
             VALIDATION:{

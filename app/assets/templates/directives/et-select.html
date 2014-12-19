@@ -1,0 +1,8 @@
+<div class="et-select" ng-transclude>
+    <div class="et-select-label" ng-click="$event.stopPropagation();selectConfig.show=!selectConfig.show" ng-bind="(selectConfig.selected[selectConfig.label]||selectConfig.placeholder)|i18n"></div>
+    <div class="et-select-options">
+        <ul class="selection" ng-show="selectConfig.show">
+            <li class="et-select-option" ng-class="{'et-select-selected active':selectConfig.isSelected(option)}" ng-click="selectConfig.select(option)" ng-bind="option[selectConfig.label]" ng-repeat="option in selectConfig.options"></li>
+        </ul>
+    </div>
+</div>

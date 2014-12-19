@@ -21,13 +21,17 @@
     <span class="btn btn-sm btn-blue" role="button">button</span>
     <span class="btn btn-blue" role="button">button</span>
     <span class="btn btn-lg btn-blue" role="button">button</span>
-    <div ng-init="test=123">
+    <div ng-init="test=123;aa.selected=1">
         <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
         <a href="javascript:void(0);" et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
             modal(html)!</a>
         <a href="javascript:void(0);"
            et-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show
             modal(controller)!</a>
+        {{aa.selected}}
+        <select ng-model="aa.selected" et-select="vm.select" et-config="label='title'">
+            <option value="1">test</option>
+        </select>
     </div>
 </div>
 <div class="col-1-2" ng-include="'demos/validation/demo.html'"></div>
@@ -49,3 +53,4 @@
     <div et-tab="'tab'|i18n:3" et-config="src='demos/tabs/demo2.html'"></div>
     <div et-tab="'tab'|i18n:4">{{'tab'|i18n:4}} content</div>
 </div>
+<div ui-view="toolbar"></div>

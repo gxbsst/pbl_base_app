@@ -1,6 +1,6 @@
 @import "compass/css3";
 
-.gauges{
+.project-gauges{
   .table{
     .gauge-btn{
       color:#f06961;
@@ -190,8 +190,7 @@
   }
 }
 
-.project-create-new{
-  cursor:pointer;
+.project-info{
   &:after{
     display:block;
     clear:both;
@@ -200,8 +199,9 @@
     overflow:hidden;
     content:".";
   }
-  h2{
-    font-size:16px;
+  input[type=number]{
+    text-align:center;
+    width:80px !important;
   }
   .file-up{
     right:0;
@@ -296,5 +296,66 @@
       margin:16px 0;
       border:#ededed 1px solid;
     }
+  }
+}
+
+.nav-ball{
+  margin-bottom:50px;
+  cursor:pointer;
+  .blue-hint{
+    &:before{
+      position:absolute;
+      left:50%;
+      top:-4px;
+      margin-left:-3px;
+      display:block;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      content:'';
+      background:#3d80f6;
+    }
+  }
+  span{
+    position:relative;
+    display:inline-block;
+    font-size:14px;
+    font-weight:bold;
+    text-align:center;
+    padding:3px 0 0 0 !important;
+    &:before{
+      position:absolute;
+      left:50%;
+      top:-4px;
+      margin-left:-3px;
+      display:block;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      content:'';
+      background:#000;
+    }
+
+  }
+}
+
+.black-line{
+  position:relative;
+  border-top:#000 solid 1px;
+  &:before, &:after{
+    position:absolute;
+    top:-3px;
+    display:block;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    content:'';
+    background:#000;
+  }
+  &:before{
+    left:0;
+  }
+  &:after{
+    right:0;
   }
 }

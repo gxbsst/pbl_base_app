@@ -5,13 +5,13 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$document'];
+    BaseController.$inject = ['$scope', '$rootScope', '$document'];
 
-    function BaseController($scope, $document) {
+    function BaseController($scope, $rootScope, $document) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
-                $scope.setCurrentTool();
+                $rootScope.$broadcast('onDocumentClick');
             });
         });
 

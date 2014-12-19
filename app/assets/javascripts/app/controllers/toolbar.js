@@ -5,15 +5,19 @@
         .module('app.pbl')
         .controller('HomeToolbarController', HomeToolbarController);
 
-    HomeToolbarController.$inject = ['$rootScope', 'TOOLBARS'];
+    HomeToolbarController.$inject = ['$scope', 'TOOLBARS'];
 
-    function HomeToolbarController($rootScope, TOOLBARS) {
+    function HomeToolbarController($scope, TOOLBARS) {
 
         var vm = this;
 
         vm.toolbar = TOOLBARS;
         vm.current = null;
-        $rootScope.setCurrentTool = setCurrentTool;
+        vm.setCurrentTool = setCurrentTool;
+
+        $scope.$on('onDocumentClick', function () {
+            setCurrentTool();
+        });
 
         function setCurrentTool(current) {
             if (current) {

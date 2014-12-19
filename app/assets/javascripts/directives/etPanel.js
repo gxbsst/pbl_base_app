@@ -24,7 +24,7 @@
 
             var vm = ctrl[0];
 
-            utils.merge(scope, ctrl[1], vm);
+            ctrl[1] && utils.merge(scope, ctrl[1], vm);
 
             vm.status = true;
             vm.toggle = toggle;

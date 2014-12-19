@@ -5,14 +5,14 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project','Cycles','Grades','Location1','Location2','Location3','Location4','Location'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project', 'Cycles', 'Grades', 'Location1', 'Location2', 'Location3', 'Location4', 'Location'];
 
-    function HomeProjectCreateInfoController($state, Projects, project,Cycles,Grades,Location1,Location2,Location3,Location4,Location) {
+    function HomeProjectCreateInfoController($state, Projects, project, Cycles, Grades, Location1, Location2, Location3, Location4, Location) {
         var vm = this;
         vm.project = project;
 
-        vm.cycles=[];
-        vm.cycles=Cycles;
+        vm.cycles = [];
+        vm.cycles = Cycles;
 
         //var isexist;
         //isexist=vm.cycles.findOne(function(item){
@@ -23,8 +23,8 @@
         //    vm.project.duration_unit=vm.cycles[0].id;
         //}
 
-        vm.grades=[];
-        vm.grades=Grades;
+        vm.grades = [];
+        vm.grades = Grades;
 
         //isexist=vm.grades.findOne(function(item){
         //    return item.title == vm.project.grade;
@@ -35,11 +35,10 @@
         //}
 
 
-
-        vm.location1=[];
-        Location1.all(function(data){
+        vm.location1 = [];
+        /*Location1.all(function (data) {
             console.log(data);
-            vm.location1=data.data;
+            vm.location1 = data.data;
             //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
             //
             //Projects.update({
@@ -47,7 +46,7 @@
             //}, {
             //    project: {location_id:vm.project.location_id}
             //});
-        });
+        });*/
 
         vm.onChange = function () {
             return updateTags;
@@ -64,19 +63,19 @@
         //});
 
 
-
-        function selectisexist(obj,array){
+        function selectisexist(obj, array) {
             var isexist;
-            isexist=array.findOne(function(item){
+            isexist = array.findOne(function (item) {
                 return item.id == obj;
             });
-            if(isexist===null){
+            if (isexist === null) {
                 return array[0].id;
                 console.log("find!!");
-            }else{
+            } else {
                 return obj
             }
         }
+
         function updateTags(tag, model) {
             Projects.update({
                 projectId: vm.project.id

@@ -22,10 +22,18 @@
                     currentUser: currentUserResolve
                 }
             })
-            .state('demos', {
-                url: '/demos',
-                templateUrl: 'demos/index.html',
-                controller: 'DemosController as vm'
+            .state('base.demos', {
+                url: '^/demos',
+                views: {
+                    '': {
+                        templateUrl: 'demos/index.html',
+                        controller: 'DemosController as vm'
+                    },
+                    'toolbar@': {
+                        templateUrl: 'home/toolbar/index.html',
+                        controller: 'HomeToolbarController as vm'
+                    }
+                }
             });
 
         currentUserResolve.$inject = ['$rootScope', 'User'];

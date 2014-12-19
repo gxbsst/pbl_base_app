@@ -87,7 +87,7 @@
             var tabs = ctrl[0],
                 tab = ctrl[1];
 
-            utils.merge(scope, ctrl[2], tab);
+            ctrl[2] && utils.merge(scope, ctrl[2], tab);
 
             scope.$watch(attr.etTab, function (title) {
                 tab.title = title;
