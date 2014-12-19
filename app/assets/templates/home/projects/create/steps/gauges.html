@@ -7,25 +7,47 @@
                 <th>量规标准</th>
                 <th width="60">权重</th>
                 <th ng-repeat="column in vm.project.ruleHeads" ng-bind="$index|gauge:vm.project.rule_template" ng-click="vm.setDisabled(!column.disabled,$index)" ng-class="{disabled:column.disabled}"></th>
-                <th class="gauge-btn" et-modal="$project=vm.project;title='选择量规标头';controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
+                <th class="gauge-btn"
+                    et-tips="'设置标头'"
+                    et-modal="$project=vm.project;title='选择量规标头';controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="gauge in vm.gauges.data" class="gauge-item">
-                <td ng-bind="gauge.technique.title||'选择技能'" et-modal="$project=vm.project;$gauge=gauge;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'" class="center cur-pointer" ng-class="{'text-red':gauge.technique}"></td>
+            <tr ng-repeat="gauge in vm.project.rules" class="gauge-item">
+                <td ng-bind="gauge.technique.title"
+                    class="center cur-pointer"
+                    ng-class="{'text-red':vm.notExist(gauge.technique)}"
+                    et-tips="'该技能已从项目中移除，请选择其它技能或删除该条量规！';disabled=!vm.notExist(gauge.technique)"
+                    et-modal="$project=vm.project;$gauge=gauge;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"></td>
                 <td class="et-gauge">
-                    <textarea ng-model="gauge.standard" spellcheck="false"></textarea>
+                    <textarea ng-model="gauge.standard" et-sync="{gaugeId:gauge.id,rule:{standard:gauge.standard},$service:'ProjectGauges'}" spellcheck="false"></textarea>
                 </td>
                 <td class="et-gauge">
-                    <textarea class="center" ng-model="gauge.weight" spellcheck="false"></textarea>
+                    <textarea class="center" ng-model="gauge.weight" et-sync="{gaugeId:gauge.id,rule:{weight:gauge.weight},$service:'ProjectGauges'}" spellcheck="false"></textarea>
                 </td>
-                <td ng-repeat="level in [1,2,3,4,5]" ng-class="{disabled:vm.project.ruleHeads[$index].disabled}" class="et-gauge">
-                    <textarea ng-model="gauge['level_'+level]" spellcheck="false" ng-readonly="vm.project.ruleHeads[$index].disabled"></textarea>
+                <td ng-class="{disabled:vm.project.ruleHeads[0].disabled}" class="et-gauge">
+                    <textarea ng-model="gauge.level_1" spellcheck="false" et-sync="{gaugeId:gauge.id,rule:{level_1:gauge.level_1},$service:'ProjectGauges'}" ng-readonly="vm.project.ruleHeads[0].disabled"></textarea>
                 </td>
-                <td class="gauge-btn" ng-click="vm.removeRow(gauge)"><i class="pf-trash-o"></i></td>
+                <td ng-class="{disabled:vm.project.ruleHeads[1].disabled}" class="et-gauge">
+                    <textarea ng-model="gauge.level_2" spellcheck="false" et-sync="{gaugeId:gauge.id,rule:{level_2:gauge.level_2},$service:'ProjectGauges'}" ng-readonly="vm.project.ruleHeads[1].disabled"></textarea>
+                </td>
+                <td ng-class="{disabled:vm.project.ruleHeads[2].disabled}" class="et-gauge">
+                    <textarea ng-model="gauge.level_3" spellcheck="false" et-sync="{gaugeId:gauge.id,rule:{level_3:gauge.level_3},$service:'ProjectGauges'}" ng-readonly="vm.project.ruleHeads[2].disabled"></textarea>
+                </td>
+                <td ng-class="{disabled:vm.project.ruleHeads[3].disabled}" class="et-gauge">
+                    <textarea ng-model="gauge.level_4" spellcheck="false" et-sync="{gaugeId:gauge.id,rule:{level_4:gauge.level_4},$service:'ProjectGauges'}" ng-readonly="vm.project.ruleHeads[3].disabled"></textarea>
+                </td>
+                <td ng-class="{disabled:vm.project.ruleHeads[4].disabled}" class="et-gauge">
+                    <textarea ng-model="gauge.level_5" spellcheck="false" et-sync="{gaugeId:gauge.id,rule:{level_5:gauge.level_5},$service:'ProjectGauges'}" ng-readonly="vm.project.ruleHeads[4].disabled"></textarea>
+                </td>
+                <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
+                <td ng-if="!gauge._destroy" class="gauge-btn" et-tips="'删除'" ng-click="vm.remove(gauge);gauge._destroy=true"><i class="pf-trash-o"></i></td>
+            </tr>
+            <tr ng-if="!vm.project.rules">
+                <td colspan="9" class="loading"><i class="pf-spinner-2 rotation"></i></td>
             </tr>
             <tr>
-                <td colspan="9" class="gauge-add-btn center"><div et-modal="$project=vm.project;title='请选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"><i class="pf-plus"></i> 添加一条新的量规</div></td>
+                <td colspan="9" class="gauge-add-btn center"><div et-modal="$project=vm.project;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"><i class="pf-plus"></i> 添加一条新的量规</div></td>
             </tr>
             </tbody>
         </table>

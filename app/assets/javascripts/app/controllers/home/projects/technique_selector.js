@@ -7,18 +7,43 @@
 
     TechniqueSelectorController.$inject = ['$scope', 'ProjectSkills', 'ProjectGauges'];
 
-    function TechniqueSelectorController($scope, ProjectSkills, ProjectGauges){
+    function TechniqueSelectorController($scope, ProjectSkills, ProjectGauges) {
 
         var vm = this,
-            project = $scope.project;
-        vm.select = select;
+            project = $scope.project,
+            gauge = $scope.gauge,
+            busy;
 
+        vm.select = select;
+        vm.isSelected = isSelected;
         vm.techniques = ProjectSkills.all({
             project_id: project.id
         });
 
-        function select(technique){
-            $scope.gauge.technique = technique;
+        function select(item) {
+            if(busy)return;
+            busy = true;
+            var params = {
+                rule: {
+                    project_id: project.id,
+                    technique_id: item.technique.id
+                }
+            };
+            if (gauge) {
+                ProjectGauges.update({
+                    gaugeId: gauge.id
+                }, params, emit);
+            } else {
+                ProjectGauges.add(params, emit);
+            }
+        }
+
+        function isSelected(item){
+            return (gauge.technique_id || gauge.technique.id) === item.technique.id;
+        }
+
+        function emit() {
+            $scope.$emit('onProjectGauges');
             $scope.destroyModal();
         }
     }

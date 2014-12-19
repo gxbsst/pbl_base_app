@@ -37,7 +37,7 @@
                     product_form_id: vm.selected.id
                 }
             };
-            if (!product.id) {
+            if (!product || !product.id) {
                 if (isFinal) {
                     params.product.is_final = true;
                     ProjectProducts.add(params, emit);

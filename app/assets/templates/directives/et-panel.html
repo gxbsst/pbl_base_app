@@ -1,5 +1,5 @@
 <div class="et-panel">
-    <div class="et-panel-title"><strong ng-bind="vm.title"></strong><i class="pull-right" ng-class="vm.status?'pf-triangle-down':'pf-triangle-up'" title="{{vm.status?('DIRECTIVE.Expand'|i18n):('DIRECTIVE.Collapse'|i18n)}}" ng-click="vm.toggle()"></i></div>
-    <div class="et-panel-content" ng-if="!vm.src" ng-show="vm.status" ng-transclude></div>
-    <div class="et-panel-content" ng-if="vm.src" ng-show="vm.status" ng-include="vm.src"></div>
+    <div class="et-panel-title"><strong ng-bind="panelConfig.title"></strong><i class="pull-right" ng-class="panelConfig.status?'pf-triangle-down':'pf-triangle-up'" title="{{panelConfig.status?('DIRECTIVE.Expand'|i18n):('DIRECTIVE.Collapse'|i18n)}}" ng-click="panelConfig.toggle()"></i></div>
+    <div class="et-panel-content" ng-if="!panelConfig.src" ng-show="panelConfig.status" ng-transclude></div>
+    <div class="et-panel-content" ng-if="panelConfig.src" ng-show="panelConfig.status" ng-include="panelConfig.src"></div>
 </div>

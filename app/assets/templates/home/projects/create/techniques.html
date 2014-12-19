@@ -1,6 +1,6 @@
 <div class="technique-selector">
     <div ng-if="!vm.techniques.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
     <ul class="selection">
-        <li ng-repeat="technique in vm.techniques.data" ng-bind="technique.id" ng-class="{active:vm.selected.id==technique.id}" ng-click="vm.select(technique)"></li>
+        <li ng-repeat="item in vm.techniques.data" ng-bind="item.technique.title" ng-class="{active:vm.isSelected(item)}" ng-click="vm.select(item)"></li>
     </ul>
 </div>

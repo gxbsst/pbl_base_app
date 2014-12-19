@@ -17,13 +17,13 @@
             </ul>
         </dd>
         <dd class="col-3-5">
-            <div class="selector-entries scrollbar-macosx" et-scrollbar>
+            <div class="selector-entries scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
                 <i class="remark" ng-if="!vm.phase">请选择年级</i>
                 <div ng-if="vm.phase&&!vm.standards.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
                 <div ng-repeat="entry in vm.standards.data">
                     <label class="row selector-entry" ng-bind="entry.title"></label>
                     <div class="selector-entry-children">
-                        <label ng-repeat="item in entry.items" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.content"></span></label>
+                        <label ng-repeat="item in entry.items" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)" ng-disabled="item._busy"/> <span ng-bind="item.content"></span></label>
                     </div>
                 </div>
             </div>

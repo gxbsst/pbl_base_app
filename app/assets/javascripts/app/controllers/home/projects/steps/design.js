@@ -15,7 +15,6 @@
         vm.removeStandardItem = removeStandardItem;
         vm.removeTechnique = removeTechnique;
         vm.removeProduct = removeProduct;
-        vm.saveProject = saveProject;
 
         $scope.$on('onProjectStandards', onProjectStandards);
         $scope.$on('onProjectSkills', onProjectSkills);
@@ -26,10 +25,12 @@
         onProjectProducts();
 
         function onProjectStandards() {
+            $scope.$broadcast('getProjectStandards', true);
             ProjectStandards.all({
                 project_id: vm.project.id
             }, function (result) {
                 vm.project.standard_items = result.data;
+                $scope.$broadcast('getProjectStandards', false);
             });
         }
 
@@ -75,11 +76,6 @@
             }, onProjectProducts);
         }
 
-        function saveProject() {
-            Projects.update({projectId: project.id}, {data: project}, function (result) {
-                //console.log(result.result);
-            });
-        }
     }
 
 })();

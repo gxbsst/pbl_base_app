@@ -8,7 +8,11 @@
     Gauges.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Gauges($resource, RESOURCE_ACTIONS) {
-        return $resource('/gauges/:action/:id', {action: '@action', id: '@id'}, RESOURCE_ACTIONS);
+        return $resource('/gauges/:action/:gaugeId', {
+            action: '@action',
+            gaugeId: '@gaugeId',
+            include: 'techniques'
+        }, RESOURCE_ACTIONS);
     }
 
 })();

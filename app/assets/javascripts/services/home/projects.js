@@ -24,7 +24,8 @@
     function ProjectStandards($resource, RESOURCE_ACTIONS) {
         return $resource('/project/standard_items/:action/:standardItemId', {
             action: '@action',
-            standardItemId: '@standardItemId'
+            standardItemId: '@standardItemId',
+            include: 'standard_items'
         }, RESOURCE_ACTIONS);
     }
 
@@ -33,7 +34,8 @@
     function ProjectSkills($resource, RESOURCE_ACTIONS) {
         return $resource('/project/techniques/:action/:techniqueId', {
             action: '@action',
-            techniqueId: '@techniqueId'
+            techniqueId: '@techniqueId',
+            include: 'techniques'
         }, RESOURCE_ACTIONS);
     }
 
@@ -51,7 +53,8 @@
     function ProjectGauges($resource, RESOURCE_ACTIONS) {
         return $resource('/project/rules/:gaugeId', {
             action: '@action',
-            gaugeId: '@gaugeId'
+            gaugeId: '@gaugeId',
+            include: 'techniques'
         }, RESOURCE_ACTIONS);
     }
 

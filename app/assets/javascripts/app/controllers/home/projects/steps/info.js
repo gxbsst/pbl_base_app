@@ -48,8 +48,6 @@
             });
         });
 
-        console.log(vm.project);
-
         vm.onChange = function () {
             return updateTags;
         };

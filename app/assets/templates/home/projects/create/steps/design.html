@@ -12,12 +12,12 @@
         <span class="btn btn-gray btn-sm" role="button"
               et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/create/curriculums.html'"><i
                 class="pf-plus"></i> 选择课标</span>
-
         <div class="row">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="standard in vm.project.standard_items"><span
-                        ng-bind="standard.id"></span><i class="btn-mini pf-cross pull-right"
-                                                        ng-click="vm.removeStandardItem(standard)"></i></li>
+                <li class="list-group-item" ng-repeat="item in vm.project.standard_items">
+                    <span ng-bind="item.standard_item.content"></span>
+                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeStandardItem(item)"></i>
+                </li>
             </ul>
         </div>
     </div>
@@ -30,11 +30,10 @@
 
         <div class="row">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="technique in vm.project.techniques"><span
-                        ng-bind="technique.id"></span><i class="btn-mini pf-cross pull-right"
-                                                         ng-click="vm.removeTechnique(technique)"></i></li>
-                <li class="list-group-item" ng-repeat="skill in vm.project.skills"><span ng-bind="skill.title"></span><i
-                        class="btn-mini pf-cross pull-right" ng-click="vm.removeSkill(skill)"></i></li>
+                <li class="list-group-item" ng-repeat="item in vm.project.techniques">
+                    <span ng-bind="item.technique.title"></span>
+                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeTechnique(item)"></i>
+                </li>
             </ul>
         </div>
     </div>

@@ -5,23 +5,29 @@
         .module('app.directives')
         .directive('etTips', etTips);
 
-    etTips.$inject = ['$document', '$timeout', '$template', '$compile'];
+    etTips.$inject = ['$document', '$timeout', '$template', '$compile', 'utils'];
 
-    function etTips($document, $timeout, $template, $compile) {
+    function etTips($document, $timeout, $template, $compile, utils) {
 
         var body = $document.find('body');
 
         return {
+            require: 'etTips',
             restrict: 'A',
             scope: true,
-            link: etTipsLink
+            link: etTipsLink,
+            controller: angular.noop,
+            controllerAs: 'tipsConfig'
         };
 
-        function etTipsLink(scope, element, attr) {
+        function etTipsLink(scope, element, attr, ctrl) {
 
-            scope.$config = angular.extend({
-                templateUrl: 'directives/et-tips.html'
-            }, attr.etTips.parseConfig(scope));
+            ctrl.templateUrl = 'directives/et-tips.html';
+            ctrl.delay = 0;
+            ctrl.black = true;
+            ctrl.right = false;
+            ctrl.resize = resize;
+            utils.params(scope, attr.etTips, ctrl, 'content');
 
             var enterTimer, leaveTimer, tips;
 
@@ -30,42 +36,56 @@
                 .on('mouseleave', mouseLeave);
 
             function mouseEnter() {
+
+                if (ctrl.disabled)return;
+
                 $timeout.cancel(enterTimer);
                 $timeout.cancel(leaveTimer);
                 leaveTimer = null;
 
-                if(!tips){
+                if (!tips) {
                     enterTimer = $timeout(function () {
-                        $template(scope.$config)
+                        $template(ctrl)
                             .then(function (template) {
                                 tips = $compile(angular.element(template))(scope);
-                                tips
-                                    .css({
-                                        top: element.offset().top + element.outerHeight() + 10,
-                                        left: element.offset().left
-                                    })
-                                    .on('mouseenter', function () {
-                                        if (leaveTimer) {
-                                            $timeout.cancel(leaveTimer);
-                                            leaveTimer = null;
-                                        }
-                                    })
-                                    .on('mouseleave', mouseLeave);
+                                tips.css({
+                                    top: element.offset().top + element.outerHeight() + 12,
+                                    left: element.offset().left + (element.outerWidth() / 2)
+                                });
+                                if (ctrl.delay) {
+                                    tips
+                                        .on('mouseenter', function () {
+                                            if (leaveTimer) {
+                                                $timeout.cancel(leaveTimer);
+                                                leaveTimer = null;
+                                            }
+                                        })
+                                        .on('mouseleave', mouseLeave);
+                                }
                                 body.append(tips);
                             });
-                    }, 150);
+                    }, ctrl.delay);
                 }
 
             }
 
             function mouseLeave() {
+
+                if (ctrl.disabled)return;
+
                 $timeout.cancel(enterTimer);
-                if(tips){
+                if (tips) {
                     leaveTimer = $timeout(function () {
                         tips.remove();
                         tips = leaveTimer = null;
-                    }, 150);
+                    }, ctrl.delay);
                 }
+            }
+
+            function resize() {
+                tips && tips.css({
+                    marginLeft: -tips.outerWidth() / 2
+                });
             }
 
         }

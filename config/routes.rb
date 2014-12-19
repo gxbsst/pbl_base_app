@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     resources :standard_items, defaults: {format: 'json'}, only: %w(index create destroy)
     resources :techniques, defaults: {format: 'json'}, only: %w(index create destroy)
     resources :products, defaults: {format: 'json'}, only: %w(index create update destroy)
-    resources :rules, defaults: {format: 'json'}, only: %w(index create destroy)
+    resources :rules, defaults: {format: 'json'}, only: %w(index create update destroy)
     resources :tasks, defaults: {format: 'json'}
   end
 

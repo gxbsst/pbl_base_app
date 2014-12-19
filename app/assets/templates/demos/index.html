@@ -4,8 +4,8 @@
     <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
 
     <span ng-click="setLocale('en-us')" class="btn btn-xs" role="button">en-us</span>
-    <span ng-click="setLocale('zh-cn')" class="btn btn-xs" role="button">zh-cn</span>
-    <span ng-click="setLocale('zh-tw')" et-tips="src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
+    <span ng-click="setLocale('zh-cn')" et-tips="content='这是一个tips';black=true;" class="btn btn-xs" role="button">zh-cn</span>
+    <span ng-click="setLocale('zh-tw')" et-tips="delay=150;black=false;src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
     <div class="hr"></div>
     <span class="btn btn-xs" role="button">button</span>
     <span class="btn btn-sm" role="button">button</span>

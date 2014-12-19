@@ -1,5 +1,4 @@
-<div class="et-tips">
-    <div class="et-tips-arrow"></div>
-    <div class="et-tips-content" ng-if="$config.html" ng-bind-html="$config.html"></div>
-    <div class="et-tips-content" ng-if="$config.src" ng-include="$config.src"></div>
+<div class="et-tips" et-observer="tipsConfig.resize()" ng-class="{'et-tips-block':tipsConfig.src,black:tipsConfig.black}">
+    <div class="et-tips-content" ng-if="tipsConfig.content" ng-bind-html="tipsConfig.content"></div>
+    <div class="et-tips-content" ng-if="tipsConfig.src" ng-include="tipsConfig.src"></div>
 </div>

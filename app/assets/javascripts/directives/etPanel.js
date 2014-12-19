@@ -17,7 +17,7 @@
             templateUrl: 'directives/et-panel.html',
             link: etPanelLink,
             controller: angular.noop,
-            controllerAs: 'vm'
+            controllerAs: 'panelConfig'
         };
 
         function etPanelLink(scope, element, attr, ctrl){

@@ -7,18 +7,25 @@
         .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
         .controller('GaugesSystemController', GaugesSystemController);
 
-    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectGauges', 'Projects', 'project'];
+    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectSkills', 'ProjectGauges', 'Projects', 'project'];
 
-    function HomeProjectCreateGaugesController($scope, ProjectGauges, Projects, project) {
+    function HomeProjectCreateGaugesController($scope, ProjectSkills, ProjectGauges, Projects, project) {
 
         var vm = this;
+
         vm.project = project;
         vm.setDisabled = setDisabled;
-        vm.addRow = addRow;
-        vm.addColumn = addColumn;
-        vm.removeRow = removeRow;
+        vm.notExist = notExist;
+        vm.remove = remove;
+        $scope.$on('onProjectGauges', onProjectGauges);
 
         onProjectGauges();
+
+        ProjectSkills.all({
+            project_id: project.id
+        }, function (result) {
+            vm.techniques = result.data;
+        });
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -43,28 +50,23 @@
             });
         }
 
-        function addRow() {
-            ProjectGauges.add({
-                rule: {
-                    project_id: project.id
-                }
-            }, onProjectGauges);
-        }
-
-        function addColumn() {
-
-        }
-
-        function removeRow(gauge) {
+        function remove(gauge) {
             ProjectGauges.remove({
-                project_id: project.id,
                 gaugeId: gauge.id
             }, onProjectGauges);
         }
 
+        function notExist(technique){
+            return vm.techniques && !vm.techniques.has(function (item) {
+                return item.technique.id === technique.id;
+            });
+        }
+
         function onProjectGauges() {
-            vm.gauges = ProjectGauges.all({
+            ProjectGauges.all({
                 project_id: project.id
+            }, function(result){
+                project.rules = result.data;
             });
         }
     }
@@ -86,28 +88,66 @@
                     rule_template: type
                 }
             });
+            $scope.destroyModal();
         }
     }
 
-    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectGauges'];
+    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectSkills', 'ProjectGauges'];
 
-    function GaugesSystemController($scope, Gauges, ProjectGauges) {
+    function GaugesSystemController($scope, Gauges, ProjectSkills, ProjectGauges) {
 
-        var vm = this;
-        vm.gauges = Gauges.all();
+        var vm = this,
+            project = $scope.project;
+
+        vm.selected = project.rules;
+
         vm.onChange = onChange;
         vm.isSelected = isSelected;
 
+        ProjectSkills.all({
+            project_id: project.id
+        }, function (result) {
+            vm.gauges = Gauges.all({
+                technique_ids: result.data.map(function (item) {
+                    return item.technique.id;
+                }).join(',')
+            });
+        });
+
         function onChange(gauge) {
             if (gauge.selected) {
-
+                ProjectGauges.add({
+                    rule: {
+                        project_id: project.id,
+                        gauge_id: gauge.id,
+                        technique_id: gauge.technique_id,
+                        standard: gauge.standard,
+                        weight: gauge.weight,
+                        level_1: gauge.level_1,
+                        level_2: gauge.level_2,
+                        level_3: gauge.level_3,
+                        level_4: gauge.level_4,
+                        level_5: gauge.level_5
+                    }
+                }, emit);
             } else {
-
+                var rule = project.rules.findOne(function (rule) {
+                    return rule.gauge_id === gauge.id
+                });
+                if(rule){
+                    ProjectGauges.remove({
+                        gaugeId: rule.id
+                    }, emit);
+                }
             }
         }
 
+        function emit() {
+            $scope.$emit('onProjectGauges');
+        }
+
         function isSelected(gauge) {
-            return ($scope.project.gauges || []).has(function (g) {
+            return vm.selected.has(function (g) {
                 return g.gauge_id === gauge.id;
             });
         }

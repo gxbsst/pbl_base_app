@@ -20,17 +20,20 @@
         return null;
     }
 
-    function params(scope, string, object) {
+    function params(scope, string, object, defaultKey) {
         angular.forEach(string.split(';'), function (config) {
-            config = config.split('=');
-            scope.$watch(config[1], function (value) {
-                var key = config[0];
-                if (/^\$/.test(key)) {
-                    scope[key.substr(1)] = value;
-                } else {
-                    object[key] = value;
-                }
-            });
+            if(config){
+                config = config.split('=');
+                var value = config[1] || config[0];
+                scope.$watch(value, function (v) {
+                    var key = config[1] ? config[0] : defaultKey;
+                    if (/^\$/.test(key)) {
+                        scope[key.substr(1)] = v;
+                    } else {
+                        object[key] = v;
+                    }
+                });
+            }
         });
     }
 

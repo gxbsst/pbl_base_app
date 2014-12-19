@@ -54,6 +54,7 @@ dl.table{
 }
 
 table.table{
+  position:relative;
   color:#454545;
   border-collapse:collapse;
   border-spacing:0;
@@ -67,14 +68,16 @@ table.table{
     color:#000;
     @include table-th;
   }
-  & > tbody > tr > td{
-    line-height:20px;
-    padding:5px 12px;
-    font-size:13px;
-    &.disabled{
-      background:#fafafa !important;
-      color:#e6e6e6 !important;
-      border-color:#e0e0e0 !important;
+  & > tbody{
+    & > tr > td{
+      line-height:20px;
+      padding:5px 12px;
+      font-size:13px;
+      &.disabled{
+        background:#fafafa !important;
+        color:#e6e6e6 !important;
+        border-color:#e0e0e0 !important;
+      }
     }
   }
   &.table-striped{
@@ -82,4 +85,14 @@ table.table{
       background-color:#fafafa;
     }
   }
+  /*&:after{
+    display:block;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background:rgba(0,0,0,.02);
+    content:'';
+  }*/
 }
