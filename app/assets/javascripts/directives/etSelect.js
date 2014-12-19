@@ -76,8 +76,7 @@
                 }
 
                 function select(option){
-                    vm.selected = option;
-                    scope.$eval(attr.ngModel + ' = ' + option[vm.value]);
+                    scope.$eval(attr.ngModel + ' = ' + JSON.stringify(option[vm.value]));
                 }
 
             }
