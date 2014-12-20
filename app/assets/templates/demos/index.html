@@ -1,56 +1,58 @@
-<div class="col-1-2">
-    <a href="javascript:void(0)" ng-click="vm.view='styles/elements.html'">elements</a>
-    <a href="javascript:void(0)" ng-click="vm.view='styles/modules.html'">modules</a>
-    <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
+<div class="demos">
+    <div class="col-1-2">
+        <a href="javascript:void(0)" ng-click="vm.view='styles/elements.html'">elements</a>
+        <a href="javascript:void(0)" ng-click="vm.view='styles/modules.html'">modules</a>
+        <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
 
-    <span ng-click="setLocale('en-us')" class="btn btn-xs" role="button">en-us</span>
-    <span ng-click="setLocale('zh-cn')" et-tips="content='这是一个tips';black=true;" class="btn btn-xs" role="button">zh-cn</span>
-    <span ng-click="setLocale('zh-tw')" et-tips="delay=150;black=false;src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
-    <div class="hr"></div>
-    <span class="btn btn-xs" role="button">button</span>
-    <span class="btn btn-sm" role="button">button</span>
-    <span class="btn" role="button">button</span>
-    <span class="btn btn-lg" role="button">button</span>
-    <div class="hr"></div>
-    <span class="btn btn-xs btn-gray" role="button">button</span>
-    <span class="btn btn-sm btn-gray" role="button">button</span>
-    <span class="btn btn-gray" role="button">button</span>
-    <span class="btn btn-lg btn-gray" role="button">button</span>
-    <div class="hr"></div>
-    <span class="btn btn-xs btn-blue" role="button">button</span>
-    <span class="btn btn-sm btn-blue" role="button">button</span>
-    <span class="btn btn-blue" role="button">button</span>
-    <span class="btn btn-lg btn-blue" role="button">button</span>
-    <div ng-init="test=123;aa.selected=1">
-        <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
-        <a href="javascript:void(0);" et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
-            modal(html)!</a>
-        <a href="javascript:void(0);"
-           et-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show
-            modal(controller)!</a>
-        {{aa.selected}}
-        <select ng-model="aa.selected" et-select="vm.select" et-config="label='title'">
-            <option value="1">test</option>
-        </select>
+        <span ng-click="setLocale('en-us')" class="btn btn-xs" role="button">en-us</span>
+        <span ng-click="setLocale('zh-cn')" et-tips="content='这是一个tips';black=true;" class="btn btn-xs" role="button">zh-cn</span>
+        <span ng-click="setLocale('zh-tw')" et-tips="delay=150;black=false;src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
+        <div class="hr"></div>
+        <span class="btn btn-xs" role="button">button</span>
+        <span class="btn btn-sm" role="button">button</span>
+        <span class="btn" role="button">button</span>
+        <span class="btn btn-lg" role="button">button</span>
+        <div class="hr"></div>
+        <span class="btn btn-xs btn-gray" role="button">button</span>
+        <span class="btn btn-sm btn-gray" role="button">button</span>
+        <span class="btn btn-gray" role="button">button</span>
+        <span class="btn btn-lg btn-gray" role="button">button</span>
+        <div class="hr"></div>
+        <span class="btn btn-xs btn-blue" role="button">button</span>
+        <span class="btn btn-sm btn-blue" role="button">button</span>
+        <span class="btn btn-blue" role="button">button</span>
+        <span class="btn btn-lg btn-blue" role="button">button</span>
+        <div ng-init="test=123;aa.selected=1">
+            <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
+            <a href="javascript:void(0);" et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
+                modal(html)!</a>
+            <a href="javascript:void(0);"
+               et-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show
+                modal(controller)!</a>
+            {{aa.selected}}
+            <select class="width-200" ng-model="aa.selected" et-select="vm.select" et-config="label='title'">
+                <option value="1">test</option>
+            </select>
+        </div>
     </div>
+    <div class="col-1-2" ng-include="'demos/validation/demo.html'"></div>
+    <div class="hr"></div>
+    <div class="col-1-1">
+        <div class="col-1-2" ng-include="'demos/grid/demo.html'"></div>
+        <div class="col-1-2" ng-include="'demos/scrollbar/demo.html'"></div>
+    </div>
+    <hr/>
+    <h2 ng-bind="'Pane examples'|i18n" title="{{'Pane examples'|i18n}}"></h2>
+    <div class="col-1-1">
+        <div et-panel="'App.Pane'|i18n:1" et-config="title='Pane'|i18n:1;src='demos/pane/demo.html'" class="col-1-2"></div>
+        <div et-panel="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}"/></div>
+    </div>
+    <hr/>
+    <div et-tabs="{justify:true}">
+        <div et-tab="'tab'|i18n:5" et-config="title='tab'|i18n:10;src='demos/tabs/demo.html'"></div>
+        <div et-tab="'tab'|i18n:2" et-config="src='demos/tabs/demo1.html'"></div>
+        <div et-tab="'tab'|i18n:3" et-config="src='demos/tabs/demo2.html'"></div>
+        <div et-tab="'tab'|i18n:4">{{'tab'|i18n:4}} content</div>
+    </div>
+    <div ui-view="toolbar"></div>
 </div>
-<div class="col-1-2" ng-include="'demos/validation/demo.html'"></div>
-<div class="hr"></div>
-<div class="col-1-1">
-    <div class="col-1-2" ng-include="'demos/grid/demo.html'"></div>
-    <div class="col-1-2" ng-include="'demos/scrollbar/demo.html'"></div>
-</div>
-<hr/>
-<h2 ng-bind="'Pane examples'|i18n" title="{{'Pane examples'|i18n}}"></h2>
-<div class="col-1-1">
-    <div et-panel="'App.Pane'|i18n:1" et-config="title='Pane'|i18n:1;src='demos/pane/demo.html'" class="col-1-2"></div>
-    <div et-panel="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}"/></div>
-</div>
-<hr/>
-<div et-tabs="{justify:true}">
-    <div et-tab="'tab'|i18n:5" et-config="title='tab'|i18n:10;src='demos/tabs/demo.html'"></div>
-    <div et-tab="'tab'|i18n:2" et-config="src='demos/tabs/demo1.html'"></div>
-    <div et-tab="'tab'|i18n:3" et-config="src='demos/tabs/demo2.html'"></div>
-    <div et-tab="'tab'|i18n:4">{{'tab'|i18n:4}} content</div>
-</div>
-<div ui-view="toolbar"></div>

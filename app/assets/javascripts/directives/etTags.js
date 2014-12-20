@@ -21,14 +21,16 @@
 
         function etTagsLink(scope, element, attr, ctrl) {
 
-            var onAdd = scope.$eval(attr.onAdd) || angular.noop,
+            var inputElement = element.find('.et-tag-input'),
+                onAdd = scope.$eval(attr.onAdd) || angular.noop,
                 onRemove = scope.$eval(attr.onRemove) || angular.noop,
                 onChange = scope.$eval(attr.onChange) || angular.noop;
 
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.ngModel = ngModel;
-                ctrl.tags = typeof ngModel == 'string' ? ngModel.split(',') : ngModel;
-                if(ctrl.tags === undefined){
+                if(ngModel){
+                    ctrl.tags = typeof ngModel == 'string' ? ngModel.split(',') : ngModel;
+                }else{
                     ctrl.tags = [];
                 }
             });
@@ -47,8 +49,17 @@
 
             element.on('click', setFocus);
 
+            inputElement
+                .on('focusin', function () {
+                    ctrl.focusin = true;
+                }).on('focusout', function () {
+                    scope.$apply(function () {
+                        delete ctrl.focusin;
+                    });
+                });
+
             function setFocus() {
-                element.find('.et-tag-input').focus();
+                inputElement.focus();
             }
 
             function onKeypress($event) {

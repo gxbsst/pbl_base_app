@@ -1,4 +1,4 @@
-<div class="et-tags form-control">
+<div class="et-tags form-control" ng-class="{focusin:tagsConfig.focusin}">
     <input type="hidden" ng-model="tagsConfig.ngModel"/>
     <div ng-repeat="tag in tagsConfig.tags" class="et-tags-item">{{ tag }}<i class="pf-cross" ng-click="tagsConfig.remove(tag,$event)"></i></div>
     <input type="text" class="et-tag-input" ng-model="tagsConfig.input" ng-keypress="tagsConfig.onKeypress($event)" placeholder="{{tagsConfig.placeholder}}"/>
