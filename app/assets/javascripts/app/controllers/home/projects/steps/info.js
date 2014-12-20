@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project', 'Cycles', 'Grades', 'Location1', 'Location2', 'Location3', 'Location4', 'Location'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project', 'Cycles', 'Grades'];
 
-    function HomeProjectCreateInfoController($state, Projects, project, Cycles, Grades, Location1, Location2, Location3, Location4, Location) {
+    function HomeProjectCreateInfoController($state, Projects, project, Cycles, Grades) {
         var vm = this;
         vm.project = project;
 
@@ -23,7 +23,6 @@
         //    vm.project.duration_unit=vm.cycles[0].id;
         //}
 
-        vm.grades = [];
         vm.grades = Grades;
 
         //isexist=vm.grades.findOne(function(item){
@@ -33,10 +32,10 @@
         //    console.log("grade is null");
         //    vm.project.grade=vm.grades[0].id;
         //}
-
-
         vm.location1 = [];
+
         /*Location1.all(function (data) {
+            vm.location1 = [];
             console.log(data);
             vm.location1 = data.data;
             //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);

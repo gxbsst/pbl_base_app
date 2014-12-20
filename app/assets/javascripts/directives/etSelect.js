@@ -5,12 +5,13 @@
         .module('app.directives')
         .directive('etSelect', etSelect);
 
-    etSelect.$inject = ['utils'];
+    etSelect.$inject = ['$rootScope', 'utils'];
 
-    function etSelect(utils) {
+    function etSelect($rootScope, utils) {
         return {
             require: ['etSelect', '?etConfig'],
             restrict: 'A',
+            scope: true,
             replace: true,
             terminal: true,
             priority: 1000,
@@ -28,9 +29,10 @@
 
             function etSelectPost(scope, element, attr, ctrl) {
 
-                var vm = ctrl[0];
+                var vm = ctrl[0],
+                    valueElement = element.find('.et-select-value');
 
-                vm.label = 'name';
+                vm.label = 'title';
                 vm.value = 'id';
                 vm.placeholder = 'DIRECTIVE.SelectDefaultLabel';
 
@@ -38,9 +40,18 @@
                 vm.select = select;
                 vm.isSelected = isSelected;
 
+                if(attr.etSync){
+                    scope.$watch(attr.etSync, function (syncConfig) {
+                        vm.syncConfig = syncConfig;
+                    }, true);
+                }
+
                 scope.$on('onDocumentClick', function () {
                     delete vm.show;
-                    delete vm.focusin;
+                    if(vm.focusin){
+                        delete vm.focusin;
+                        valueElement.trigger('focusout');
+                    }
                 });
 
                 ctrl[1] && utils.merge(scope, ctrl[1], vm);
@@ -48,6 +59,7 @@
                 if (attr.etSelect) {
                     scope.$watch(attr.etSelect, function (options) {
                         vm.options = options;
+                        findSelected();
                     });
                 } else {
                     scope.$watch(function () {
@@ -68,19 +80,28 @@
                 }
 
                 scope.$watch(attr.ngModel, function (value) {
-                    vm.selected = vm.options.findOne(function (option) {
-                        return option[vm.value] == value;
-                    });
+                    vm.ngModel = value;
+                    findSelected();
                 });
 
+                function findSelected(){
+                    if(vm.options){
+                        vm.selected = vm.options.findOne(function (option) {
+                            return option[vm.value] == vm.ngModel;
+                        });
+                    }
+                }
+
                 function isSelected(option) {
-                    return option[vm.value] == scope.$eval(attr.ngModel);
+                    return option[vm.value] == vm.ngModel;
                 }
 
                 function active($event) {
                     $event.stopPropagation();
+                    $rootScope.$broadcast('onDocumentClick');
                     vm.show = !vm.show;
                     vm.focusin = true;
+                    valueElement.trigger('focusin');
                 }
 
                 function select(option) {

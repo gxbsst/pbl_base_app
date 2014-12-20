@@ -1,111 +1,86 @@
 <div class="form-horizontal project-info">
     <h3>基本信息填写</h3>
     <div class="upload-cover"></div>
-    <div class="form-group">
-        <strong class="control-label">项目名称：</strong>
-        <span ng-bind="vm.project.name"></span>
-    </div>
-    <div class="form-group">
-        <label for="project[duration]" class="control-label">课程时长：</label>
-        <input type="number" size="5" min="1" class="form-control form-control-st"
-               id="project[duration]" name="project[duration]"
-               ng-model="vm.project.duration"
-               et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
-        <select style="width: 100px; height: 33px;" ng-model="vm.project.duration_unit"
-                ng-options="cycle.id as cycle.title for cycle in vm.cycles"
-                et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}">
-            <option value="">-- 请选择 --</option>
-        </select>
-        <label class="control-label">
-            <input type="checkbox" ng-model="vm.project.public"
-                   et-sync="{projectId:vm.project.id,project:{public:vm.project.public},$service:'Projects'}"/>
-            公开招募
-        </label>
-    </div>
-    <div class="form-group block" ng-show="vm.project.public">
-        <div class="form-group">
-            <label for="project[limitation]" class="control-label">人数限制：</label>
-            <input type="number" size="5" min="1" class="form-control form-control-st"
-                   id="project[limitation]" name="project[limitation]"
-                   ng-model="vm.project.limitation"
-                   et-sync="{projectId:vm.project.id,project:{limitation:vm.project.limitation},$service:'Projects'}"/>
-        </div>
-        <div class="row">
-            <label class="control-label">适用区域：</label>
-            <select style="width: 300px; height: 30px;" ng-model="vm.project.location_id"
-                    ng-options="location.id as location.name for location in vm.location1"
-                    et-sync="{project:project.id,project:{location_id:vm.project.location_id},$service:'Projects',$disabled:disabled}">
-                <option value="">-- 请选择 --</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-group-box">
-            <div class="form-group" style="position: relative;">
-
-
-                <div class="col-7-8">
-
-
-                    <input type="file" style="display: none;" class="pull-right">
+    <div class="form-group" style="position: relative;">
+        <div class="col-7-8">
+            <input type="file" style="display: none;" class="pull-right">
                 <span class="file-up">
                    <p class="circle"><i class="pf-camera"></i></p>
                     <p>上传封面</p>
                 </span>
-                </div>
-            </div>
-            <div class="form-group-box-sm" ng-show="vm.project.public">
-
-            </div>
-            <div class="form-group-box-sm" ng-show="vm.project.public">
-
-            </div>
+        </div>
+    </div>
+    <div class="form-group-box">
+        <div class="form-group">
+            <strong class="control-label">项目名称：</strong>
+            <span ng-bind="vm.project.name"></span>
+        </div>
+        <div class="form-group">
+            <label for="project[duration]" class="control-label">课程时长：</label>
+            <input type="number" size="5" min="1" class="form-control form-control-st"
+                   id="project[duration]" name="project[duration]"
+                   ng-model="vm.project.duration"
+                   et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
+            <select et-select="vm.cycles" ng-model="vm.project.duration_unit"
+                    et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}"></select>
+            <label class="control-label">
+                <input type="checkbox" ng-model="vm.project.public"
+                       et-sync="{projectId:vm.project.id,project:{public:vm.project.public},$service:'Projects'}"/>
+                公开招募
+            </label>
+        </div>
+        <div class="form-group block" ng-show="vm.project.public">
             <div class="form-group">
-                <label class="control-label">添加标签：</label>
-
-                <div class="col-1-1">
-                    <input type="text" ng-model="vm.project.tag_list" placeholder="请选择标签" on-change="vm.onChange()"
-                           et-tags/>
-                </div>
+                <label for="project[limitation]" class="control-label">人数限制：</label>
+                <input type="number" size="5" min="1" class="form-control form-control-st"
+                       id="project[limitation]" name="project[limitation]"
+                       ng-model="vm.project.limitation"
+                       et-sync="{projectId:vm.project.id,project:{limitation:vm.project.limitation},$service:'Projects'}"/>
             </div>
-            <div class="form-group">
-                <label class="control-label">年级：</label>
-                <select style="width: 100px; height: 30px;" ng-model="vm.project.grade"
-                        ng-options="grade.id as grade.title for grade in vm.grades"
-                        et-sync="{projectId:vm.project.id,project:{grade:vm.project.grade},$service:'Projects'}">
-                    <option value="">-- 请选择 --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">项目概述：</label>
-
-                <div class="col-1-1"><textarea ng-model="vm.project.description" class="form-control"
-                                               et-sync="{projectId:vm.project.id,project:{description:vm.project.description},$service:'Projects'}"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">启动文档：</label>
-                <span class="btn btn-gray btn-sm control-label">上传文档</span>
+            <div class="row">
+                <label class="control-label">适用区域：</label>
+                <select et-select="vm.location1" ng-model="vm.project.location_id"
+                        et-sync="{project:project.id,project:{location_id:vm.project.location_id},$service:'Projects',$disabled:disabled}"></select>
             </div>
         </div>
-
-        <h2 class="margin-top-20">选择成员和老师</h2>
-
-        <div class="form-group-box">
-            <div class="form-group">
-                <label class="control-label">选择成员：</label>
-                <span class="btn btn-gray btn-sm control-label">点击选择</span>
+        <div class="form-group">
+            <label class="control-label">添加标签：</label>
+            <div class="col-1-1">
+                <input type="text" ng-model="vm.project.tag_list" placeholder="请选择标签" on-change="vm.onChange()"
+                       et-tags/>
             </div>
-            <div class="form-group">
-                <label class="control-label">指导老师：</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">年级：</label>
+            <select et-select="vm.grades" ng-model="vm.project.grade"
+                    et-sync="{projectId:vm.project.id,project:{grade:vm.project.grade},$service:'Projects'}"></select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">项目概述：</label>
 
-                <div class="col-1-1" style="position: relative;"><i class="pf-search"></i> <input type="text"
-                                                                                                  class="form-control">
-                </div>
+            <div class="col-1-1"><textarea ng-model="vm.project.description" class="form-control"
+                                           et-sync="{projectId:vm.project.id,project:{description:vm.project.description},$service:'Projects'}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">启动文档：</label>
+            <span class="btn btn-gray btn-sm control-label">上传文档</span>
+        </div>
+    </div>
+    <h3 class="margin-top-20">选择成员和老师</h3>
+    <div class="form-group-box">
+        <div class="form-group">
+            <label class="control-label">选择成员：</label>
+            <span class="btn btn-gray btn-sm control-label">点击选择</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">指导老师：</label>
+
+            <div class="col-1-1" style="position: relative;"><i class="pf-search"></i> <input type="text"
+                                                                                              class="form-control">
             </div>
         </div>
     </div>
-
     <div class="form-group col-1-1">
         <div class="col-1-1 text-right">
             <span class="btn btn-blue" role="button" ng-click="next('scaffold')">下一步</span>

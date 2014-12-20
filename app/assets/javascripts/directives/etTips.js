@@ -35,6 +35,10 @@
                 .on('mouseenter', mouseEnter)
                 .on('mouseleave', mouseLeave);
 
+            scope.$on('$destroy', function () {
+                tips && tips.remove();
+            });
+
             function mouseEnter() {
 
                 if (ctrl.disabled)return;

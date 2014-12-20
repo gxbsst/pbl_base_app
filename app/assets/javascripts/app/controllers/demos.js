@@ -48,7 +48,7 @@
         $timeout(function () {
             vm.select = [
                 {id: 4, title: 'item 4'},
-                {id: 'a', title: 'item 5 item 5'},
+                {id: 5, title: 'item 5 item 5'},
                 {id: 6, title: 'item 6'}
             ];
             $scope.aa.selected = 'a';
@@ -57,8 +57,14 @@
         $timeout(function () {
             vm.select = [
                 {id: 4, title: 'item 4'},
-                {id: 'a', title: 'item 5 item 5'},
-                {id: 6, title: 'item 6'}
+                {id: 5, title: 'item 5 item 5'},
+                {id: 6, title: 'item 6'},
+                {id: 7, title: 'item 5 item 5'},
+                {id: 8, title: 'item 6'},
+                {id: 9, title: 'item 5 item 5'},
+                {id: 10, title: 'item 6'},
+                {id: 11, title: 'item 5 item 5'},
+                {id: 12, title: 'item 6'}
             ];
             $scope.aa.selected = 6;
         }, 3000);

@@ -40,9 +40,8 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">学科：</label>
         <div class="col-7-8">
-            <select style="width: 300px; height: 30px;" ng-model="task.discipline_id" ng-options="discipline.id as discipline.name for discipline in vm.disciplines" et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:disabled}">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <select ng-model="task.discipline_id" et-select="vm.disciplines" et-config="label='name'"
+                    et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:disabled}"></select>
         </div>
     </div>
 </div>
@@ -51,17 +50,15 @@
         <label class=" col-1-8 control-label">任务时长：</label>
         <div class="col-7-8">
             <input style="width: 100px; display: inline-block"  type="number"  ng-model="task.evaluation_duration" class="form-control" et-sync="{taskId:task.id,task:{evaluation_duration:task.evaluation_duration},$service:'Tasks',$disabled:disabled}"/>
-            <select style="width: 100px; height: 33px;" ng-model="task.evaluation_cycle" ng-options="cycle.id as cycle.title for cycle in vm.cycles" et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:disabled}">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <select ng-model="task.evaluation_cycle" et-select="vm.cycles"
+                    et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:disabled}"></select>
         </div>
     </div>
     <div class="col-1-1 tasks-group-item-form">
         <label class=" col-1-8 control-label">对应成果：</label>
-        <div class="col-7-8">{{task.product_id}}
-            <select style="width: 300px; height: 30px;" ng-model="task.product_id" ng-options="stage.id as stage.description for stage in vm.products" et-sync="{taskId:task.id,task:{product_id:task.product_id},$service:'Tasks',$disabled:disabled}">
-                <option value="">-- 请选择 --</option>
-            </select>
+        <div class="col-7-8">
+            <select ng-model="task.product_id" et-select="vm.products" et-config="label='id'"
+                    et-sync="{taskId:task.id,task:{product_id:task.product_id},$service:'Tasks',$disabled:disabled}"></select>
             展示视频
         </div>
     </div>

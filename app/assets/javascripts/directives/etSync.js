@@ -9,48 +9,39 @@
 
     function etSync($injector){
         return {
+            require: 'etSync',
             restrict: 'A',
             scope: true,
-            link: etSyncLink
+            link: etSyncLink,
+            controller: angular.noop,
+            controllerAs: 'syncConfig'
         };
 
-        function etSyncLink(scope, element, attr){
+        function etSyncLink(scope, element, attr, ctrl){
+
+            if(!attr.etSync)return;
+
             scope.$watch(attr.etSync, function (config) {
-                scope.$config = config;
+                config && angular.extend(ctrl, config);
             }, true);
+
             scope.$watch(attr.ngModel, function (ngModel) {
-                scope.ngModel = ngModel;
+                ctrl.$ngModel = ngModel;
             });
 
             element.on('focusin', function () {
-                scope.model = scope.ngModel;
+                ctrl.$clone = ctrl.$ngModel;
             });
-            switch(element.context.localName)
-            {
-                case "select":
-                    //对象参数应绑定至ID
-                    //example：{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit.id},$service:'Projects'}
-                    element.on('change', modelUpdate);
-                    break;
 
-                //element 类型为input或其他
-                case "input":
-                default:
-
-                    element.on('focusout', modelUpdate);
-            }
-
-            function modelUpdate(){
-                if(!scope.$config.$disabled){
-                    if (scope.model != scope.ngModel) {
-                        scope.model = scope.ngModel;
-                        var service = $injector.get(scope.$config.$service);
-                        service.update(scope.$config);
-                    }else{
-                        console.log(scope.$config.$disabled);
+            element.on('focusout', function(){
+                if(!ctrl.$disabled && ctrl.$service){
+                    if (ctrl.$clone != ctrl.$ngModel) {
+                        ctrl.$clone = ctrl.$ngModel;
+                        var service = $injector.get(ctrl.$service);
+                        service.update(ctrl);
                     }
                 }
-            }
+            });
 
             /*function toJSON(model, data, vm){
                 if(typeof model == 'string'){

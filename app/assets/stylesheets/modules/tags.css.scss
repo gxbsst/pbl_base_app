@@ -1,6 +1,7 @@
 @import "compass/css3";
 
 .et-tags{
+  $height: 21px;
   padding:0 5px 5px 5px !important;
   cursor:text;
   .et-tags-item{
@@ -8,7 +9,7 @@
     float:left;
     background:#a0aabe;
     font-size:12px;
-    line-height:23px;
+    line-height:$height;
     padding:0 21px 0 6px;
     margin:5px 5px 0 0;
     color:#fff;
@@ -31,8 +32,8 @@
   }
   .et-tag-input{
     border:none;
-    height:23px;
-    line-height:23px;
+    height:$height;
+    line-height:$height;
     padding:0 5px;
     margin-top:5px;
     background:transparent;

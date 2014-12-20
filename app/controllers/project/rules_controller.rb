@@ -21,7 +21,8 @@ module Project
 
     def destroy
       @rule = Pbl::Rule.destroy(params[:id])
-      render :show
+      puts @rule.inspect
+      # render json: @rule.success? ? {id: @rule.id} : {error: @rule.error}
     end
 
   end

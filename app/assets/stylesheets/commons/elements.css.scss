@@ -37,6 +37,10 @@ ul.selection{
     border-bottom:1px solid #e0e0e0;
     line-height:30px;
     cursor:pointer;
+    &:before{
+      display:inline-block;
+      content:'';
+    }
     &.active{
       color:#0077ff;
       &:before{

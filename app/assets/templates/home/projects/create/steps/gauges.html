@@ -6,7 +6,11 @@
                 <th>对应技能</th>
                 <th>量规标准</th>
                 <th width="60">权重</th>
-                <th ng-repeat="column in vm.project.ruleHeads" ng-bind="$index|gauge:vm.project.rule_template" ng-click="vm.setDisabled(!column.disabled,$index)" ng-class="{disabled:column.disabled}"></th>
+                <th ng-repeat="column in vm.project.ruleHeads"
+                    ng-bind="$index|gauge:vm.project.rule_template"
+                    ng-click="vm.setDisabled(!column.disabled,$index)"
+                    et-tips="column.disabled?'点击启用该列':'点击禁用该列'"
+                    ng-class="{disabled:column.disabled}"></th>
                 <th class="gauge-btn"
                     et-tips="'设置标头'"
                     et-modal="$project=vm.project;title='选择量规标头';controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
