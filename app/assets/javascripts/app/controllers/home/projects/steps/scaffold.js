@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledge','Tasks'];
+    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledge','Tasks','ProjectProducts'];
 
-    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledge,Tasks) {
+    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledge,Tasks,ProjectProducts) {
         var vm = this;
 
         project.knowledge = project.knowledge || [];
@@ -26,7 +26,6 @@
         //周期未使用异步调用
         vm.cycles=Cycles;
 
-        vm.selectchange=selectchange;
         vm.chooseType=chooseType;
         vm.removeResource=removeResource;
 
@@ -37,6 +36,7 @@
 
         //onProjectTask();
         //onProjectKnowledge();
+        onProjectProducts();
 
         vm.onBegin = onBegin;
         vm.onProgress = onProgress;
@@ -97,9 +97,6 @@
         }
 
 
-        function selectchange(){
-            console.log(vm.project.tasks);
-        }
 
         function chooseType(task,typeval,disabled){
             task.task_type=typeval;
@@ -158,6 +155,25 @@
                     vm.project.tasks =data.data;
                     console.log(data);
                 });
+        }
+
+        function onProjectProducts() {
+            console.log("products");
+            ProjectProducts.all({
+                project_id: vm.project.id
+            }, function (result) {
+                var products = result.data,
+                    findFinal = function (product) {
+                        return product.is_final;
+                    };
+                //vm.project.final_product = products.findOne(findFinal);
+                if (vm.project.final_product) {
+                    products.remove(findFinal);
+                }
+                vm.products = products;
+
+                console.log(vm.products);
+            });
         }
     }
 
