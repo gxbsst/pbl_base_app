@@ -47,4 +47,6 @@ Rails.application.routes.draw do
   resources :disciplines, defaults: {format: 'json'}
 
   resources :resources, defaults: {format: 'json'}
+
+  resources :regions, defaults: {format: 'json'}
 end
