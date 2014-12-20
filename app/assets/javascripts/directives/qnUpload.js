@@ -5,23 +5,27 @@
         .module('app.directives')
         .directive('qnUpload', qnUpload);
 
-    qnUpload.$inject = ['QINIU', 'QiniuTokens'];
+    qnUpload.$inject = ['QINIU', 'QiniuTokens', 'Resources'];
 
-    function qnUpload(QINIU, QiniuTokens) {
+    function qnUpload(QINIU, QiniuTokens, Resources) {
         return qnUploadLink;
 
         function qnUploadLink(scope, element, attr) {
 
-            var config = angular.extend({
+            var config = {
                     url: QINIU.upload,
                     name: 'file',
                     bucket: 'mooc-images'
-                }, scope.$eval(attr.qnUpload) || {}),
+                },
                 onBegin = scope.$eval(attr.onBegin) || angular.noop,
                 onProgress = scope.$eval(attr.onProgress) || angular.noop,
                 onSuccess = scope.$eval(attr.onSuccess) || angular.noop,
                 onCompleted = scope.$eval(attr.onCompleted) || angular.noop,
                 onError = scope.$eval(attr.onError) || angular.noop;
+
+            scope.$watch(attr.qnUpload, function (conf) {
+                conf && angular.extend(config, conf);
+            }, true);
 
             element.on('click', function () {
                 var inputElement = angular.element('<input type="file" />');
@@ -73,7 +77,7 @@
                                         angular.forEach(files, function (file) {
                                             loaded += file.loaded;
                                         });
-                                        if(loaded > total){
+                                        if (loaded > total) {
                                             loaded = total;
                                         }
                                         onProgress.call(file, {loaded: loaded || 0, total: total});
@@ -96,7 +100,21 @@
                                     try {
                                         data = JSON.parse(xhr.responseText);
                                         uploaded.push(data);
-                                        onSuccess.call(file, data, xhr);
+                                        var resource = {
+                                            owner_type: config.ownerType,
+                                            owner_id: config.ownerId
+                                        };
+                                        angular.forEach(data, function (v, n) {
+                                            if(v === null){
+                                                delete data[n];
+                                            }else if(typeof v == 'object'){
+                                                data[n] = JSON.stringify(v);
+                                            }
+                                        });
+                                        angular.extend(resource, data);
+                                        Resources.add(resource, function () {
+                                            onSuccess.call(file, data, xhr);
+                                        });
                                     } catch (e) {
                                         onError.call(file, null, xhr);
                                     }

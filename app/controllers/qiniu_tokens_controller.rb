@@ -28,12 +28,12 @@ class QiniuTokensController < ApplicationController
           "name": $(fname),
           "size": $(fsize),
           "ext": $(ext),
-          "mimeType": $(mimeType),
+          "mime_type": $(mimeType),
           "key": $(key),
-          "hash": $(etag),
+          "md5": $(etag),
           "exif": $(exif),
-          "imageInfo": $(imageInfo),
-          "imageAve": $(imageAve)
+          "image_info": $(imageInfo),
+          "image_ave": $(imageAve)
         }'
   end
 
@@ -42,10 +42,10 @@ class QiniuTokensController < ApplicationController
           "name": $(fname),
           "size": $(fsize),
           "ext": $(ext),
-          "mimeType": $(mimeType),
+          "mime_type": $(mimeType),
           "key": $(key),
-          "hash": $(etag),
-          "persistentId":$(persistentId),
+          "md5": $(etag),
+          "persistent_id":$(persistentId),
           "avinfo":$(avinfo)
         }'
   end

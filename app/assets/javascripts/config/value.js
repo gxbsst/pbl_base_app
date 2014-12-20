@@ -45,8 +45,8 @@
             RESOURCE_TYPES: {
                 project: {
                     cover: 'ProjectCover',
-                    product: 'ProjectProduct',
-                    sample: 'ProjectSample'
+                    product: 'ProductSample',
+                    assignment: 'AssignmentResource'
                 }
             },
             Cycles:[
