@@ -1,0 +1,1 @@
+json.extract! @regions, :data, :meta if @regions
