@@ -1,6 +1,9 @@
 <div class="form-horizontal project-info">
     <h3>基本信息填写</h3>
-    <div class="upload-cover" qn-upload="{ownerType:RESOURCE_TYPES.project.cover,ownerId:vm.project.id}"><img ng-src="{{'FktEdgPtxNrzo5rFX4tBnHu6cpYe'|thumb:'100x100'}}"/>上传封面</div>
+    <div class="upload-cover" ng-class="{uploading:vm.project.cover.$uploading}"
+         qn-upload="{ownerType:RESOURCE_TYPES.project.cover,ownerId:vm.project.id}"
+         on-begin="vm.onCoverUploadBegin()" on-success="vm.onCoverUploadSuccess()">
+        <img ng-if="vm.project.cover.key" ng-src="{{vm.project.cover.key|thumb:'100x100'}}"/>上传封面</div>
     <div class="form-group-box">
         <div class="form-group">
             <strong class="control-label">项目名称：</strong>
@@ -36,7 +39,7 @@
         </div>
         <div class="form-group">
             <label class="control-label">添加标签：</label>
-            <div class="col-1-1">
+            <div class="row">
                 <input type="text" ng-model="vm.project.tag_list" placeholder="请选择标签" on-change="vm.onChange()"
                        et-tags/>
             </div>
@@ -49,26 +52,28 @@
         <div class="form-group">
             <label class="control-label">项目概述：</label>
 
-            <div class="col-1-1"><textarea ng-model="vm.project.description" class="form-control"
-                                           et-sync="{projectId:vm.project.id,project:{description:vm.project.description},$service:'Projects'}"></textarea>
+            <div class="row">
+                <textarea ng-model="vm.project.description" class="form-control"
+                          et-sync="{projectId:vm.project.id,project:{description:vm.project.description},$service:'Projects'}"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label">启动文档：</label>
-            <span class="btn btn-gray btn-sm control-label">上传文档</span>
+            <span class="btn btn-gray btn-sm">上传文档</span>
         </div>
     </div>
     <h3 class="margin-top-20">选择成员和老师</h3>
     <div class="form-group-box">
         <div class="form-group">
             <label class="control-label">选择成员：</label>
-            <span class="btn btn-gray btn-sm control-label">点击选择</span>
+            <span class="btn btn-gray btn-sm"
+                  et-modal="$project=vm.project;title='选择项目成员';padding=0;controller='MemberSelectorController as vm';src='home/projects/create/members.html'">点击选择</span>
         </div>
         <div class="form-group">
             <label class="control-label">指导老师：</label>
 
-            <div class="col-1-1" style="position: relative;"><i class="pf-search"></i> <input type="text"
-                                                                                              class="form-control">
+            <div class="row" style="position: relative;">
+                <i class="pf-search"></i> <input type="text" class="form-control">
             </div>
         </div>
     </div>

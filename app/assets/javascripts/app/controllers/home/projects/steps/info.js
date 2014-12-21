@@ -8,8 +8,25 @@
     HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project', 'Cycles', 'Grades'];
 
     function HomeProjectCreateInfoController($state, Projects, project, Cycles, Grades) {
+
         var vm = this;
+        project.cover = project.cover || {};
         vm.project = project;
+        vm.onCoverUploadBegin = onCoverUploadBegin;
+        vm.onCoverUploadSuccess = onCoverUploadSuccess;
+
+        function onCoverUploadBegin(){
+            return function () {
+                project.cover.$uploading = true;
+            }
+        }
+
+        function onCoverUploadSuccess(){
+            return function (data) {
+                project.cover.key = data.key;
+                delete project.cover.$uploading;
+            }
+        }
 
         vm.cycles = [];
         vm.cycles = Cycles;

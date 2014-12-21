@@ -1,4 +1,5 @@
 @import "compass/css3";
+@import "commons/easy-animation";
 
 .project-gauges{
   .table{
@@ -202,7 +203,7 @@
   }
   .upload-cover{
     position:absolute;
-    right:30px;
+    right:20px;
     top:0;
     width:100px;
     height:100px;
@@ -272,6 +273,23 @@
         @include opacity(0);
       }
     }
+    &.uploading{
+      border-color:#1e78f0;
+      pointer-events:none;
+      &:before{
+        background:#dcfaff;
+        z-index:1;
+      }
+      &:after{
+        content:"\e631";
+        color:#fff;
+        background:#1e78f0;
+        z-index:1;
+        margin-top:-30px;
+        @include transform(scale(1, 1));
+        @include ea-animation(rotation 1s infinite linear);
+      }
+    }
   }
   input[type=number]{
     text-align:center;
@@ -313,6 +331,81 @@
     .form-group-box-sm{
       //margin:4px 40px;
     }
+  }
+}
+
+.member-selector{
+  width:650px;
+  height:350px;
+  & > div[class*="col-"]{
+    border-right:1px solid #e0e0e0;
+    padding:0;
+    height:100%;
+    &:last-of-type{
+      border:none;
+    }
+  }
+  .member-fixed{
+    background:#fff;
+    @include box-shadow(0 0 8px 0 #b4b4b4);
+  }
+  .member-users{
+    position:absolute;
+    left:0;
+    right:0;
+    top:36px;
+    bottom:0;
+    & > ul > li{
+      line-height:34px;
+      padding:0 22px;
+      img{
+        vertical-align:middle;
+        @include border-radius(50%);
+      }
+    }
+  }
+  .layout-left{
+    & > ul{
+      margin:12px 0;
+      & > li{
+        padding:0 15px;
+        & > ul > li{
+          padding-left:1em;
+        }
+      }
+    }
+  }
+  .layout-center{
+    position:relative;
+    overflow:hidden;
+    background:#fdfdfd;
+    .member-search{
+      position:relative;
+      padding:4px;
+      &:before{
+        position:absolute;
+        left:8px;
+        top:6px;
+        display:inline-block;
+        font-family:'PblIconFont';
+        content:"\e61a";
+        color:#ccc;
+        font-size:18px;
+        vertical-align:middle;
+      }
+      &.focusin:before{
+        color:#66afe9;
+      }
+      .form-control{
+        height:28px;
+        line-height:28px;
+        padding-left:24px;
+        @include border-radius(0);
+      }
+    }
+  }
+  .layout-right{
+
   }
 }
 
