@@ -128,8 +128,9 @@
             <div class="row margin-top-8">
                 <span class="btn btn-sm" role="button"
                       et-modal="$project=vm.project;$product=product;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
-                <span class="btn btn-gray btn-sm" role="button"
-                      et-modal="title='产品形态';controller='WorksformController';width='70%';src='home/projects/pane/modalworksform.html'">上传示例</span>
+                <span class="btn btn-gray btn-sm" ng-class="{uploading:product.$uploading}" role="button"
+                      qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:product.id}"
+                      on-begin="UPLOAD_HANDLES.onBegin(product)" on-progress="UPLOAD_HANDLES.onProgress(product)" on-completed="UPLOAD_HANDLES.onCompleted(product)">上传示例</span>
             </div>
             <div class="col-1-1">
                 <div class="col-1-2 margin-top-8" ng-if="product.product_form_id">

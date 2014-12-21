@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?w2a4zb');
-  src:font_url('PblIconFont.eot?#iefixw2a4zb') format('embedded-opentype'),
-  font_url('PblIconFont.woff?w2a4zb') format('woff'),
-  font_url('PblIconFont.ttf?w2a4zb') format('truetype'),
-  font_url('PblIconFont.svg?w2a4zb#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?qnxcai');
+  src:font_url('PblIconFont.eot?#iefixqnxcai') format('embedded-opentype'),
+  font_url('PblIconFont.woff?qnxcai') format('woff'),
+  font_url('PblIconFont.ttf?qnxcai') format('truetype'),
+  font_url('PblIconFont.svg?qnxcai#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -184,6 +184,9 @@
 }
 .pf-triangle-up:before {
   content: "\f0aa";
+}
+.pf-image:before {
+  content: "\e634";
 }
 .pf-camera:before {
   content: "\e62f";
