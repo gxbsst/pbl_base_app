@@ -16,7 +16,7 @@
         </div>
         <div class="member-users scrollbar" et-scrollbar>
             <ul>
-                <li ng-repeat="user in vm.users"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
+                <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected}" ng-click="user.$selected=!user.$selected"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
             </ul>
         </div>
     </div>
@@ -24,6 +24,11 @@
         333
     </div>
     <div class="col-4-12 layout-right scrollbar" et-scrollbar>
-        444
+        <div class="member-fixed center"><strong>已选择成员：</strong><span ng-bind="vm.members.length"></span>人</div>
+        <div class="member-users scrollbar" et-scrollbar>
+            <ul>
+                <li ng-repeat="user in vm.members" ng-class="{selected:user.$selected}"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
+            </ul>
+        </div>
     </div>
 </div>

@@ -346,6 +346,8 @@
     }
   }
   .member-fixed{
+    line-height:28px;
+    padding:4px;
     background:#fff;
     @include box-shadow(0 0 8px 0 #b4b4b4);
   }
@@ -357,9 +359,20 @@
     bottom:0;
     & > ul > li{
       line-height:34px;
-      padding:0 22px;
+      padding:0 12px;
+      margin-bottom:1px;
+      cursor:pointer;
+      &:hover{
+        background:#f0f0f0;
+      }
+      &.selected{
+        background:#66a7f0;
+        color:#fff;
+      }
       img{
         vertical-align:middle;
+        margin-right:5px;
+        @include box-shadow(0 0 3px 2px #fff);
         @include border-radius(50%);
       }
     }
@@ -375,13 +388,14 @@
       }
     }
   }
-  .layout-center{
+  .layout-center, .layout-right{
     position:relative;
     overflow:hidden;
     background:#fdfdfd;
+  }
+  .layout-center{
     .member-search{
       position:relative;
-      padding:4px;
       &:before{
         position:absolute;
         left:8px;

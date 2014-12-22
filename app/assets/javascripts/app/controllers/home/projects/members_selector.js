@@ -13,8 +13,11 @@
 
         vm.friends = Friends.all();
         vm.groups = Groups.all();
-        vm.members = ProjectMembers.all();
         vm.onSearch = onSearch;
+
+        ProjectMembers.all(function (result) {
+            vm.members = result.data;
+        });
 
         $scope.$watch(function () {
             return vm.friends.data;
