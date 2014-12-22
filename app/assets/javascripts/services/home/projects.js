@@ -45,7 +45,8 @@
     function ProjectProducts($resource, RESOURCE_ACTIONS) {
         return $resource('/project/products/:action/:productId', {
             action: '@action',
-            productId: '@productId'
+            productId: '@productId',
+            include: 'product_forms'
         }, RESOURCE_ACTIONS);
     }
 

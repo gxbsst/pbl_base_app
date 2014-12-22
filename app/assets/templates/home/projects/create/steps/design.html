@@ -115,7 +115,7 @@
                   on-begin="UPLOAD_HANDLES.onBegin(vm.project.final_product)" on-progress="UPLOAD_HANDLES.onProgress(vm.project.final_product)" on-completed="UPLOAD_HANDLES.onCompleted(vm.project.final_product)">上传示例</span>
         </div>
         <div class="row margin-top-8" ng-if="vm.project.final_product"><strong>产品形态：</strong><span
-                ng-bind="vm.project.final_product.product_form_id"></span> <span
+                ng-bind="vm.project.final_product.product_form.name"></span> <span
                 ng-if="vm.project.final_product.resource"><strong>产品示例：</strong><span
                 ng-bind="vm.project.final_product.resource.name"></span></span></div>
     </div>
@@ -135,7 +135,7 @@
             <div class="col-1-1">
                 <div class="col-1-2 margin-top-8" ng-if="product.product_form_id">
                     <strong>产品形态：</strong>
-                    <span ng-bind="product.product_form_id"></span>
+                    <span ng-bind="product.product_form.name"></span>
                 </div>
                 <div class="col-1-2 margin-top-8" ng-if="product.resource">
                     <strong>产品示例：</strong>

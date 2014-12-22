@@ -21,7 +21,7 @@
             vm.productForms = result.data;
             if(product){
                 vm.selected = vm.productForms.findOne(function (form) {
-                    return form.id == product.product_form_id;
+                    return form.id == product.product_form.id;
                 }) || {};
             }
         });
