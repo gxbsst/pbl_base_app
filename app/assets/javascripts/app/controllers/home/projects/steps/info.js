@@ -28,6 +28,11 @@
 
         function onUploadSuccess(type) {
             return function () {
+                if(type == 'cover' && project.cover && project.cover.id){
+                    Resources.remove({
+                        resourceId: project.cover.id
+                    });
+                }
                 delete project['$uploading_' + type];
                 getProjectResources();
             }

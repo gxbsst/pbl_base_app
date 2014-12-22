@@ -156,6 +156,30 @@ ul.selection{
   color:#999;
 }
 
+.tag{
+  $height: 22px;
+  display:inline-block;
+  padding:0 8px;
+  color:#666;
+  background:#f0f0f0;
+  font-size:12px;
+  line-height:$height;
+  height:$height;
+  margin-right:4px;
+  vertical-align:middle;
+  cursor:default;
+  @include border-radius(15px);
+  &:before{
+    display:inline-block;
+    font-family:'PblIconFont';
+    content:'\e60f';
+    color:#61a0f0;
+    margin-right:2px;
+    line-height:$height;
+    vertical-align:middle;
+  }
+}
+
 .hide{
   display:none !important;
 }

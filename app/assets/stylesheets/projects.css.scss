@@ -471,20 +471,44 @@
   }
 }
 
-.project-create-release{
-  border-radius:3px;
-  border:#ccc solid 1px;
+.project-release{
   position:relative;
-  /*@include border-radius(2px);*/
+  border:#ccc solid 1px;
+  @include border-radius(3px);
+  padding:35px 20px 20px;
   .pf-preview-flag{
-    left:-5px;
-    top:-26px;
-    font-size:68px;
-    color:#77c84f;
     position:absolute;
+    left:-6px;
+    top:-23px;
+    font-size:80px;
+    color:#77c84f;
   }
-  h2{
-    font-size:14px;
+  .cover{
+    $size: 130px;
+    position:relative;
+    float:left;
+    width:$size;
+    height:$size;
+    padding:5px;
+    margin-right:15px;
+    border:1px dotted #999;
+    text-align:center;
+    line-height:$size;
+    overflow:hidden;
+    .rotation{
+      margin-top:45px;
+    }
+    img{
+      position:absolute;
+      left:4px;
+      top:4px;
+    }
+  }
+  .info{
+    & > h1{
+      font-size:20px;
+      margin-bottom:8px;
+    }
   }
   .mar-2 img{
     margin-right:2px;

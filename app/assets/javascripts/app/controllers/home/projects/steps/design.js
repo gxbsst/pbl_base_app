@@ -107,6 +107,9 @@
 
         function onUploadSuccess(product) {
             return function () {
+                product.resource && Resources.remove({
+                    resourceId: product.resource.id
+                });
                 delete product.$uploading;
                 getProductSample();
             }
