@@ -1,4 +1,4 @@
-class AssignmentController
+class AssignmentsController < ApplicationController
 
   def index
     @assignments = Pbl::Models::Assignment.all

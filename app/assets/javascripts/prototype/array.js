@@ -59,6 +59,17 @@
                 }
                 return this;
             },
+            removeAll: function (fn, mark) {
+                var self = this,
+                    remove = function () {
+                        self.remove(fn, mark);
+                        if(self.has(fn)){
+                            remove();
+                        }
+                    };
+                remove();
+                return self;
+            },
             move: function (from, to) {
                 this.splice(to, 0, this.splice(from, 1)[0]);
                 return this;

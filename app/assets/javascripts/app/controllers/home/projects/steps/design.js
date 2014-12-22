@@ -20,6 +20,7 @@
         $scope.$on('onProjectSkills', onProjectSkills);
         $scope.$on('onProjectProducts', onProjectProducts);
 
+
         onProjectStandards();
         onProjectSkills();
         onProjectProducts();

@@ -1,7 +1,7 @@
 class ResourcesController < ApplicationBaseController
 
   def index
-    @resources = Pbl::Models::Resource.all
+    @resources = Pbl::Models::Resource.all(owner_type: params[:owner_type], owner_ids: params[:owner_ids], limit: params[:limit])
   end
 
   def create

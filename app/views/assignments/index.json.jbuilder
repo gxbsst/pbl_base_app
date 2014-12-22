@@ -1,1 +1,1 @@
-json.extract! @assignments, :data, :meta if @rules
+json.extract! @assignments, :data, :meta if @assignments
