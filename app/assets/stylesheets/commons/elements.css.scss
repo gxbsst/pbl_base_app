@@ -142,7 +142,7 @@ ul.selection{
 }
 
 .disabled{
-  pointer-events:none;
+  pointer-events:none !important;
   position:relative;
   cursor:no-drop !important;
   background:#f0f0f0 !important;

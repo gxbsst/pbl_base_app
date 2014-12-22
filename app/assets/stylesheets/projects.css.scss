@@ -347,7 +347,7 @@
   }
   .member-fixed{
     line-height:28px;
-    padding:4px;
+    padding:4px 12px;
     background:#fff;
     @include box-shadow(0 0 8px 0 #b4b4b4);
   }
@@ -377,6 +377,53 @@
       }
     }
   }
+  .member-btn{
+    display:block;
+    font-size:25px;
+    padding:5px 0;
+    cursor:pointer;
+    &:before{
+      display:block;
+      @include transition(.2s ease all);
+      @include transform(translate3d(0, 0, 0));
+      @include transform(scale(.75, .75));
+    }
+    &:hover{
+      color:#1e78f0;
+      &:before{
+        @include transform(scale(1, 1));
+      }
+    }
+    &.disabled{
+      background:transparent !important;
+    }
+  }
+  .member-remove{
+    display:block;
+    width:28px;
+    color:#bb0000;
+    text-align:center;
+    line-height:28px;
+    margin-right:-5px;
+    background:transparent !important;
+    &:before{
+      display:block;
+      line-height:28px;
+      font-size:18px;
+      cursor:pointer;
+      @include transition(.2s ease all);
+      @include transform(translate3d(0, 0, 0));
+      @include transform(scale(.85, .85));
+    }
+    &:hover{
+      &:before{
+        @include transform(scale(1, 1));
+      }
+    }
+    &.disabled:before{
+      @include transform(scale(.7, .7));
+    }
+  }
   .layout-left{
     & > ul{
       margin:12px 0;
@@ -396,10 +443,11 @@
   .layout-center{
     .member-search{
       position:relative;
+      padding:4px;
       &:before{
         position:absolute;
         left:8px;
-        top:6px;
+        top:3px;
         display:inline-block;
         font-family:'PblIconFont';
         content:"\e61a";

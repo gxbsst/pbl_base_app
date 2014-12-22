@@ -16,18 +16,23 @@
         </div>
         <div class="member-users scrollbar" et-scrollbar>
             <ul>
-                <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected}" ng-click="user.$selected=!user.$selected"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
+                <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected}" ng-click="user.$selected=!user.$selected" ng-show="!vm.isSelected(user)"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
             </ul>
         </div>
     </div>
-    <div class="col-1-12">
-        333
+    <div class="col-1-12 layout-table">
+        <div class="center layout-table-cell">
+            <i class="pf-arrow-right member-btn" ng-click="vm.add()" ng-class="{disabled:!vm.findSelected(vm.users).length}"></i>
+        </div>
     </div>
     <div class="col-4-12 layout-right scrollbar" et-scrollbar>
-        <div class="member-fixed center"><strong>已选择成员：</strong><span ng-bind="vm.members.length"></span>人</div>
+        <div class="member-fixed">
+            <strong>已选成员：</strong><span ng-bind="vm.members.length"></span>人
+            <i class="pull-right pf-trash-o member-remove" ng-click="vm.remove()" ng-class="{disabled:!vm.findSelected(vm.members).length}"></i>
+        </div>
         <div class="member-users scrollbar" et-scrollbar>
             <ul>
-                <li ng-repeat="user in vm.members" ng-class="{selected:user.$selected}"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
+                <li ng-repeat="user in vm.members" ng-class="{selected:user.$selected}" ng-click="user.$selected=!user.$selected"><img ng-src="{{user.avatar|thumb:'24x24'}}"/> <span ng-bind="user.name"></span></li>
             </ul>
         </div>
     </div>
