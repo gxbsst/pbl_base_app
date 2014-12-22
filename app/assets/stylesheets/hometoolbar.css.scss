@@ -1,0 +1,22 @@
+@import "compass/css3";
+.toolbar{
+  h2{
+    margin-top: 50px;
+  }
+  .articles{
+    .newspic{
+      float: left;
+      width: 100px;
+      margin-right: 10px;
+    }
+    .newstitle{
+      height: 40px;
+    }
+    .authorinfo{
+      margin-top: 5px;
+      img{
+        border-radius:50%;
+      }
+    }
+  }
+}
