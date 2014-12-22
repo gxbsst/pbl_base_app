@@ -6,13 +6,17 @@
 
     angular
         .module('app.pbl')
-        .controller('articleNewsIndexController', articleNewsIndexController);
+        .controller('articleMoocsIndexController', articleMoocsIndexController)
+    ;
 
-    articleNewsIndexController.$inject = ['articleNews', '$http'];
 
-    function articleNewsIndexController(articleNews) {
+    articleMoocsIndexController.$inject = ['articleMoocs', '$http'];
+
+    function articleMoocsIndexController(articleMoocs) {
         var vm = this;
-        vm.articleNews = articleNews.all();
+        articleMoocs.all(function(data){
+            vm.articleMoocs =data.data;
+        });
     }
 
 //    PostsShowController.$inject = ['$stateParams', 'Posts'];

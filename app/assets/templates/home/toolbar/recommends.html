@@ -1,1 +1,10 @@
-小编推荐
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="toolbarRecommendsController as vm">
+    <h2 class="margin-left-20">可能喜欢的群</h2>
+    <div class="hr margin-bottom-2"></div>
+    <ul class="articles">
+        <li ng-repeat="recommend in vm.toolbarRecommends">
+            <a ui-sref-active="active" ng-bind="recommend.title"></a>
+        </li>
+        <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
+    </ul>
+</div>

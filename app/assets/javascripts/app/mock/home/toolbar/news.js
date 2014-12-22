@@ -6,8 +6,11 @@
         .mock('/articles/news', {
             'data|1-10':[{
                 'id':'@GUID',
+                'pic':'@DATAIMAGE("100x75")',
+                'photo':'@DATAIMAGE("50x50")',
                 'title':'@TITLE',
                 'author' : '@FIRST @LAST',
+                'authorpic':'@DATAIMAGE("20x20")',
                 'thumbnail' : '@avatar'
             }]
         })

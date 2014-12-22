@@ -1,0 +1,20 @@
+
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="articlePblsIndexController as vm">
+
+    <ul class="articles">
+        <li ng-repeat="pbl in vm.articlePbls">
+            <a>
+                <div class="newspic">
+                    <img ng-src="{{pbl.pic}}" alt=""/>
+                </div>
+                <div>
+                    <div class=""><span ng-bind="pbl.title"></span></div>
+                </div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
+    </ul>
+
+
+</div>

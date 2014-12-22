@@ -1,1 +1,10 @@
-浏览历史记录
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="toolbarHistoriesController as vm">
+    <h2 class="margin-left-20">浏览历史记录</h2>
+    <div class="hr margin-bottom-2"></div>
+    <ul class="articles">
+        <li ng-repeat="history in vm.toolbarHistories">
+            <a ui-sref-active="active" ng-bind="history.title"></a>
+        </li>
+        <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
+    </ul>
+</div>

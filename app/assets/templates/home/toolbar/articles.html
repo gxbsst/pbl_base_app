@@ -1,8 +1,10 @@
-可能喜欢的内容
-
-<div et-tabs="justify=true">
-    <div et-tab="'ARTICLE.news'|i18n" et-config="title='ARTICLE.news'|i18n;src='articles/news.html'"></div>
-    <div et-tab="'ARTICLE.publications'|i18n" et-config="src='articles/publications.html'"></div>
-    <div et-tab="'ARTICLE.moocs'|i18n" et-config="src='articles/moocs.html'"></div>
-    <div et-tab="'ARTICLE.pbl'|i18n" et-config="src='articles/pbl.html'"></div>
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="toolbarGroupController as vm">
+    <h2 class="margin-left-20">可能喜欢的内容</h2>
+    <div class="hr margin-bottom-2"></div>
+    <div et-tabs="justify=true">
+        <div et-tab="'ARTICLE.news'|i18n" et-config="title='ARTICLE.news'|i18n;src='home/toolbar/articles/news.html'"></div>
+        <!--<div et-tab="'ARTICLE.publications'|i18n" et-config="src='home/toolbar/articles/publications.html'"></div>-->
+        <div et-tab="'ARTICLE.moocs'|i18n" et-config="src='home/toolbar/articles/moocs.html'"></div>
+        <div et-tab="'ARTICLE.pbl'|i18n" et-config="src='home/toolbar/articles/pbl.html'"></div>
+    </div>
 </div>

@@ -1,0 +1,20 @@
+
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="articleMoocsIndexController as vm">
+
+    <ul class="articles">
+        <li ng-repeat="mooc in vm.articleMoocs">
+            <a>
+                <div class="newspic">
+                    <img ng-src="{{mooc.pic}}" alt=""/>
+                </div>
+                <div>
+                    <div class=""><span ng-bind="mooc.title"></span></div>
+                </div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
+    </ul>
+
+
+</div>

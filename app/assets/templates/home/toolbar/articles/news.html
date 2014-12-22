@@ -1,0 +1,25 @@
+
+<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="articleNewsIndexController as vm">
+
+    <ul class="articles">
+        <li ng-repeat="news in vm.articleNews">
+            <a ng-show="$index==0">
+                <div class="newspic">
+                    <img ng-src="{{news.pic}}" alt=""/>
+                </div>
+                <div>
+                    <div class="newstitle"><span ng-bind="news.title|trim:40"></span></div>
+                    <div class="authorinfo">
+                        <img ng-src="{{news.authorpic}}" alt=""/>
+                        <span ng-bind="news.author"></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </a>
+            <a ui-sref-active="active" ng-bind="news.title" ng-show="$index!=0"></a>
+        </li>
+        <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
+    </ul>
+
+
+</div>
