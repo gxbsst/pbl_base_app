@@ -112,12 +112,18 @@
                   et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
             <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.project.final_product.$uploading}" role="button" ng-if="vm.project.final_product"
                   qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:vm.project.final_product.id}"
-                  on-begin="UPLOAD_HANDLES.onBegin(vm.project.final_product)" on-progress="UPLOAD_HANDLES.onProgress(vm.project.final_product)" on-completed="UPLOAD_HANDLES.onCompleted(vm.project.final_product)">上传示例</span>
+                  on-begin="vm.onUploadBegin(vm.project.final_product)" on-success="vm.onUploadSuccess(vm.project.final_product)">上传示例</span>
         </div>
-        <div class="row margin-top-8" ng-if="vm.project.final_product"><strong>产品形态：</strong><span
-                ng-bind="vm.project.final_product.product_form.name"></span> <span
-                ng-if="vm.project.final_product.resource"><strong>产品示例：</strong><span
-                ng-bind="vm.project.final_product.resource.name"></span></span></div>
+        <div class="row margin-top-8" ng-if="vm.project.final_product" et-init="vm.project.final_product.resource=vm.findByOwner(vm.project.final_product.id)">
+            <div class="col-1-2">
+                <strong>产品形态：</strong>
+                <span ng-bind="vm.project.final_product.product_form.name"></span>
+            </div>
+            <div class="col-1-2" ng-if="vm.project.final_product.resource">
+                <strong>产品示例：</strong>
+                <span ng-bind="vm.project.final_product.resource.name"></span>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <span class="control-label font-size-125">阶段性产品：</span>
@@ -130,10 +136,10 @@
                       et-modal="$project=vm.project;$product=product;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
                 <span class="btn btn-gray btn-sm" ng-class="{uploading:product.$uploading}" role="button"
                       qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:product.id}"
-                      on-begin="UPLOAD_HANDLES.onBegin(product)" on-progress="UPLOAD_HANDLES.onProgress(product)" on-completed="UPLOAD_HANDLES.onCompleted(product)">上传示例</span>
+                      on-begin="vm.onUploadBegin(product)" on-success="vm.onUploadSuccess(product)">上传示例</span>
             </div>
-            <div class="col-1-1">
-                <div class="col-1-2 margin-top-8" ng-if="product.product_form_id">
+            <div class="col-1-1" et-init="product.resource=vm.findByOwner(product.id)">
+                <div class="col-1-2 margin-top-8">
                     <strong>产品形态：</strong>
                     <span ng-bind="product.product_form.name"></span>
                 </div>

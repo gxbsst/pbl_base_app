@@ -1,8 +1,8 @@
 <div class="form-horizontal project-info">
     <h3>基本信息填写</h3>
-    <div class="upload-cover" ng-class="{uploading:vm.project.cover.$uploading}"
+    <div class="upload-cover" et-init="vm.project.cover=vm.findByType(RESOURCE_TYPES.project.cover)" ng-class="{uploading:vm.project.$uploading_cover}"
          qn-upload="{ownerType:RESOURCE_TYPES.project.cover,ownerId:vm.project.id}"
-         on-begin="vm.onCoverUploadBegin()" on-success="vm.onCoverUploadSuccess()">
+         on-begin="vm.onUploadBegin('cover')" on-success="vm.onUploadSuccess('cover')">
         <img ng-if="vm.project.cover.key" ng-src="{{vm.project.cover.key|thumb:'100x100'}}"/>上传封面</div>
     <div class="form-group-box">
         <div class="form-group">
@@ -59,7 +59,17 @@
         </div>
         <div class="form-group">
             <label class="control-label">启动文档：</label>
-            <span class="btn btn-gray btn-sm">上传文档</span>
+            <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.project.$uploading_doc}"
+                  qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                  on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"><i class="pf-plus"></i> 新增启动文档</span>
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="doc in vm.findByType(RESOURCE_TYPES.project.document,true)">
+                        <span ng-bind="doc.name"></span>
+                        <i class="btn-mini pf-cross pull-right" ng-click="vm.removeDocument(doc)"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <h3 class="margin-top-20">选择成员和老师</h3>
@@ -77,15 +87,14 @@
             </div>
         </div>
     </div>
+    <div class="hr"></div>
     <div class="form-group col-1-1">
         <div class="col-1-1 text-right">
             <span class="btn btn-blue" role="button" ng-click="next('scaffold')">下一步</span>
         </div>
     </div>
 </div>
-<!---->
-
-
+<!--
 <div class="input-group margin-top-20 offset-1-12">
     <span><i>现实角色</i><input type="text" placeholder="建筑设计师"/></span>如何 <span><i>使用技能</i><input type="text"
                                                                                                placeholder="建筑设计师"/></span>
@@ -101,7 +110,7 @@
         type="text" placeholder="建筑设计师"/></span>
 
 </div>
-
+-->
 
 
 

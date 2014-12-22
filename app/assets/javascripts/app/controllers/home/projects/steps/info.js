@@ -5,27 +5,55 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'Projects', 'project', 'Cycles', 'Grades'];
+    HomeProjectCreateInfoController.$inject = ['$state', 'RESOURCE_TYPES', 'Resources', 'Projects', 'project', 'Cycles', 'Grades'];
 
-    function HomeProjectCreateInfoController($state, Projects, project, Cycles, Grades) {
+    function HomeProjectCreateInfoController($state, RESOURCE_TYPES, Resources, Projects, project, Cycles, Grades) {
 
         var vm = this;
         project.cover = project.cover || {};
+        vm.resources = [];
         vm.project = project;
-        vm.onCoverUploadBegin = onCoverUploadBegin;
-        vm.onCoverUploadSuccess = onCoverUploadSuccess;
+        vm.onUploadBegin = onUploadBegin;
+        vm.onUploadSuccess = onUploadSuccess;
+        vm.findByType = findByType;
+        vm.removeDocument = removeDocument;
 
-        function onCoverUploadBegin(){
+        getProjectResources();
+
+        function onUploadBegin(type) {
             return function () {
-                project.cover.$uploading = true;
+                project['$uploading_' + type] = true;
             }
         }
 
-        function onCoverUploadSuccess(){
-            return function (data) {
-                project.cover.key = data.key;
-                delete project.cover.$uploading;
+        function onUploadSuccess(type) {
+            return function () {
+                delete project['$uploading_' + type];
+                getProjectResources();
             }
+        }
+
+        function getProjectResources() {
+            Resources.all({
+                owner_types: [
+                    RESOURCE_TYPES.project.cover,
+                    RESOURCE_TYPES.project.document].join(','),
+                owner_ids: project.id
+            }, function (result) {
+                vm.resources = result.data;
+            });
+        }
+
+        function findByType(ownerType, multiple) {
+            return vm.resources[multiple ? 'find' : 'findOne'](function (resource) {
+                return resource.owner_type == ownerType;
+            });
+        }
+
+        function removeDocument(doc){
+            Resources.remove({
+                resourceId: doc.id
+            }, getProjectResources);
         }
 
         vm.cycles = [];
@@ -52,17 +80,17 @@
         vm.location1 = [];
 
         /*Location1.all(function (data) {
-            vm.location1 = [];
-            console.log(data);
-            vm.location1 = data.data;
-            //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
-            //
-            //Projects.update({
-            //    projectId: vm.project.id
-            //}, {
-            //    project: {location_id:vm.project.location_id}
-            //});
-        });*/
+         vm.location1 = [];
+         console.log(data);
+         vm.location1 = data.data;
+         //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
+         //
+         //Projects.update({
+         //    projectId: vm.project.id
+         //}, {
+         //    project: {location_id:vm.project.location_id}
+         //});
+         });*/
 
         vm.onChange = function () {
             return updateTags;
