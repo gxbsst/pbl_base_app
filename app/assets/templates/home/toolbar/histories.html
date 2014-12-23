@@ -6,7 +6,7 @@
             <div class="timeline"></div>
             <a ui-sref-active="active">
                 <div>
-                    <span class="timebox" >{{history.time|timeTrim}}天前</span>
+                    <span class="timebox"><span ng-bind="history.time|timeTrim"></span>天前</span>
                 </div>
                 <span ng-bind="history.title"></span>
             </a>
