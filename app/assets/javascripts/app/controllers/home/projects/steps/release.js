@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateReleaseController', HomeProjectCreateReleaseController);
 
-    HomeProjectCreateReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'project', 'Cycles'];
+    HomeProjectCreateReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'project'];
 
-    function HomeProjectCreateReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, project, Cycles) {
+    function HomeProjectCreateReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, project) {
         var vm = this;
         vm.project = project;
         vm.getResource = getResource;
@@ -35,9 +35,6 @@
             });
         }
 
-        if (vm.project.duration_unit > 0 && vm.project.duration) {
-            vm.duration = vm.project.duration + Cycles[(parseInt(vm.project.duration_unit) - 1)].title;
-        }
     }
 
 })();

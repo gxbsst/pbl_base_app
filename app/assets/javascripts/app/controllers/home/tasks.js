@@ -6,9 +6,9 @@
         .controller('addTaskController', addTaskController)
     ;
 
-    addTaskController.$inject = ['$scope','Disciplines','Cycles'];
+    addTaskController.$inject = ['$scope','Disciplines'];
 
-    function addTaskController($scope,Disciplines,Cycles) {
+    function addTaskController($scope,Disciplines) {
         var vm = this;
         $scope.disabled=true;
         $scope.task={

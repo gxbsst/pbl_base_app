@@ -42,18 +42,6 @@
                     }
                 }
             });
-
-            /*function toJSON(model, data, vm){
-                if(typeof model == 'string'){
-                    model = model.split('.');
-                    vm && model.shift();
-                }
-                var key = model[0],
-                    params = {};
-                model.shift();
-                params[key] = model.length ? toJSON(model, data) : data;
-                return params;
-            }*/
         }
     }
 

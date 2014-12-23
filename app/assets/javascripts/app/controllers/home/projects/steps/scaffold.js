@@ -5,33 +5,29 @@
         .module('app.pbl')
         .controller('HomeProjectCreateScaffoldController', HomeProjectCreateScaffoldController);
 
-    HomeProjectCreateScaffoldController.$inject = ['$scope','$state', 'Projects', 'project','Disciplines','Cycles','Knowledge','Tasks','ProjectProducts'];
+    HomeProjectCreateScaffoldController.$inject = ['$scope', '$state', 'Projects', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
 
-    function HomeProjectCreateScaffoldController($scope,$state, Projects, project,Disciplines,Cycles,Knowledge,Tasks,ProjectProducts) {
+    function HomeProjectCreateScaffoldController($scope, $state, Projects, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
         var vm = this;
 
         project.knowledge = project.knowledge || [];
-        project.tasks=project.tasks || [];
+        project.tasks = project.tasks || [];
         vm.project = project;
-        vm.tempKnowledge='';
-        vm.addKnowledge=addKnowledge;
-        vm.removeKnowledge=removeKnowledge;
-        vm.disciplines=[];
-        Disciplines.all(function(data){
-            vm.disciplines=data.data;
+        vm.tempKnowledge = '';
+        vm.addKnowledge = addKnowledge;
+        vm.removeKnowledge = removeKnowledge;
+        vm.disciplines = [];
+        Disciplines.all(function (data) {
+            vm.disciplines = data.data;
             //测试ng-model绑定
             //vm.disciplines.push(vm.project.tasks[0].test.discipline);
         });
-        vm.cycles=[];
-        //周期未使用异步调用
-        vm.cycles=Cycles;
-
-        vm.chooseType=chooseType;
-        vm.removeResource=removeResource;
+        vm.chooseType = chooseType;
+        vm.removeResource = removeResource;
 
         vm.showProjectInfo = showProjectInfo;
 
-        vm.removeTask=removeTask;
+        vm.removeTask = removeTask;
         $scope.$on('setAddTask', setAddTask);
 
         //onProjectTask();
@@ -44,44 +40,44 @@
         vm.onCompleted = onCompleted;
         vm.onError = onError;
 
-        function onBegin(task){
+        function onBegin(task) {
             return function (files) {
                 console.log(task);
                 console.log(files);
 
-                for(var i = 0 ;i<files.length;i++){
-                    var file=files[i];
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
                     task.resources.splice(task.resources.length, 0, {
                         'id': null,
                         'title': file.name,
-                        'ext':null,
-                        'state':false
+                        'ext': null,
+                        'state': false
                     });
                 }
             }
         }
 
-        function onProgress(a){
+        function onProgress(a) {
             return function (b) {
                 console.log(a);
                 console.log(b);
             }
         }
 
-        function onSuccess(task){
+        function onSuccess(task) {
             return function (file) {
-                var resource=task.resources.findOne(function(item){
+                var resource = task.resources.findOne(function (item) {
                     return item.title == file.name;
                 });
                 console.log("onSuccess");
                 console.log(file);
-                resource.id=file.key;
-                resource.ext=file.ext;
-                resource.state=true;
+                resource.id = file.key;
+                resource.ext = file.ext;
+                resource.state = true;
             }
         }
 
-        function onCompleted(a){
+        function onCompleted(a) {
             return function (b) {
                 console.log(a);
                 console.log("onCompleted");
@@ -89,7 +85,7 @@
             }
         }
 
-        function onError(a){
+        function onError(a) {
             return function (b) {
                 console.log(a);
                 console.log(b);
@@ -97,11 +93,10 @@
         }
 
 
-
-        function chooseType(task,typeval,disabled){
-            task.task_type=typeval;
-            if(!disabled){
-                Tasks.update({taskId:task.id,task:{'task_type':typeval}});
+        function chooseType(task, typeval, disabled) {
+            task.task_type = typeval;
+            if (!disabled) {
+                Tasks.update({taskId: task.id, task: {'task_type': typeval}});
             }
         }
 
@@ -109,27 +104,33 @@
             vm.switchProjectInfo = !vm.switchProjectInfo;
         }
 
-        function addKnowledge(){
+        function addKnowledge() {
             //vm.project.knowledge.push(vm.tempKnowledge);
-            Knowledge.add({"knowledge":{"project_id":vm.project.id,"description":vm.tempKnowledge}},onProjectKnowledge);
-            vm.tempKnowledge="";
+            Knowledge.add({
+                "knowledge": {
+                    "project_id": vm.project.id,
+                    "description": vm.tempKnowledge
+                }
+            }, onProjectKnowledge);
+            vm.tempKnowledge = "";
         }
-        function removeKnowledge(knowledge){
-            Knowledge.remove({knowledgeId:knowledge.id},onProjectKnowledge);
+
+        function removeKnowledge(knowledge) {
+            Knowledge.remove({knowledgeId: knowledge.id}, onProjectKnowledge);
         }
 
         function onProjectKnowledge() {
             Knowledge.all(
                 {project_id: vm.project.id},
-                function(data){
-                    vm.project.knowledge =data.data;
+                function (data) {
+                    vm.project.knowledge = data.data;
                     console.log(data);
                 });
         }
 
 
-        function removeResource(task,resource){
-            task.resources.remove(function(item){
+        function removeResource(task, resource) {
+            task.resources.remove(function (item) {
                 return item == resource;
             });
         }
@@ -137,22 +138,22 @@
         function setAddTask(event, task) {
             //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
             console.log(task);
-            task.project_id=vm.project.id;
+            task.project_id = vm.project.id;
             console.log(task);
-            Tasks.add({"task":task},onProjectTasks);
+            Tasks.add({"task": task}, onProjectTasks);
         }
 
         function removeTask(task) {
             //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
-            Tasks.remove({taskId:task.id},onProjectTasks);
+            Tasks.remove({taskId: task.id}, onProjectTasks);
         }
 
 
         function onProjectTasks() {
             Tasks.all(
                 {project_id: vm.project.id},
-                function(data){
-                    vm.project.tasks =data.data;
+                function (data) {
+                    vm.project.tasks = data.data;
                     console.log(data);
                 });
         }
