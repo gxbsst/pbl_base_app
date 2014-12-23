@@ -11,7 +11,8 @@
                 'title':'@TITLE',
                 'author' : '@FIRST @LAST',
                 'authorpic':'@DATAIMAGE("20x20")',
-                'thumbnail' : '@avatar'
+                'thumbnail' : '@avatar',
+                'time':'@DATE'
             }]
         })
 
