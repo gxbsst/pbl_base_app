@@ -39,6 +39,7 @@
         }
 
         function isSelected(item){
+            if(!gauge)return;
             return (gauge.technique_id || gauge.technique.id) === item.technique.id;
         }
 
