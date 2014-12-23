@@ -19,8 +19,8 @@
     <div class="col-1-2">
         <h3>指导老师：</h3>
         <span>张骞，李蒙</span> <br/>
-        <span>最终产品：</span> <br/>
-        项目建议书
+        <h3>最终产品：</h3>
+        <span ng-bind="vm.getResource(RESOURCE_TYPES.project.product,vm.project.final_product.id).name"></span>
     </div>
     <div class="col-1-2">
         <h3>项目成员：60人</h3>

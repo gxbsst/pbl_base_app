@@ -1,0 +1,1 @@
+json.extract! @follows, :data, :meta if @follows

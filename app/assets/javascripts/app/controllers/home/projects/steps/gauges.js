@@ -7,9 +7,9 @@
         .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
         .controller('GaugesSystemController', GaugesSystemController);
 
-    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectSkills', 'ProjectGauges', 'Projects', 'project'];
+    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
 
-    function HomeProjectCreateGaugesController($scope, ProjectSkills, ProjectGauges, Projects, project) {
+    function HomeProjectCreateGaugesController($scope, ProjectTechniques, ProjectGauges, Projects, project) {
 
         var vm = this;
 
@@ -21,7 +21,7 @@
 
         onProjectGauges();
 
-        ProjectSkills.all({
+        ProjectTechniques.all({
             project_id: project.id
         }, function (result) {
             vm.techniques = result.data;
@@ -92,9 +92,9 @@
         }
     }
 
-    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectSkills', 'ProjectGauges'];
+    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectTechniques', 'ProjectGauges'];
 
-    function GaugesSystemController($scope, Gauges, ProjectSkills, ProjectGauges) {
+    function GaugesSystemController($scope, Gauges, ProjectTechniques, ProjectGauges) {
 
         var vm = this,
             project = $scope.project;
@@ -104,7 +104,7 @@
         vm.onChange = onChange;
         vm.isSelected = isSelected;
 
-        ProjectSkills.all({
+        ProjectTechniques.all({
             project_id: project.id
         }, function (result) {
             vm.gauges = Gauges.all({

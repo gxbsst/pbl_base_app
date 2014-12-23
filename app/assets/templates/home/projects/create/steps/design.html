@@ -109,7 +109,7 @@
 -->
     <div class="form-group block product-final block-yellow">
         <div class="row">
-            <span class="btn btn-sm" role="button"
+            <span class="btn btn-sm margin-right-6" role="button"
                   et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
             <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.finalProduct.$uploading}" ng-init="vm.finalProduct=vm.project.final_product" role="button" ng-if="vm.project.final_product"
                   qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:vm.finalProduct.id}"
@@ -133,7 +133,7 @@
                    et-sync="{productId:product.id,product:{title:product.title},$service:'ProjectProducts'}"/>
             <span class="btn btn-red btn-sm pull-right product-destroy" ng-click="vm.removeProduct(product)">删除</span>
             <div class="row margin-top-8">
-                <span class="btn btn-sm" role="button"
+                <span class="btn btn-sm margin-right-6" role="button"
                       et-modal="$project=vm.project;$product=product;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/create/product_forms.html'">选择产品形态</span>
                 <span class="btn btn-gray btn-sm" ng-class="{uploading:product.$uploading}" role="button"
                       qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:product.id}"

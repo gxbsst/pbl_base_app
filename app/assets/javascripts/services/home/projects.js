@@ -5,7 +5,7 @@
         .module('app.services')
         .service('Projects', Projects)
         .service('ProjectStandards', ProjectStandards)
-        .service('ProjectSkills', ProjectSkills)
+        .service('ProjectTechniques', ProjectTechniques)
         .service('ProjectProducts', ProjectProducts)
         .service('ProjectGauges', ProjectGauges)
         .service('ProjectMembers', ProjectMembers);
@@ -30,9 +30,9 @@
         }, RESOURCE_ACTIONS);
     }
 
-    ProjectSkills.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    ProjectTechniques.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
-    function ProjectSkills($resource, RESOURCE_ACTIONS) {
+    function ProjectTechniques($resource, RESOURCE_ACTIONS) {
         return $resource('/project/techniques/:action/:techniqueId', {
             action: '@action',
             techniqueId: '@techniqueId',
