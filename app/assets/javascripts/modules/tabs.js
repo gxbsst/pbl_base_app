@@ -6,7 +6,9 @@
         .directive('etTabs', etTabs)
         .directive('etTab', etTab);
 
-    function etTabs() {
+    etTabs.$inject = ['utils'];
+
+    function etTabs(utils) {
 
         return {
             require: 'etTabs',
@@ -22,11 +24,10 @@
 
         function etTabsLink(scope, element, attr, ctrl){
 
-            scope.$watch(attr.etTabs, function (config) {
-                angular.extend(ctrl, config || {});
-            });
+            utils.params(scope, attr.etTabs, ctrl);
 
         }
+
 
         function etTabsController(){
 
@@ -50,9 +51,9 @@
                 if (pane.selected) {
                     classes.push('active');
                 }
-                if (vm.justify) {
-                    classes.push(['col', 1, vm.panels.length].join('-'));
-                }
+                //if (vm.justify) {
+                //    classes.push(['col', 1, vm.panels.length].join('-'));
+                //}
                 return classes.join(' ');
             }
 
@@ -91,6 +92,14 @@
 
             scope.$watch(attr.etTab, function (title) {
                 tab.title = title;
+            });
+
+            scope.$watch(function () {
+                return tab.selected;
+            }, function (selected) {
+                if(selected){
+                    tabs.select(tab);
+                }
             });
 
             tabs.addPane(tab);
