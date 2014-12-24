@@ -19,7 +19,6 @@
 
         function etConfigLink(scope, element, attr, ctrl) {
             utils.params(scope, attr.etConfig, ctrl);
-            console.log(attr.etConfig)
         }
     }
 
