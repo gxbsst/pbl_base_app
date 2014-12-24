@@ -1,7 +1,7 @@
 class RegionsController < ApplicationBaseController
 
   def index
-    @regions = Pbl::Models::Region.all
+    @regions = Pbl::Models::Region.all(type: params[:type], parent_id: params[:parent_id])
   end
 
   def create
@@ -10,7 +10,7 @@ class RegionsController < ApplicationBaseController
   end
 
   def show
-    @region = Pbl::Models::Region.find(params[:id])
+    @region = Pbl::Models::Region.find(params[:id], include: params[:include])
   end
 
   def update

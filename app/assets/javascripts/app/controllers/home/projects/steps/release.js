@@ -5,29 +5,73 @@
         .module('app.pbl')
         .controller('HomeProjectCreateReleaseController', HomeProjectCreateReleaseController);
 
-    HomeProjectCreateReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'project', 'Cycles'];
+    HomeProjectCreateReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'project'];
 
-    function HomeProjectCreateReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, project, Cycles) {
+    function HomeProjectCreateReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, project) {
         var vm = this;
         vm.project = project;
         vm.getResource = getResource;
 
-        ProjectProducts.all({
-            project_id: project.id
-        }, function (result) {
-            vm.products = result.data;
+        getProjectProducts();
+        getProjectGauges();
+        getProjectTechniques();
+        getProjectStandards();
+
+        function getProjectProducts(){
+            ProjectProducts.all({
+                project_id: project.id
+            }, function (result) {
+                vm.$products = angular.copy(result.data);
+                var products = result.data,
+                    findFinal = function (product) {
+                        return product.is_final;
+                    };
+                vm.project.final_product = products.findOne(findFinal);
+                if (vm.project.final_product) {
+                    products.remove(findFinal);
+                }
+                vm.project.products = result.data;
+                getProductSample();
+            });
+        }
+
+        function getProductSample(){
             Resources.all({
                 owner_types: [
                     RESOURCE_TYPES.project.cover,
                     RESOURCE_TYPES.project.product,
                     RESOURCE_TYPES.project.document].join(','),
-                owner_ids: [project.id].concat(vm.products.map(function (product) {
+                owner_ids: [project.id].concat(vm.$products.map(function (product) {
                     return product.id;
                 })).join(',')
             }, function (result) {
                 vm.resources = result.data;
             });
-        });
+        }
+
+        function getProjectGauges() {
+            ProjectGauges.all({
+                project_id: project.id
+            }, function(result){
+                project.rules = result.data;
+            });
+        }
+
+        function getProjectTechniques(){
+            ProjectTechniques.all({
+                project_id: project.id
+            }, function (result) {
+                vm.techniques = result.data;
+            });
+        }
+
+        function getProjectStandards(){
+            ProjectStandards.all({
+                project_id: vm.project.id
+            }, function (result) {
+                vm.project.standard_items = result.data;
+            });
+        }
 
         function getResource(type, id){
             return vm.resources && vm.resources.findOne(function (resource) {
@@ -35,9 +79,6 @@
             });
         }
 
-        if (vm.project.duration_unit > 0 && vm.project.duration) {
-            vm.duration = vm.project.duration + Cycles[(parseInt(vm.project.duration_unit) - 1)].title;
-        }
     }
 
 })();

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('SkillsController', SkillsController);
 
-    SkillsController.$inject = ['$scope', '$stateParams', 'Skills', 'ProjectSkills'];
+    SkillsController.$inject = ['$scope', '$stateParams', 'Skills', 'ProjectTechniques'];
 
-    function SkillsController($scope, $stateParams, Skills, ProjectSkills) {
+    function SkillsController($scope, $stateParams, Skills, ProjectTechniques) {
 
         var vm = this;
         vm.selected = [];
@@ -17,7 +17,7 @@
         vm.getTechniques = getTechniques;
         vm.onChange = onChange;
 
-        ProjectSkills
+        ProjectTechniques
             .all({
                 project_id: $stateParams.projectId
             }, function (result) {
@@ -41,10 +41,10 @@
                     technique_id: item.id
                 }
             };
-            ProjectSkills[item.selected ? 'add' : 'remove'](params, emit);
+            ProjectTechniques[item.selected ? 'add' : 'remove'](params, emit);
 
             function emit(){
-                $scope.$emit('onProjectSkills');
+                $scope.$emit('onProjectTechniques');
             }
         }
 

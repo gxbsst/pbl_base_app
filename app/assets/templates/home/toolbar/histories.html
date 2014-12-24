@@ -1,9 +1,15 @@
 <div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="toolbarHistoriesController as vm">
     <h2 class="margin-left-20">浏览历史记录</h2>
     <div class="hr margin-bottom-2"></div>
-    <ul class="articles">
+    <ul class="history">
         <li ng-repeat="history in vm.toolbarHistories">
-            <a ui-sref-active="active" ng-bind="history.title"></a>
+            <div class="timeline"></div>
+            <a ui-sref-active="active">
+                <div>
+                    <span class="timebox"><span ng-bind="history.time|timeTrim"></span>天前</span>
+                </div>
+                <span ng-bind="history.title"></span>
+            </a>
         </li>
         <a class="pull-right padding-right-10 margin-top-6" href="#">&gt&gt更多</a>
     </ul>

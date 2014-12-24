@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['$state', 'RESOURCE_TYPES', 'Resources', 'Projects', 'project', 'Cycles', 'Grades'];
+    HomeProjectCreateInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'Regions', 'project'];
 
-    function HomeProjectCreateInfoController($state, RESOURCE_TYPES, Resources, Projects, project, Cycles, Grades) {
+    function HomeProjectCreateInfoController(RESOURCE_TYPES, Resources, Projects, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};
@@ -17,8 +17,127 @@
         vm.onUploadSuccess = onUploadSuccess;
         vm.findByType = findByType;
         vm.removeDocument = removeDocument;
+        vm.onTagsChange = onTagsChange;
+        vm.setCountry = setCountry;
+        vm.setProvince = setProvince;
+        vm.setCity = setCity;
+        vm.setDistrict = setDistrict;
+        vm.getProvinces = getProvinces;
+        vm.getCities = getCities;
+        vm.getDistricts = getDistricts;
 
+        getProjectRegion();
         getProjectResources();
+        getCountries();
+
+        function getProjectRegion() {
+            project.region_id && Regions.all({
+                regionId: project.region_id
+            }, function (result) {
+                project.region = angular.copy(result.data);
+                var regions = result.data.parents;
+                delete result.data.parents;
+                regions.push(result.data);
+                vm.regions = regions;
+                vm.$countryId = vm.countryId = findRegion('Country').id;
+                vm.$provinceId = vm.provinceId = findRegion('Province').id;
+                vm.$cityId = vm.cityId = findRegion('City').id;
+                vm.$districtId = vm.districtId = findRegion('District').id;
+            });
+        }
+
+        function findRegion(type) {
+            return vm.regions.findOne(function (region) {
+                    return region.type == type;
+                }) || {};
+        }
+
+        function setCountry(countryId) {
+            if(countryId == vm.$countryId)return;
+            vm.$countryId = countryId;
+            Object.removeAll(vm, 'provinceId $provinceId cityId $cityId districtId $districtId');
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {region_id: countryId}
+            });
+        }
+
+        function setProvince(provinceId) {
+            if(provinceId == vm.$provinceId)return;
+            vm.$provinceId = provinceId;
+            Object.removeAll(vm, 'cityId $cityId districtId $districtId');
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {region_id: provinceId}
+            });
+        }
+
+        function setCity(cityId) {
+            if(cityId == vm.$cityId)return;
+            vm.$cityId = cityId;
+            Object.removeAll(vm, 'districtId $districtId');
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {region_id: cityId}
+            });
+        }
+
+        function setDistrict(districtId) {
+            if(districtId == vm.$districtId)return;
+            vm.$districtId = districtId;
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {region_id: districtId}
+            });
+        }
+
+        function getCountries() {
+            vm.provinces = [];
+            vm.cities = [];
+            vm.districts = [];
+            Regions.all({
+                type: 'Country'
+            }, function (result) {
+                vm.countries = result.data;
+            });
+        }
+
+        function getProvinces(countryId) {
+            if(!countryId)return;
+            vm.cities = [];
+            vm.districts = [];
+            Regions.all({
+                type: 'Province',
+                parent_id: countryId
+            }, function (result) {
+                vm.provinces = result.data;
+            });
+        }
+
+        function getCities(provinceId) {
+            if(!provinceId)return;
+            vm.districts = [];
+            Regions.all({
+                type: 'City',
+                parent_id: provinceId
+            }, function (result) {
+                vm.cities = result.data;
+            });
+        }
+
+        function getDistricts(cityId) {
+            if(!cityId)return;
+            Regions.all({
+                type: 'District',
+                parent_id: cityId
+            }, function (result) {
+                vm.districts = result.data;
+            });
+        }
 
         function onUploadBegin(type) {
             return function () {
@@ -28,7 +147,7 @@
 
         function onUploadSuccess(type) {
             return function () {
-                if(type == 'cover' && project.cover && project.cover.id){
+                if (type == 'cover' && project.cover && project.cover.id) {
                     Resources.remove({
                         resourceId: project.cover.id
                     });
@@ -55,84 +174,22 @@
             });
         }
 
-        function removeDocument(doc){
+        function removeDocument(doc) {
             Resources.remove({
                 resourceId: doc.id
             }, getProjectResources);
         }
 
-        vm.cycles = [];
-        vm.cycles = Cycles;
-
-        //var isexist;
-        //isexist=vm.cycles.findOne(function(item){
-        //    return item.title == vm.project.duration_unit;
-        //});
-        //if(isexist===null){
-        //    console.log("duration_unit is null");
-        //    vm.project.duration_unit=vm.cycles[0].id;
-        //}
-
-        vm.grades = Grades;
-
-        //isexist=vm.grades.findOne(function(item){
-        //    return item.title == vm.project.grade;
-        //});
-        //if(isexist===null){
-        //    console.log("grade is null");
-        //    vm.project.grade=vm.grades[0].id;
-        //}
-        vm.location1 = [];
-
-        /*Location1.all(function (data) {
-         vm.location1 = [];
-         console.log(data);
-         vm.location1 = data.data;
-         //vm.project.location_id=selectisexist(vm.project.location_id,vm.location);
-         //
-         //Projects.update({
-         //    projectId: vm.project.id
-         //}, {
-         //    project: {location_id:vm.project.location_id}
-         //});
-         });*/
-
-        vm.onChange = function () {
-            return updateTags;
-        };
-
-
-        //vm.project.duration_unit=selectisexist(vm.project.duration_unit,vm.cycles);
-        //vm.project.grade=selectisexist(vm.project.grade,vm.grades);
-        //
-        //Projects.update({
-        //    projectId: vm.project.id
-        //}, {
-        //    project: {grade:vm.project.grade,duration_unit:vm.project.duration_unit}
-        //});
-
-
-        function selectisexist(obj, array) {
-            var isexist;
-            isexist = array.findOne(function (item) {
-                return item.id == obj;
-            });
-            if (isexist === null) {
-                return array[0].id;
-                console.log("find!!");
-            } else {
-                return obj
-            }
+        function onTagsChange() {
+            return function (tag, model) {
+                Projects.update({
+                    projectId: vm.project.id
+                }, {
+                    project: {tag_list: model}
+                });
+            };
         }
 
-        function updateTags(tag, model) {
-            Projects.update({
-                projectId: vm.project.id
-            }, {
-                project: {tag_list: model}
-            });
-        }
     }
-
 
 })();

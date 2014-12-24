@@ -591,6 +591,56 @@
   }
 }
 
+.nav-circular{
+  margin-bottom: 30px;
+  ul{
+    $nav-size:84px;
+    $nav-color:#bcc4d7;
+    $hit-color:#3f80f6;
+    width: 620px;
+    height: $nav-size;
+    margin: auto;
+    li{
+      float: left;
+      width: $nav-size;
+      height: $nav-size;
+      margin-right: 50px;
+      border-radius: 50%;
+      border: 1px solid $nav-color;
+      color: $nav-color;
+      cursor: pointer;
+      position: relative;
+      font-size: 15px;
+      .nav-icon{
+        font-size: 40px;
+        width: 40px;
+        margin: 12px auto 0 auto;
+        padding: 0;
+      }
+      .nav-title{
+        display: block;
+        text-align: center;
+      }
+      .nav-next{
+        width: 11px;
+        height: 11px;
+        font-size: 20px;
+        margin: 1px;
+        position: absolute;
+        top:31px;
+        right: -35px;
+      }
+      &.blue-hint{
+        border: 1px solid $hit-color;
+        color: $hit-color;
+      }
+      &.last{
+        margin-right: 0px;
+      }
+    }
+  }
+}
+
 .black-line{
   position:relative;
   border-top:#000 solid 1px;

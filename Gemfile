@@ -49,6 +49,7 @@ gem 'rails-assets-angular-validation', '~> 1.2.0'
 gem 'rails-assets-restangular'
 gem 'rails-assets-lodash'
 
+gem 'htmlcompressor'
 gem 'angular-rails-templates'
 
 group :development do

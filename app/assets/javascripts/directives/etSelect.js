@@ -40,15 +40,23 @@
                 vm.select = select;
                 vm.isSelected = isSelected;
 
-                if(attr.etSync){
+                if (attr.etSync) {
                     scope.$watch(attr.etSync, function (syncConfig) {
                         vm.syncConfig = syncConfig;
                     }, true);
                 }
 
+                if (attr.ngChange && attr.ngModel) {
+                    scope.$watch(attr.ngModel, function (oldValue, newValue) {
+                        if(oldValue !== newValue){
+                            scope.$eval(attr.ngChange);
+                        }
+                    });
+                }
+
                 scope.$on('onDocumentClick', function () {
                     delete vm.show;
-                    if(vm.focusin){
+                    if (vm.focusin) {
                         delete vm.focusin;
                         valueElement.trigger('focusout');
                     }
@@ -84,8 +92,8 @@
                     findSelected();
                 });
 
-                function findSelected(){
-                    if(vm.options){
+                function findSelected() {
+                    if (vm.options) {
                         vm.selected = vm.options.findOne(function (option) {
                             return option[vm.value] == vm.ngModel;
                         });
@@ -106,6 +114,7 @@
 
                 function select(option) {
                     scope.$eval(attr.ngModel + ' = ' + JSON.stringify(option[vm.value]));
+                    attr.onSelect && scope.$eval(attr.onSelect);
                 }
 
             }

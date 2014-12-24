@@ -8,7 +8,7 @@
         </div>
         <div class="info pull-left">
             <h1 ng-bind="vm.project.name"></h1>
-            <strong>课程时长：</strong><span ng-bind="vm.duration"></span><br/>
+            <strong>课程时长：</strong><span ng-bind="vm.project.duration + (vm.project.duration_unit|unit)"></span><br/>
             <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
             <strong>项目概述：</strong>
             <div class="row text-gray" ng-bind-html="vm.project.description||'尚未填写项目概述'" ng-class="{'text-red':!vm.project.description}"></div>
@@ -19,8 +19,8 @@
     <div class="col-1-2">
         <h3>指导老师：</h3>
         <span>张骞，李蒙</span> <br/>
-        <span>最终产品：</span> <br/>
-        项目建议书
+        <h3>最终产品：</h3>
+        <span ng-bind="vm.getResource(RESOURCE_TYPES.project.product,vm.project.final_product.id).name"></span>
     </div>
     <div class="col-1-2">
         <h3>项目成员：60人</h3>
@@ -28,7 +28,7 @@
                                  src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
                 class="img-radius"
                 src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
-                class="img-radius "
+                class="img-radius"
                 src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><a
                 class="pull-right" href="#">查看更多</a> </span>
 

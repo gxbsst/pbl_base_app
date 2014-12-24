@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController);
 
-    HomeProjectCreateDesignController.$inject = ['$scope', '$state', 'RESOURCE_TYPES', 'Projects', 'ProjectStandards', 'ProjectSkills', 'ProjectProducts', 'Resources', 'project'];
+    HomeProjectCreateDesignController.$inject = ['$scope', 'RESOURCE_TYPES', 'ProjectStandards', 'ProjectTechniques', 'ProjectProducts', 'Resources', 'project'];
 
-    function HomeProjectCreateDesignController($scope, $state, RESOURCE_TYPES, Projects, ProjectStandards, ProjectSkills, ProjectProducts, Resources, project) {
+    function HomeProjectCreateDesignController($scope, RESOURCE_TYPES, ProjectStandards, ProjectTechniques, ProjectProducts, Resources, project) {
 
         var vm = this;
 
@@ -21,11 +21,11 @@
         vm.onUploadSuccess = onUploadSuccess;
 
         $scope.$on('onProjectStandards', onProjectStandards);
-        $scope.$on('onProjectSkills', onProjectSkills);
+        $scope.$on('onProjectTechniques', onProjectTechniques);
         $scope.$on('onProjectProducts', onProjectProducts);
 
         onProjectStandards();
-        onProjectSkills();
+        onProjectTechniques();
         onProjectProducts();
 
         function onProjectStandards() {
@@ -38,8 +38,8 @@
             });
         }
 
-        function onProjectSkills() {
-            ProjectSkills.all({
+        function onProjectTechniques() {
+            ProjectTechniques.all({
                 project_id: vm.project.id
             }, function (result) {
                 vm.project.techniques = result.data;
@@ -88,9 +88,9 @@
         }
 
         function removeTechnique(skill) {
-            ProjectSkills.remove({
+            ProjectTechniques.remove({
                 techniqueId: skill.id
-            }, onProjectSkills);
+            }, onProjectTechniques);
         }
 
         function removeProduct(product) {

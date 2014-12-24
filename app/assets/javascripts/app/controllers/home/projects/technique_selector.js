@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('TechniqueSelectorController', TechniqueSelectorController);
 
-    TechniqueSelectorController.$inject = ['$scope', 'ProjectSkills', 'ProjectGauges'];
+    TechniqueSelectorController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges'];
 
-    function TechniqueSelectorController($scope, ProjectSkills, ProjectGauges) {
+    function TechniqueSelectorController($scope, ProjectTechniques, ProjectGauges) {
 
         var vm = this,
             project = $scope.project,
@@ -16,7 +16,7 @@
 
         vm.select = select;
         vm.isSelected = isSelected;
-        vm.techniques = ProjectSkills.all({
+        vm.techniques = ProjectTechniques.all({
             project_id: project.id
         });
 
@@ -39,6 +39,7 @@
         }
 
         function isSelected(item){
+            if(!gauge)return;
             return (gauge.technique_id || gauge.technique.id) === item.technique.id;
         }
 
