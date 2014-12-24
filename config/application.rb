@@ -32,7 +32,6 @@ module PblWeb
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     config.angular_templates.htmlcompressor = {
-        :remove_quotes => true,
         :remove_intertag_spaces => true
     }
 
