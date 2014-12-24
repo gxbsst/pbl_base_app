@@ -11,11 +11,11 @@
         </div>
         <div class="form-group">
             <label for="project[duration]" class="control-label">课程时长：</label>
-            <input type="number" size="5" min="1" class="form-control form-control-st"
+            <input type="number" size="5" min="1" class="form-control form-control-st margin-right-6"
                    id="project[duration]" name="project[duration]"
                    ng-model="vm.project.duration"
                    et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
-            <select et-select="DURATION_UNITS" ng-model="vm.project.duration_unit"
+            <select et-select="DURATION_UNITS" ng-model="vm.project.duration_unit" class="margin-right-6"
                     et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}"></select>
             <label class="control-label">
                 <input type="checkbox" ng-model="vm.project.public"
@@ -33,19 +33,19 @@
             </div>
             <div class="row">
                 <label class="control-label">适用区域：</label>
-                <select et-select="vm.countries" et-config="label='name'" ng-model="vm.$countryId"
-                        ng-change="vm.getProvinces(vm.project.$countryId)" on-select="vm.setCountry(vm.project.$countryId)"></select>
+                <select class="margin-right-6" et-select="vm.countries" et-config="label='name'" ng-model="vm.countryId"
+                        ng-change="vm.getProvinces(vm.countryId)" on-select="vm.setCountry(vm.countryId)"></select>
                 <span ng-show="vm.provinces.length">
-                    <select et-select="vm.provinces" et-config="label='name'" ng-model="vm.$provinceId"
-                            ng-change="vm.getCities(vm.project.$provinceId)" on-select="vm.setProvince(vm.project.$provinceId)"></select>
+                    <select class="margin-right-6" et-select="vm.provinces" et-config="label='name'" ng-model="vm.provinceId"
+                            ng-change="vm.getCities(vm.provinceId)" on-select="vm.setProvince(vm.provinceId)"></select>
                 </span>
                 <span ng-show="vm.cities.length">
-                    <select et-select="vm.cities" et-config="label='name'" ng-model="vm.$cityId"
-                            ng-change="vm.getDistricts(vm.project.$cityId)" on-select="vm.setCity(vm.project.$cityId)"></select>
+                    <select class="margin-right-6" et-select="vm.cities" et-config="label='name'" ng-model="vm.cityId"
+                            ng-change="vm.getDistricts(vm.cityId)" on-select="vm.setCity(vm.cityId)"></select>
                 </span>
                 <span ng-show="vm.districts.length">
-                    <select et-select="vm.districts" et-config="label='name'" ng-model="vm.$districtId"
-                            on-select="vm.setDistrict(vm.project.$districtId)"></select>
+                    <select class="margin-right-6" et-select="vm.districts" et-config="label='name'" ng-model="vm.districtId"
+                            on-select="vm.setDistrict(vm.districtId)"></select>
                 </span>
             </div>
         </div>
@@ -63,9 +63,8 @@
         </div>
         <div class="form-group">
             <label class="control-label">项目概述：</label>
-
             <div class="row">
-                <textarea ng-model="vm.project.description" class="form-control"
+                <textarea ng-model="vm.project.description" rows="4" class="form-control"
                           et-sync="{projectId:vm.project.id,project:{description:vm.project.description},$service:'Projects'}"></textarea>
             </div>
         </div>

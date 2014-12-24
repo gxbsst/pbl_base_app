@@ -38,21 +38,24 @@
                 var regions = result.data.parents;
                 delete result.data.parents;
                 regions.push(result.data);
-                vm.$regions = regions;
-                vm.$countryId = findRegion('Country').id;
-                vm.$provinceId = findRegion('Province').id;
-                vm.$cityId = findRegion('City').id;
-                vm.$districtId = findRegion('District').id;
+                vm.regions = regions;
+                vm.$countryId = vm.countryId = findRegion('Country').id;
+                vm.$provinceId = vm.provinceId = findRegion('Province').id;
+                vm.$cityId = vm.cityId = findRegion('City').id;
+                vm.$districtId = vm.districtId = findRegion('District').id;
             });
         }
 
         function findRegion(type) {
-            return vm.$regions.findOne(function (region) {
+            return vm.regions.findOne(function (region) {
                     return region.type == type;
                 }) || {};
         }
 
         function setCountry(countryId) {
+            if(countryId == vm.$countryId)return;
+            vm.$countryId = countryId;
+            Object.removeAll(vm, 'provinceId $provinceId cityId $cityId districtId $districtId');
             Projects.update({
                 projectId: project.id
             }, {
@@ -61,24 +64,30 @@
         }
 
         function setProvince(provinceId) {
+            if(provinceId == vm.$provinceId)return;
+            vm.$provinceId = provinceId;
+            Object.removeAll(vm, 'cityId $cityId districtId $districtId');
             Projects.update({
                 projectId: project.id
             }, {
                 project: {region_id: provinceId}
             });
-            getCities(provinceId);
         }
 
         function setCity(cityId) {
+            if(cityId == vm.$cityId)return;
+            vm.$cityId = cityId;
+            Object.removeAll(vm, 'districtId $districtId');
             Projects.update({
                 projectId: project.id
             }, {
                 project: {region_id: cityId}
             });
-            getDistricts(cityId);
         }
 
         function setDistrict(districtId) {
+            if(districtId == vm.$districtId)return;
+            vm.$districtId = districtId;
             Projects.update({
                 projectId: project.id
             }, {
@@ -98,6 +107,7 @@
         }
 
         function getProvinces(countryId) {
+            if(!countryId)return;
             vm.cities = [];
             vm.districts = [];
             Regions.all({
@@ -109,6 +119,7 @@
         }
 
         function getCities(provinceId) {
+            if(!provinceId)return;
             vm.districts = [];
             Regions.all({
                 type: 'City',
@@ -119,6 +130,7 @@
         }
 
         function getDistricts(cityId) {
+            if(!cityId)return;
             Regions.all({
                 type: 'District',
                 parent_id: cityId
@@ -179,6 +191,5 @@
         }
 
     }
-
 
 })();

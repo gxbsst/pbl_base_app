@@ -51,7 +51,7 @@
             },
             DURATION_UNITS: [
                 {id: 1, title: '小时'},
-                {id: 2, title: '日'},
+                {id: 2, title: '天'},
                 {id: 3, title: '周'}
             ],
             GRADES: [
