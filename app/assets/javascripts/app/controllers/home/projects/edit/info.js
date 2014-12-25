@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditInfoController', ProjectEditInfoController);
 
-    ProjectEditInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
+    ProjectEditInfoController.$inject = ['$q', 'RESOURCE_TYPES', 'Friends', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
 
-    function ProjectEditInfoController(RESOURCE_TYPES, Resources, Projects, ProjectTeachers, Regions, project) {
+    function ProjectEditInfoController($q, RESOURCE_TYPES, Friends, Resources, Projects, ProjectTeachers, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};
@@ -19,7 +19,7 @@
         vm.removeDocument = removeDocument;
         vm.onTagsChange = onTagsChange;
         vm.onTeachersChange = onTeachersChange;
-        vm.teachersFormatter = teachersFormatter;
+        vm.teachersFilter = teachersFilter;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
         vm.setCity = setCity;
@@ -199,7 +199,7 @@
                     project: {
                         tag_list: tags.map(function (item) {
                             return item.$label;
-                        })
+                        }).join(',')
                     }
                 });
             };
@@ -211,11 +211,19 @@
             }
         }
 
-        function teachersFormatter(teachers) {
-            if (!teachers) {
-                return [];
-            }
-            return model.map();
+        function teachersFilter() {
+            var self = this,
+                defer = $q.defer();
+            Friends.all({
+                keyword: self.input
+            }, function (result) {
+                result.data.map(function (option) {
+                    option.label = option.name;
+                    return option;
+                });
+                defer.resolve(result.data);
+            });
+            return defer.promise;
         }
 
     }

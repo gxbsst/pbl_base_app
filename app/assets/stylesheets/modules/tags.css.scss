@@ -10,6 +10,11 @@
     left:0;
     top:37px;
     min-width:100%;
+    z-index:1;
+    &.et-top-options{
+      top:auto;
+      bottom:37px;
+    }
     .selection{
       border:1px solid #d9d9d9;
       margin:0 -1px;

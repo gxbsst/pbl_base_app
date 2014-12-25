@@ -5,9 +5,9 @@
         .module('app.directives')
         .directive('etTags', etTags);
 
-    etTags.$inject = ['$injector'];
+    etTags.$inject = ['$injector', '$document', '$timeout'];
 
-    function etTags($injector) {
+    function etTags($injector, $document, $timeout) {
         return {
             require: 'etTags',
             restrict: 'A',
@@ -21,10 +21,13 @@
 
         function etTagsLink(scope, element, attr, ctrl) {
 
-            var inputElement = element.find('.et-tag-input'),
+            var body = $document.find('body'),
+                inputElement = element.find('.et-tag-input'),
+                optionsElement = element.find('.et-tags-options'),
                 onAdd = scope.$eval(attr.onAdd) || angular.noop,
                 onRemove = scope.$eval(attr.onRemove) || angular.noop,
-                onChange = scope.$eval(attr.onChange) || angular.noop;
+                onChange = scope.$eval(attr.onChange) || angular.noop,
+                bodyHeight, focusout;
 
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.ngModel = ngModel;
@@ -44,8 +47,14 @@
             });
 
             scope.$watch(attr.etTags, function (config) {
-                if (config) {
-                    angular.extend(ctrl, config);
+                angular.extend(ctrl, config || {});
+            }, true);
+
+            scope.$watch(function () {
+                return ctrl.options;
+            }, function (options) {
+                if (angular.isArray(options)) {
+                    ctrl.$options = options;
                 }
             }, true);
 
@@ -54,13 +63,16 @@
             ctrl.add = add;
             ctrl.remove = remove;
             ctrl.formatter = formatter;
-            ctrl.onKeypress = onKeypress;
+            ctrl.onKeyup = onKeyup;
+            ctrl.resize = resize;
 
             element.on('click', setFocus);
 
             inputElement
                 .on('focusin', function () {
                     ctrl.focusin = true;
+                    bodyHeight = body.height();
+                    getOptions();
                 }).on('focusout', function () {
                     scope.$apply(function () {
                         delete ctrl.focusin;
@@ -69,13 +81,23 @@
 
             function setFocus() {
                 inputElement.focus();
-                ctrl.show = !ctrl.show;
             }
 
-            function onKeypress($event) {
+            function onKeyup($event) {
                 if ($event.which == 13) {
                     $event.preventDefault();
                     ctrl.add(ctrl.input);
+                }
+                getOptions();
+            }
+
+            function getOptions() {
+                if (ctrl.$input != ctrl.input && angular.isFunction(ctrl.options)) {
+                    ctrl.options.call(ctrl)
+                        .then(function (options) {
+                            ctrl.$options = options;
+                            ctrl.$input = ctrl.input;
+                        });
                 }
             }
 
@@ -118,6 +140,12 @@
             function exist(tag) {
                 return ctrl.tags.has(function (item) {
                     return item.$id == tag.$id;
+                });
+            }
+
+            function resize(){
+                $timeout(function () {
+                    ctrl.top = optionsElement.outerHeight() + element.offset().top + element.outerHeight() > bodyHeight;
                 });
             }
 

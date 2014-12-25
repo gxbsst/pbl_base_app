@@ -15,7 +15,8 @@
         interceptors.$injector = ['$q'];
         function interceptors($q){
             return {
-                responseError: responseError
+                responseError: responseError,
+                response: response
             };
 
             function responseError(rejection){
@@ -29,6 +30,18 @@
                         break;
                 }
                 return $q.reject(rejection);
+            }
+
+            function response(response){
+                /*if(response.data){
+                    switch(response.data.code){
+                        case 401:
+                        case 422:
+                            window.location.reload();
+                            break;
+                    }
+                }*/
+                return response || $q.when(response);
             }
         }
 

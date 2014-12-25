@@ -27,19 +27,20 @@
 
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.$ngModel = ngModel;
-                switch(attr.type){
-                    case 'checkbox':
-                    case 'radio':
-                        save();
-                        break;
-                }
             });
 
-            element.on('focusin', function () {
-                ctrl.$clone = ctrl.$ngModel;
-            });
-
-            element.on('focusout', save);
+            switch(attr.type){
+                case 'checkbox':
+                case 'radio':
+                    element.on('click', save);
+                    break;
+                default:
+                    element.on('focusin', function () {
+                        ctrl.$clone = ctrl.$ngModel;
+                    });
+                    element.on('focusout', save);
+                    break;
+            }
 
             function save(){
                 if(!ctrl.$disabled && ctrl.$service){
