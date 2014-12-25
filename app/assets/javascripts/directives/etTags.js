@@ -64,7 +64,6 @@
             ctrl.remove = remove;
             ctrl.formatter = formatter;
             ctrl.onKeyup = onKeyup;
-            ctrl.resize = resize;
 
             element.on('click', setFocus);
 
@@ -97,6 +96,9 @@
                         .then(function (options) {
                             ctrl.$options = options;
                             ctrl.$input = ctrl.input;
+                            $timeout(function () {
+                                ctrl.top = optionsElement.outerHeight() + element.offset().top + element.outerHeight() > bodyHeight;
+                            });
                         });
                 }
             }
@@ -140,12 +142,6 @@
             function exist(tag) {
                 return ctrl.tags.has(function (item) {
                     return item.$id == tag.$id;
-                });
-            }
-
-            function resize(){
-                $timeout(function () {
-                    ctrl.top = optionsElement.outerHeight() + element.offset().top + element.outerHeight() > bodyHeight;
                 });
             }
 
