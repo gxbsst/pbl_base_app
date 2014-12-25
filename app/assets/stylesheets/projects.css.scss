@@ -606,7 +606,7 @@
       height: $nav-size;
       margin-right: 50px;
       border-radius: 50%;
-      border: 1px solid $nav-color;
+      border: 2px solid $nav-color;
       color: $nav-color;
       cursor: pointer;
       position: relative;
@@ -630,8 +630,8 @@
         top:31px;
         right: -35px;
       }
-      &.blue-hint{
-        border: 1px solid $hit-color;
+      &.blue-hint,&:hover{
+        border: 2px solid $hit-color;
         color: $hit-color;
       }
       &.last{
@@ -659,5 +659,32 @@
   }
   &:after{
     right:0;
+  }
+}
+
+.project-map{
+  .et-tabs-titles {
+    height: 43px;
+    border: 1px solid #f0f0f0;
+    background: #fafafa;
+    .et-tabs-title {
+      font-size: 15px;
+      padding: 0 30px !important;
+      border: none;
+      border-right:1px solid #f0f0f0 ;
+      &:hover{
+        border: none;
+        border-top:3px solid #f6bb3d;
+      }
+      &.active{
+        border: none;
+        border-top:3px solid #f6bb3d;
+        color: #76c649;
+      }
+    }
+  }
+  .et-tabs-contents {
+    border-top: none;
+    padding: 12px;
   }
 }
