@@ -3,11 +3,11 @@
 
     angular
         .module('app.pbl')
-        .controller('HomeProjectCreateDesignController', HomeProjectCreateDesignController);
+        .controller('ProjectCreateDesignController', ProjectCreateDesignController);
 
-    HomeProjectCreateDesignController.$inject = ['$scope', 'RESOURCE_TYPES', 'ProjectStandards', 'ProjectTechniques', 'ProjectProducts', 'Resources', 'project'];
+    ProjectCreateDesignController.$inject = ['$scope', 'RESOURCE_TYPES', 'ProjectStandards', 'ProjectTechniques', 'ProjectProducts', 'Resources', 'project'];
 
-    function HomeProjectCreateDesignController($scope, RESOURCE_TYPES, ProjectStandards, ProjectTechniques, ProjectProducts, Resources, project) {
+    function ProjectCreateDesignController($scope, RESOURCE_TYPES, ProjectStandards, ProjectTechniques, ProjectProducts, Resources, project) {
 
         var vm = this;
 

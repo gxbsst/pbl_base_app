@@ -18,70 +18,8 @@
             .state('base.home.projects.index', {
                 url: '',
                 templateUrl: 'home/projects/index.html',
-                controller:'HomeProjectIndexController as vm'
-            })
-            .state('base.home.projects.create', {
-                abstract: true,
-                url: '/create/:projectId',
-                templateUrl: 'home/projects/create.html',
-                resolve: {
-                    project: getProject
-                },
-                controller: 'HomeProjectCreateController'
-            })
-            .state('base.home.projects.create.design', {
-                url: '',
-                templateUrl: 'home/projects/create/steps/design.html',
-                controller:'HomeProjectCreateDesignController as vm'
-            })
-            .state('base.home.projects.create.gauges', {
-                url: '/gauges',
-                templateUrl: 'home/projects/create/steps/gauges.html',
-                controller:'HomeProjectCreateGaugesController as vm'
-            })
-            .state('base.home.projects.create.info', {
-                url: '/info',
-                templateUrl: 'home/projects/create/steps/info.html',
-                controller:'HomeProjectCreateInfoController as vm'
-            })
-            .state('base.home.projects.create.scaffold', {
-                url: '/scaffold',
-                templateUrl: 'home/projects/create/steps/scaffold.html',
-                controller:'HomeProjectCreateScaffoldController as vm'
-            })
-            .state('base.home.projects.create.release', {
-                url: '/release',
-                templateUrl: 'home/projects/create/steps/release.html',
-                controller:'HomeProjectCreateReleaseController as vm'
-            })
-            .state('base.home.projects.show', {
-                url: '/:projectId',
-                templateUrl: 'home/projects/index.html'
+                controller:'ProjectIndexController as vm'
             });
-
-        getProject.$inject = ['$q', '$state', '$stateParams', 'Projects'];
-
-        function getProject($q, $state, $stateParams, Projects){
-            var defer = $q.defer();
-            if($stateParams.projectId){
-                Projects.get({projectId:$stateParams.projectId}, function (result) {
-                    var products = result.data.products || [],
-                        findFinal = function (product) {
-                            return product.is_final;
-                        };
-                    result.data.final_product = products.findOne(findFinal);
-                    if(result.data.final_product){
-                        products.remove(findFinal);
-                    }
-                    defer.resolve(result.data);
-                });
-            }else{
-                Projects.add(function (result) {
-                    $state.go('base.home.projects.create.design', {projectId:result.data.id});
-                });
-            }
-            return defer.promise;
-        }
 
     }
 

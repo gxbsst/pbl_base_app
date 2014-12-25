@@ -3,13 +3,13 @@
 
     angular
         .module('app.pbl')
-        .controller('HomeProjectCreateGaugesController', HomeProjectCreateGaugesController)
-        .controller('HomeProjectCreateGaugesTypeController', HomeProjectCreateGaugesTypeController)
+        .controller('ProjectCreateGaugesController', ProjectCreateGaugesController)
+        .controller('ProjectCreateGaugesTypeController', ProjectCreateGaugesTypeController)
         .controller('GaugesSystemController', GaugesSystemController);
 
-    HomeProjectCreateGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
+    ProjectCreateGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
 
-    function HomeProjectCreateGaugesController($scope, ProjectTechniques, ProjectGauges, Projects, project) {
+    function ProjectCreateGaugesController($scope, ProjectTechniques, ProjectGauges, Projects, project) {
 
         var vm = this;
 
@@ -71,9 +71,9 @@
         }
     }
 
-    HomeProjectCreateGaugesTypeController.$inject = ['$scope', '$filter', 'Projects'];
+    ProjectCreateGaugesTypeController.$inject = ['$scope', '$filter', 'Projects'];
 
-    function HomeProjectCreateGaugesTypeController($scope, $filter, Projects) {
+    function ProjectCreateGaugesTypeController($scope, $filter, Projects) {
 
         var vm = this;
         vm.ruleTemplates = $filter('i18n')('GAUGE_HEAD');

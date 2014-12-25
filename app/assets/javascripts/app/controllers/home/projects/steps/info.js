@@ -3,11 +3,11 @@
 
     angular
         .module('app.pbl')
-        .controller('HomeProjectCreateInfoController', HomeProjectCreateInfoController);
+        .controller('ProjectCreateInfoController', ProjectCreateInfoController);
 
-    HomeProjectCreateInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'Regions', 'project'];
+    ProjectCreateInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'Regions', 'project'];
 
-    function HomeProjectCreateInfoController(RESOURCE_TYPES, Resources, Projects, Regions, project) {
+    function ProjectCreateInfoController(RESOURCE_TYPES, Resources, Projects, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};

@@ -13,7 +13,7 @@
                     ng-class="{disabled:column.disabled}"></th>
                 <th class="gauge-btn"
                     et-tips="'设置标头'"
-                    et-modal="$project=vm.project;title='选择量规标头';controller='HomeProjectCreateGaugesTypeController as vm';src='home/projects/create/gauge-type.html'"><i class="pf-cog"></i></th>
+                    et-modal="$project=vm.project;title='选择量规标头';controller='ProjectCreateGaugesTypeController as vm';src='home/projects/edit/gauge-type.html'"><i class="pf-cog"></i></th>
             </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     class="center cur-pointer"
                     ng-class="{'text-red':vm.notExist(gauge.technique)}"
                     et-tips="'该技能已从项目中移除，请选择其它技能或删除该条量规！';disabled=!vm.notExist(gauge.technique)"
-                    et-modal="$project=vm.project;$gauge=gauge;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"></td>
+                    et-modal="$project=vm.project;$gauge=gauge;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/edit/techniques.html'"></td>
                 <td class="et-gauge">
                     <textarea ng-model="gauge.standard" et-sync="{gaugeId:gauge.id,rule:{standard:gauge.standard},$service:'ProjectGauges'}" spellcheck="false"></textarea>
                 </td>
@@ -51,11 +51,11 @@
                 <td colspan="9" class="loading"><i class="pf-spinner-2 rotation"></i></td>
             </tr>
             <tr>
-                <td colspan="9" class="gauge-add-btn center"><div et-modal="$project=vm.project;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/create/techniques.html'"><i class="pf-plus"></i> 添加一条新的量规</div></td>
+                <td colspan="9" class="gauge-add-btn center"><div et-modal="$project=vm.project;title='选择技能';padding=4;controller='TechniqueSelectorController as vm';src='home/projects/edit/techniques.html'"><i class="pf-plus"></i> 添加一条新的量规</div></td>
             </tr>
             </tbody>
         </table>
-        <span class="btn btn-gray margin-top-12" et-modal="$project=vm.project;title='从量规库中导入';controller='GaugesSelectorController as vm';src='home/projects/create/gauges/index.html'">从量规库中导入</span>
+        <span class="btn btn-gray margin-top-12" et-modal="$project=vm.project;title='从量规库中导入';controller='GaugesSelectorController as vm';src='home/projects/edit/gauges/index.html'">从量规库中导入</span>
         <div class="hr"></div>
         <div class="col-1-1 text-right">
             <span class="btn btn-blue" role="button" ng-click="next('info')">下一步</span>

@@ -5,8 +5,8 @@
         .module('app.pbl')
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
-        .controller('HomeProjectIndexController', HomeProjectIndexController)
-        .controller('HomeProjectCreateController', HomeProjectCreateController);
+        .controller('ProjectIndexController', ProjectIndexController)
+        .controller('ProjectCreateController', ProjectCreateController);
 
 
     PBLMapController.$inject = ['$scope'];
@@ -24,21 +24,21 @@
 
     }
 
-    HomeProjectIndexController.$inject = ['Projects'];
+    ProjectIndexController.$inject = ['Projects'];
 
-    function HomeProjectIndexController(Projects) {
+    function ProjectIndexController(Projects) {
         var vm = this;
         vm.projects = Projects.all();
     }
 
-    HomeProjectCreateController.$inject = ['$state', '$scope', 'project'];
+    ProjectCreateController.$inject = ['$state', '$scope', 'project'];
 
-    function HomeProjectCreateController($state, $scope, project) {
+    function ProjectCreateController($state, $scope, project) {
 
         $scope.next = next;
 
         function next(step) {
-            $state.go('base.home.projects.create.' + step, {projectId: project.id});
+            $state.go('base.home.projects.edit.' + step, {projectId: project.id});
         }
     }
 

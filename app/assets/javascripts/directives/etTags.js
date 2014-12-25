@@ -5,9 +5,9 @@
         .module('app.directives')
         .directive('etTags', etTags);
 
-    etTags.$inject = [];
+    etTags.$inject = ['$injector'];
 
-    function etTags() {
+    function etTags($injector) {
         return {
             require: 'etTags',
             restrict: 'A',

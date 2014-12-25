@@ -13,10 +13,6 @@
             .state('base.pbl', {
                 url: '^/pbl',
                 templateUrl: 'pbl/index.html'
-            })
-            .state('base.pbl.show', {
-                url: '/:projectId',
-                templateUrl: 'pbl/show.html'
             });
 
     }
