@@ -8,7 +8,8 @@
         .service('ProjectTechniques', ProjectTechniques)
         .service('ProjectProducts', ProjectProducts)
         .service('ProjectGauges', ProjectGauges)
-        .service('ProjectMembers', ProjectMembers);
+        .service('ProjectMembers', ProjectMembers)
+        .service('ProjectTeachers', ProjectTeachers);
 
 
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
@@ -66,6 +67,15 @@
         return $resource('/project/members/:memberId', {
             action: '@action',
             memberId: '@memberId'
+        }, RESOURCE_ACTIONS);
+    }
+
+    ProjectTeachers.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function ProjectTeachers($resource, RESOURCE_ACTIONS) {
+        return $resource('/project/teachers/:teacherId', {
+            action: '@action',
+            teacherId: '@teacherId'
         }, RESOURCE_ACTIONS);
     }
 
