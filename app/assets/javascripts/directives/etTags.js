@@ -28,10 +28,12 @@
 
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.ngModel = ngModel;
-                if(ngModel){
-                    ctrl.tags = typeof ngModel == 'string' ? ngModel.split(',') : ngModel;
-                }else{
-                    ctrl.tags = [];
+                ctrl.tags = [];
+                if (ngModel) {
+                    if (typeof ngModel == 'string') {
+                        ngModel = ngModel.split(',');
+                    }
+                    ctrl.tags = ngModel.map(ctrl.formatter);
                 }
             });
 
@@ -41,10 +43,17 @@
                 ctrl.placeholder = placeholder;
             });
 
+            scope.$watch(attr.etTags, function (config) {
+                if (config) {
+                    angular.extend(ctrl, config);
+                }
+            }, true);
+
             ctrl.input = '';
             ctrl.tags = [];
             ctrl.add = add;
             ctrl.remove = remove;
+            ctrl.formatter = formatter;
             ctrl.onKeypress = onKeypress;
 
             element.on('click', setFocus);
@@ -60,6 +69,7 @@
 
             function setFocus() {
                 inputElement.focus();
+                ctrl.show = !ctrl.show;
             }
 
             function onKeypress($event) {
@@ -70,30 +80,44 @@
             }
 
             function add(tag) {
-                tag = tag.trim();
-                if (tag && !exist(tag)) {
+                tag = ctrl.formatter(tag);
+                if (!exist(tag)) {
                     ctrl.tags.push(tag);
-                    ctrl.ngModel = ctrl.tags.join(',');
                     setFocus();
-                    onAdd.call(scope, tag, ctrl.ngModel);
-                    onChange.call(scope, tag, ctrl.ngModel);
+                    onAdd.call(scope, tag, ctrl.tags);
+                    onChange.call(scope, tag, ctrl.tags);
                 }
                 ctrl.input = '';
             }
 
             function remove(tag, $event) {
                 $event.stopPropagation();
-                ctrl.ngModel = ctrl.tags.remove(function (t) {
-                    return t == tag;
-                }).join(',');
+                ctrl.tags.remove(function (item) {
+                    return item.$id == tag.$id;
+                });
                 setFocus();
-                onRemove.call(scope, tag, ctrl.ngModel);
-                onChange.call(scope, tag, ctrl.ngModel);
+                onRemove.call(scope, tag, ctrl.tags);
+                onChange.call(scope, tag, ctrl.tags);
+            }
+
+            function formatter(tag) {
+                if (typeof tag == 'string') {
+                    tag = tag.trim();
+                    return {$id: tag, $label: tag};
+                }
+                if (tag.id) {
+                    tag.$id = tag.id;
+                }
+                var label = tag.label || tag.name || tag.title;
+                if (label) {
+                    tag.$label = label;
+                }
+                return tag;
             }
 
             function exist(tag) {
-                return ctrl.tags.has(function (t) {
-                    return t == tag;
+                return ctrl.tags.has(function (item) {
+                    return item.$id == tag.$id;
                 });
             }
 

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditInfoController', ProjectEditInfoController);
 
-    ProjectEditInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'Regions', 'project'];
+    ProjectEditInfoController.$inject = ['RESOURCE_TYPES', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
 
-    function ProjectEditInfoController(RESOURCE_TYPES, Resources, Projects, Regions, project) {
+    function ProjectEditInfoController(RESOURCE_TYPES, Resources, Projects, ProjectTeachers, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};
@@ -19,6 +19,7 @@
         vm.removeDocument = removeDocument;
         vm.onTagsChange = onTagsChange;
         vm.onTeachersChange = onTeachersChange;
+        vm.teachersFormatter = teachersFormatter;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
         vm.setCity = setCity;
@@ -30,6 +31,7 @@
         getProjectRegion();
         getProjectResources();
         getCountries();
+        getTeachers();
 
         function getProjectRegion() {
             project.region_id && Regions.all({
@@ -54,7 +56,7 @@
         }
 
         function setCountry(countryId) {
-            if(countryId == vm.$countryId)return;
+            if (countryId == vm.$countryId)return;
             vm.$countryId = countryId;
             Object.removeAll(vm, 'provinceId $provinceId cityId $cityId districtId $districtId');
             Projects.update({
@@ -65,7 +67,7 @@
         }
 
         function setProvince(provinceId) {
-            if(provinceId == vm.$provinceId)return;
+            if (provinceId == vm.$provinceId)return;
             vm.$provinceId = provinceId;
             Object.removeAll(vm, 'cityId $cityId districtId $districtId');
             Projects.update({
@@ -76,7 +78,7 @@
         }
 
         function setCity(cityId) {
-            if(cityId == vm.$cityId)return;
+            if (cityId == vm.$cityId)return;
             vm.$cityId = cityId;
             Object.removeAll(vm, 'districtId $districtId');
             Projects.update({
@@ -87,7 +89,7 @@
         }
 
         function setDistrict(districtId) {
-            if(districtId == vm.$districtId)return;
+            if (districtId == vm.$districtId)return;
             vm.$districtId = districtId;
             Projects.update({
                 projectId: project.id
@@ -107,8 +109,16 @@
             });
         }
 
+        function getTeachers(){
+            ProjectTeachers.all({
+                project_id: project.id
+            }, function (result) {
+                vm.teachers = result.data;
+            });
+        }
+
         function getProvinces(countryId) {
-            if(!countryId)return;
+            if (!countryId)return;
             vm.cities = [];
             vm.districts = [];
             Regions.all({
@@ -120,7 +130,7 @@
         }
 
         function getCities(provinceId) {
-            if(!provinceId)return;
+            if (!provinceId)return;
             vm.districts = [];
             Regions.all({
                 type: 'City',
@@ -131,7 +141,7 @@
         }
 
         function getDistricts(cityId) {
-            if(!cityId)return;
+            if (!cityId)return;
             Regions.all({
                 type: 'District',
                 parent_id: cityId
@@ -182,19 +192,30 @@
         }
 
         function onTagsChange() {
-            return function (tag, model) {
+            return function (tag, tags) {
                 Projects.update({
                     projectId: vm.project.id
                 }, {
-                    project: {tag_list: model}
+                    project: {
+                        tag_list: tags.map(function (item) {
+                            return item.$label;
+                        })
+                    }
                 });
             };
         }
 
-        function onTeachersChange(){
-            return function(){
+        function onTeachersChange() {
+            return function (teacher, teachers) {
 
             }
+        }
+
+        function teachersFormatter(teachers) {
+            if (!teachers) {
+                return [];
+            }
+            return model.map();
         }
 
     }
