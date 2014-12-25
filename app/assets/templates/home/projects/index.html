@@ -15,7 +15,7 @@
         <ul>
             <li ng-repeat="project in vm.projects.data">
                 <span class="project-pointer" ng-class="project.state||'published'"></span>
-                <a ui-sref="base.home.projects.edit.design({projectId:project.id})" ui-sref-active="active" ng-bind="project.name || '未命名项目'"></a> /
+                <a ui-sref="base.home.projects.show.info({projectId:project.id})" ui-sref-active="active" ng-bind="project.name || '未命名项目'"></a> /
                 <a ui-sref="base.home.projects.edit.design({projectId:project.id})">编辑</a>
             </li>
         </ul>
