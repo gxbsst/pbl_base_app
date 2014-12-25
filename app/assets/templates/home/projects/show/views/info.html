@@ -1,1 +1,131 @@
-项目介绍
+<div class="project-show-info">
+    <div class="project-title">
+        <span class="title-text">项目介绍</span>
+        <span class="title-pointer"></span>
+    </div>
+    <div class="info-cont">
+        <div class="col-1-1" et-init="vm.project.cover=vm.getResource(RESOURCE_TYPES.project.cover,vm.project.id)">
+            <div class="cover col-2-12">
+                <span class="text-red" ng-if="vm.resources&&!vm.project.cover">尚未上传封面</span>
+                <span class="text-gray" ng-if="!vm.resources"><i class="pf-spinner-2 rotation"></i></span>
+                <img ng-src="{{vm.project.cover.key|thumb:'120x120'}}" ng-if="vm.project.cover" />
+            </div>
+            <div class="info pull-left col-10-12">
+                <h1 ng-bind="vm.project.name"></h1>
+                <strong>项目名称：</strong><span ng-bind-html="vm.project.title||'未命名项目'"></span><br/>
+                <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
+                <strong>开始时间：</strong><span>2014-01-12</span> <strong>结束时间：</strong><span>2014-01-13</span><br/>
+                <strong>驱动性问题：</strong>
+                <div class="row" ng-bind-html="vm.project.driven_issue||'尚未填写驱动性问题'"></div>
+                <a ui-sref="base.home.projects.edit.design" class="pf-doc-eye info-edit"></a>
+            </div>
+        </div>
+        <div class="info-description col-1-1">
+            <strong>项目概述：</strong>
+            <div ng-bind-html="vm.project.description||'尚未填写驱动性问题'"></div>
+        </div>
+        <div class="info-tab-btn col-1-1">
+            <a ng-click="vm.infoTab(1)" ng-class="{'active':vm.tab==1}">课程标准</a>
+            <a ng-click="vm.infoTab(2)" ng-class="{'active':vm.tab==2}">学生技能</a>
+            <a ng-click="vm.infoTab(3)" ng-class="{'active':vm.tab==3}">项目量规</a>
+        </div>
+        <div class="info-tab-cont col-1-1">
+            <div ng-show="vm.tab==1">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th width="130">学科</th>
+                        <th width="150">学段</th>
+                        <th>课标</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>语文语文语文语文语文语文</td>
+                        <td>1-3年级</td>
+                        <td><span>·识字与写字：认识常用汉字1600个</span><br/>
+
+                            <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="vm.tab==2">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th width="130">技能种类</th>
+                        <th width="150">分类</th>
+                        <th>技能</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>21世纪技能</td>
+                        <td>创造和革新能力</td>
+                        <td><span>·识字与写字：认识常用汉字1600个</span><br/>
+
+                            <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="vm.tab==3">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th>对应技能</th>
+                        <th>量规标准</th>
+                        <th>权重(%)</th>
+                        <th>优秀</th>
+                        <th>合格</th>
+                        <th>能力有限</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>三角函数</td>
+                        <td>标准</td>
+                        <td>50%</td>
+                        <td>优秀</td>
+                        <td>合格</td>
+                        <td>能力有限</td>
+                    </tr>
+                    <tr>
+                        <td>三角函数</td>
+                        <td>标准</td>
+                        <td>50%</td>
+                        <td>优秀</td>
+                        <td>合格</td>
+                        <td>能力有限</td>
+                    </tr>
+                    <tr>
+                        <td>三角函数</td>
+                        <td>标准</td>
+                        <td>50%</td>
+                        <td>优秀</td>
+                        <td>合格</td>
+                        <td>能力有限</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-1-1 margin-bottom-20">
+            <strong>参考资源：</strong>
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="doc in vm.findByType(RESOURCE_TYPES.project.document,true)">
+                        <span ng-bind="doc.name"></span>
+                        <i class="btn-mini pf-cross pull-right" ng-click="vm.removeDocument(doc)"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-right">
+                 <span class="btn btn-blue" ng-class="{uploading:vm.project.$uploading_doc}"
+                       qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                       on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"><i class="pf-plus"></i> 上传资源</span>
+            </div>
+        </div>
+    </div>
+</div>
+

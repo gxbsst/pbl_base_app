@@ -11,7 +11,12 @@
 
         var vm = this;
         vm.project = project;
+        vm.tab=1;
+        vm.infoTab=infoTab;
 
+        function infoTab(tab){
+            vm.tab=tab;
+        }
     }
 
 })();
