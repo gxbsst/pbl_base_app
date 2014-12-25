@@ -688,3 +688,40 @@
     padding: 12px;
   }
 }
+
+
+.project-list {
+  margin-top:30px ;
+  &.list-first{
+    font-size: 16px;
+    color: #5f5f5f;
+    span{
+      margin-top: 10px;
+      padding: 0 50px;
+    }
+  }
+  .project-pointer{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px 0 20px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow:0px 1px 1px #aaaaaa;
+    &.draft{
+      background: #57c177;
+    }
+    &.running{
+      background: #f5bb3d;
+    }
+    &.published{
+      background: #3d80f5;
+    }
+    &.completed{
+      background: #c0c0c0;
+    }
+  }
+  .list-btn{
+    margin-top: 10px;
+  }
+}

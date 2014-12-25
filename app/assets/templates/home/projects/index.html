@@ -1,8 +1,21 @@
-
-<h3>PBL项目列表</h3>
-<span ui-sref="base.home.projects.edit.design" ng-bind="'create'|i18n" class="btn btn-sm btn-blue"></span>
-<ul>
-    <li ng-repeat="project in vm.projects.data">
-        <a ui-sref="base.home.projects.edit.design({projectId:project.id})" ui-sref-active="active" ng-bind="project.name || '未命名项目'"></a>
-    </li>
-</ul>
+<div class="text-center project-list list-first" ng-show="vm.projects.data==null">
+    <div>还没有自己的PBL项目？立即创建</div>
+    <div><span ui-sref="base.home.projects.edit.design" ng-bind="'  创建属于自己的PBL'" class=" pf-expand btn btn-lg btn-blue"></span></div>
+</div>
+<div class="project-list" ng-show="vm.projects.data!=null">
+    <div class="text-right">
+        <span class="project-pointer draft"></span><span>执行中的PBL项目</span>
+        <span class="project-pointer published"></span><span>设计中的PBL项目</span>
+        <span class="project-pointer completed"></span><span>已完结的PBL项目</span>
+    </div>
+    <div class="text-right">
+        <span ui-sref="base.home.projects.edit.design" ng-bind="'  创建PBL'" class="list-btn btn pf-expand btn-sm"></span>
+    </div>
+    <div>
+        <ul>
+            <li ng-repeat="project in vm.projects.data">
+                <span class="project-pointer" ng-class="{'draft': project.state=='draft','published':  project.state=='published','completed': project.state=='completed','published': project.state==null}"></span><a ui-sref="base.home.projects.edit.design({projectId:project.id})" ui-sref-active="active" ng-bind="project.name || '未命名项目'"></a>
+            </li>
+        </ul>
+    </div>
+</div>
