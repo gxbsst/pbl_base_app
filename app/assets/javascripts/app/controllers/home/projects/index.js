@@ -6,7 +6,8 @@
         .controller('PBLMapController', PBLMapController)
         .controller('PBLGuideController', PBLGuideController)
         .controller('ProjectIndexController', ProjectIndexController)
-        .controller('ProjectCreateController', ProjectCreateController);
+        .controller('ProjectEditController', ProjectEditController)
+        .controller('ProjectShowController', ProjectShowController);
 
 
     PBLMapController.$inject = ['$scope'];
@@ -31,14 +32,25 @@
         vm.projects = Projects.all();
     }
 
-    ProjectCreateController.$inject = ['$state', '$scope', 'project'];
+    ProjectEditController.$inject = ['$state', '$scope', 'project'];
 
-    function ProjectCreateController($state, $scope, project) {
+    function ProjectEditController($state, $scope, project) {
 
-        $scope.next = next;
+        $scope.goto = goto;
 
-        function next(step) {
-            $state.go('base.home.projects.edit.' + step, {projectId: project.id});
+        function goto(view) {
+            $state.go('base.home.projects.edit.' + view, {projectId: project.id});
+        }
+    }
+
+    ProjectShowController.$inject = ['$state', '$scope', 'project'];
+
+    function ProjectShowController($state, $scope, project) {
+
+        $scope.goto = goto;
+
+        function goto(view) {
+            $state.go('base.home.projects.show.' + view, {projectId: project.id});
         }
     }
 

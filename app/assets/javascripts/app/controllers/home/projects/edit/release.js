@@ -3,11 +3,11 @@
 
     angular
         .module('app.pbl')
-        .controller('ProjectCreateReleaseController', ProjectCreateReleaseController);
+        .controller('ProjectEditReleaseController', ProjectEditReleaseController);
 
-    ProjectCreateReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'project'];
+    ProjectEditReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'project'];
 
-    function ProjectCreateReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, project) {
+    function ProjectEditReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, project) {
         var vm = this;
         vm.project = project;
         vm.getResource = getResource;

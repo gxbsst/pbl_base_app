@@ -3,13 +3,13 @@
 
     angular
         .module('app.pbl')
-        .controller('ProjectCreateGaugesController', ProjectCreateGaugesController)
+        .controller('ProjectEditGaugesController', ProjectEditGaugesController)
         .controller('ProjectCreateGaugesTypeController', ProjectCreateGaugesTypeController)
         .controller('GaugesSystemController', GaugesSystemController);
 
-    ProjectCreateGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
+    ProjectEditGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
 
-    function ProjectCreateGaugesController($scope, ProjectTechniques, ProjectGauges, Projects, project) {
+    function ProjectEditGaugesController($scope, ProjectTechniques, ProjectGauges, Projects, project) {
 
         var vm = this;
 

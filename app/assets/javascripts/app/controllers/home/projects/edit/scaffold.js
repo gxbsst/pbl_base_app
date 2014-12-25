@@ -3,11 +3,11 @@
 
     angular
         .module('app.pbl')
-        .controller('ProjectCreateScaffoldController', ProjectCreateScaffoldController);
+        .controller('ProjectEditScaffoldController', ProjectEditScaffoldController);
 
-    ProjectCreateScaffoldController.$inject = ['$scope', '$state', 'Projects', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
+    ProjectEditScaffoldController.$inject = ['$scope', '$state', 'Projects', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
 
-    function ProjectCreateScaffoldController($scope, $state, Projects, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
+    function ProjectEditScaffoldController($scope, $state, Projects, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
         var vm = this;
 
         project.knowledge = project.knowledge || [];

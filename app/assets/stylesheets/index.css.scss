@@ -141,26 +141,7 @@ body{
 #main{
   margin:0 auto;
 }
-.pbl{
-   li{
-    a{
-      color:#333;
-      text-decoration: none;
-      &:hover{
-        color:#333;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      i{
-        font-size: 20px;
-        color: #e3e3e3;
-        vertical-align: middle;
-      }
-    }
-    margin-bottom: 20px;
-    font-size: 14px;
-  }
- }
+
 #footer{
   position:absolute;
   bottom:0;
