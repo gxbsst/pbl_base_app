@@ -18,6 +18,7 @@
         vm.findByType = findByType;
         vm.removeDocument = removeDocument;
         vm.onTagsChange = onTagsChange;
+        vm.onTeachersChange = onTeachersChange;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
         vm.setCity = setCity;
@@ -188,6 +189,12 @@
                     project: {tag_list: model}
                 });
             };
+        }
+
+        function onTeachersChange(){
+            return function(){
+
+            }
         }
 
     }

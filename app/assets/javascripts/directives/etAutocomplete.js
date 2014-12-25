@@ -9,17 +9,17 @@
 
     function etAutocomplete() {
         return {
-            require: 'etTags',
+            require: 'etAutocomplete',
             restrict: 'A',
             replace: true,
             scope: true,
-            templateUrl: 'directives/et-tags.html',
+            templateUrl: 'directives/et-autocomplete.html',
             link: etAutocompleteLink,
             controller: angular.noop,
             controllerAs: 'autocompleteConfig'
         };
 
-        function etAutocompleteLink(){
+        function etAutocompleteLink(scope, element, attr, ctrl){
 
         }
     }

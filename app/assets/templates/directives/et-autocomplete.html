@@ -1,0 +1,5 @@
+<div class="et-autocomplete form-control" ng-class="{focusin:autocompleteConfig.focusin}">
+    <input type="hidden" ng-model="autocompleteConfig.ngModel"/>
+    <div ng-repeat="entry in autocompleteConfig.selected" class="et-autocomplete-item"><span ng-bind="entry.name"></span><i class="pf-cross" ng-click="autocompleteConfig.remove(entry.id,$event)"></i></div>
+    <input type="text" class="et-autocomplete-input" ng-model="autocompleteConfig.input" ng-keypress="autocompleteConfig.onKeypress($event)" placeholder="{{autocompleteConfig.placeholder}}"/>
+</div>
