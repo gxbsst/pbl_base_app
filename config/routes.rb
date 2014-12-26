@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   end
   #resources :posts, defaults: { format: :json }
 
-  resources :user, defaults: { format: :json }, only: %w(index)
-  resources :friends, defaults: { format: :json }, only: %w(index)
+  resource :user, defaults: { format: :json }, only: %w(show) do
+    resources :friends, defaults: { format: :json }, only: %w(index)
+  end
+
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
 
   namespace :curriculum do

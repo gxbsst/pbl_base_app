@@ -10,7 +10,7 @@ class UsersController < ApplicationBaseController
   end
 
   def show
-    @user = Pbl::Models::Users::User.find(params[:id], include: params[:include])
+    @user = Pbl::Models::Users::User.find(params[:id] || current_user.id, include: params[:include])
   end
 
   def update
