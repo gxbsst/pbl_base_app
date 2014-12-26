@@ -57,6 +57,9 @@
         }
 
         function notExist(technique){
+            if(!technique){
+                return false;
+            }
             return vm.techniques && !vm.techniques.has(function (item) {
                 return item.technique.id === technique.id;
             });

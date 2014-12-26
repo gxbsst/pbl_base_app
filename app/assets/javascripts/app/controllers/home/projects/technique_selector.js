@@ -39,7 +39,9 @@
         }
 
         function isSelected(item){
-            if(!gauge)return;
+            if(!gauge || !gauge.technique){
+                return false;
+            }
             return (gauge.technique_id || gauge.technique.id) === item.technique.id;
         }
 
