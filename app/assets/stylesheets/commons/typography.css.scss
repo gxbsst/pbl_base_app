@@ -10,12 +10,12 @@
   }
 }
 
-@each $color in blue, green, red, yellow, gray, silver{
+@each $color in blue, green, red, yellow, gray, silver, white{
   .text-#{$color}{
     color:$color !important;
   }
   .bg-#{$color}{
-    color:$color;
+    background-color:$color;
   }
 }
 

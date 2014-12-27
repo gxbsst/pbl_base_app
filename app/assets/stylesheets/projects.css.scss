@@ -474,8 +474,10 @@
 .project-release{
   position:relative;
   border:#ccc solid 1px;
-  @include border-radius(3px);
   padding:35px 20px 20px;
+  line-height:26px;
+  background:#f7faff;
+  @include border-radius(3px);
   .pf-preview-flag{
     position:absolute;
     left:-6px;
@@ -483,35 +485,49 @@
     font-size:80px;
     color:#77c84f;
   }
-  .cover{
-    $size: 130px;
-    position:relative;
-    float:left;
-    width:$size;
-    height:$size;
-    padding:5px;
-    margin-right:15px;
-    border:1px dotted #999;
-    text-align:center;
-    line-height:$size;
-    overflow:hidden;
-    .rotation{
-      margin-top:45px;
-    }
-    img{
-      position:absolute;
-      left:4px;
-      top:4px;
-    }
-  }
   .info{
+    position:relative;
+    padding-left:150px;
+    min-height:150px;
     & > h1{
       font-size:20px;
       margin-bottom:8px;
     }
+    .cover{
+      $size:130px;
+      position:absolute;
+      left:0;
+      top:0;
+      width:$size;
+      height:$size;
+      padding:5px;
+      margin-right:15px;
+      border:1px dotted #999;
+      text-align:center;
+      line-height:$size;
+      overflow:hidden;
+      background:#fff;
+      .rotation{
+        margin-top:45px;
+      }
+      img{
+        position:absolute;
+        left:4px;
+        top:4px;
+      }
+    }
   }
   .mar-2 img{
     margin-right:2px;
+  }
+  .documents{
+    a{
+      display:block;
+      width:100%;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
   }
 }
 
@@ -592,66 +608,66 @@
 }
 
 .nav-circular{
-  margin: 30px 0 50px 0;
+  margin:30px 0 50px 0;
   ul{
     $nav-size:84px;
     $nav-color:#bcc4d7;
     $hit-color:#3f80f6;
-    width: 620px;
-    height: $nav-size;
-    margin: auto;
+    width:620px;
+    height:$nav-size;
+    margin:auto;
     li{
-      float: left;
-      width: $nav-size;
-      height: $nav-size;
-      margin-right: 50px;
-      border-radius: 50%;
-      border: 2px solid $nav-color;
-      color: $nav-color;
-      cursor: pointer;
-      position: relative;
-      font-size: 15px;
+      float:left;
+      width:$nav-size;
+      height:$nav-size;
+      margin-right:50px;
+      border-radius:50%;
+      border:2px solid $nav-color;
+      color:$nav-color;
+      cursor:pointer;
+      position:relative;
+      font-size:15px;
       .nav-icon{
-        font-size: 40px;
-        width: 40px;
-        margin: 12px auto 0 auto;
-        padding: 0;
+        font-size:40px;
+        width:40px;
+        margin:12px auto 0 auto;
+        padding:0;
       }
       .nav-title{
-        display: block;
-        text-align: center;
+        display:block;
+        text-align:center;
       }
       .nav-next{
-        width: 11px;
-        height: 11px;
-        font-size: 20px;
-        margin: 1px;
-        position: absolute;
+        width:11px;
+        height:11px;
+        font-size:20px;
+        margin:1px;
+        position:absolute;
         top:31px;
-        right: -35px;
+        right:-35px;
       }
-      &.blue-hint,&:hover{
-        border: 2px solid $hit-color;
-        color: $hit-color;
+      &.blue-hint, &:hover{
+        border:2px solid $hit-color;
+        color:$hit-color;
       }
       &.last{
-        margin-right: 0px;
+        margin-right:0px;
       }
     }
   }
-  text-align: center;
+  text-align:center;
   .button{
-    display: inline-block;
-    margin: 0 5px;
-    background: #efefef;
-    color: #000;
-    width: 90px;
-    height: 33px;
-    line-height: 33px;
-    border-radius: 33px;
+    display:inline-block;
+    margin:0 5px;
+    background:#efefef;
+    color:#000;
+    width:90px;
+    height:33px;
+    line-height:33px;
+    border-radius:33px;
     &.active{
-      background: #78c64e;
-      color: #fff;
+      background:#78c64e;
+      color:#fff;
 
     }
   }
@@ -679,97 +695,96 @@
 }
 
 .project-map{
-  .et-tabs-titles {
-    height: 43px;
-    border: 1px solid #f0f0f0;
-    background: #fafafa;
-    .et-tabs-title {
-      font-size: 15px;
-      padding: 0 30px !important;
-      border: none;
-      border-right:1px solid #f0f0f0 ;
+  .et-tabs-titles{
+    height:43px;
+    border:1px solid #f0f0f0;
+    background:#fafafa;
+    .et-tabs-title{
+      font-size:15px;
+      padding:0 30px !important;
+      border:none;
+      border-right:1px solid #f0f0f0;
       &:hover{
-        border: none;
+        border:none;
         border-top:3px solid #f6bb3d;
       }
       &.active{
-        border: none;
+        border:none;
         border-top:3px solid #f6bb3d;
-        color: #76c649;
+        color:#76c649;
       }
     }
   }
-  .et-tabs-contents {
-    border-top: none;
-    padding: 12px;
+  .et-tabs-contents{
+    border-top:none;
+    padding:12px;
   }
 }
 
-
-.project-list {
-  margin-top:30px ;
+.project-list{
+  margin-top:30px;
   &.list-first{
-    font-size: 16px;
-    color: #5f5f5f;
+    font-size:16px;
+    color:#5f5f5f;
     span{
-      margin-top: 10px;
-      padding: 0 50px;
+      margin-top:10px;
+      padding:0 50px;
     }
   }
   .project-pointer{
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 0 10px 0 20px;
-    border-radius: 50%;
-    border: 1px solid #fff;
+    display:inline-block;
+    width:10px;
+    height:10px;
+    margin:0 10px 0 20px;
+    border-radius:50%;
+    border:1px solid #fff;
     box-shadow:0px 1px 1px #aaaaaa;
     &.draft{
-      background: #57c177;
+      background:#57c177;
     }
     &.running{
-      background: #f5bb3d;
+      background:#f5bb3d;
     }
     &.published{
-      background: #3d80f5;
+      background:#3d80f5;
     }
     &.completed{
-      background: #c0c0c0;
+      background:#c0c0c0;
     }
   }
   .list-btn{
-    margin-top: 10px;
+    margin-top:10px;
   }
 }
 
 .project-title{
-  position: relative;
+  position:relative;
   .title-text{
-    font-size: 17px;
-    padding: 8px 15px;
-    border-bottom: 1px dashed #b6c6d5;
+    font-size:17px;
+    padding:8px 15px;
+    border-bottom:1px dashed #b6c6d5;
   }
   .title-pointer{
-    display: block;
-    width: 10px;
-    height: 10px;
-    border: 1px solid #b6c6d5;
-    border-radius: 50%;
-    background: #fff;
-    position: absolute;
-    left: 0;
-    bottom: -10px;
+    display:block;
+    width:10px;
+    height:10px;
+    border:1px solid #b6c6d5;
+    border-radius:50%;
+    background:#fff;
+    position:absolute;
+    left:0;
+    bottom:-10px;
   }
 }
 
 .project-show-info{
   strong{
-    color: #999;
+    color:#999;
   }
   .info-cont{
-    margin-top: 30px;
+    margin-top:30px;
     .cover{
-      $size: 130px;
+      $size:130px;
       position:relative;
       float:left;
       width:$size;
@@ -790,38 +805,38 @@
       }
     }
     .info{
-      position: relative;
+      position:relative;
       & > h1{
         font-size:20px;
         margin-bottom:8px;
       }
       span{
-        margin-right: 15px;
+        margin-right:15px;
       }
       .info-edit{
-        position: absolute;
-        right: 0;
+        position:absolute;
+        right:0;
         top:0;
-        color: #999;
-        font-size: 20px;
+        color:#999;
+        font-size:20px;
       }
     }
     .mar-2 img{
       margin-right:2px;
     }
     .info-description{
-      margin: 10px 0;
+      margin:10px 0;
     }
     .info-tab-btn{
-      margin: 20px 0;
+      margin:20px 0;
       a{
-        margin-right: 60px;
-        color: #999;
+        margin-right:60px;
+        color:#999;
         &.active{
-          color: #3d80f5;
+          color:#3d80f5;
         }
         &:hover{
-          cursor: pointer;
+          cursor:pointer;
         }
       }
     }

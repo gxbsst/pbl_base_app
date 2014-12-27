@@ -1,132 +1,141 @@
-<div class="project-release">
+<div class="col-1-1 project-release">
     <i class="pf-preview-flag"></i>
-    <div class="col-1-1" et-init="vm.project.cover=vm.getResource(RESOURCE_TYPES.project.cover,vm.project.id)">
+    <div class="col-1-1 info " et-init="vm.project.cover=vm.getResource(RESOURCE_TYPES.project.cover,vm.project.id)">
         <div class="cover">
             <span class="text-red" ng-if="vm.resources&&!vm.project.cover">尚未上传封面</span>
             <span class="text-gray" ng-if="!vm.resources"><i class="pf-spinner-2 rotation"></i></span>
             <img ng-src="{{vm.project.cover.key|thumb:'120x120'}}" ng-if="vm.project.cover" />
         </div>
-        <div class="info pull-left">
-            <h1 ng-bind="vm.project.name"></h1>
-            <strong>课程时长：</strong><span ng-bind="vm.project.duration + (vm.project.duration_unit|unit)"></span><br/>
-            <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
-            <strong>项目概述：</strong>
-            <div class="row text-gray" ng-bind-html="vm.project.description||'尚未填写项目概述'" ng-class="{'text-red':!vm.project.description}"></div>
-        </div>
+        <h1 ng-bind="vm.project.name"></h1>
+        <strong>课程时长：</strong><span ng-bind="vm.project.duration + (vm.project.duration_unit|unit)"></span><br/>
+        <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
+        <strong>项目概述：</strong>
+        <div class="row text-gray" ng-bind-html="vm.project.description||'尚未填写项目概述'" ng-class="{'text-red':!vm.project.description}"></div>
     </div>
     <div class="clearfix"></div>
     <div class="hr"></div>
-    <div class="col-1-2">
-        <h3>指导老师：</h3>
-        <span>张骞，李蒙</span> <br/>
-        <h3>最终产品：</h3>
-        <span ng-bind="vm.getResource(RESOURCE_TYPES.project.product,vm.project.final_product.id).name"></span>
+    <div class="col-1-2" et-init="finalProductResource=vm.getResources(RESOURCE_TYPES.project.product,vm.project.final_product.id,true)">
+        <div class="row margin-bottom-20">
+            <h3>指导老师：</h3>
+            <span>张骞，李蒙</span>
+        </div>
+        <div class="row margin-bottom-20">
+            <h3>最终产品：</h3>
+            <strong>产品形态：</strong><span ng-bind="vm.project.final_product.product_form.name"></span><br/>
+            <strong>产品示例：</strong><a ng-href="{{finalProductResource|uri}}" target="_blank" ng-bind="finalProductResource.name"></a>
+        </div>
     </div>
     <div class="col-1-2">
-        <h3>项目成员：60人</h3>
-        <span class="mar-2"><img class="img-radius"
-                                 src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
+        <div class="row margin-bottom-20">
+            <h3>项目成员：60人</h3>
+                <span class="mar-2"><img class="img-radius"
+                                         src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
                 class="img-radius"
                 src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
                 class="img-radius"
                 src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><a
                 class="pull-right" href="#">查看更多</a> </span>
-
-        <h3>启动文档：</h3>
-    </div>
-    <h2>课程标准：</h2>
-    <table class="table col-1-1 margin-bottom-20">
-        <thead>
-        <tr>
-            <th width="130">学科</th>
-            <th width="150">学段</th>
-            <th>课标</th>
-        </tr>
-        </thead>
-        <tr>
-            <td>语文语文语文语文语文语文</td>
-            <td>1-3年级</td>
-            <td><span>·识字与写字：认识常用汉字1600个</span><br/>
-
-                <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
-            </td>
-        </tr>
-    </table>
-    <h2>技能：</h2>
-    <table class="table col-1-1">
-        <thead>
-        <tr>
-            <th width="130">技能种类</th>
-            <th width="150">分类</th>
-            <th>技能</th>
-        </tr>
-        </thead>
-        <tr>
-            <td>21世纪技能</td>
-            <td>创造和革新能力</td>
-            <td><span>·识字与写字：认识常用汉字1600个</span><br/>
-
-                <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
-            </td>
-        </tr>
-    </table>
-
-
-    <div class="col-1-1 padding-right-20 margin-top-20 margin-bottom-20">
-        <h2>驱动性问题：</h2>
-        <span class="padding-left-6" ng-bind="vm.project.driven_issue"></span>
-
-        <h2>知识列表：</h2>
-
-        <div class="padding-left-6">
-            <ul>
-                <li ng-repeat="knowledge in vm.project.knowledge">
-                    <span ng-bind="knowledge.description"></span>
-                </li>
-            </ul>
+        </div>
+        <div class="row margin-bottom-20">
+            <h3>启动文档：</h3>
+            <div class="col-1-1 documents">
+                <div class="col-1-2" ng-repeat="doc in vm.getResources(RESOURCE_TYPES.project.document,vm.project.id)"><a ng-href="{{doc|uri}}" ng-bind="doc.name"></a></div>
+            </div>
         </div>
     </div>
+    <div class="col-1-1 margin-bottom-20">
+        <h3>课程标准：</h3>
+        <table class="table bg-white">
+            <thead>
+            <tr>
+                <th width="130">学科</th>
+                <th width="150">学段</th>
+                <th>课标</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>语文语文语文语文语文语文</td>
+                <td>1-3年级</td>
+                <td><span>·识字与写字：认识常用汉字1600个</span><br/>
 
-    <h2>量规：</h2>
-    <table class="table col-1-1">
-        <thead>
-        <tr>
-            <th>对应技能</th>
-            <th>量规标准</th>
-            <th>权重(%)</th>
-            <th>优秀</th>
-            <th>合格</th>
-            <th>能力有限</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>三角函数</td>
-            <td>标准</td>
-            <td>50%</td>
-            <td>优秀</td>
-            <td>合格</td>
-            <td>能力有限</td>
-        </tr>
-        <tr>
-            <td>三角函数</td>
-            <td>标准</td>
-            <td>50%</td>
-            <td>优秀</td>
-            <td>合格</td>
-            <td>能力有限</td>
-        </tr>
-        <tr>
-            <td>三角函数</td>
-            <td>标准</td>
-            <td>50%</td>
-            <td>优秀</td>
-            <td>合格</td>
-            <td>能力有限</td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="clear"></div>
+                    <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-1-1 margin-bottom-20">
+        <h3>技能：</h3>
+        <table class="table bg-white">
+            <thead>
+            <tr>
+                <th width="130">技能种类</th>
+                <th width="150">分类</th>
+                <th>技能</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>21世纪技能</td>
+                <td>创造和革新能力</td>
+                <td><span>·识字与写字：认识常用汉字1600个</span><br/>
+
+                    <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-1-1 margin-bottom-20">
+        <h3>驱动性问题：</h3>
+        <span ng-bind="vm.project.driven_issue"></span>
+    </div>
+    <div class="col-1-1 margin-bottom-20">
+        <h3>知识列表：</h3>
+        <ol>
+            <li ng-repeat="knowledge in vm.project.knowledge">
+                <span ng-bind="knowledge.description"></span>
+            </li>
+        </ol>
+    </div>
+    <div class="col-1-1 margin-bottom-20">
+        <h3>量规：</h3>
+        <table class="table bg-white">
+            <thead>
+            <tr>
+                <th>对应技能</th>
+                <th>量规标准</th>
+                <th>权重(%)</th>
+                <th>优秀</th>
+                <th>合格</th>
+                <th>能力有限</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>三角函数</td>
+                <td>标准</td>
+                <td>50%</td>
+                <td>优秀</td>
+                <td>合格</td>
+                <td>能力有限</td>
+            </tr>
+            <tr>
+                <td>三角函数</td>
+                <td>标准</td>
+                <td>50%</td>
+                <td>优秀</td>
+                <td>合格</td>
+                <td>能力有限</td>
+            </tr>
+            <tr>
+                <td>三角函数</td>
+                <td>标准</td>
+                <td>50%</td>
+                <td>优秀</td>
+                <td>合格</td>
+                <td>能力有限</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="center padding-20">
     <span class="btn btn-blue">发布任务</span>

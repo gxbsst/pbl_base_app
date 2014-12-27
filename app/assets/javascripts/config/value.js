@@ -37,6 +37,13 @@
                 }
             ],
             QINIU: {
+                buckets: {
+                    image: 'mooc-images',
+                    'static': 'mooc-attachments',
+                    video: 'mooc-video',
+                    mp4: 'mooc-video-mp4',
+                    ogv: 'mooc-video-ogv'
+                },
                 upload: 'http://up.qiniu.com',
                 mp4: 'http://mooc-video-mp4.qiniudn.com',
                 ogv: 'http://mooc-video-ogv.qiniudn.com',

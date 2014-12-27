@@ -10,14 +10,14 @@
     function ProjectEditReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, project) {
         var vm = this;
         vm.project = project;
-        vm.getResource = getResource;
+        vm.getResources = getResources;
 
         getProjectProducts();
         getProjectGauges();
         getProjectTechniques();
         getProjectStandards();
 
-        function getProjectProducts(){
+        function getProjectProducts() {
             ProjectProducts.all({
                 project_id: project.id
             }, function (result) {
@@ -35,7 +35,7 @@
             });
         }
 
-        function getProductSample(){
+        function getProductSample() {
             Resources.all({
                 owner_types: [
                     RESOURCE_TYPES.project.cover,
@@ -52,12 +52,12 @@
         function getProjectGauges() {
             ProjectGauges.all({
                 project_id: project.id
-            }, function(result){
+            }, function (result) {
                 project.rules = result.data;
             });
         }
 
-        function getProjectTechniques(){
+        function getProjectTechniques() {
             ProjectTechniques.all({
                 project_id: project.id
             }, function (result) {
@@ -65,7 +65,7 @@
             });
         }
 
-        function getProjectStandards(){
+        function getProjectStandards() {
             ProjectStandards.all({
                 project_id: vm.project.id
             }, function (result) {
@@ -73,8 +73,9 @@
             });
         }
 
-        function getResource(type, id){
-            return vm.resources && vm.resources.findOne(function (resource) {
+        function getResources(type, id, singular) {
+            vm.resources = vm.resources || [];
+            return vm.resources[singular ? 'findOne' : 'find'](function (resource) {
                 return resource.owner_type == type && resource.owner_id == id;
             });
         }

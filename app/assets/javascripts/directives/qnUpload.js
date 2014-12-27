@@ -15,7 +15,7 @@
             var config = {
                     url: QINIU.upload,
                     name: 'file',
-                    bucket: 'mooc-images'
+                    bucket: QINIU.buckets.image
                 },
                 onBegin = scope.$eval(attr.onBegin) || angular.noop,
                 onProgress = scope.$eval(attr.onProgress) || angular.noop,
