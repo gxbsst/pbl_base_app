@@ -19,11 +19,10 @@ Rails.application.routes.draw do
   end
   #resources :posts, defaults: { format: :json }
 
+  resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
   end
-
-  resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
 
   namespace :curriculum do
     resources :subjects, defaults: {format: 'json'}, only: %w(index)
@@ -32,6 +31,10 @@ Rails.application.routes.draw do
   end
 
   resources :gauges, defaults: {format: 'json'}, only: %w(index)
+  resource :gauge, defaults: {format: 'json'}, only: %w(show) do
+    resources :recommends, defaults: { format: :json }, only: %w(index)
+  end
+
   resources :product_forms, defaults: {format: 'json'}, only: %w(index)
 
   namespace :project do

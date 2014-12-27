@@ -28,13 +28,12 @@
     <div class="col-1-2">
         <div class="row margin-bottom-20">
             <h3>项目成员：60人</h3>
-                <span class="mar-2"><img class="img-radius"
-                                         src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
-                class="img-radius"
-                src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><img
-                class="img-radius"
-                src="http://img.edutec.com//FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/24/h/24/q/90/format/JPG"/><a
-                class="pull-right" href="#">查看更多</a> </span>
+            <div class="col-1-1 members" ng-init="vm.limit=5">
+                <span ng-repeat="user in vm.project.members|limitTo:vm.limit">
+                    <img ng-src="{{user|avatar}}" et-tips="content=user.name"/>
+                </span>
+                <a href="javascript:void(0);" ng-click="vm.toggle()" ng-bind="vm.showed?'收起':'全部'"></a>
+            </div>
         </div>
         <div class="row margin-bottom-20">
             <h3>启动文档：</h3>
@@ -53,14 +52,16 @@
                 <th>课标</th>
             </tr>
             </thead>
-            <tr>
-                <td>语文语文语文语文语文语文</td>
-                <td>1-3年级</td>
-                <td><span>·识字与写字：认识常用汉字1600个</span><br/>
-
-                    <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
-                </td>
+            <tbody>
+            <tr ng-repeat="entry in vm.project.standard_items">
+                <td ng-bind="entry.standard_item.parents.subject.name"></td>
+                <td ng-bind="entry.standard_item.parents.phase.name"></td>
+                <td ng-bind="entry.standard_item.content"></td>
             </tr>
+            <tr ng-if="!vm.project.standard_items">
+                <td colspan="3" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+            </tr>
+            </tbody>
         </table>
     </div>
     <div class="col-1-1 margin-bottom-20">
@@ -73,14 +74,16 @@
                 <th>技能</th>
             </tr>
             </thead>
-            <tr>
-                <td>21世纪技能</td>
-                <td>创造和革新能力</td>
-                <td><span>·识字与写字：认识常用汉字1600个</span><br/>
-
-                    <span>·先我们选择了“元素周期律和元素周期表”的内容作为问题解决教学案例，通过对教学实践、学生活动录音和调查问卷分析学生活动录音和调查问卷分析</span>
-                </td>
+            <tbody>
+            <tr ng-repeat="entry in vm.project.techniques">
+                <td ng-bind="entry.technique.parents.category.name"></td>
+                <td ng-bind="entry.technique.parents.sub_category.name"></td>
+                <td ng-bind="entry.technique.title"></td>
             </tr>
+            <tr ng-if="!vm.project.techniques">
+                <td colspan="3" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+            </tr>
+            </tbody>
         </table>
     </div>
     <div class="col-1-1 margin-bottom-20">
@@ -102,36 +105,21 @@
             <tr>
                 <th>对应技能</th>
                 <th>量规标准</th>
-                <th>权重(%)</th>
-                <th>优秀</th>
-                <th>合格</th>
-                <th>能力有限</th>
+                <th width="60">权重</th>
+                <th ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled"
+                    ng-bind="$index|gauge:vm.project.rule_template"></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>三角函数</td>
-                <td>标准</td>
-                <td>50%</td>
-                <td>优秀</td>
-                <td>合格</td>
-                <td>能力有限</td>
+            <tr ng-repeat="gauge in vm.project.rules" class="gauge-item">
+                <td ng-bind="gauge.technique.title"></td>
+                <td ng-bind="gauge.standard"></td>
+                <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+                <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
+                <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
             </tr>
-            <tr>
-                <td>三角函数</td>
-                <td>标准</td>
-                <td>50%</td>
-                <td>优秀</td>
-                <td>合格</td>
-                <td>能力有限</td>
-            </tr>
-            <tr>
-                <td>三角函数</td>
-                <td>标准</td>
-                <td>50%</td>
-                <td>优秀</td>
-                <td>合格</td>
-                <td>能力有限</td>
+            <tr ng-if="!vm.project.rules">
+                <td colspan="8" class="loading"><i class="pf-spinner-2 rotation"></i></td>
             </tr>
             </tbody>
         </table>

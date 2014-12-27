@@ -5,9 +5,9 @@
         .module('app.directives')
         .directive('etTags', etTags);
 
-    etTags.$inject = ['$injector', '$document', '$timeout'];
+    etTags.$inject = ['$document', '$timeout'];
 
-    function etTags($injector, $document, $timeout) {
+    function etTags($document, $timeout) {
         return {
             require: 'etTags',
             restrict: 'A',
@@ -27,7 +27,7 @@
                 onAdd = scope.$eval(attr.onAdd) || angular.noop,
                 onRemove = scope.$eval(attr.onRemove) || angular.noop,
                 onChange = scope.$eval(attr.onChange) || angular.noop,
-                bodyHeight, focusout;
+                docHeight, focusout;
 
             scope.$watch(attr.ngModel, function (ngModel) {
                 ctrl.ngModel = ngModel;
@@ -60,6 +60,7 @@
 
             ctrl.input = '';
             ctrl.tags = [];
+            ctrl.template = 'directives/et-tags-template.html';
             ctrl.add = add;
             ctrl.remove = remove;
             ctrl.formatter = formatter;
@@ -69,8 +70,8 @@
 
             inputElement
                 .on('focusin', function () {
+                    docHeight = $document.height();
                     ctrl.focusin = true;
-                    bodyHeight = body.height();
                     getOptions();
                 }).on('focusout', function () {
                     scope.$apply(function () {
@@ -97,7 +98,7 @@
                             ctrl.$options = options;
                             ctrl.$input = ctrl.input;
                             $timeout(function () {
-                                ctrl.top = optionsElement.outerHeight() + element.offset().top + element.outerHeight() > bodyHeight;
+                                ctrl.top = optionsElement.outerHeight() + element.offset().top + element.outerHeight() > docHeight;
                             });
                         });
                 }

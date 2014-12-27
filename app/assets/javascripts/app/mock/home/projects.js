@@ -21,9 +21,9 @@
         })*/
 
         //删除一个PBL表单,DELETE,暂时不用
-        .mock('/projects', 'DELETE', {
+        /*.mock('/projects', 'DELETE', {
             'data': {'result':'success'}
-        })
+        })*/
 
         //调用一个PBL
         /*.mock('/projects/:projectId', 'GET', {

@@ -28,6 +28,13 @@
                 avatar: '@avatar'
             }]
         })
+        .mock('/project/teachers', 'GET', {
+            'data|10-20':[{
+                id:'@guid',
+                name:'@name',
+                avatar: '@avatar'
+            }]
+        })
         .mock('/project/members/:memberId', 'POST', {
             data:{ success: true }
         });

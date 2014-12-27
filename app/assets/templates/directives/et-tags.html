@@ -2,9 +2,9 @@
     <input type="hidden" ng-model="tagsConfig.ngModel"/>
     <div ng-repeat="tag in tagsConfig.tags" class="et-tags-item"><span ng-bind="tag.$label"></span><i class="pf-cross" ng-click="tagsConfig.remove(tag,$event)"></i></div>
     <input type="text" class="et-tag-input" ng-model="tagsConfig.input" ng-keyup="tagsConfig.onKeyup($event)" placeholder="{{tagsConfig.placeholder}}"/>
-    <div class="et-tags-options" ng-class="{'et-top-options':tagsConfig.top}" ng-show="tagsConfig.focusin&&tagsConfig.$options.length">
-        <ul class="selection" et-scrollbar>
-            <li class="et-tags-option" ng-class="{'et-tags-selected active':tagsConfig.isSelected(option)}" ng-click="tagsConfig.select(option)" ng-bind="option.label" ng-repeat="option in tagsConfig.$options"></li>
-        </ul>
+    <div class="et-tags-options" ng-class="{'et-top-options':tagsConfig.top}"
+         ng-show="tagsConfig.focusin&&tagsConfig.$options.length"
+         et-init="$tagsCtrl=tagsConfig;$options=tagsConfig.$options">
+        <div ng-include="tagsConfig.template"></div>
     </div>
 </div>

@@ -14,6 +14,12 @@
                 image: 'http://img.edutec.com',
                 'static': 'http://static.edutec.com'
             },
+            DEFAULTS: {
+                avatars: {
+                    user: 'default-avatar-user',
+                    group: 'default-avatar-group'
+                }
+            },
             TOOLBARS: [
                 {
                     icon: 'pf-user-heart',

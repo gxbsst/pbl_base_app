@@ -54,7 +54,7 @@
         }
     });
 
-    Mock
+    /*Mock
         .mock('/posts', {
             'data|1-15': [{
                 'id|+1': 1,
@@ -92,6 +92,6 @@
             'constellation': '@constellation',
             'gender': '@gender',
             'avatar': '@avatar'
-        });
+        });*/
 
 })();

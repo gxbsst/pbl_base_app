@@ -39,13 +39,14 @@
 
         function setDisabled(disabled, $index) {
             vm.project.ruleHeads[$index].disabled = disabled;
+            vm.project.rule_head = (vm.project.ruleHeads.map(function (head) {
+                return head.disabled ? 0 : 1;
+            }).join('') + '11111').substr(0, 5);
             Projects.update({
                 projectId: project.id
             }, {
                 project: {
-                    rule_head: (vm.project.ruleHeads.map(function (head) {
-                        return head.disabled ? 0 : 1;
-                    }).join('') + '11111').substr(0, 5)
+                    rule_head: vm.project.rule_head
                 }
             });
         }
@@ -123,7 +124,7 @@
                     rule: {
                         project_id: project.id,
                         gauge_id: gauge.id,
-                        technique_id: gauge.technique_id,
+                        technique_id: gauge.technique.id,
                         standard: gauge.standard,
                         weight: gauge.weight,
                         level_1: gauge.level_1,

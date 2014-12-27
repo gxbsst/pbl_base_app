@@ -5,17 +5,31 @@
         .module('app.pbl')
         .controller('ProjectEditReleaseController', ProjectEditReleaseController);
 
-    ProjectEditReleaseController.$inject = ['RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'project'];
+    ProjectEditReleaseController.$inject = ['$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'project'];
 
-    function ProjectEditReleaseController(RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, project) {
+    function ProjectEditReleaseController($scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project) {
         var vm = this;
         vm.project = project;
         vm.getResources = getResources;
+        vm.limit = 5;
+        vm.toggle = toggle;
 
         getProjectProducts();
         getProjectGauges();
         getProjectTechniques();
         getProjectStandards();
+        getProjectMembers();
+        getProjectTeachers();
+
+        $scope.$watch(function () {
+            return vm.project.rule_head;
+        }, function (heads) {
+            vm.project.ruleHeads = (heads || '11111').substr(0, 5).split('').map(function (v, i) {
+                return {
+                    disabled: v == 0
+                }
+            });
+        });
 
         function getProjectProducts() {
             ProjectProducts.all({
@@ -61,7 +75,7 @@
             ProjectTechniques.all({
                 project_id: project.id
             }, function (result) {
-                vm.techniques = result.data;
+                vm.project.techniques = result.data;
             });
         }
 
@@ -71,6 +85,32 @@
             }, function (result) {
                 vm.project.standard_items = result.data;
             });
+        }
+
+        function getProjectMembers() {
+            ProjectMembers.all({
+                project_id: vm.project.id
+            }, function (result) {
+                vm.project.members = result.data;
+            });
+        }
+
+        function getProjectTeachers() {
+            ProjectTeachers.all({
+                project_id: vm.project.id
+            }, function (result) {
+                vm.project.teachers = result.data;
+            });
+        }
+
+        function toggle() {
+            if (vm.showed) {
+                vm.limit = 5;
+                vm.showed = false;
+            } else {
+                vm.limit = vm.project.members.length;
+                vm.showed = true;
+            }
         }
 
         function getResources(type, id, singular) {

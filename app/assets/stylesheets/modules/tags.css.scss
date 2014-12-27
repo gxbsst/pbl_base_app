@@ -24,6 +24,9 @@
       overflow:auto;
       @include border-radius(3px);
       @include box-shadow(0 0 12px 0 #c0c0c0);
+      & > li:before{
+        display:none;
+      }
       & > li:last-of-type{
         border:none;
       }

@@ -3,17 +3,17 @@
 
     angular
         .module('app.directives')
-        .directive('etGauge', etGauge);
+        .directive('etGaugeField', etGaugeField);
 
-    etGauge.$inject = ['$timeout'];
+    etGaugeField.$inject = ['$timeout'];
 
-    function etGauge($timeout) {
+    function etGaugeField($timeout) {
         return {
-            restrict: 'C',
-            link: etGaugeLink
+            restrict: 'A',
+            link: etGaugeFieldLink
         };
 
-        function etGaugeLink(scope, element, attr) {
+        function etGaugeFieldLink(scope, element, attr) {
 
             var textarea = element.find('textarea'),
                 model = textarea.attr('ng-model');

@@ -48,6 +48,26 @@
             cursor:no-drop;
           }
         }
+        &.percentage{
+          position:relative;
+          &:before{
+            position:absolute;
+            right:5px;
+            top:50%;
+            margin-top:-15px;
+            display:block;
+            line-height:30px;
+            font-size:12px;
+            font-family:Arial;
+            color:#ccc;
+            content:'%';
+          }
+          & > textarea{
+            width:100%;
+            padding:8px 20px 8px 8px;
+            background:transparent;
+          }
+        }
         &.gauge-btn{
           cursor:pointer;
         }
@@ -549,6 +569,43 @@
       overflow:hidden;
       white-space:nowrap;
       text-overflow:ellipsis;
+    }
+  }
+  .members{
+    $size: 40px;
+    $scale: .65;
+    & > span{
+      position:relative;
+      display:block;
+      width:$size * $scale;
+      height:$size * $scale;
+      float:left;
+      margin:2px;
+      & > img{
+        position:absolute;
+        left:50%;
+        top:50%;
+        width:$size;
+        height:$size;
+        margin-top:-$size/2;
+        margin-left:-$size/2;
+        @include transition(.2s ease all);
+        @include transform(translate3d(0, 0, 0));
+        @include transform(scale($scale, $scale));
+        @include border-radius(50%);
+        @include opacity(.75);
+        &:hover{
+          z-index:1;
+          @include transform(scale(1, 1));
+          @include opacity(1);
+        }
+      }
+    }
+    & > a{
+      display:block;
+      float:left;
+      margin:2px;
+      line-height:$size * $scale;
     }
   }
 }
