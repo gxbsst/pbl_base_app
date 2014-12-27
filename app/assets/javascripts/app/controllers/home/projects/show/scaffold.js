@@ -13,6 +13,7 @@
         vm.project = project;
         vm.showTask=showTask;
         vm.showtask=[];
+        console.log(vm.project);
 
         function showTask(id){
             //for (var i=0;i<vm.project.tasks.length;i++){

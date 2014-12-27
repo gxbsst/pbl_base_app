@@ -17,7 +17,7 @@
                 <strong>开始时间：</strong><span>2014-01-12</span> <strong>结束时间：</strong><span>2014-01-13</span><br/>
                 <strong>驱动性问题：</strong>
                 <div class="row" ng-bind-html="vm.project.driven_issue||'尚未填写驱动性问题'"></div>
-                <a ui-sref="base.home.projects.edit.design" class="pf-doc-eye info-edit"></a>
+                <a ui-sref="base.home.projects.edit.design({projectId:vm.project.id})" class="pf-doc-eye info-edit"></a>
             </div>
         </div>
         <div class="info-description col-1-1">
@@ -119,6 +119,50 @@
                         <i class="btn-mini pf-cross pull-right" ng-click="vm.removeDocument(doc)"></i>
                     </li>
                 </ul>
+            </div>
+            <div class="row resouce-list-group">
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
+                <a class="resouce-item">
+                    <div class="item-logo"> <span class="pf-documents"></span></div>
+                    <div>
+                        <div class="item-title">徒步浏览量规</div>
+                        <div class="item-time">2014-12-12 20：20</div>
+                    </div>
+                </a>
             </div>
             <div class="text-right">
                  <span class="btn btn-blue" ng-class="{uploading:vm.project.$uploading_doc}"
