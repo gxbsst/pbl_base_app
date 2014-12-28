@@ -1,32 +1,3 @@
 .img-radius{
   border-radius: 50%;
 }
-.menu-right{
-  h2{
-    font-size: 14px;
-    font-weight:700;
-  }
-  a {
-      color: #666;
-      text-decoration: none;
-      &:hover {
-        color: #666;
-        text-decoration: underline;
-    }
-  }
-}
-.know-people{
-  li{
-     border-bottom: #e5e5e5 solid 1px;
-    padding:8px 0 8px 10px;
-    &:after {
-      display:block;
-      clear:both;
-      visibility:hidden;
-      height:0;
-      overflow:hidden;
-      content:".";
-    }
-  }
- }
-

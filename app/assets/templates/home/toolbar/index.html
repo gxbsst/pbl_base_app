@@ -2,7 +2,7 @@
     <div class="toolbar-icons">
         <i ng-repeat="tool in vm.toolbar" class="toolbar-icon" ng-class="tool.icon + ' ' + (tool.active ? 'active' : '')" ng-click="vm.setCurrentTool(tool)" role="link"></i>
     </div>
-    <div class="toolbar-panel" ng-class="{show:vm.current.active}">
+    <div class="toolbar-panel scrollbar" ng-class="{show:vm.current.active}" et-scrollbar>
         <div ng-include="vm.current.src"></div>
     </div>
 </div>

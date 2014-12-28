@@ -57,10 +57,15 @@
             },
             RESOURCE_TYPES: {
                 project: {
+                    project: 'Project',
                     cover: 'ProjectCover',
                     document: 'ProjectDocument',
                     product: 'ProductSample'
                 }
+            },
+            ROLES: {
+                teacher: 'Teacher',
+                student: 'Student'
             },
             DURATION_UNITS: [
                 {id: 1, title: '小时'},

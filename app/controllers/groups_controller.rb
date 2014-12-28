@@ -1,11 +1,13 @@
 class GroupsController < ApplicationBaseController
 
   def index
-    @groups = Pbl::Models::Groups::Group.where(params.permit(:include))
+    @groups = Pbl::Models::Groups::Group.where(user_id: params[:user_id])
   end
 
   def create
-    @group = Pbl::Models::Groups::Group.create(params[:group])
+    group = params[:group]
+    group[:user_id] ||= current_user.id
+    @group = Pbl::Models::Groups::Group.create(group)
     render :show
   end
 

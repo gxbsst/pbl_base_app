@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :index, only: %w(index)
 
   resources :home, only: %w(index)
-  resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete)
+  resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete) do
+    resources :roles, defaults: {format: 'json'}, only: %w(index create destroy)
+  end
   resources :standard_decompositions, defaults: {format: 'json'}
 
   resources :qiniu_tokens, format: :json, only: %w(create)
@@ -22,9 +24,10 @@ Rails.application.routes.draw do
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
-    resources :follows, defaults: { format: :json }, only: %w(index create)
-    resources :groups, defaults: { format: :json }, only: %w(index create)
+    resources :follows, defaults: { format: :json }, only: %w(index create destroy)
   end
+
+  resources :groups, defaults: { format: :json }, only: %w(index create show update destroy)
 
   namespace :curriculum do
     resources :subjects, defaults: {format: 'json'}, only: %w(index)
@@ -33,9 +36,7 @@ Rails.application.routes.draw do
   end
 
   resources :gauges, defaults: {format: 'json'}, only: %w(index)
-  resource :gauge, defaults: {format: 'json'}, only: %w(show) do
-    resources :recommends, defaults: { format: :json }, only: %w(index)
-  end
+  resource :gauge_recommends, defaults: { format: :json }, only: %w(show)
 
   resources :product_forms, defaults: {format: 'json'}, only: %w(index)
 

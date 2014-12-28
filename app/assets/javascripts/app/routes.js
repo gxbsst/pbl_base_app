@@ -17,9 +17,10 @@
                 abstract: true,
                 url: '/',
                 template: '<div ui-view></div>',
-                controller: 'BaseController',
+                controller: 'BaseController as base',
                 resolve: {
-                    currentUser: currentUserResolve
+                    currentUser: getCurrentUser,
+                    friends: getFriends
                 }
             })
             .state('base.demos', {
@@ -36,11 +37,34 @@
                 }
             });
 
-        currentUserResolve.$inject = ['$rootScope', 'User'];
+        getCurrentUser.$inject = ['$rootScope', '$q', 'User'];
 
-        function currentUserResolve($rootScope, User){
-            $rootScope.currentUser = $rootScope.currentUser || User.get();
-            return $rootScope.currentUser;
+        function getCurrentUser($rootScope, $q, User){
+            var defer = $q.defer();
+            if($rootScope.currentUser){
+                defer.resolve($rootScope.currentUser);
+            }else{
+                User.get(function (result) {
+                    $rootScope.currentUser = result.data;
+                    defer.resolve($rootScope.currentUser);
+                });
+            }
+            return defer.promise;
+        }
+
+        getFriends.$inject = ['$rootScope', '$q', 'Friends'];
+
+        function getFriends($rootScope, $q, Friends){
+            var defer = $q.defer();
+            if($rootScope.friends){
+                defer.resolve($rootScope.friends);
+            }else{
+                Friends.get(function (result) {
+                    $rootScope.friends = result.data;
+                    defer.resolve($rootScope.friends);
+                });
+            }
+            return defer.promise;
         }
     }
 

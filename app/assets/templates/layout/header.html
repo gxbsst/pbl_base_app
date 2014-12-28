@@ -16,7 +16,7 @@
                     note list demo abc sdfsdf
                 </div>
             </li>
-            <li class="top-avatar" ng-hover="hover">
+            <li class="top-avatar" ng-hover="hover" ng-if="currentUser">
                 <i class="top-right-btn"><a ui-sref="root.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>
                 <div class="sub-menu">
                     user menu demo

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditInfoController', ProjectEditInfoController);
 
-    ProjectEditInfoController.$inject = ['$q', 'RESOURCE_TYPES', 'Friends', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
+    ProjectEditInfoController.$inject = ['$rootScope', '$q', '$timeout', 'RESOURCE_TYPES', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
 
-    function ProjectEditInfoController($q, RESOURCE_TYPES, Friends, Resources, Projects, ProjectTeachers, Regions, project) {
+    function ProjectEditInfoController($rootScope, $q, $timeout, RESOURCE_TYPES, Resources, Projects, ProjectTeachers, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};
@@ -109,9 +109,9 @@
             });
         }
 
-        function getTeachers(){
+        function getTeachers() {
             ProjectTeachers.all({
-                project_id: project.id
+                projectId: project.id
             }, function (result) {
                 vm.teachers = result.data;
             });
@@ -213,16 +213,18 @@
 
         function teachersFilter() {
             var self = this,
+                friends = $rootScope.friends,
                 defer = $q.defer();
-            Friends.all({
-                keyword: self.input
-            }, function (result) {
-                result.data.map(function (option) {
-                    option.label = option.name;
-                    return option;
+            if (self.input) {
+                friends = friends.find(function (user) {
+                    return user.username.toLowerCase().indexOf(self.input.toLowerCase()) >= 0;
                 });
-                defer.resolve(result.data);
+            }
+            friends = friends.map(function (option) {
+                option.label = option.username;
+                return option;
             });
+            defer.resolve(friends);
             return defer.promise;
         }
 

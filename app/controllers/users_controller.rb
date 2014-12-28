@@ -1,7 +1,7 @@
 class UsersController < ApplicationBaseController
 
   def index
-    @users = Pbl::Models::Users::User.all
+    @users = Pbl::Models::Users::User.all(limit: params[:limit])
   end
 
   def create

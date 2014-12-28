@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     Mock
-        .mock('/friends', {
+        /*.mock('/friends', {
             'data|10-20':[{
                 id:'@guid',
                 name:'@name',
@@ -20,7 +20,7 @@
                 name:'@name',
                 avatar: '@avatar'
             }]
-        })
+        })*/
         .mock('/project/members', 'GET', {
             'data|30-60':[{
                 id:'@guid',

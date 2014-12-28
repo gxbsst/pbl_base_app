@@ -5,7 +5,9 @@ class FollowsController < ApplicationController
   end
 
   def create
-    @follow = Pbl::Models::Follow.create(params[:follow])
+    follow = params[:follow]
+    follow[:follower_id] ||= current_user.id
+    @follow = Pbl::Models::Follow.create(follow)
     render :show
   end
 

@@ -61,21 +61,23 @@
         }, RESOURCE_ACTIONS);
     }
 
-    ProjectMembers.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    ProjectMembers.$inject = ['$resource', 'ROLES', 'RESOURCE_ACTIONS'];
 
-    function ProjectMembers($resource, RESOURCE_ACTIONS) {
-        return $resource('/project/members/:memberId', {
-            action: '@action',
-            memberId: '@memberId'
+    function ProjectMembers($resource, ROLES, RESOURCE_ACTIONS) {
+        return $resource('/projects/:projectId/roles/:roleId', {
+            projectId: '@projectId',
+            roleId: '@roleId',
+            name: ROLES.student
         }, RESOURCE_ACTIONS);
     }
 
-    ProjectTeachers.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+    ProjectTeachers.$inject = ['$resource', 'ROLES', 'RESOURCE_ACTIONS'];
 
-    function ProjectTeachers($resource, RESOURCE_ACTIONS) {
-        return $resource('/project/teachers/:teacherId', {
-            action: '@action',
-            teacherId: '@teacherId'
+    function ProjectTeachers($resource, ROLES, RESOURCE_ACTIONS) {
+        return $resource('/projects/:projectId/roles/:roleId', {
+            projectId: '@projectId',
+            roleId: '@roleId',
+            name: ROLES.teacher
         }, RESOURCE_ACTIONS);
     }
 

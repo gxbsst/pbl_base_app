@@ -1,15 +1,12 @@
-<div class="col-1-1 no-padding margin-top-10 menu-right" ng-controller="toolbarUserController as vm">
-  <h2 class="margin-left-20">可能认识的人</h2>
-    <div class="hr margin-bottom-2"></div>
-    <ul class="know-people" style="height: 860px; overflow: auto;">
-        <li ng-repeat="user in vm.toolbarUser">
-            <img class="img-radius aligm-middle pull-left" ng-src="{{user.photo}}"/>
-            <div class="pull-left margin-left-6 aligm-middle">
-                <b ng-bind="user.author"></b><br/>
-                <span ng-bind="user.title|trim:24"></span>
-            </div>
-            <span class="btn-white pull-right margin-right-6 margin-top-10 aligm-middle"><b class="margin-right-2">+</b>添加</span>
+<div ng-controller="ToolbarUsersController as vm">
+    <h2>可能认识的人</h2>
+    <ul>
+        <li ng-repeat="user in vm.users">
+            <img ng-src="{{user|avatar}}" />
+            <strong ng-bind="user.username"></strong>
+            <span class="btn btn-sm" ng-if="!HANDLES.isFollowed(user.id)" ng-click="HANDLES.follow(user.id)">关注TA</span>
+            <span class="btn btn-gray btn-sm" ng-if="HANDLES.isFollowed(user.id)" ng-click="HANDLES.unFollow(user.id)">取消关注</span>
         </li>
     </ul>
-    <p><a class="margin-left-10" href="#">查看更多</a> <i class="pf-arrow-down pull-right margin-right-10" style="cursor: pointer;"></i></p>
+    <a class="toolbar-more" href="#">查看更多 <i class="pf-arrow-down"></i></a>
 </div>
