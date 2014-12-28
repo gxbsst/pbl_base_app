@@ -11,8 +11,8 @@
 
         var vm = this;
         project.cover = project.cover || {};
-        vm.resources = [];
         vm.project = project;
+        vm.project.resources = [];
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
         vm.findByType = findByType;
@@ -175,12 +175,12 @@
                     RESOURCE_TYPES.project.document].join(','),
                 owner_ids: project.id
             }, function (result) {
-                vm.resources = result.data;
+                vm.project.resources = result.data;
             });
         }
 
         function findByType(ownerType, multiple) {
-            return vm.resources[multiple ? 'find' : 'findOne'](function (resource) {
+            return vm.project.resources[multiple ? 'find' : 'findOne'](function (resource) {
                 return resource.owner_type == ownerType;
             });
         }

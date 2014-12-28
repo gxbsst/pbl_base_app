@@ -11,7 +11,7 @@
         <label class="control-label">请选择1-3条课程标准：</label>
         <span class="btn btn-gray btn-sm" role="button"
               et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/edit/curriculums.html'"><i
-                class="pf-plus"></i> 选择课标</span>
+                class="pf-expand"></i> 选择课标</span>
         <div class="row">
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in vm.project.standard_items">
@@ -26,7 +26,7 @@
         <input type="hidden" ng-model="vm.project.skills"/>
         <span class="btn btn-gray btn-sm" role="button"
               et-modal="title='选择技能';padding=0;controller='SkillsController as vm';src='home/projects/edit/skills.html'"><i
-                class="pf-plus"></i> 选择技能</span>
+                class="pf-expand"></i> 选择技能</span>
 
         <div class="row">
             <ul class="list-group">
@@ -110,10 +110,10 @@
     <div class="form-group block product-final block-yellow">
         <div class="row">
             <span class="btn btn-sm margin-right-6" role="button"
-                  et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/edit/product_forms.html'">选择产品形态</span>
+                  et-modal="$project=vm.project;$product=vm.project.final_product;$isFinal=true;title='选择产品形态';padding=0;controller='ProductFormsController as vm';src='home/projects/edit/product_forms.html'"><i class="pf-documents"></i> 选择产品形态</span>
             <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.finalProduct.$uploading}" ng-init="vm.finalProduct=vm.project.final_product" role="button" ng-if="vm.project.final_product"
                   qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:vm.finalProduct.id}"
-                  on-begin="vm.onUploadBegin(vm.finalProduct)" on-success="vm.onUploadSuccess(vm.finalProduct)">上传示例</span>
+                  on-begin="vm.onUploadBegin(vm.finalProduct)" on-success="vm.onUploadSuccess(vm.finalProduct)"><i class="pf-cloud-upload"></i> 上传示例</span>
         </div>
         <div class="row margin-top-8" ng-if="vm.finalProduct" et-init="vm.finalProduct.resource=vm.findByOwner(vm.finalProduct.id)">
             <div class="col-1-2">

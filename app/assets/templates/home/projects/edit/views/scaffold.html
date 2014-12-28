@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-4-12">
 
-                    <span class="btn btn-gray" role="button" ng-click="vm.addKnowledge()" ><i class="pf-plus"></i> 新增知识点</span>
+                    <span class="btn btn-gray" role="button" ng-click="vm.addKnowledge()" ><i class="pf-expand"></i> 新增知识点</span>
                </div>
             </div>
             <div class="col-1-1">
@@ -57,7 +57,7 @@
 
         <div class="form-group">
             <label class="control-label">任务列表：</label>
-                <span class="btn btn-gray btn" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';width='70%';src='home/projects/edit/addtask.html'"><i class="pf-plus"></i>增加任务</span>
+                <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';width='70%';src='home/projects/edit/addtask.html'"><i class="pf-expand"></i> 增加任务</span>
 
             <div class="col-1-1 tasks-group">
                 <div class="tasks-group-item" ng-repeat="task in vm.project.tasks track by $index">

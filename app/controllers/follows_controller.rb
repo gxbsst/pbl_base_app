@@ -1,25 +1,25 @@
-class FollowsController < UserController
+class FollowsController < ApplicationController
 
   def index
-    @follows = Follow.where(params.permit(:include))
+    @follows = Pbl::Models::Follow.where(params.permit(:include))
   end
 
   def create
-    @follow = Follow.create(params[:follow])
+    @follow = Pbl::Models::Follow.create(params[:follow])
     render :show
   end
 
   def show
-    @follow = Follow.find(params[:id], include_param)
+    @follow = Pbl::Models::Follow.find(params[:id], include_param)
   end
 
   def update
-    @follow = Follow.update(params[:id], params[:follow])
+    @follow = Pbl::Models::Follow.update(params[:id], params[:follow])
     render :show
   end
 
   def destroy
-    @follow = Follow.destroy(params[:id])
+    @follow = Pbl::Models::Follow.destroy(params[:id])
     render :show
   end
 

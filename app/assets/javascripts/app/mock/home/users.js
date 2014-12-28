@@ -22,14 +22,14 @@
             }]
         })
         .mock('/project/members', 'GET', {
-            'data|10-20':[{
+            'data|30-60':[{
                 id:'@guid',
                 name:'@name',
                 avatar: '@avatar'
             }]
         })
         .mock('/project/teachers', 'GET', {
-            'data|10-20':[{
+            'data|2-6':[{
                 id:'@guid',
                 name:'@name',
                 avatar: '@avatar'

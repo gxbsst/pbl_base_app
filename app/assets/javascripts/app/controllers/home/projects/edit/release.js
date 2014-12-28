@@ -10,8 +10,9 @@
     function ProjectEditReleaseController($scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project) {
         var vm = this;
         vm.project = project;
+        vm.project.resources = [];
         vm.getResources = getResources;
-        vm.limit = 5;
+        vm.limit = 10;
         vm.toggle = toggle;
 
         getProjectProducts();
@@ -45,11 +46,11 @@
                     products.remove(findFinal);
                 }
                 vm.project.products = result.data;
-                getProductSample();
+                getProjectResources();
             });
         }
 
-        function getProductSample() {
+        function getProjectResources() {
             Resources.all({
                 owner_types: [
                     RESOURCE_TYPES.project.cover,
@@ -59,7 +60,7 @@
                     return product.id;
                 })).join(',')
             }, function (result) {
-                vm.resources = result.data;
+                vm.project.resources = result.data;
             });
         }
 
@@ -105,7 +106,7 @@
 
         function toggle() {
             if (vm.showed) {
-                vm.limit = 5;
+                vm.limit = 10;
                 vm.showed = false;
             } else {
                 vm.limit = vm.project.members.length;
@@ -114,8 +115,7 @@
         }
 
         function getResources(type, id, singular) {
-            vm.resources = vm.resources || [];
-            return vm.resources[singular ? 'findOne' : 'find'](function (resource) {
+            return vm.project.resources[singular ? 'findOne' : 'find'](function (resource) {
                 return resource.owner_type == type && resource.owner_id == id;
             });
         }

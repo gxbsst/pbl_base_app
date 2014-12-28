@@ -1,7 +1,7 @@
 class FriendsController < ApplicationController
 
   def index
-    @users = Pbl::Models::Rule.where(user_id: current_user.id)
+    @user = Pbl::Models::Users::User.find(current_user.id, include: 'friends')
   end
 
 end

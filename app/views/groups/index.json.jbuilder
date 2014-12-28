@@ -1,0 +1,1 @@
+json.extract! @groups, :data, :meta if @groups

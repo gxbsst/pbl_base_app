@@ -580,7 +580,7 @@
       width:$size * $scale;
       height:$size * $scale;
       float:left;
-      margin:2px;
+      margin:4px;
       & > img{
         position:absolute;
         left:50%;
@@ -604,7 +604,7 @@
     & > a{
       display:block;
       float:left;
-      margin:2px;
+      margin:4px;
       line-height:$size * $scale;
     }
   }
@@ -730,7 +730,7 @@
         color:$hit-color;
       }
       &.last{
-        margin-right:0px;
+        margin-right:0;
       }
     }
   }

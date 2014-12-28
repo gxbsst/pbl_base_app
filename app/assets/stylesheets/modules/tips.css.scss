@@ -9,9 +9,10 @@
   text-align:center;
   font-size:12px;
   box-shadow:0 0 15px 0 #9f9f9f;
-  @include opacity(.9);
+  @include opacity(.95);
   @include border-radius(3px);
   behavior:url('PIE.htc') \0;
+  z-index:1;
   &.et-tips-block{
     text-align:inherit;
     padding:18px;

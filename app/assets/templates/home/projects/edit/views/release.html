@@ -1,9 +1,9 @@
 <div class="col-1-1 project-release">
     <i class="pf-preview-flag"></i>
-    <div class="col-1-1 info " et-init="vm.project.cover=vm.getResource(RESOURCE_TYPES.project.cover,vm.project.id)">
+    <div class="col-1-1 info " et-init="vm.project.cover=vm.getResources(RESOURCE_TYPES.project.cover,vm.project.id,true)">
         <div class="cover">
-            <span class="text-red" ng-if="vm.resources&&!vm.project.cover">尚未上传封面</span>
-            <span class="text-gray" ng-if="!vm.resources"><i class="pf-spinner-2 rotation"></i></span>
+            <span class="text-red" ng-if="vm.project.resources.length&&!vm.project.cover">尚未上传封面</span>
+            <span class="text-gray" ng-if="!vm.project.resources.length"><i class="pf-spinner-2 rotation"></i></span>
             <img ng-src="{{vm.project.cover.key|thumb:'120x120'}}" ng-if="vm.project.cover" />
         </div>
         <h1 ng-bind="vm.project.name"></h1>
@@ -14,23 +14,27 @@
     </div>
     <div class="clearfix"></div>
     <div class="hr"></div>
-    <div class="col-1-2" et-init="finalProductResource=vm.getResources(RESOURCE_TYPES.project.product,vm.project.final_product.id,true)">
+    <div class="col-1-2" et-init="vm.project.final_product.resource=vm.getResources(RESOURCE_TYPES.project.product,vm.project.final_product.id,true)">
         <div class="row margin-bottom-20">
-            <h3>指导老师：</h3>
-            <span>张骞，李蒙</span>
+            <h3>指导老师：<span ng-bind="vm.project.teachers.length||0"></span>人</h3>
+            <div class="col-1-1 members">
+                <span ng-repeat="user in vm.project.teachers" et-tips="content=user.name">
+                    <img ng-src="{{user|avatar}}"/>
+                </span>
+            </div>
         </div>
         <div class="row margin-bottom-20">
             <h3>最终产品：</h3>
-            <strong>产品形态：</strong><span ng-bind="vm.project.final_product.product_form.name"></span><br/>
-            <strong>产品示例：</strong><a ng-href="{{finalProductResource|uri}}" target="_blank" ng-bind="finalProductResource.name"></a>
+            <strong>产品形态：</strong><span ng-bind="vm.project.final_product.product_form.name" et-tips="delay=150;black=false;content=vm.project.final_product.product_form.description"></span><br/>
+            <strong>产品示例：</strong><a ng-href="{{vm.project.final_product.resource|uri}}" target="_blank" ng-bind="vm.project.final_product.resource.name"></a>
         </div>
     </div>
     <div class="col-1-2">
         <div class="row margin-bottom-20">
-            <h3>项目成员：60人</h3>
-            <div class="col-1-1 members" ng-init="vm.limit=5">
-                <span ng-repeat="user in vm.project.members|limitTo:vm.limit">
-                    <img ng-src="{{user|avatar}}" et-tips="content=user.name"/>
+            <h3>项目成员：<span ng-bind="vm.project.members.length||0"></span>人</h3>
+            <div class="col-1-1 members">
+                <span ng-repeat="user in vm.project.members|limitTo:vm.limit" et-tips="content=user.name">
+                    <img ng-src="{{user|avatar}}"/>
                 </span>
                 <a href="javascript:void(0);" ng-click="vm.toggle()" ng-bind="vm.showed?'收起':'全部'"></a>
             </div>
@@ -98,7 +102,7 @@
             </li>
         </ol>
     </div>
-    <div class="col-1-1 margin-bottom-20">
+    <div class="col-1-1">
         <h3>量规：</h3>
         <table class="table bg-white">
             <thead>
@@ -125,6 +129,6 @@
         </table>
     </div>
 </div>
-<div class="center padding-20">
-    <span class="btn btn-blue">发布任务</span>
+<div class="col-1-1 center padding-20">
+    <span class="btn btn-lg btn-blue"><i class="pf-doc-eye"></i> 发布任务</span>
 </div>
