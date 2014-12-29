@@ -1,0 +1,135 @@
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">任务描述：</label>
+        <div class="col-7-8">
+            <span ng-bind="task.description"></span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">场地：</label>
+        <div class="col-7-8">
+            <span ng-bind="task.site"></span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">任务类型：</label>
+        <div class="col-7-8">
+            <span ng-show="task.task_type=='1'">学科类任务</span>
+            <span ng-show="task.task_type=='2'">评价类任务</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 tasks-group-item-form" ng-show="task.task_type==1">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">学科：</label>
+        <div class="col-7-8">
+            <span>语文</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">参与组：</label>
+        <div class="col-7-8">
+            <span>第一组</span>
+        </div>
+    </div>
+</div>
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">作业递交方式：</label>
+        <div class="col-7-8">
+            <span>每组一份</span>
+        </div>
+    </div>
+</div>
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">任务开始时间：</label>
+        <div class="col-7-8">
+            <span>2014-12-12 12:12</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 margin-bottom-8 tasks-group-item-form">
+    <label class=" col-1-8 control-label">任务时长：</label>
+    <div class="col-7-8">
+        <span ng-bind="task.evaluation_duration"></span>
+        <span ng-bind="task.evaluation_cycle"></span>
+    </div>
+</div>
+<div class="col-1-1" ng-show="task.task_type==2">
+    <div class="col-1-1 tasks-group-item-form">
+        <label class="control-label">对应量规：</label>
+        <div class="offset-1-12 col-11-12">
+            <span class="btn btn-gray" role="button">选择量规</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
+    <div class="col-1-1">
+        <label class=" col-1-8 control-label">最终成果：</label>
+        <div class="col-7-8">
+            <span>是</span>
+        </div>
+    </div>
+</div>
+<div class="col-1-1 tasks-group-item-form">
+    <label class="control-label">任务资源：</label>
+
+    <div class="row resouce-list-group">
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+        <a class="resouce-item">
+            <div class="item-logo"> <span class="pf-documents"></span></div>
+            <div>
+                <div class="item-title">徒步浏览量规</div>
+                <div class="item-time">2014-12-12 20：20</div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
