@@ -1,1 +1,3 @@
-json.data @gauges
+json.data do
+  @gauges
+end

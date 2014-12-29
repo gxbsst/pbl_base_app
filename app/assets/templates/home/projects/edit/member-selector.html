@@ -1,0 +1,40 @@
+<div class="loading" ng-if="!vm.members"><i class="pf-spinner-2 rotation"></i></div>
+<div class="member-selector" ng-if="!!vm.members">
+    <div class="col-3-12 layout-left scrollbar" et-scrollbar>
+        <ul>
+            <li class="hover" ng-class="{active:vm.list=='friends'}" ng-click="vm.setList('friends')"><strong>我的好友</strong></li>
+            <li>
+                <strong>我的群组</strong>
+                <ul>
+                    <li class="hover" ng-repeat="member_ship in vm.member_ships" ng-class="{active:vm.list==member_ship.group.id}" ng-click="vm.setList(member_ship.group.id)" ng-bind="member_ship.group.name"></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-4-12 layout-center">
+        <div class="member-fixed member-search" ng-class="{focusin:vm.focusin}">
+            <input type="text" class="form-control" placeholder="查找用户" ng-focus="vm.focusin=true" ng-blur="vm.focusin=false" ng-model="vm.keyword" ng-change="vm.onSearch()"/>
+        </div>
+        <div class="member-users scrollbar" et-scrollbar>
+            <ul>
+                <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected,disabled:!vm.isSelected(user)}" ng-show="!vm.filter(user)" ng-click="user.$selected=!user.$selected"><img ng-src="{{user|avatar}}"/> <span ng-bind="user.username"></span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-1-12 layout-table">
+        <div class="center layout-table-cell">
+            <i class="pf-arrow-right member-btn" ng-click="vm.add()" ng-class="{disabled:!vm.hasSelected(vm.users)}"></i>
+        </div>
+    </div>
+    <div class="col-4-12 layout-right">
+        <div class="member-fixed">
+            <strong>已选成员：</strong><span ng-bind="vm.members.length"></span>人
+            <i class="pull-right pf-trash-o member-remove" ng-click="vm.remove()" ng-class="{disabled:!vm.hasSelected(vm.members)}"></i>
+        </div>
+        <div class="member-users scrollbar" et-scrollbar>
+            <ul>
+                <li ng-repeat="member in vm.members" ng-class="{selected:member.$selected}" ng-click="member.$selected=!member.$selected"><img ng-src="{{member.user|avatar}}"/> <span ng-bind="member.user.username"></span></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -90,7 +90,7 @@
 
         function getProjectMembers() {
             ProjectMembers.all({
-                project_id: vm.project.id
+                projectId: vm.project.id
             }, function (result) {
                 vm.project.members = result.data;
             });
@@ -98,7 +98,7 @@
 
         function getProjectTeachers() {
             ProjectTeachers.all({
-                project_id: vm.project.id
+                projectId: vm.project.id
             }, function (result) {
                 vm.project.teachers = result.data;
             });

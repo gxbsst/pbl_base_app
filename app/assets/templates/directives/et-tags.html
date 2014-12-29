@@ -5,6 +5,9 @@
     <div class="et-tags-options" ng-class="{'et-top-options':tagsConfig.top}"
          ng-show="tagsConfig.focusin&&tagsConfig.$options.length"
          et-init="$tagsCtrl=tagsConfig;$options=tagsConfig.$options">
-        <div ng-include="tagsConfig.template"></div>
+        <ul class="selection" et-scrollbar>
+            <li class="et-tags-option" ng-class="{'et-tags-selected active':$tagsCtrl.isSelected(option)}"
+                ng-click="$tagsCtrl.select(option)" ng-repeat="option in $options" ng-include="tagsConfig.template"></li>
+        </ul>
     </div>
 </div>

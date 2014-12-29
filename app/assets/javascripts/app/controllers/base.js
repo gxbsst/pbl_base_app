@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Follows', 'Friends'];
+    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Follows', 'Friends', 'Groups', 'MemberShips'];
 
-    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, QINIU, DURATION_UNITS, GRADES, Follows, Friends) {
+    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, QINIU, DURATION_UNITS, GRADES, Follows, Friends, Groups, MemberShips) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
@@ -29,11 +29,14 @@
                 follow: follow,
                 unFollow: unFollow,
                 isFriend: isFriend,
-                isFollowed: isFollowed
+                isFollowed: isFollowed,
+                join: join,
+                leave: leave
             }
         });
 
         getFollows();
+        getMemberShips();
 
         function onBegin(object) {
             return function (data) {
@@ -88,6 +91,21 @@
             });
         }
 
+        function join(group_id){
+            Groups.add({
+                groupId: group_id,
+                action: 'member_ships'
+            }, getMemberShips);
+        }
+
+        function leave(group_id, member_ship_id){
+            Groups.remove({
+                groupId: group_id,
+                action: 'member_ships',
+                actionId: member_ship_id
+            }, getMemberShips);
+        }
+
         function getFriends(){
             Friends.get(function (result) {
                 $rootScope.friends = result.data;
@@ -97,6 +115,14 @@
         function getFollows(){
             Follows.get(function (result) {
                 $rootScope.follows = result.data;
+            });
+        }
+
+        function getMemberShips(){
+            MemberShips.get({
+                namespace: 'user'
+            }, function (result) {
+                $rootScope.member_ships = result.data;
             });
         }
 

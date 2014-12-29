@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :home, only: %w(index)
   resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete) do
-    resources :roles, defaults: {format: 'json'}, only: %w(index create destroy)
+    resources :assignments, defaults: {format: 'json'}
   end
   resources :standard_decompositions, defaults: {format: 'json'}
 
@@ -25,9 +25,15 @@ Rails.application.routes.draw do
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
+    get :groups, :to => 'groups#current_user_index'
+    resources :groups, defaults: { format: :json }, only: %w(create destroy)
+    get :member_ships, :to => 'member_ships#current_user_index'
+    resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
   end
 
-  resources :groups, defaults: { format: :json }, only: %w(index create show update destroy)
+  resources :groups, defaults: { format: :json }, only: %w(index create show update destroy) do
+    resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
+  end
 
   namespace :curriculum do
     resources :subjects, defaults: {format: 'json'}, only: %w(index)
@@ -47,6 +53,8 @@ Rails.application.routes.draw do
     resources :rules, defaults: {format: 'json'}, only: %w(index create update destroy)
     resources :tasks, defaults: {format: 'json'}
   end
+
+  resources :member_ships, defaults: { format: :json }
 
   resources :knowledge, defaults: {format: 'json'}
 

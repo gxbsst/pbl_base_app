@@ -18,8 +18,8 @@
         <div class="row margin-bottom-20">
             <h3>指导老师：<span ng-bind="vm.project.teachers.length||0"></span>人</h3>
             <div class="col-1-1 members">
-                <span ng-repeat="user in vm.project.teachers" et-tips="content=user.name">
-                    <img ng-src="{{user|avatar}}"/>
+                <span ng-repeat="member in vm.project.teachers" et-tips="content=member.user.username">
+                    <img ng-src="{{member.user|avatar}}"/>
                 </span>
             </div>
         </div>
@@ -33,8 +33,8 @@
         <div class="row margin-bottom-20">
             <h3>项目成员：<span ng-bind="vm.project.members.length||0"></span>人</h3>
             <div class="col-1-1 members">
-                <span ng-repeat="user in vm.project.members|limitTo:vm.limit" et-tips="content=user.name">
-                    <img ng-src="{{user|avatar}}"/>
+                <span ng-repeat="member in vm.project.members|limitTo:vm.limit" et-tips="content=member.user.username">
+                    <img ng-src="{{member.user|avatar}}"/>
                 </span>
                 <a href="javascript:void(0);" ng-click="vm.toggle()" ng-bind="vm.showed?'收起':'全部'"></a>
             </div>

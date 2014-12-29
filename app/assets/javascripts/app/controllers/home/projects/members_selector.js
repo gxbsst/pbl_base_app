@@ -5,74 +5,87 @@
         .module('app.pbl')
         .controller('MemberSelectorController', MemberSelectorController);
 
-    MemberSelectorController.$inject = ['$scope', 'Friends', 'Groups', 'ProjectMembers'];
+    MemberSelectorController.$inject = ['$rootScope', '$scope', 'ProjectMembers', 'Groups'];
 
-    function MemberSelectorController($scope, Friends, Groups, ProjectMembers) {
+    function MemberSelectorController($rootScope, $scope, ProjectMembers, Groups) {
 
-        var vm = this;
+        var vm = this,
+            project = $scope.project;
 
-        vm.friends = Friends.all();
-        vm.groups = Groups.all();
-        vm.members = [];
-        vm.users = [];
-        vm.onSearch = onSearch;
+        vm.list = 'friends';
+        vm.users = angular.copy($rootScope.friends);
+        vm.member_ships = angular.copy($rootScope.member_ships);
+        vm.filter = filter;
         vm.isSelected = isSelected;
-        vm.findSelected = findSelected;
+        vm.hasSelected = hasSelected;
+        vm.setList = setList;
         vm.add = add;
         vm.remove = remove;
 
-        ProjectMembers.all(function (result) {
-            vm.members = result.data;
-        });
+        getMembers();
 
-        $scope.$watch(function () {
-            return vm.friends.data;
-        }, function (users) {
-            if(users){
-                vm.users = users;
-                vm.$users = users;
-            }
-        });
-
-        function onSearch() {
-            if (vm.keyword) {
-                vm.users = vm.$users.find(function (user) {
-                    return user.name.toLowerCase().indexOf(vm.keyword.toLowerCase()) >= 0;
-                });
-            } else {
-                vm.users = vm.$users;
-            }
+        function getMembers(){
+            ProjectMembers.all({
+                projectId: project.id
+            },function (result) {
+                vm.members = result.data;
+            });
         }
 
-        function findSelected(users) {
-            return users && users.find(function (user) {
+        function filter(user){
+            return vm.keyword && user.username.toLowerCase().indexOf(vm.keyword.toLowerCase()) < 0;
+        }
+
+        function isSelected(user){
+            return !vm.members.has(function (member) {
+                return member.user.id == user.id;
+            });
+        }
+
+        function hasSelected(users) {
+            return (users || []).find(function (user) {
                 return user.$selected;
-            });
+            }).length;
         }
 
-        function isSelected(user) {
-            return vm.members.has(function (u) {
-                return u.id === user.id;
-            });
+        function setList(list){
+            if(list == 'friends'){
+                vm.users = angular.copy($rootScope.friends);
+            }else{
+                Groups.get({
+                    groupId: list
+                }, function (result) {
+                    vm.users = result.data.members.map(function (member) {
+                        return member.user;
+                    });
+                });
+            }
+            vm.list = list;
         }
 
         function add() {
-            var users = angular.copy(vm.users),
-                finder = function (user) {
+            ProjectMembers.add({
+                projectId: project.id
+            }, {
+                user_ids: vm.users.find(function (user) {
                     return user.$selected;
-                },
-                map = function (user) {
+                }).map(function (user) {
                     delete user.$selected;
-                    return user;
-                };
-            vm.members = users.find(finder).map(map).concat(vm.members);
-            vm.users.map(map);
+                    return user.id;
+                }).join(',')
+            }, getMembers);
         }
 
         function remove() {
-            vm.members.removeAll(function (user) {
-                return user.$selected;
-            });
+            ProjectMembers.remove({
+                projectId: project.id,
+                assignmentId: vm.members.find(function (member) {
+                    return member.$selected;
+                }).map(function (member) {
+                    delete member.$selected;
+                    return member.id;
+                }).join(',')
+            }, getMembers);
         }
 
 

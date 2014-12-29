@@ -4,6 +4,11 @@ class GroupsController < ApplicationBaseController
     @groups = Pbl::Models::Groups::Group.where(user_id: params[:user_id])
   end
 
+  def current_user_index
+    @groups = Pbl::Models::Groups::Group.where(user_id: current_user.id)
+    render :index
+  end
+
   def create
     group = params[:group]
     group[:user_id] ||= current_user.id

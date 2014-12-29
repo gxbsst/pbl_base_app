@@ -64,9 +64,9 @@
     ProjectMembers.$inject = ['$resource', 'ROLES', 'RESOURCE_ACTIONS'];
 
     function ProjectMembers($resource, ROLES, RESOURCE_ACTIONS) {
-        return $resource('/projects/:projectId/roles/:roleId', {
+        return $resource('/projects/:projectId/assignments/:assignmentId', {
             projectId: '@projectId',
-            roleId: '@roleId',
+            assignmentId: '@assignmentId',
             name: ROLES.student
         }, RESOURCE_ACTIONS);
     }
@@ -74,9 +74,9 @@
     ProjectTeachers.$inject = ['$resource', 'ROLES', 'RESOURCE_ACTIONS'];
 
     function ProjectTeachers($resource, ROLES, RESOURCE_ACTIONS) {
-        return $resource('/projects/:projectId/roles/:roleId', {
+        return $resource('/projects/:projectId/assignments/:assignmentId', {
             projectId: '@projectId',
-            roleId: '@roleId',
+            assignmentId: '@assignmentId',
             name: ROLES.teacher
         }, RESOURCE_ACTIONS);
     }

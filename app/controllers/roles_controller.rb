@@ -1,21 +1,11 @@
 class RolesController < ApplicationController
 
   def index
-    query = {}
-    if params[:project_id]
-      query[:resource_id] = params[:project_id]
-      query[:resource_type] = 'Project'
-    end
-    @roles = Pbl::Models::Role.all(query)
+    @roles = Pbl::Models::Role.all
   end
 
   def create
-    role = params[:role]
-    if params[:project_id]
-      role[:project_id] = params[:project_id]
-      role[:resource_type] = 'Project'
-    end
-    @role = Pbl::Models::Role.create(role)
+    @role = Pbl::Models::Role.create(params[:role])
     render :show
   end
 
