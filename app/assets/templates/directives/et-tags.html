@@ -1,13 +1,13 @@
-<div class="et-tags form-control" ng-class="{focusin:tagsConfig.focusin}">
-    <input type="hidden" ng-model="tagsConfig.ngModel"/>
-    <div ng-repeat="tag in tagsConfig.tags" class="et-tags-item"><span ng-bind="tag.$label"></span><i class="pf-cross" ng-click="tagsConfig.remove(tag,$event)"></i></div>
-    <input type="text" class="et-tag-input" ng-model="tagsConfig.input" ng-keyup="tagsConfig.onKeyup($event)" placeholder="{{tagsConfig.placeholder}}"/>
-    <div class="et-tags-options" ng-class="{'et-top-options':tagsConfig.top}"
-         ng-show="tagsConfig.focusin&&tagsConfig.$options.length"
-         et-init="$tagsCtrl=tagsConfig;$options=tagsConfig.$options">
-        <ul class="selection" et-scrollbar>
-            <li class="et-tags-option" ng-class="{'et-tags-selected active':$tagsCtrl.isSelected(option)}"
-                ng-click="$tagsCtrl.select(option)" ng-repeat="option in $options" ng-include="tagsConfig.template"></li>
-        </ul>
+<div class="et-tags-container">
+    <div class="et-tags form-control" ng-class="{focusin:tagsConfig.focusin}">
+        <div ng-repeat="tag in tagsConfig.tags" class="et-tags-item"><span ng-bind="tag.$label"></span><i class="pf-cross" ng-click="tagsConfig.remove(tag,$event)"></i></div>
+        <input type="text" class="et-tag-input" ng-model="tagsConfig.input" ng-keyup="tagsConfig.onKeyup($event)" placeholder="{{tagsConfig.placeholder}}"/>
+        <div class="et-tags-options" ng-class="{'et-top-options':tagsConfig.top}"
+             ng-show="(tagsConfig.focusin||tagsConfig.showOptions)&&tagsConfig.hasOption()">
+            <ul class="selection" et-scrollbar>
+                <li class="et-tags-option" ng-class="{'et-tags-selected active':tagsConfig.isSelected(option)}"
+                    ng-click="tagsConfig.select(option)" ng-repeat="option in tagsConfig.$options" ng-include="tagsConfig.template"></li>
+            </ul>
+        </div>
     </div>
 </div>

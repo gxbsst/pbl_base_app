@@ -18,7 +18,8 @@
         vm.findByType = findByType;
         vm.removeDocument = removeDocument;
         vm.onTagsChange = onTagsChange;
-        vm.onTeachersChange = onTeachersChange;
+        vm.onTeachersAdd = onTeachersAdd;
+        vm.onTeachersRemove = onTeachersRemove;
         vm.teachersFilter = teachersFilter;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
@@ -113,7 +114,10 @@
             ProjectTeachers.all({
                 projectId: project.id
             }, function (result) {
-                vm.teachers = result.data;
+                vm.teachers = result.data.map(function (role) {
+                    role.label = role.user.username;
+                    return role;
+                });
             });
         }
 
@@ -201,26 +205,46 @@
                             return item.$label;
                         }).join(',')
                     }
+                }, function () {
+                    vm.project.tag_list = tags.map(function (item) {
+                        return item.$label;
+                    });
                 });
             };
         }
 
-        function onTeachersChange() {
+        function onTeachersAdd() {
             return function (teacher, teachers) {
-
+                ProjectTeachers.add({
+                    projectId: project.id
+                }, {
+                    user_ids: teacher.id
+                }, getTeachers);
             }
         }
 
-        function teachersFilter() {
-            var self = this,
-                friends = $rootScope.friends,
+        function onTeachersRemove() {
+            return function (teacher, teachers) {
+                ProjectTeachers.remove({
+                    projectId: project.id,
+                    assignmentId: teacher.id
+                }, getTeachers);
+            }
+        }
+
+        function teachersFilter(input) {
+            var friends = angular.copy($rootScope.friends),
                 defer = $q.defer();
-            if (self.input) {
+            if (input) {
                 friends = friends.find(function (user) {
-                    return user.username.toLowerCase().indexOf(self.input.toLowerCase()) >= 0;
+                    return user.username.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                 });
             }
-            friends = friends.map(function (option) {
+            friends = friends.find(function (user) {
+                return !(vm.teachers || []).has(function (teacher) {
+                    return user.id == teacher.user.id;
+                });
+            }).map(function (option) {
                 option.label = option.username;
                 return option;
             });

@@ -92,7 +92,7 @@
         <div class="form-group">
             <label class="control-label">指导老师：</label>
             <div class="row">
-                <input type="text" ng-model="vm.teachers" placeholder="从好友中查找..." on-change="vm.onTeachersChange()" et-tags="{options:vm.teachersFilter,template:'home/projects/edit/teacher_selector.html'}"/>
+                <input type="text" ng-model="vm.teachers" placeholder="从好友中查找..." on-add="vm.onTeachersAdd()" on-remove="vm.onTeachersRemove()" et-tags="{options:vm.teachersFilter,template:'home/projects/edit/teacher_selector.html'}"/>
             </div>
             <!--<div class="row" style="position: relative;">
                 <i class="pf-search"></i> <input type="text" class="form-control">

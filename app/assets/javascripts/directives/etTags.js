@@ -11,6 +11,8 @@
         return {
             require: 'etTags',
             restrict: 'A',
+            terminal: true,
+            priority: 1000,
             replace: true,
             scope: true,
             templateUrl: 'directives/et-tags.html',
@@ -37,8 +39,9 @@
                         ngModel = ngModel.split(',');
                     }
                     ctrl.tags = ngModel.map(ctrl.formatter);
+                    getOptions(true);
                 }
-            });
+            }, true);
 
             scope.$watch(function () {
                 return attr.placeholder;
@@ -59,12 +62,14 @@
             }, true);
 
             ctrl.input = '';
-            ctrl.tags = [];
+            ctrl.$options = [];
             ctrl.template = 'directives/et-tags-template.html';
             ctrl.add = add;
             ctrl.remove = remove;
+            ctrl.select = select;
             ctrl.formatter = formatter;
             ctrl.onKeyup = onKeyup;
+            ctrl.hasOption = hasOption;
 
             element.on('click', setFocus);
 
@@ -72,10 +77,16 @@
                 .on('focusin', function () {
                     docHeight = $document.height();
                     ctrl.focusin = true;
+                    $timeout(function () {
+                        ctrl.showOptions = true;
+                    }, 15);
                     getOptions();
                 }).on('focusout', function () {
                     scope.$apply(function () {
                         delete ctrl.focusin;
+                        $timeout(function () {
+                            delete ctrl.showOptions;
+                        }, 10);
                     });
                 });
 
@@ -91,9 +102,9 @@
                 getOptions();
             }
 
-            function getOptions() {
-                if (ctrl.$input != ctrl.input && angular.isFunction(ctrl.options)) {
-                    ctrl.options.call(ctrl)
+            function getOptions(force) {
+                if ((force || ctrl.$input != ctrl.input) && angular.isFunction(ctrl.options)) {
+                    ctrl.options.call(null, ctrl.input)
                         .then(function (options) {
                             ctrl.$options = options;
                             ctrl.$input = ctrl.input;
@@ -104,6 +115,12 @@
                 }
             }
 
+            function hasOption(){
+                return ctrl.$options.has(function (option) {
+                    return !option.selected;
+                });
+            }
+
             function add(tag) {
                 tag = ctrl.formatter(tag);
                 if (!exist(tag)) {
@@ -111,6 +128,7 @@
                     setFocus();
                     onAdd.call(scope, tag, ctrl.tags);
                     onChange.call(scope, tag, ctrl.tags);
+                    getOptions(true);
                 }
                 ctrl.input = '';
             }
@@ -123,6 +141,11 @@
                 setFocus();
                 onRemove.call(scope, tag, ctrl.tags);
                 onChange.call(scope, tag, ctrl.tags);
+                getOptions(true);
+            }
+
+            function select(option){
+                add(option);
             }
 
             function formatter(tag) {

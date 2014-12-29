@@ -1,7 +1,7 @@
 class GaugesController < ApplicationBaseController
 
   def index
-    @gauges = Gauge.where(params.permit(:include))
+    @gauges = Gauge.where(technique_ids: params[:technique_ids], include: params[:include])
   end
 
   def create
