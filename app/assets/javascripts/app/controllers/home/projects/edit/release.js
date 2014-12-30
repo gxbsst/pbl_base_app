@@ -13,6 +13,7 @@
         vm.project.resources = [];
         vm.getResources = getResources;
         vm.limit = 10;
+        vm.limitTo = vm.limit;
         vm.toggle = toggle;
 
         getProjectProducts();
@@ -106,10 +107,10 @@
 
         function toggle() {
             if (vm.showed) {
-                vm.limit = 10;
+                vm.limitTo = vm.limit;
                 vm.showed = false;
             } else {
-                vm.limit = vm.project.members.length;
+                vm.limitTo = vm.project.members.length;
                 vm.showed = true;
             }
         }
