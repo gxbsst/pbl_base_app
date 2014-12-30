@@ -3,4 +3,44 @@
         <span class="title-text">作业评价</span>
         <span class="title-pointer"></span>
     </div>
+
+    <div class="task-list col-1-1 margin-bottom-20">
+        <div class="col-1-1 tasks-group">
+            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.project.tasks track by $index">
+                <div class="tasks-group-item-title">
+                    <span class="pull-left" ng-bind="'任务'+($index+1)+'-'"></span>
+                    <span class="pull-left" ng-bind="task.title"></span>
+                    <i class="btn-mini pf-trash-o pull-right" ng-click="vm.removeTask(task)"></i>
+                    <i class="btn-mini pf-doc-eye pull-right" ng-click="vm.showTask($index)"></i>
+                    <i class="time pull-right">2014-12-26 20：20</i>
+                </div>
+                <div class="tasks-group-item-cont" ng-show="vm.showtask[$index]">
+                    <ng-include src="'home/projects/show/taskview.html'"></ng-include>
+
+                    <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8 assignment-list ">
+                        <div class="col-1-1">
+                            <label class=" col-1-8 control-label">作业状态：</label>
+                            <div class="col-7-8">
+                                已经提交 <span class="red">5</span> 份，未批改 <span class="red">5</span> 份
+                                <!--<span class="btn btn-xs red margin-left-10">交作业提醒</span>-->
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr/>
+                        <div class="col-1-1 assignment-item">
+                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
+                        </div>
+                        <div class="col-1-1 assignment-item">
+                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-1-1 col-1-1 margin-top-20 margin-bottom-20 text-right">
+        <span class="btn btn-blue  btn-padding">增加任务</span>
+    </div>
 </div>
