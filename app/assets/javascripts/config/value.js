@@ -61,7 +61,8 @@
                     cover: 'ProjectCover',
                     document: 'ProjectDocument',
                     product: 'ProductSample',
-                    resource: 'ProjectResource'
+                    resource: 'ProjectResource',
+                    task: 'TaskResource'
                 }
             },
             ROLES: {

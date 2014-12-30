@@ -17,6 +17,7 @@
       cursor:pointer;
       @include border-radius(3px);
       &:before{
+        display:block;
         position:absolute;
         right:0;
         top:0;
@@ -27,6 +28,7 @@
         line-height:31px;
         text-align:center;
         content:'\f05b';
+        @include border-radius(0 3px 3px 0);
         @include background-image(linear-gradient(#fefefe, #f9f9f9));
       }
       &.focusin{
