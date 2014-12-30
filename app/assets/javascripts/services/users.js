@@ -6,7 +6,8 @@
         .service('User', User)
         .service('Users', Users)
         .service('Friends', Friends)
-        .service('Follows', Follows);
+        .service('Follows', Follows)
+        .service('Rules', Rules);
 
     User.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
@@ -30,6 +31,12 @@
 
     function Follows($resource, RESOURCE_ACTIONS) {
         return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action'}, RESOURCE_ACTIONS);
+    }
+
+    Rules.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function Rules($resource, RESOURCE_ACTIONS) {
+        return $resource('/user/rules/:action/:ruleId', {ruleId: '@ruleId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
 })();

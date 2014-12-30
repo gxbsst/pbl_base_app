@@ -5,17 +5,24 @@
         .module('app.pbl')
         .controller('GaugesSelectorController', GaugesSelectorController)
         .controller('GaugeRecommendsController', GaugeRecommendsController)
-        .controller('GaugesSystemController', GaugesSystemController);
+        .controller('GaugesSystemController', GaugesSystemController)
+        .controller('GaugesMineController', GaugesMineController);
 
-    GaugesSelectorController.$inject = ['$scope', 'ProjectGauges'];
+    GaugesSelectorController.$inject = ['$scope', 'ProjectGauges', 'ProjectTechniques'];
 
-    function GaugesSelectorController($scope, ProjectGauges) {
+    function GaugesSelectorController($scope, ProjectGauges, ProjectTechniques) {
 
         var project = $scope.project;
 
-        $scope.selected = project.rules;
         $scope.onChange = onChange;
         $scope.isSelected = isSelected;
+        $scope.getTechnique = getTechnique;
+
+        ProjectTechniques.all({
+            project_id: project.id
+        }, function (result) {
+            $scope.techniques = result.data;
+        });
 
         function onChange(gauge) {
             if (gauge.selected) {
@@ -23,7 +30,7 @@
                     rule: {
                         project_id: project.id,
                         gauge_id: gauge.id,
-                        technique_id: gauge.technique.id,
+                        technique_id: gauge.technique_id || gauge.technique.id,
                         standard: gauge.standard,
                         weight: gauge.weight,
                         level_1: gauge.level_1,
@@ -46,8 +53,14 @@
         }
 
         function isSelected(gauge) {
-            return $scope.selected.has(function (g) {
+            return project.rules.has(function (g) {
                 return g.gauge_id === gauge.id;
+            });
+        }
+
+        function getTechnique(technique) {
+            return $scope.techniques.findOne(function (item) {
+                return item.technique.id === technique.technique_id;
             });
         }
 
@@ -57,50 +70,65 @@
 
     }
 
-    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectTechniques', 'ProjectGauges'];
+    GaugesSystemController.$inject = ['$scope', 'Gauges'];
 
-    function GaugesSystemController($scope, Gauges, ProjectTechniques, ProjectGauges) {
+    function GaugesSystemController($scope, Gauges) {
 
-        var vm = this,
-            project = $scope.project;
+        var vm = this;
 
-        ProjectTechniques.all({
-            project_id: project.id
-        }, function (result) {
-            Gauges.all({
-                technique_ids: result.data.map(function (item) {
-                    return item.technique.id;
-                }).join(',')
-            }, function (result) {
-                vm.gauges = result.data;
-            })
+        $scope.$watch(function () {
+            return $scope.techniques;
+        }, function (techniques) {
+            if(techniques){
+                Gauges.all({
+                    technique_ids: techniques.map(function (item) {
+                        return item.technique.id;
+                    }).join(',')
+                }, function (result) {
+                    vm.gauges = result.data;
+                })
+            }
         });
 
     }
 
-    GaugeRecommendsController.$inject = ['$scope', 'GaugeRecommends', 'ProjectTechniques'];
+    GaugesMineController.$inject = ['$scope', 'Rules'];
 
-    function GaugeRecommendsController($scope, GaugeRecommends, ProjectTechniques){
+    function GaugesMineController($scope, Rules) {
 
-        var vm = this,
-            project = $scope.project;
+        var vm = this;
 
-        getGaugeRecommends();
+        $scope.$watch(function () {
+            return $scope.techniques;
+        }, function (techniques) {
+            if(techniques){
+                Rules.all(function (result) {
+                    vm.gauges = result.data;
+                })
+            }
+        });
 
-        function getGaugeRecommends() {
-            ProjectTechniques.all({
-                project_id: project.id
-            }, function (result) {
-                project.techniques = result.data;
+    }
+
+    GaugeRecommendsController.$inject = ['$scope', 'GaugeRecommends'];
+
+    function GaugeRecommendsController($scope, GaugeRecommends){
+
+        var vm = this;
+
+        $scope.$watch(function () {
+            return $scope.techniques;
+        }, function (techniques) {
+            if(techniques){
                 GaugeRecommends.all({
-                    technique_ids: project.techniques.map(function (item) {
+                    technique_ids: techniques.map(function (item) {
                         return item.technique.id;
                     }).join(',')
                 }, function (result) {
                     vm.techniques = result.data;
                 });
-            });
-        }
+            }
+        });
 
     }
 

@@ -1,24 +1,20 @@
 <div class="gauges-list" ng-controller="GaugesSystemController as vm" et-scrollbar>
-    <table class="table">
+    <div ng-if="!vm.gauges" class="loading"><i class="pf-spinner-2 rotation"></i></div>
+    <table class="table" ng-if="vm.gauges">
         <thead>
         <tr>
-            <th>&nbsp;</th>
-            <th>对应技能</th>
+            <th width="30">&nbsp;</th>
             <th>量规标准</th>
             <th width="60">权重</th>
-            <th ng-repeat="column in [0,1,2,3,4] track by $index" ng-bind="$index|gauge:project.rule_template"></th>
+            <th ng-repeat="level in project.ruleHeads track by $index" ng-if="!level.disabled" ng-bind="$index|gauge:project.rule_template"></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="gauge in vm.gauges" class="gauge-item">
-            <td class="padding-6"><input type="checkbox" ng-model="gauge.selected" ng-change="onChange(gauge)" ng-init="gauge.selected=isSelected(gauge)"/></td>
-            <td ng-bind="gauge.technique.title"></td>
+            <td class="center padding-6"><input type="checkbox" ng-model="gauge.selected" ng-change="onChange(gauge)" ng-init="gauge.selected=isSelected(gauge)"/></td>
             <td ng-bind="gauge.standard"></td>
             <td class="center" ng-bind="gauge.weight"></td>
-            <td ng-repeat="level in [1,2,3,4,5]" ng-bind="gauge['level_'+level]"></td>
-        </tr>
-        <tr ng-if="!vm.gauges">
-            <td colspan="9" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+            <td ng-repeat="level in project.ruleHeads" ng-if="!level.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
         </tr>
         </tbody>
     </table>

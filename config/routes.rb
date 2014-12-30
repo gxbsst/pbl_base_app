@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
+    resources :rules, defaults: { format: :json }, only: %w(index)
     get :groups, :to => 'groups#current_user_index'
     resources :groups, defaults: { format: :json }, only: %w(create destroy)
     get :member_ships, :to => 'member_ships#current_user_index'

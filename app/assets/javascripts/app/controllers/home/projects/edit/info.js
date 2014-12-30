@@ -115,6 +115,7 @@
                 projectId: project.id
             }, function (result) {
                 vm.teachers = result.data.map(function (role) {
+                    role.user_id = role.user.id;
                     role.label = role.user.username;
                     return role;
                 });
@@ -214,7 +215,7 @@
         }
 
         function onTeachersAdd() {
-            return function (teacher, teachers) {
+            return function (teacher) {
                 ProjectTeachers.add({
                     projectId: project.id
                 }, {
