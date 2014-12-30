@@ -5,7 +5,9 @@ class ResourcesController < ApplicationBaseController
   end
 
   def create
-    @resource = Pbl::Models::Resource.create(params[:resource])
+    resource = params[:resource]
+    resource[:user_id] ||= current_user.id
+    @resource = Pbl::Models::Resource.create(resource)
     render :show
   end
 

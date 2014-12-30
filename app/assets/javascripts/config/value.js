@@ -60,7 +60,8 @@
                     project: 'Project',
                     cover: 'ProjectCover',
                     document: 'ProjectDocument',
-                    product: 'ProductSample'
+                    product: 'ProductSample',
+                    resource: 'ProjectResource'
                 }
             },
             ROLES: {

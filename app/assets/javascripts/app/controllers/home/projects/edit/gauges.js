@@ -4,8 +4,7 @@
     angular
         .module('app.pbl')
         .controller('ProjectEditGaugesController', ProjectEditGaugesController)
-        .controller('ProjectCreateGaugesTypeController', ProjectCreateGaugesTypeController)
-        .controller('GaugesSystemController', GaugesSystemController);
+        .controller('ProjectCreateGaugesTypeController', ProjectCreateGaugesTypeController);
 
     ProjectEditGaugesController.$inject = ['$scope', 'ProjectTechniques', 'ProjectGauges', 'Projects', 'project'];
 
@@ -94,68 +93,6 @@
             });
             $scope.destroyModal();
         }
-    }
-
-    GaugesSystemController.$inject = ['$scope', 'Gauges', 'ProjectTechniques', 'ProjectGauges'];
-
-    function GaugesSystemController($scope, Gauges, ProjectTechniques, ProjectGauges) {
-
-        var vm = this,
-            project = $scope.project;
-
-        vm.selected = project.rules;
-
-        vm.onChange = onChange;
-        vm.isSelected = isSelected;
-
-        ProjectTechniques.all({
-            project_id: project.id
-        }, function (result) {
-            vm.gauges = Gauges.all({
-                technique_ids: result.data.map(function (item) {
-                    return item.technique.id;
-                }).join(',')
-            });
-        });
-
-        function onChange(gauge) {
-            if (gauge.selected) {
-                ProjectGauges.add({
-                    rule: {
-                        project_id: project.id,
-                        gauge_id: gauge.id,
-                        technique_id: gauge.technique.id,
-                        standard: gauge.standard,
-                        weight: gauge.weight,
-                        level_1: gauge.level_1,
-                        level_2: gauge.level_2,
-                        level_3: gauge.level_3,
-                        level_4: gauge.level_4,
-                        level_5: gauge.level_5
-                    }
-                }, emit);
-            } else {
-                var rule = project.rules.findOne(function (rule) {
-                    return rule.gauge_id === gauge.id
-                });
-                if(rule){
-                    ProjectGauges.remove({
-                        gaugeId: rule.id
-                    }, emit);
-                }
-            }
-        }
-
-        function emit() {
-            $scope.$emit('onProjectGauges');
-        }
-
-        function isSelected(gauge) {
-            return vm.selected.has(function (g) {
-                return g.gauge_id === gauge.id;
-            });
-        }
-
     }
 
 })();
