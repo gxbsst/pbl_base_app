@@ -19,8 +19,8 @@
 <div class="col-1-1 tasks-group-item-form">
     <label class="control-label">任务类型：</label>
     <div class="col-1-1 margin-bottom-8">
-        <span class="btn" ng-class="{'btn-blue':task.task_type==1,'btn-gray':task.task_type!=1}" role="button" ng-click="vm.chooseType(task,1,disabled)">学科类任务</span>
-        <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type==2,'btn-gray':task.task_type!=2}" role="button" ng-click="vm.chooseType(task,2,disabled)">评价类任务</span>
+        <span class="btn" ng-class="{'btn-blue':task.task_type==1,'btn-gray':task.task_type!=1}" role="button" ng-click="vm.chooseType(task,1,disabled)">学科考评型</span>
+        <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type==2,'btn-gray':task.task_type!=2}" role="button" ng-click="vm.chooseType(task,2,disabled)">技能考评型</span>
     </div>
 </div>
 
@@ -89,7 +89,7 @@
     </div>
 </div>
 <div class="col-1-1 tasks-group-item-form">
-    <label class="control-label">任务资源：</label>
+    <label class="control-label">参考文档：</label>
 
     <div class="row resouce-list-group">
         <a class="resouce-item">

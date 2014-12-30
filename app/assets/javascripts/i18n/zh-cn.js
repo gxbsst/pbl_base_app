@@ -53,7 +53,7 @@
                 logo: 'logo_zh-cn',
                 news: '新闻动态',
                 home: '个人中心',
-                pbl: 'PBL',
+                pbl: '项目案例',
                 amoocs: '爱慕课',
                 explore: '发现'
             },
