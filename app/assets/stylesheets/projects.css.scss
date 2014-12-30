@@ -865,24 +865,37 @@
   margin: 10px;
   .resouce-item{
     display: inline-block;
-    width: 240px;
-    height: 45px;
     margin: 10px;
-    text-decoration: none;
-    .item-logo{
-      float: left;
-      width: 45px;
+    width: 260px;
+    height: 45px;
+    .item-download{
+      display: inline-block;
+      width: 220px;
       height: 45px;
-      margin: 0 10px;
-      span{
-        font-size: 45px;
+      text-decoration: none;
+      float: left;
+      .item-logo{
+        float: left;
+        width: 45px;
+        height: 45px;
+        margin: 0 10px;
+        span{
+          font-size: 45px;
+        }
+      }
+      .item-title{
+        color: #000000;
+      }
+      .item-time{
+        color: #b9b6b6;
       }
     }
-    .item-title{
-      color: #000000;
-    }
-    .item-time{
-      color: #b9b6b6;
+    .item-delete{
+      display: inline-block;
+      width: 40px;
+      height: 45px;
+      line-height: 45px;
+      cursor: pointer;
     }
   }
 }
