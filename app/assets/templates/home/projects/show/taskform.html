@@ -89,51 +89,22 @@
     </div>
 </div>
 <div class="col-1-1 tasks-group-item-form">
-    <label class="control-label">参考文档：</label>
+    <label class="control-label">参考资源：</label>
 
     <div class="row resouce-list-group">
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
-        <a class="resouce-item">
-            <div class="item-logo"> <span class="pf-documents"></span></div>
-            <div>
-                <div class="item-title">徒步浏览量规</div>
-                <div class="item-time">2014-12-12 20：20</div>
-            </div>
-        </a>
+        <div class="resouce-item"
+             ng-repeat="doc in vm.project.resources">
+            <a class="item-download" ng-href="{{doc|uri}}">
+                <div class="item-logo"> <span class="pf-documents"></span></div>
+                <div>
+                    <div class="item-title" ng-bind="doc.name"></div>
+                    <div class="item-time">2014-12-12 20：20</div>
+                </div>
+            </a>
+            <a ng-click="vm.resouceDelete(doc)" class="item-delete">
+                删除
+            </a>
+        </div>
     </div>
     <div class="offset-1-12 col-11-12">
         <span class="btn" qn-upload="{multiple:true}" on-begin="vm.onBegin(task)" on-progress="vm.onProgress()" on-success="vm.onSuccess(task)" on-completed="vm.onCompleted()" on-error="vm.onError()"><i class="pf-arrowhead-up"></i> 上传文件</span>
