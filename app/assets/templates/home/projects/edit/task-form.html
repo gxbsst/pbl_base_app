@@ -8,15 +8,15 @@
         <textarea rows="5" ng-model="task.description" class="form-control" et-sync="{taskId:task.id,task:{description:task.description},$service:'Tasks',$disabled:!task.id}"></textarea>
     </div>
     <div class="form-group">
-        <label class="control-label">场地：</label>
+        <label class="control-label">教学场地：</label>
         <input type="text" ng-model="task.site" class="form-control" et-sync="{taskId:task.id,task:{site:task.site},$service:'Tasks',$disabled:!task.id}"/>
     </div>
     <div class="form-group">
-        <label class="control-label">教具：</label>
+        <label class="control-label">教学用具：</label>
         <input type="text" ng-model="task.teacher_tools" class="form-control" et-sync="{taskId:task.id,task:{teacher_tools:task.teacher_tools},$service:'Tasks',$disabled:!task.id}"/>
     </div>
     <div class="form-group">
-        <label class="control-label">学生自备工具：</label>
+        <label class="control-label">自备工具：</label>
         <input type="text" ng-model="task.student_tools" class="form-control" et-sync="{taskId:task.id,task:{student_tools:task.student_tools},$service:'Tasks',$disabled:!task.id}"/>
     </div>
     <div class="form-group">
@@ -30,11 +30,9 @@
     <div ng-switch="task.task_type">
         <div ng-switch-default>
             <div class="form-group">
-                <label class=" col-1-8 control-label">学科：</label>
-                <div class="col-7-8">
-                    <select ng-model="task.discipline_id" et-select="vm.disciplines" et-config="label='name'"
-                            et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:!task.id}"></select>
-                </div>
+                <strong class="control-label">相关学科：</strong>
+                <select ng-model="task.discipline_id" et-select="vm.disciplines" et-config="label='name'"
+                        et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:!task.id}"></select>
             </div>
         </div>
         <div ng-switch-when="2">
