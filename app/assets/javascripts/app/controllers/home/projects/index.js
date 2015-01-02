@@ -28,8 +28,12 @@
     ProjectIndexController.$inject = ['Projects'];
 
     function ProjectIndexController(Projects) {
+
         var vm = this;
-        vm.projects = Projects.all();
+        Projects.all(function (result) {
+            vm.projects = result.data;
+        });
+
     }
 
     ProjectEditController.$inject = ['$state', '$scope', 'project'];

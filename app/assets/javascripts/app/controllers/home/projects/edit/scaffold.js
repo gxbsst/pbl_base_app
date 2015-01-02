@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditScaffoldController', ProjectEditScaffoldController);
 
-    ProjectEditScaffoldController.$inject = ['$scope', '$state', 'Projects', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
+    ProjectEditScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
 
-    function ProjectEditScaffoldController($scope, $state, Projects, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
+    function ProjectEditScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
         var vm = this;
 
         project.knowledge = project.knowledge || [];
@@ -17,91 +17,70 @@
         vm.addKnowledge = addKnowledge;
         vm.removeKnowledge = removeKnowledge;
         vm.disciplines = [];
+        vm.chooseType = chooseType;
+        vm.getResources = getResources;
+        vm.removeResource = removeResource;
+        vm.removeTask = removeTask;
+        vm.onUploadBegin = onUploadBegin;
+        vm.onUploadSuccess = onUploadSuccess;
+
+        $scope.$on('setAddTask', setAddTask);
+
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
             //测试ng-model绑定
             //vm.disciplines.push(vm.project.tasks[0].test.discipline);
         });
-        vm.chooseType = chooseType;
-        vm.removeResource = removeResource;
-
-        vm.showProjectInfo = showProjectInfo;
-
-        vm.removeTask = removeTask;
-        $scope.$on('setAddTask', setAddTask);
 
         //onProjectTask();
         //onProjectKnowledge();
+        onProjectTasks();
         onProjectProducts();
 
-        vm.onBegin = onBegin;
-        vm.onProgress = onProgress;
-        vm.onSuccess = onSuccess;
-        vm.onCompleted = onCompleted;
-        vm.onError = onError;
-
-        function onBegin(task) {
-            return function (files) {
-                console.log(task);
-                console.log(files);
-
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    task.resources.splice(task.resources.length, 0, {
-                        'id': null,
-                        'title': file.name,
-                        'ext': null,
-                        'state': false
-                    });
-                }
+        function onUploadBegin(product) {
+            return function () {
+                product.$uploading = true;
             }
         }
 
-        function onProgress(a) {
-            return function (b) {
-                console.log(a);
-                console.log(b);
-            }
-        }
-
-        function onSuccess(task) {
-            return function (file) {
-                var resource = task.resources.findOne(function (item) {
-                    return item.title == file.name;
+        function onUploadSuccess(product) {
+            return function () {
+                product.resource && Resources.remove({
+                    resourceId: product.resource.id
                 });
-                console.log("onSuccess");
-                console.log(file);
-                resource.id = file.key;
-                resource.ext = file.ext;
-                resource.state = true;
+                delete product.$uploading;
+                getTaskResources();
             }
         }
 
-        function onCompleted(a) {
-            return function (b) {
-                console.log(a);
-                console.log("onCompleted");
-                console.log(b);
-            }
+        function getTaskResources() {
+            Resources.all({
+                owner_types: RESOURCE_TYPES.project.task,
+                owner_ids: vm.project.tasks.map(function (task) {
+                    return task.id;
+                }).join(',')
+            }, function (result) {
+                vm.resources = result.data;
+            });
         }
 
-        function onError(a) {
-            return function (b) {
-                console.log(a);
-                console.log(b);
-            }
+        function getResources(task) {
+            return (vm.resources || []).find(function (resource) {
+                return resource.owner_type == RESOURCE_TYPES.project.task && resource.owner_id == task.id;
+            });
         }
 
+        function removeResource(resource) {
+            Resources.remove({
+                resourceId: resource.id
+            }, getTaskResources);
+        }
 
         function chooseType(task, typeval, disabled) {
             task.task_type = typeval;
             if (!disabled) {
                 Tasks.update({taskId: task.id, task: {'task_type': typeval}});
             }
-        }
-
-        function showProjectInfo() {
-            vm.switchProjectInfo = !vm.switchProjectInfo;
         }
 
         function addKnowledge() {
@@ -128,13 +107,6 @@
                 });
         }
 
-
-        function removeResource(task, resource) {
-            task.resources.remove(function (item) {
-                return item == resource;
-            });
-        }
-
         function setAddTask(event, task) {
             //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
             console.log(task);
@@ -143,19 +115,22 @@
             Tasks.add({"task": task}, onProjectTasks);
         }
 
-        function removeTask(task) {
+        function removeTask(task, $event) {
             //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
-            Tasks.remove({taskId: task.id}, onProjectTasks);
+            $event.stopPropagation();
+            if (confirm('您确定要删除这个任务吗？')) {
+                Tasks.remove({taskId: task.id}, onProjectTasks);
+            }
         }
 
 
         function onProjectTasks() {
-            Tasks.all(
-                {project_id: vm.project.id},
-                function (data) {
-                    vm.project.tasks = data.data;
-                    console.log(data);
-                });
+            Tasks.all({
+                project_id: vm.project.id
+            }, function (result) {
+                vm.project.tasks = result.data;
+                getTaskResources();
+            });
         }
 
         function onProjectProducts() {

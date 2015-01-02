@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Follows', 'Friends', 'Groups', 'MemberShips'];
+    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips'];
 
-    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, QINIU, DURATION_UNITS, GRADES, Follows, Friends, Groups, MemberShips) {
+    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
@@ -31,7 +31,10 @@
                 isFriend: isFriend,
                 isFollowed: isFollowed,
                 join: join,
-                leave: leave
+                leave: leave,
+                getResource: getResource,
+                getResources: getResources,
+                removeResource: removeResource
             }
         });
 
@@ -104,6 +107,24 @@
                 action: 'member_ships',
                 actionId: member_ship_id
             }, getMemberShips);
+        }
+
+        function getResource(resources, type, id){
+            return (resources || $scope.resources || []).findOne(function (item) {
+                return (id && id == item.owner_id) && item.owner_type == type;
+            });
+        }
+
+        function getResources(resources, type, id){
+            return (resources || $scope.resources || []).find(function (item) {
+                return item.owner_id == id && item.owner_type == type;
+            });
+        }
+
+        function removeResource(resourceId, callback){
+            Resources.remove({
+                resourceId: resourceId
+            }, callback || angular.noop);
         }
 
         function getFriends(){

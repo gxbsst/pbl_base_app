@@ -1,14 +1,12 @@
-<div class="project-create-scaffold">
+<div class="project-scaffold">
     <form class="form-horizontal">
         <div class="form-group">
-            <label class="control-label">项目名称：
-                <a href="javascript:void(0);" ng-click="vm.showProjectInfo()">
-                    <span ng-bind="vm.project.name"></span>
-                    <span ng-show="vm.switchProjectInfo">↑</span>
-                    <span ng-hide="vm.switchProjectInfo">↓</span>
-                </a>
-            </label>
-            <div ng-show="vm.switchProjectInfo">
+            <strong class="control-label">项目名称：</strong>
+            <a href="javascript:void(0);" ng-click="vm.$info=!vm.$info">
+                {{vm.project.name}}
+                <i ng-class="vm.$info?'pf-triangle-up':'pf-triangle-down'"></i>
+            </a>
+            <div ng-if="vm.$info">
                 <label class="control-label">驱动问题：</label>
                 <div class="control-content" ng-bind="vm.project.driven_issue"></div>
                 <label class="control-label">任务分解小贴士：</label>
@@ -53,26 +51,18 @@
                 </ul>
             </div>
         </div>
-
-
         <div class="form-group">
             <label class="control-label">任务列表：</label>
-                <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';width='70%';src='home/projects/edit/addtask.html'"><i class="pf-expand"></i> 增加任务</span>
-
-            <div class="col-1-1 tasks-group">
-                <div class="tasks-group-item" ng-repeat="task in vm.project.tasks track by $index">
-                    <div class="tasks-group-item-title">
-                        <span class="" ng-bind="'任务'+($index+1)"></span>
-                        <i class="btn-mini pf-cross pull-right" ng-click="vm.removeTask(task)"></i>
-                    </div>
-                    <div class="tasks-group-item-cont">
-                        <ng-include src="'home/projects/edit/taskform.html'"></ng-include>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
+            <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';padding=0;src='home/projects/edit/task-creator.html'"><i class="pf-expand"></i> 增加任务</span>
         </div>
-
+        <div class="tasks" ng-repeat="task in vm.project.tasks">
+            <div class="task-title" ng-click="task.$show=!task.$show">
+                <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
+                <strong ng-bind="'任务'+($index+1)"></strong>
+                <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"></i>
+            </div>
+            <div class="task-content" ng-show="task.$show" ng-include="'home/projects/edit/task-form.html'"></div>
+        </div>
         <div class="form-group col-1-1" >
             <div class="col-1-1 text-right">
                 <span class="btn btn-blue" role="button" ng-click="goto('release')">下一步</span>

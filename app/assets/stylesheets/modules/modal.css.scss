@@ -22,13 +22,13 @@
     background:#fff;
     @include opacity(0);
     @include transition(.2s ease opacity, .2s ease transform);
-    @include transform(scale(.3));
+    //@include transform(translate3d(0, 0, 0), scale(.3));
     @include box-shadow(0 0 25px 0 #9f9f9f);
     behavior:url('PIE.htc')\0;
     z-index:10000;
     &.et-modal-show{
       @include opacity(1);
-      @include transform(scale(1));
+      //@include transform(scale(1));
     }
     .et-modal-title{
       $height: 44px;
@@ -68,6 +68,11 @@
     }
     .et-modal-content{
       border-top:1px solid #e0e0e0;
+    }
+    .et-modal-footer{
+      padding:12px;
+      border-top:1px solid #e0e0e0;
+      background:#f9f9f9;
     }
   }
 }

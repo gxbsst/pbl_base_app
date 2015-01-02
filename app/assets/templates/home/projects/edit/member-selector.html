@@ -14,6 +14,7 @@
     <div class="col-4-12 layout-center">
         <div class="member-fixed member-search" ng-class="{focusin:vm.focusin}">
             <input type="text" class="form-control" placeholder="查找用户" ng-focus="vm.focusin=true" ng-blur="vm.focusin=false" ng-model="vm.keyword" ng-change="vm.onSearch()"/>
+
         </div>
         <div class="member-users scrollbar" et-scrollbar>
             <ul>

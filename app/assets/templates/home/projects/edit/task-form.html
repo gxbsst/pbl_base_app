@@ -1,0 +1,89 @@
+<div class="form-horizontal task-form">
+    <div class="form-group">
+        <label class="control-label">任务名称：</label>
+        <input type="text" ng-model="task.title" class="form-control" et-sync="{taskId:task.id,task:{title:task.title},$service:'Tasks',$disabled:!task.id}"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">任务描述：</label>
+        <textarea rows="5" ng-model="task.description" class="form-control" et-sync="{taskId:task.id,task:{description:task.description},$service:'Tasks',$disabled:!task.id}"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="control-label">场地：</label>
+        <input type="text" ng-model="task.site" class="form-control" et-sync="{taskId:task.id,task:{site:task.site},$service:'Tasks',$disabled:!task.id}"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">教具：</label>
+        <input type="text" ng-model="task.teacher_tools" class="form-control" et-sync="{taskId:task.id,task:{teacher_tools:task.teacher_tools},$service:'Tasks',$disabled:!task.id}"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">学生自备工具：</label>
+        <input type="text" ng-model="task.student_tools" class="form-control" et-sync="{taskId:task.id,task:{student_tools:task.student_tools},$service:'Tasks',$disabled:!task.id}"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">任务类型：</label>
+        <div class="col-1-1 margin-bottom-8">
+            <span class="btn" ng-class="task.task_type==1?'btn-blue':'btn-gray'" role="button" ng-click="vm.chooseType(task,1,disabled)">测量</span>
+            <span class="btn margin-left-8 margin-right-8" ng-class="task.task_type==2?'btn-blue':'btn-gray'" role="button" ng-click="vm.chooseType(task,2,disabled)">评价类任务</span>
+            <span class="btn" ng-class="task.task_type==3?'btn-blue':'btn-gray'"  role="button" ng-click="vm.chooseType(task,3,disabled)">事件</span>
+        </div>
+    </div>
+    <div ng-switch="task.task_type">
+        <div ng-switch-default>
+            <div class="form-group">
+                <label class=" col-1-8 control-label">学科：</label>
+                <div class="col-7-8">
+                    <select ng-model="task.discipline_id" et-select="vm.disciplines" et-config="label='name'"
+                            et-sync="{taskId:task.id,task:{discipline_id:task.discipline_id},$service:'Tasks',$disabled:!task.id}"></select>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="2">
+            <div class="form-group">
+                <strong class="control-label">任务时长：</strong>
+                <input type="number" ng-model="task.evaluation_duration" class="form-control margin-right-6" et-sync="{taskId:task.id,task:{evaluation_duration:task.evaluation_duration},$service:'Tasks',$disabled:!task.id}"/>
+                <select ng-model="task.evaluation_cycle" et-select="DURATION_UNITS"
+                        et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:!task.id}"></select>
+            </div>
+            <div class="form-group">
+                <strong class="control-label">对应成果：</strong>
+                <select ng-model="task.product_id" et-select="vm.products" et-config="label='id'"
+                        et-sync="{taskId:task.id,task:{product_id:task.product_id},$service:'Tasks',$disabled:!task.id}"></select>
+            </div>
+            <!--<div class="form-group" >
+                <div class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
+                    <label class="control-label" ng-bind="task.evaluation.results.title"></label>
+                    <div class="col-1-1">
+                        <span ng-bind="task.evaluation.results.worksform.title" ng-hide="task.evaluation.results.worksform==null"></span>
+                    </div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <div class="control-label">对应量规：</div>
+                <span class="btn btn-gray" role="button">选择量规</span>
+            </div>
+        </div>
+        <div ng-switch-when="3">
+            <div class="form-group">
+                <strong class="control-label">任务时长：</strong>
+                <input type="number" ng-model="task.event_duration" class="form-control margin-right-6" et-sync="{taskId:task.id,task:{event_duration:task.event_duration},$service:'Tasks',$disabled:!task.id}"/>
+                <select ng-model="task.event_cycle" et-select="GRADES"
+                        et-sync="{taskId:task.id,task:{event_cycle:task.event_cycle},$service:'Tasks',$disabled:!task.id}"></select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="task.id">
+        <strong class="control-label">任务资源：</strong>
+        <span class="btn btn-gray btn-sm" ng-class="{uploading:task.$uploading}" role="button"
+              qn-upload="{ownerType:RESOURCE_TYPES.project.task,ownerId:task.id}"
+              on-begin="vm.onUploadBegin(task)" on-success="vm.onUploadSuccess(task)"><i class="pf-cloud-upload"></i> 上传示例</span>
+        <div class="row">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="resource in vm.getResources(task)">
+                    <i ng-class="resource.name|icon"></i>
+                    <span ng-bind="resource.name"></span>
+                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(resource)"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

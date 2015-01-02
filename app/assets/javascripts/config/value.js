@@ -14,6 +14,18 @@
                 image: 'http://img.edutec.com',
                 'static': 'http://static.edutec.com'
             },
+            FILE_TYPES: {
+                pdf: /pdf/,
+                word: /doc|docx|docm|dotx|dotm/,
+                excel: /xls|xlsx|xlsm|xltx|xltm|xlsb|xlam/,
+                ppt: /ppt|pptx|pptm|ppsx|ppsx|potx|potm|ppam/,
+                doc: /txt|pages|xps|md|chm|log/,
+                image: /jpg|jpeg|jpe|gif|png|bmp|dib|rle|svg|pic|jif|jfi|tga|kdc|pcd|pcx|dcx|psd|ai|tif|tiff|wmf/,
+                archive: /jar|zip|rar|cab|iso|tar|7z|gz|swc|war|apk|pwg|ane|ear|egg|ace|bz2|mpq|uue|arj|lzh/,
+                audio: /cd|ogg|mp3|asf|wma|wav|mp3pro|rm|real|ape|module|midi|vqf/,
+                movie: /mpeg|mpg|mp4|dat|avi|mov|asf|wmv|navi|3gp|rm|ram|rmvb|mkv|flv|f4v|webm/,
+                code: /js|css|rb|jbuilder|scss|json|htm|html|ng|sht|shtm|shtml|xhtml|xml|yaml|yml|ts|php|asp|sh|cmd|bat|applejs|sql|jql|jsp||less|as|es|js2|jsx|cs|c|cc|cpp|h|hpp|coffee|feature|uml|haml|jade/
+            },
             DEFAULTS: {
                 avatars: {
                     user: 'default-avatar-user',

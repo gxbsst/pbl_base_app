@@ -4,8 +4,7 @@
     angular
         .module('app.services')
         .service('Disciplines', Disciplines)
-        .service('Tasks', Tasks)
-        ;
+        .service('Tasks', Tasks);
 
     Disciplines.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 

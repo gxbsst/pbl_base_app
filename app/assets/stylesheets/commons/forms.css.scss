@@ -40,4 +40,8 @@ input,button,textarea{
     display:inline-block;
     width:auto;
   }
+  &[type=number]{
+    display:inline-block;
+    width:80px;
+  }
 }

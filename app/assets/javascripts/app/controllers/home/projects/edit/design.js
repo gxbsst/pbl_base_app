@@ -52,16 +52,18 @@
             }, function (result) {
                 vm.$products = angular.copy(result.data);
                 var products = result.data,
-                    findFinal = function (product) {
-                        return product.is_final;
-                    };
-                vm.project.final_product = products.findOne(findFinal);
-                if (vm.project.final_product) {
+                    finalProduct = products.findOne(findFinal);
+                if (finalProduct) {
+                    vm.project.final_product = angular.extend(vm.project.final_product || {}, finalProduct);
                     products.remove(findFinal);
                 }
                 vm.project.products = result.data;
                 getProductSample();
             });
+
+            function findFinal(product){
+                return product.is_final;
+            }
         }
 
         function getProductSample() {

@@ -37,6 +37,7 @@ ul.selection{
     border-bottom:1px solid #e0e0e0;
     line-height:30px;
     cursor:pointer;
+    text-align:left !important;
     &:before{
       display:inline-block;
       content:'';
@@ -130,6 +131,7 @@ ul.selection{
 }
 
 .scrollbar{
+  position:relative;
   overflow:auto;
 }
 

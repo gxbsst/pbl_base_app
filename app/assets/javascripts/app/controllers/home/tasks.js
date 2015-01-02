@@ -3,16 +3,14 @@
 
     angular
         .module('app.pbl')
-        .controller('addTaskController', addTaskController)
-    ;
+        .controller('addTaskController', addTaskController);
 
-    addTaskController.$inject = ['$scope','Disciplines'];
+    addTaskController.$inject = ['$scope', 'Disciplines'];
 
-    function addTaskController($scope,Disciplines) {
+    function addTaskController($scope, Disciplines) {
         var vm = this;
-        $scope.disabled=true;
-        $scope.task={
-            'task_type':'1'
+        $scope.task = {
+            task_type: 1
         };
 
         $scope.modalEmit = modalEmit;
