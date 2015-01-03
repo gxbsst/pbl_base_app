@@ -70,14 +70,15 @@
         <div class="form-group">
             <label class="control-label">启动文档：</label>
             <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.project.$uploading_doc}"
-                  qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                  qn-upload="{bucket:QINIU.buckets.static,ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
                   on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"><i class="pf-plus"></i> 新增启动文档</span>
             <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="doc in vm.findByType(RESOURCE_TYPES.project.document,true)">
+                <ul class="files">
+                    <li ng-repeat="doc in vm.findByType(RESOURCE_TYPES.project.document,true)" ng-class="{disabled:doc.$disabled}">
                         <i ng-class="doc.name|icon"></i>
                         <span ng-bind="doc.name"></span>
-                        <i class="btn-mini pf-cross pull-right" ng-click="vm.removeDocument(doc)"></i>
+                        <i class="file-download pf-inbox" et-tips="'下载'" et-href="doc|uri:PATHS.static"></i>
+                        <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeDocument(doc)"></i>
                     </li>
                 </ul>
             </div>

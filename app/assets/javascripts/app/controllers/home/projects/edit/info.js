@@ -191,6 +191,7 @@
         }
 
         function removeDocument(doc) {
+            doc.$disabled = true;
             Resources.remove({
                 resourceId: doc.id
             }, getProjectResources);

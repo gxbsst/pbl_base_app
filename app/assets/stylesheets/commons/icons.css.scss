@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?-xpyqjp');
-  src:font_url('PblIconFont.eot?#iefix-xpyqjp') format('embedded-opentype'),
-  font_url('PblIconFont.woff?-xpyqjp') format('woff'),
-  font_url('PblIconFont.ttf?-xpyqjp') format('truetype'),
-  font_url('PblIconFont.svg?-xpyqjp#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?-p9ld1');
+  src:font_url('PblIconFont.eot?#iefix-p9ld1') format('embedded-opentype'),
+  font_url('PblIconFont.woff?-p9ld1') format('woff'),
+  font_url('PblIconFont.ttf?-p9ld1') format('truetype'),
+  font_url('PblIconFont.svg?-p9ld1#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -256,6 +256,12 @@
 }
 .pf-cross:before {
   content: "\e117";
+}
+.pf-inbox:before {
+  content: "\e122";
+}
+.pf-outbox:before {
+  content: "\e123";
 }
 .pf-flag:before {
   content: "\e636";

@@ -14,6 +14,19 @@
                 image: 'http://img.edutec.com',
                 'static': 'http://static.edutec.com'
             },
+            QINIU: {
+                buckets: {
+                    image: 'mooc-images',
+                    'static': 'mooc-attachments',
+                    video: 'mooc-video',
+                    mp4: 'mooc-video-mp4',
+                    ogv: 'mooc-video-ogv'
+                },
+                upload: 'http://up.qiniu.com',
+                mp4: 'http://mooc-video-mp4.qiniudn.com',
+                ogv: 'http://mooc-video-ogv.qiniudn.com',
+                image: 'http://mooc-images.qiniudn.com'
+            },
             FILE_TYPES: {
                 pdf: /pdf/,
                 word: /doc|docx|docm|dotx|dotm/,
@@ -54,19 +67,6 @@
                     src: 'home/toolbar/histories.html'
                 }
             ],
-            QINIU: {
-                buckets: {
-                    image: 'mooc-images',
-                    'static': 'mooc-attachments',
-                    video: 'mooc-video',
-                    mp4: 'mooc-video-mp4',
-                    ogv: 'mooc-video-ogv'
-                },
-                upload: 'http://up.qiniu.com',
-                mp4: 'http://mooc-video-mp4.qiniudn.com',
-                ogv: 'http://mooc-video-ogv.qiniudn.com',
-                image: 'http://mooc-images.qiniudn.com'
-            },
             RESOURCE_TYPES: {
                 project: {
                     project: 'Project',

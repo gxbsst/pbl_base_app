@@ -211,3 +211,81 @@ ul.selection{
     background:#fffff0;
   }
 }
+
+ul.files{
+  $height:40px;
+  &:after{
+    clear:both;
+    content:'';
+  }
+  & > li{
+    position:relative;
+    width:33.3%;
+    float:left;
+    line-height:$height;
+    margin-top:6px;
+    padding:0 10px 0 36px;
+    color:#333;
+    cursor:default;
+    @include border-radius(4px);
+    span{
+      display:block;
+      width:100%;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    i[class^="pf-file-"]{
+      position:absolute;
+      top:0;
+      left:10px;
+      color:#96b9fa;
+      font-size:24px;
+      margin-right:6px;
+      line-height:$height;
+    }
+    .file-download, .file-remove{
+      display:none;
+      position:absolute;
+      top:12px;
+      right:8px;
+      width:14px;
+      height:14px;
+      line-height:14px;
+      font-size:16px;
+      text-align:center;
+      color:#d20000;
+      cursor:pointer;
+      @include transition(.2s ease all);
+      @include transform(translate3d(0, 0, 0));
+      @include transform(scale(.75, .75));
+      &.file-download{
+        right:26px;
+        color:#0064f0;
+      }
+      &:hover{
+        @include transform(scale(1, 1));
+      }
+    }
+    &:hover{
+      color:#000;
+      background-color:#f0faff;
+      padding:0 45px 0 36px;
+      i[class^="pf-file-"]{
+        color:#0064f0;
+      }
+      .file-download, .file-remove{
+        display:block;
+      }
+    }
+    &.disabled{
+      padding:0 10px 0 36px;
+      i[class^="pf-file-"]{
+        color:#999;
+      }
+      .file-download, .file-remove{
+        display:none;
+      }
+    }
+  }
+}

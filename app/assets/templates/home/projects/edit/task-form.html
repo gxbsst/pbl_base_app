@@ -42,11 +42,11 @@
                 <select ng-model="task.evaluation_cycle" et-select="DURATION_UNITS"
                         et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:!task.id}"></select>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <strong class="control-label">对应成果：</strong>
                 <select ng-model="task.product_id" et-select="vm.products" et-config="label='id'"
                         et-sync="{taskId:task.id,task:{product_id:task.product_id},$service:'Tasks',$disabled:!task.id}"></select>
-            </div>
+            </div>-->
             <!--<div class="form-group" >
                 <div class="offset-1-12 col-11-12 margin-top-8 margin-bottom-8">
                     <label class="control-label" ng-bind="task.evaluation.results.title"></label>
@@ -64,7 +64,7 @@
             <div class="form-group">
                 <strong class="control-label">任务时长：</strong>
                 <input type="number" ng-model="task.event_duration" class="form-control margin-right-6" et-sync="{taskId:task.id,task:{event_duration:task.event_duration},$service:'Tasks',$disabled:!task.id}"/>
-                <select ng-model="task.event_cycle" et-select="GRADES"
+                <select ng-model="task.event_cycle" et-select="GRADES" et-config="top=true"
                         et-sync="{taskId:task.id,task:{event_cycle:task.event_cycle},$service:'Tasks',$disabled:!task.id}"></select>
             </div>
         </div>
@@ -75,11 +75,12 @@
               qn-upload="{ownerType:RESOURCE_TYPES.project.task,ownerId:task.id}"
               on-begin="vm.onUploadBegin(task)" on-success="vm.onUploadSuccess(task)"><i class="pf-cloud-upload"></i> 上传示例</span>
         <div class="row">
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="resource in vm.getResources(task)">
+            <ul class="files">
+                <li ng-repeat="resource in vm.getResources(task)" ng-class="{disabled:resource.$disabled}">
                     <i ng-class="resource.name|icon"></i>
                     <span ng-bind="resource.name"></span>
-                    <i class="btn-mini pf-cross pull-right" ng-click="vm.removeResource(resource)"></i>
+                    <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                    <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
                 </li>
             </ul>
         </div>

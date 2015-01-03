@@ -11,7 +11,6 @@
         var vm = this;
 
         project.knowledge = project.knowledge || [];
-        project.tasks = project.tasks || [];
         vm.project = project;
         vm.tempKnowledge = '';
         vm.addKnowledge = addKnowledge;
@@ -56,7 +55,7 @@
         function getTaskResources() {
             Resources.all({
                 owner_types: RESOURCE_TYPES.project.task,
-                owner_ids: vm.project.tasks.map(function (task) {
+                owner_ids: vm.tasks.map(function (task) {
                     return task.id;
                 }).join(',')
             }, function (result) {
@@ -71,6 +70,7 @@
         }
 
         function removeResource(resource) {
+            resource.$disabled = true;
             Resources.remove({
                 resourceId: resource.id
             }, getTaskResources);
@@ -128,7 +128,7 @@
             Tasks.all({
                 project_id: vm.project.id
             }, function (result) {
-                vm.project.tasks = result.data;
+                vm.tasks = result.data;
                 getTaskResources();
             });
         }

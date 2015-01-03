@@ -13,6 +13,7 @@
               et-modal="$project=vm.project;title='选择课标';padding=0;controller='CurriculumsController as vm';src='home/projects/edit/curriculums.html'"><i
                 class="pf-expand"></i> 选择课标</span>
         <div class="row">
+            <div class="loading" ng-if="!vm.project.standard_items"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in vm.project.standard_items">
                     <span ng-bind="item.standard_item.content"></span>
@@ -29,6 +30,7 @@
                 class="pf-expand"></i> 选择技能</span>
 
         <div class="row">
+            <div class="loading" ng-if="!vm.project.techniques"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in vm.project.techniques">
                     <span ng-bind="item.technique.title"></span>

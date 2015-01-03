@@ -55,7 +55,8 @@
             <label class="control-label">任务列表：</label>
             <span class="btn btn-gray btn-sm" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';padding=0;src='home/projects/edit/task-creator.html'"><i class="pf-expand"></i> 增加任务</span>
         </div>
-        <div class="tasks" ng-repeat="task in vm.project.tasks">
+        <div class="loading" ng-if="!vm.tasks"><i class="pf-spinner-2 rotation"></i></div>
+        <div class="tasks" ng-repeat="task in vm.tasks">
             <div class="task-title" ng-click="task.$show=!task.$show">
                 <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
                 <strong ng-bind="'任务'+($index+1)"></strong>
