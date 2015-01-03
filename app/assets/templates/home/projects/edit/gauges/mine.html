@@ -1,5 +1,6 @@
-<div class="gauges-list" ng-controller="GaugesMineController as vm" et-scrollbar>
-    <div ng-if="!vm.gauges" class="loading"><i class="pf-spinner-2 rotation"></i></div>
+<div class="gauges-list scrollbar" ng-controller="GaugesMineController as vm" et-scrollbar>
+    <div ng-if="!vm.gauges" class="loading margin-top-16"><i class="pf-spinner-2 rotation"></i></div>
+    <div ng-if="vm.gauges&&!vm.gauges.length" class="center text-red margin-top-16">您还没有定义任何量规</div>
     <table class="table" ng-if="vm.gauges">
         <thead>
         <tr>

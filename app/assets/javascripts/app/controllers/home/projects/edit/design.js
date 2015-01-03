@@ -39,10 +39,12 @@
         }
 
         function onProjectTechniques() {
+            $scope.$broadcast('getProjectTechniques', true);
             ProjectTechniques.all({
                 project_id: vm.project.id
             }, function (result) {
                 vm.project.techniques = result.data;
+                $scope.$broadcast('getProjectTechniques', false);
             });
         }
 

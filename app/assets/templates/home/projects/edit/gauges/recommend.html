@@ -1,5 +1,6 @@
 <div class="gauges-list scrollbar" ng-controller="GaugeRecommendsController as vm" et-scrollbar>
-    <div ng-if="!vm.techniques" class="loading"><i class="pf-spinner-2 rotation"></i></div>
+    <div ng-if="!vm.techniques" class="loading margin-top-16"><i class="pf-spinner-2 rotation"></i></div>
+    <div ng-if="vm.techniques&&!vm.techniques.length" class="center text-red margin-top-16">没有找到与选择技能相匹配的量规</div>
     <div class="row" ng-repeat="technique in vm.techniques">
         <h3 ng-bind="getTechnique(technique).technique.title"></h3>
         <table class="table grid">

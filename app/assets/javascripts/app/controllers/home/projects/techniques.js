@@ -9,13 +9,16 @@
 
     function SkillsController($scope, $stateParams, Skills, ProjectTechniques) {
 
-        var vm = this;
+        var vm = this,
+            project = $scope.project;
         vm.selected = [];
         vm.categories = Skills.all({action: 'categories'});
         vm.isSelected = isSelected;
         vm.getSubCategories = getSubCategories;
         vm.getTechniques = getTechniques;
         vm.onChange = onChange;
+
+        $scope.$on('getProjectTechniques', getProjectTechniques);
 
         ProjectTechniques
             .all({
@@ -35,22 +38,43 @@
         }
 
         function onChange(item) {
+            vm.isBusy = item;
             var params = {
                 technique: {
                     project_id: $stateParams.projectId,
                     technique_id: item.id
                 }
             };
-            ProjectTechniques[item.selected ? 'add' : 'remove'](params, emit);
+
+            if (item.selected) {
+                ProjectTechniques.add(params, emit);
+            } else {
+                var findItem = function (a) {
+                        return (a.technique_id || a.technique.id) == item.id;
+                    },
+                    technique = project.techniques.findOne(findItem);
+                if (technique) {
+                    //project.techniques.remove(findItem);
+                    ProjectTechniques.remove({
+                        techniqueId: technique.id
+                    }, emit);
+                }
+            }
+
+            //ProjectTechniques[item.selected ? 'add' : 'remove'](params, emit);
 
             function emit(){
                 $scope.$emit('onProjectTechniques');
             }
         }
 
+        function getProjectTechniques(event, isBusy) {
+            vm.isBusy = isBusy;
+        }
+
         function isSelected(entry) {
             return vm.selected.has(function (item) {
-                return item.technique_id === entry.id;
+                return item.technique.id === entry.id;
             });
         }
 

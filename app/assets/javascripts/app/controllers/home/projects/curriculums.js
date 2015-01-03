@@ -46,7 +46,7 @@
                     },
                     standardItem = project.standard_items.findOne(findItem);
                 if (standardItem) {
-                    project.standard_items.remove(findItem);
+                    //project.standard_items.remove(findItem);
                     ProjectStandards.remove({
                         standardItemId: standardItem.id
                     }, emit);

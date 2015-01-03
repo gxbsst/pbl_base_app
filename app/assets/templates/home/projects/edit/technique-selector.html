@@ -17,7 +17,7 @@
             </ul>
         </dd>
         <dd class="col-3-5">
-            <div class="selector-entries scrollbar-macosx" et-scrollbar>
+            <div class="selector-entries scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
                 <i class="remark" ng-if="!vm.techniques">请选择年级</i>
                 <div ng-if="vm.sub_category&&!vm.techniques.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
                 <label ng-repeat="item in vm.techniques.data" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.title"></span></label>
