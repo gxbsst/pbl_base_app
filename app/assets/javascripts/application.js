@@ -10,55 +10,55 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree ./ie
-//= require css3-mediaqueries-js
-//= require es5-shim
+//= require Chart.js
 //= require jquery
 //= require jquery_ujs
+//= require interact
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
 //= require angular-ui-router
+//= require angular-chart.js
 
 //= require mockjs/dist/mock
-//= require modules/mock
-//= require config/mock
+//= require ./application/modules/mock
+//= require ./application/config/mock
 
 // Prototypes
-//= require_tree ./prototype
+//= require_tree ./application/prototype
 
 // jQuery plugins
-//= require_tree ./jquery/plugins
+//= require_tree ./application/jquery/plugins
 
 // Bootstrapping
-//= require app.module
+//= require ./application/app.module
 
 // Modules
-//= require modules/modules
+//= require ./application/modules/modules
 
 // Config
-//= require config/modules
+//= require ./application/config/modules
 
 // I18n
-//= require i18n/modules
+//= require ./application/i18n/modules
 
 // Directives
-//= require directives/modules
+//= require ./application/directives/modules
 
 // Factories
-//= require factories/modules
+//= require ./application/factories/modules
 
 // Filters
-//= require filters/modules
+//= require ./application/filters/modules
 
 // Services
-//= require services/modules
+//= require ./application/services/modules
 
 // App
-//= require app/modules
+//= require ./application/app/modules
 
 //= require angular-rails-templates
 //= require_tree ../templates
 
-//= require_tree .
+//= require_tree ./application

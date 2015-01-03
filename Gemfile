@@ -48,6 +48,8 @@ gem 'rails-assets-angular-ui-router', '~> 0.2.12'
 gem 'rails-assets-angular-validation', '~> 1.2.0'
 gem 'rails-assets-restangular'
 gem 'rails-assets-lodash'
+gem 'rails-assets-interact'
+gem 'rails-assets-angular-chart.js'
 
 gem 'htmlcompressor'
 gem 'angular-rails-templates'

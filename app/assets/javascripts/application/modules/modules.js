@@ -6,7 +6,8 @@
         'app.tabs',
         'app.modal',
         'app.scrollbar',
-        'validation'
+        'validation',
+        'chart.js'
     ]);
 
 })();
