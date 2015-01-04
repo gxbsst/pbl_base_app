@@ -1,6 +1,6 @@
 json.id group[:id]
 json.name group[:name]
-json.creator group[:user_id]
+json.creator group[:owner_id]
 json.description group[:description] if group[:description]
 json.members_count group[:members_count] if group[:members_count]
 json.members do

@@ -1,17 +1,18 @@
 class GroupsController < ApplicationBaseController
 
   def index
-    @groups = Pbl::Models::Groups::Group.where(user_id: params[:user_id])
+    @groups = Pbl::Models::Groups::Group.where(owner_id: params[:owner_id], owner_type: 'User')
   end
 
   def current_user_index
-    @groups = Pbl::Models::Groups::Group.where(user_id: current_user.id)
+    @groups = Pbl::Models::Groups::Group.where(owner_id: current_user.id, owner_type: 'User')
     render :index
   end
 
   def create
     group = params[:group]
-    group[:user_id] ||= current_user.id
+    group[:owner_id] ||= current_user.id
+    group[:owner_type] ||= 'User'
     @group = Pbl::Models::Groups::Group.create(group)
     render :show
   end
