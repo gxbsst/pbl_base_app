@@ -12,5 +12,17 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: pbl_base_app_production
+  username: pbl
+  password: pbl
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: pbl_base_app_staging
+  username: pbl
+  password: pbl

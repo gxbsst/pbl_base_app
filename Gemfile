@@ -4,7 +4,11 @@ source 'https://rails-assets.org'
 
 gem 'rails', '4.1.7'
 
-gem 'sqlite3'
+group :development, :test do
+  gem 'sqlite3', platform: [:ruby]
+end
+
+gem 'activerecord-jdbcpostgresql-adapter', platforms: [:jruby]
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails', '~> 2.0.0'
@@ -55,8 +59,16 @@ gem 'htmlcompressor'
 gem 'angular-rails-templates'
 
 group :development do
-  gem 'thin', platforms: [:ruby]
+  gem 'thin', platform: :ruby
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-sidekiq'
 end
+
+gem 'puma', platforms: :jruby
 
 group :test do
   gem 'json_spec'
