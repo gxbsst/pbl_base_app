@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: pbl_base_app_development
+
+test:
+  <<: *default
+  database: pbl_base_app_test
+
+production:
+  <<: *default
+  database: pbl_base_app_production
+  username: pbl
+  password: pbl
+
+staging:
+  <<: *default
+  database: pbl_base_app_staging
+  username: pbl
+  password: pbl
