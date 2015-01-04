@@ -9,7 +9,8 @@
         return {
             findById: findById,
             params: params,
-            merge: merge
+            merge: merge,
+            random: random
         }
     }
 
@@ -22,7 +23,7 @@
 
     function params(scope, string, object, defaultKey) {
         angular.forEach(string.split(';'), function (config) {
-            if(config){
+            if (config) {
                 config = config.split('=');
                 var value = config[1] || config[0];
                 scope.$watch(value, function (v) {
@@ -43,6 +44,10 @@
         }, function (newValue) {
             angular.extend(b, newValue || {});
         }, true);
+    }
+
+    function random(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
     }
 
 })();

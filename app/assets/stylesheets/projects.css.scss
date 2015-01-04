@@ -1036,38 +1036,84 @@
   }
 }
 
-.project-show-member{
-  .input-int{
-    width:60px;
-  }
-  .btn-padding{
-    padding:0 30px;
-  }
-  .group-user{
-    display:inline-block;
-    color:#000000;
-    text-decoration:none;
+.project-show-members{
+  .member{
     position:relative;
-    vertical-align:middle;
-    margin:15px 15px;
-    width:140px;
+    display:block;
+    line-height:40px;
+    padding:0 10px 0 46px;
+    @include border-radius(4px);
+    span{
+      display:block;
+      width:100%;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
     img{
-      border-radius:50%;
-      vertical-align:middle;
+      position:absolute;
+      left:10px;
+      top:5px;
+      width:30px;
+      height:30px;
+      @include border-radius(50%);
     }
-    .lead-name{
-      margin:0 10px;
+    .pf-cross{
+      display:none;
+      position:absolute;
+      top:12px;
+      right:8px;
+      width:14px;
+      height:14px;
+      line-height:14px;
+      font-size:16px;
+      text-align:center;
+      color:#d20000;
+      cursor:pointer;
+      @include transition(.2s ease all);
+      @include transform(translate3d(0, 0, 0));
+      @include transform(scale(.75, .75));
+      &:hover{
+        @include transform(scale(1, 1));
+      }
     }
-    .lead-flag{
-      color:#ff0000;
+    &.hover{
+      background:#f5f5f5;
+      padding:0 22px 0 46px;
+      .pf-cross{
+        display:block;
+      }
     }
-
+    &.shadow{
+      z-index:1;
+      &:hover{
+        background-color:#fff;
+      }
+    }
+    &.disabled{
+      padding:0 10px 0 46px;
+      img{
+        @include opacity(.65);
+      }
+      .pf-cross{
+        display:none;
+      }
+    }
+  }
+  .et-drop{
+    margin:-5px -12px;
+    padding:5px 12px;
+    border:1px dashed transparent;
+    &.et-drop-enter{
+      border-color:#61bc6c;
+      background-color:#f0fff0;
+    }
   }
   table{
-    .thead{
-      width:137px;
+    .head{
+      width:120px;
       text-align:center;
-      background:#f5f5f5;
+      background:#fafafa;
     }
     tr{
       height:75px;

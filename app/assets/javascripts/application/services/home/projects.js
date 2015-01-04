@@ -66,7 +66,8 @@
         return $resource('/projects/:projectId/assignments/:assignmentId', {
             projectId: '@projectId',
             assignmentId: '@assignmentId',
-            name: ROLES.student
+            name: ROLES.student,
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 

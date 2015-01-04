@@ -1,147 +1,36 @@
-<div class="project-show-member">
+<div class="project-show-members">
     <div class="project-title col-1-1 ">
         <span class="title-text">项目成员</span>
         <span class="title-pointer"></span>
     </div>
     <div class="col-1-1 margin-top-20">
-        <div class="left col-3-4">确定小组数量：<input type="number" class="input-int form-control form-control-st"/></div>
+        <div class="left col-3-4">小组数量：<input type="number" ng-model="vm.count" min="1" class="form-control"/></div>
         <div class="text-right col-1-4">
-            <span class="btn btn-gray" role="button">自动分组</span>
+            <span class="btn btn-gray margin-right-6" ng-click="vm.grouping(vm.count)">自动分组</span>
+            <span class="btn btn-gray" role="button">选择成员</span>
         </div>
     </div>
-    <div class="col-1-1 margin-top-20" et-dropzone>
-        <table class="table col-1-1 margin-bottom-20">
+    <div class="col-1-1 margin-top-20 et-dropzone">
+        <table class="table margin-bottom-20">
             <tr>
-                <td class="thead">成员导入</td>
+                <td class="head">未分组成员</td>
                 <td>
-                    <span class="btn btn-gray btn-padding" role="button">导入</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="thead">未分组</td>
-                <td>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="thead">分组1</td>
-                <td>
-                    <div et-drop>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                            <span class="lead-flag pf-user"></span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
+                    <div class="col-1-4 member" ng-repeat="member in vm.members" ng-class="{disabled:member.$disabled}">
+                        <img ng-src="{{member.user|avatar}}"/>
+                        <span ng-bind="member.user.username"></span>
+                        <i class="pf-cross" et-tips="'移除该成员'" ng-click="vm.destroy(member,$event)"></i>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td class="thead">分组2</td>
+            <tr ng-repeat="group in vm.groups">
+                <td class="head" ng-bind="group.name+group.no"></td>
                 <td>
-                    <div et-drop>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                            <span class="lead-flag pf-user"></span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
-                        <a class="group-user" et-drag>
-                            <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                            <span class="lead-name">刘记红</span>
-                        </a>
+                    <div class="row et-drop">
+                        <div class="col-1-4 member et-drag" ng-repeat="user_id in group.members track by $index" ng-hover>
+                            <img ng-src="{{vm.getUser(user_id)|avatar}}"/>
+                            <span ng-bind="vm.getUser(user_id).username"></span>
+                        </div>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="thead">分组3</td>
-                <td>
-
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                        <span class="lead-flag pf-user"></span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="thead">分组4</td>
-                <td>
-
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                        <span class="lead-flag pf-user"></span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
-                    <a class="group-user" >
-                        <img ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                        <span class="lead-name">刘记红</span>
-                    </a>
                 </td>
             </tr>
         </table>

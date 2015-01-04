@@ -130,6 +130,10 @@ ul.selection{
   }
 }
 
+.shadow{
+  @include box-shadow(0 0 8px 0 #999);
+}
+
 .scrollbar{
   position:relative;
   overflow:auto;
@@ -288,4 +292,8 @@ ul.files{
       }
     }
   }
+}
+
+.et-drag{
+  cursor:move;
 }

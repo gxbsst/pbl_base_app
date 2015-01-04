@@ -33,7 +33,7 @@
                 excel: /xls|xlsx|xlsm|xltx|xltm|xlsb|xlam/,
                 ppt: /ppt|pptx|pptm|ppsx|ppsx|potx|potm|ppam/,
                 doc: /txt|pages|xps|md|chm|log/,
-                image: /jpg|jpeg|jpe|gif|png|bmp|dib|rle|svg|pic|jif|jfi|tga|kdc|pcd|pcx|dcx|psd|ai|tif|tiff|wmf/,
+                image: /jpg|jpeg|jpe|gif|png|bmp|dib|rle|svg|pic|jif|jfi|tga|kdc|pcd|pcx|dcx|psd|ai|tif|cdr|tiff|wmf/,
                 archive: /jar|zip|rar|cab|iso|tar|7z|gz|swc|war|apk|pwg|ane|ear|egg|ace|bz2|mpq|uue|arj|lzh/,
                 audio: /cd|ogg|mp3|asf|wma|wav|mp3pro|rm|real|ape|module|midi|vqf/,
                 movie: /mpeg|mpg|mp4|dat|avi|mov|asf|wmv|navi|3gp|rm|ram|rmvb|mkv|flv|f4v|webm/,

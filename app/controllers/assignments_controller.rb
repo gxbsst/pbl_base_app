@@ -1,7 +1,9 @@
 class AssignmentsController < ApplicationController
 
   def index
-    assignment = {}
+    assignment = {
+        limit: params[:limit]
+    }
     if params[:project_id]
       assignment[:resource_type] = 'Project'
       assignment[:resource_id] = params[:project_id]

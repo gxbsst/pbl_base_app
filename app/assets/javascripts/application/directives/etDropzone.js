@@ -7,12 +7,13 @@
         .directive('etDrop', etDrop)
         .directive('etDrag', etDrag);
 
-    etDropzone.$inject = ['$parse'];
+    etDropzone.$inject = ['$parse', '$timeout'];
 
-    function etDropzone($parse){
+    function etDropzone($parse, $timeout){
         return {
             require: 'etDropzone',
-            restrict: 'A',
+            restrict: 'CA',
+            scope: true,
             compile: function () {
                 return {
                     pre: etDropzoneLink
@@ -22,83 +23,107 @@
         };
 
         function etDropzoneLink(scope, element, attr, ctrl){
-            var onBegin = $parse(attr.onBegin),
+            var config = angular.extend({
+                    drops: '.et-drop',
+                    drags: '.et-drag'
+                }, scope.$eval(attr.etDropzone) || {}),
+                onBegin = $parse(attr.onBegin),
                 onEnter = $parse(attr.onEnter),
                 onLeave = $parse(attr.onLeave),
                 onDropped = $parse(attr.onDropped),
                 onEnd = $parse(attr.onEnd);
 
-            ctrl.$drops = [];
-            ctrl.$drags = [];
+            scope.$on('onSetDrop', init);
+            scope.$on('onSetDrag', init);
 
-            scope.$watch(function () {
-                return ctrl.$drags;
-            }, function (drags) {
-                console.log(drags.length)
-            });
+            interact.maxInteractions(Infinity);
 
-            /*interact(element[0])
-                .dropzone({
-                    overlap: 'pointer',
-                    ondropactivate: function (event) {
-                        onBegin(scope, {$event: event});
-                        //event.target.classList.add('drop-active');
-                    },
-                    ondragenter: function (event) {
-                        onEnter(scope, {$event: event});
-                        //var draggable = event.relatedTarget,
-                        //    dropzone = event.target;
-                        //dropzone.classList.add('drop-target');
-                        //draggable.classList.add('can-drop');
-                        //draggable.textContent = 'Dragged in';
-                    },
-                    ondragleave: function (event) {
-                        onLeave(scope, {$event: event});
-                        //event.target.classList.remove('drop-target');
-                        //event.relatedTarget.classList.remove('can-drop');
-                        //event.relatedTarget.textContent = 'Dragged out';
-                    },
-                    ondrop: function (event) {
-                        onDropped(scope, {$event: event});
-                        //event.relatedTarget.textContent = 'Dropped';
-                    },
-                    ondropdeactivate: function (event) {
-                        onEnd(scope, {$event: event});
-                        //event.target.classList.remove('drop-active');
-                        //event.target.classList.remove('drop-target');
-                    }
-                });*/
+            interact(config.drags)
+                .draggable({ max: Infinity })
+                .on('dragstart', function (event) {
+                    var el = angular.element(event.target).addClass('shadow');
+                    event.interaction.x = parseInt(el.data('x'), 10) || 0;
+                    event.interaction.y = parseInt(el.data('y'), 10) || 0;
+                })
+                .on('dragmove', function (event) {
+                    var el = angular.element(event.target);
+                    event.interaction.x += event.dx;
+                    event.interaction.y += event.dy;
+                    el.css({left: event.interaction.x, top: event.interaction.y});
+                    return false;
+                })
+                .on('dragend', function (event) {
+                    var el = angular.element(event.target);
+                    el.animate({left: 0, top: 0}, 400);
+                    $timeout(function () {
+                        el.removeClass('shadow hover');
+                    }, 400);
+                });
+
+            function init(){
+                interact(config.drops)
+                    .dropzone({
+                        accept: config.drags,
+                        overlap: 'pointer',
+                        ondropactivate: function (event) {
+                            var dropzone = angular.element(event.target);
+                            dropzone.addClass('et-drop-activate');
+                            onBegin(scope, {$event: event});
+                        },
+                        ondragenter: function (event) {
+                            onEnter(scope, {$event: event});
+                            var dropzone = angular.element(event.target),
+                                drag = angular.element(event.relatedTarget);
+                            dropzone.addClass('et-drop-enter');
+                            drag.addClass('et-drag-drop');
+                        },
+                        ondragleave: function (event) {
+                            var dropzone = angular.element(event.target),
+                                drag = angular.element(event.relatedTarget);
+                            dropzone.removeClass('et-drop-enter');
+                            drag.removeClass('et-drag-drop');
+                            onLeave(scope, {$event: event});
+                        },
+                        ondrop: function (event) {
+                            var dropzone = angular.element(event.target),
+                                drag = angular.element(event.relatedTarget);
+
+                            onDropped(scope, {$event: event});
+                        },
+                        ondropdeactivate: function (event) {
+                            var dropzone = angular.element(event.target),
+                                drag = angular.element(event.relatedTarget);
+                            dropzone.removeClass('et-drop-activate et-drop-enter');
+                            drag.removeClass('et-drag-drop');
+                            onEnd(scope, {$event: event});
+                        }
+                    });
+            }
+
         }
     }
 
     function etDrop(){
         return {
-            require: ['^etDropzone', 'etDrop'],
-            restrict: 'A',
+            restrict: 'CA',
             link: etDropLink,
             controller: angular.noop
         };
 
-        function etDropLink(scope, element, attr, ctrl){
-            var dropzone = ctrl[0],
-                drop = ctrl[1];
-            //dropzone.$interact.accept(element[0]);
+        function etDropLink(scope, element, attr){
+            scope.$emit('onSetDrop');
         }
     }
 
     function etDrag(){
         return {
-            require: ['^etDropzone', '^etDrop', 'etDrag'],
-            restrict: 'A',
+            restrict: 'CA',
             link: etDragLink,
             controller: angular.noop
         };
 
-        function etDragLink(scope, element, attr, ctrl){
-            var dropzone = ctrl[0],
-                drop = ctrl[1],
-                drag = ctrl[2];
-            dropzone.$drags.push(element[0]);
+        function etDragLink(scope, element, attr){
+            scope.$emit('onSetDrag');
         }
     }
 

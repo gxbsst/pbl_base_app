@@ -16,10 +16,10 @@
 
         element
             .on('mouseenter', function () {
-                element.addClass(attr.ngHover);
+                element.addClass(attr.ngHover || 'hover');
             })
             .on('mouseleave', function () {
-                element.removeClass(attr.ngHover);
+                element.removeClass(attr.ngHover || 'hover');
             });
 
     }

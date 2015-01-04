@@ -18,7 +18,7 @@
     Users.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Users($resource, RESOURCE_ACTIONS) {
-        return $resource('/users/:action/:userId', {userId: '@userId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/users/:action/:userId', {userId: '@userId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Friends.$inject = ['$resource', 'RESOURCE_ACTIONS'];
