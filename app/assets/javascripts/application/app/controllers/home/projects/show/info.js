@@ -17,6 +17,7 @@
         vm.infoTab=infoTab;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
+        vm.findByType = findByType;
 
         getProjectProducts();
         getProjectGauges();
@@ -33,6 +34,13 @@
                 }
             });
         });
+
+
+        function findByType(ownerType, multiple) {
+            return vm.project.resources[multiple ? 'find' : 'findOne'](function (resource) {
+                return resource.owner_type == ownerType;
+            });
+        }
 
         function getProjectProducts() {
             ProjectProducts.all({
@@ -56,7 +64,8 @@
                 owner_types: [
                     RESOURCE_TYPES.project.cover,
                     RESOURCE_TYPES.project.product,
-                    RESOURCE_TYPES.project.document].join(','),
+                    RESOURCE_TYPES.project.document,
+                    RESOURCE_TYPES.project.resource].join(','),
                 owner_ids: [project.id].concat(vm.$products.map(function (product) {
                     return product.id;
                 })).join(',')

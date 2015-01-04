@@ -5,7 +5,8 @@
     </div>
     <div class="task-list col-1-1 margin-bottom-20">
         <div class="col-1-1 tasks-group">
-            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.project.tasks track by $index">
+            {{project.tasks}}
+            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.tasks track by $index">
                 <div class="tasks-group-item-title">
                     <span class="pull-left" ng-bind="'任务'+($index+1)+'-'"></span>
                     <span class="pull-left" ng-bind="task.title"></span>
