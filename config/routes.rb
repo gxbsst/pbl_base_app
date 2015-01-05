@@ -73,4 +73,7 @@ Rails.application.routes.draw do
   resources :follows, defaults: {format: 'json'}
 
   resources :groupings, defaults: {format: 'json'}
+
+  resources :discussions, defaults: {format: 'json'}
+
 end

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectShowMembersController', ProjectShowMembersController);
 
-    ProjectShowMembersController.$inject = ['$scope', 'ProjectGroupings', 'ProjectMembers', 'project'];
+    ProjectShowMembersController.$inject = ['$scope', 'Groupings', 'Discussions', 'ProjectMembers', 'project'];
 
-    function ProjectShowMembersController($scope, ProjectGroupings, ProjectMembers, project) {
+    function ProjectShowMembersController($scope, Groupings, Discussions, ProjectMembers, project) {
 
         var vm = this;
         vm.project = project;
@@ -15,13 +15,14 @@
         vm._destroy = _destroy;
         vm.getUser = getUser;
         vm.grouping = grouping;
+        vm.release = release;
         vm.isGrouped = isGrouped;
         vm.grouped = grouped;
         vm.onBegin = onBegin;
         vm.onDropped = onDropped;
 
         getMembers();
-        getProjectGroupings();
+        getDiscussions();
         $scope.$on('onMembersChange', getMembers);
 
         function getMembers() {
@@ -37,15 +38,31 @@
             });
         }
 
-        function getProjectGroupings(){
-            ProjectGroupings.get({
+        function getGroupings() {
+            Groupings.get({
                 projectId: project.id
             }, function (result) {
                 var cache = result.cache;
-                if(cache){
+                if (cache) {
                     cache = JSON.parse(cache);
                     vm.count = cache.count;
                     vm.groups = cache.groups;
+                }
+            });
+        }
+
+        function getDiscussions() {
+            Discussions.all({
+                project_id: project.id
+            }, function (result) {
+                var groupings = result.data,
+                    count = groupings.length;
+                if (count) {
+                    vm.released = true;
+                    vm.count = count;
+                    vm.groups = groupings;
+                } else {
+                    getGroupings();
                 }
             });
         }
@@ -69,7 +86,7 @@
 
         function getUser(user_id, group) {
             var user = vm.usersHash[user_id];
-            if(!user){
+            if (!user) {
                 group.members.remove(function (item) {
                     return item == user_id;
                 });
@@ -92,6 +109,7 @@
                 groups.push({
                     name: '分组',
                     no: i + 1,
+                    project_id: project.id,
                     members: members.slice(i * size, i * size + size)
                 });
             }
@@ -104,17 +122,30 @@
             save();
         }
 
-        function save(){
-            if(vm.count && vm.groups){
-                ProjectGroupings.add({
-                    grouping: {
-                        project_id: project.id,
-                        cache: JSON.stringify({
-                            count: vm.count,
-                            groups: vm.groups
-                        })
-                    }
-                });
+        function save() {
+            if (vm.count && vm.groups) {
+                if(vm.released){
+                    angular.forEach(vm.groups, function (discussion) {
+                        Discussions.update({discussionId: discussion.id}, {discussion: {members: discussion.members}});
+                    });
+                }else{
+                    Groupings.add({
+                        grouping: {
+                            project_id: project.id,
+                            cache: JSON.stringify({
+                                count: vm.count,
+                                groups: vm.groups
+                            })
+                        }
+                    });
+                }
+            }
+        }
+
+        function release() {
+            if (confirm('分组发布后将不可修改，是否现在发布？')) {
+                vm.released = true;
+                Discussions.add({discussion: vm.groups});
             }
         }
 
@@ -132,7 +163,7 @@
 
         function grouped() {
             var grouped = 0;
-            if(vm.groups){
+            if (vm.groups) {
                 angular.forEach(vm.groups, function (group) {
                     grouped += group.members.length;
                 });
@@ -145,15 +176,15 @@
         }
 
         function onDropped(user_id, $target) {
-            if($target){
+            if ($target) {
                 $target.members.push(user_id);
             }
-            if(vm.origin){
+            if (vm.origin) {
                 vm.origin.members.remove(function (item) {
                     return item == user_id;
                 });
             }
-            if($target || vm.origin){
+            if ($target || vm.origin) {
                 save();
             }
         }

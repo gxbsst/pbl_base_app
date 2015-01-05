@@ -9,110 +9,22 @@
                 <span class="btn btn-gray" role="button">上传资源</span>
             </div>
             <div class="col-3-4 text-right search-form">
-                <select class="search-select" et-select="DURATION_UNITS" ></select>
-                <select class="search-select" et-select="DURATION_UNITS" ></select>
+                <select class="margin-right-6" et-select="vm.groups" et-config="placeholder='按小组'"></select>
+                <select class="margin-right-6" et-select="vm.tasks" et-config="placeholder='按任务'"></select>
                 <span class="pf-search input-search">
                     <input type="text" class=" " placeholder="输入关键字进行搜索"/>
                 </span>
             </div>
         </div>
     </div>
-    <div class="col-1-1">
-        <div class="resources-list">
-            <div class="resources-item active">
-                <div class="resources-item-title">小组1</div>
-                <div class="resources-item-cont">
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="resources-item">
-                <div class="resources-item-title">小组2</div>
-                <div class="resources-item-cont">
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="resource-item">
-                        <div class="resource-item-info">
-                            <div class="pf-image resource-item-logo"></div>
-                            <div class="resource-item-title">
-                                <span>文件名.zip</span><br/>
-                                <span>12.1MB</span>
-                                <span>7次下载 唐明远 2014-11-12</span>
-                            </div>
-                            <span class="btn btn-gray resource-item-btn" role="button">
-                                <i class="pf-arrowhead-down"></i>下载
-                            </span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <ul class="files">
+            <li ng-repeat="resource in vm.resources" ng-class="{disabled:doc.$disabled}">
+                <i ng-class="resource.name|icon"></i>
+                <span ng-bind="resource.name"></span>
+                <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeDocument(resource)"></i>
+            </li>
+        </ul>
     </div>
 </div>

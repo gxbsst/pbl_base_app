@@ -1,0 +1,5 @@
+json.id discussion[:id]
+json.name discussion[:name]
+json.no discussion[:no]
+json.project_id discussion[:project_id]
+json.members discussion[:members]

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectShowResourcesController', ProjectShowResourcesController);
 
-    ProjectShowResourcesController.$inject = ['project'];
+    ProjectShowResourcesController.$inject = ['Resources', 'project'];
 
-    function ProjectShowResourcesController(project) {
+    function ProjectShowResourcesController(Resources, project) {
 
         var vm = this;
         vm.project = project;

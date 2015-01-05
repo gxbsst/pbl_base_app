@@ -9,8 +9,7 @@
         .service('ProjectProducts', ProjectProducts)
         .service('ProjectGauges', ProjectGauges)
         .service('ProjectMembers', ProjectMembers)
-        .service('ProjectTeachers', ProjectTeachers)
-        .service('ProjectGroupings', ProjectGroupings);
+        .service('ProjectTeachers', ProjectTeachers);
 
 
     Projects.$inject = ['$resource', 'RESOURCE_ACTIONS'];
@@ -79,14 +78,6 @@
             projectId: '@projectId',
             assignmentId: '@assignmentId',
             name: ROLES.teacher
-        }, RESOURCE_ACTIONS);
-    }
-
-    ProjectGroupings.$inject = ['$resource', 'RESOURCE_ACTIONS'];
-
-    function ProjectGroupings($resource, RESOURCE_ACTIONS) {
-        return $resource('/groupings/:projectId', {
-            projectId: '@projectId'
         }, RESOURCE_ACTIONS);
     }
 
