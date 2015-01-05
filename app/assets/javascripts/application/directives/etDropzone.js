@@ -26,12 +26,7 @@
             var config = angular.extend({
                     drops: '.et-drop',
                     drags: '.et-drag'
-                }, scope.$eval(attr.etDropzone) || {}),
-                onBegin = $parse(attr.onBegin),
-                onEnter = $parse(attr.onEnter),
-                onLeave = $parse(attr.onLeave),
-                onDropped = $parse(attr.onDropped),
-                onEnd = $parse(attr.onEnd);
+                }, scope.$eval(attr.etDropzone) || {});
 
             scope.$on('onSetDrop', init);
             scope.$on('onSetDrag', init);
@@ -54,10 +49,7 @@
                 })
                 .on('dragend', function (event) {
                     var el = angular.element(event.target);
-                    el.animate({left: 0, top: 0}, 400);
-                    $timeout(function () {
-                        el.removeClass('shadow hover');
-                    }, 400);
+                    el.css({left: 0, top: 0}).removeClass('shadow hover');
                 });
 
             function init(){
@@ -66,36 +58,41 @@
                         accept: config.drags,
                         overlap: 'pointer',
                         ondropactivate: function (event) {
-                            var dropzone = angular.element(event.target);
+                            var dropzone = angular.element(event.target),
+                                drag = angular.element(event.relatedTarget),
+                                onBegin = $parse(drag.attr('on-begin'));
                             dropzone.addClass('et-drop-activate');
-                            onBegin(scope, {$event: event});
+                            onBegin(drag.scope(), {$event: event});
                         },
                         ondragenter: function (event) {
-                            onEnter(scope, {$event: event});
                             var dropzone = angular.element(event.target),
-                                drag = angular.element(event.relatedTarget);
+                                drag = angular.element(event.relatedTarget),
+                                onEnter = $parse(drag.attr('on-enter'));
                             dropzone.addClass('et-drop-enter');
                             drag.addClass('et-drag-drop');
+                            onEnter(drag.scope(), {$event: event, $target: dropzone.scope().$eval(dropzone.attr('drop'))});
                         },
                         ondragleave: function (event) {
                             var dropzone = angular.element(event.target),
-                                drag = angular.element(event.relatedTarget);
+                                drag = angular.element(event.relatedTarget),
+                                onLeave = $parse(drag.attr('on-leave'));
                             dropzone.removeClass('et-drop-enter');
                             drag.removeClass('et-drag-drop');
-                            onLeave(scope, {$event: event});
+                            onLeave(drag.scope(), {$event: event, $target: dropzone.scope().$eval(dropzone.attr('drop'))});
                         },
                         ondrop: function (event) {
                             var dropzone = angular.element(event.target),
-                                drag = angular.element(event.relatedTarget);
-
-                            onDropped(scope, {$event: event});
+                                drag = angular.element(event.relatedTarget),
+                                onDropped = $parse(drag.attr('on-dropped'));
+                            onDropped(drag.scope(), {$event: event, $target: dropzone.scope().$eval(dropzone.attr('drop'))});
                         },
                         ondropdeactivate: function (event) {
                             var dropzone = angular.element(event.target),
-                                drag = angular.element(event.relatedTarget);
+                                drag = angular.element(event.relatedTarget),
+                                onEnd = $parse(drag.attr('on-end'));
                             dropzone.removeClass('et-drop-activate et-drop-enter');
                             drag.removeClass('et-drag-drop');
-                            onEnd(scope, {$event: event});
+                            onEnd(drag.scope(), {$event: event, $target: dropzone.scope().$eval(dropzone.attr('drop'))});
                         }
                     });
             }

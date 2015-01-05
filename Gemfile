@@ -4,10 +4,10 @@ source 'https://rails-assets.org'
 
 gem 'rails', '4.1.7'
 
-group :development, :test do
-  gem 'sqlite3', platform: [:ruby]
-end
+gem 'sqlite3', platform: :ruby
+gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 
+gem 'pg', platform: :ruby
 gem 'activerecord-jdbcpostgresql-adapter', platforms: [:jruby]
 
 gem 'sass-rails', '~> 4.0.3'

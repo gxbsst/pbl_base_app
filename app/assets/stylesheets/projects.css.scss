@@ -1042,6 +1042,7 @@
     display:block;
     line-height:40px;
     padding:0 10px 0 46px;
+    cursor:default;
     @include border-radius(4px);
     span{
       display:block;
@@ -1104,23 +1105,33 @@
     margin:-5px -12px;
     padding:5px 12px;
     border:1px dashed transparent;
+    .placeholder{
+      display:none;
+      line-height:40px;
+      padding:0;
+      border:1px dashed #78c1ea;
+      background-color:#dcf0fa;
+      color:#7294d5;
+      font-size:20px;
+      text-align:center;
+      @include opacity(.5);
+      @include border-radius(4px);
+    }
     &.et-drop-enter{
       border-color:#61bc6c;
       background-color:#f0fff0;
-    }
-  }
-  table{
-    .head{
-      width:120px;
-      text-align:center;
-      background:#fafafa;
-    }
-    tr{
-      height:75px;
-      .btn{
-        margin:10px;
+      .placeholder{
+        display:block;
+      }
+      .note{
+        display:none;
       }
     }
+  }
+  .head{
+    width:120px;
+    text-align:center;
+    background:#fafafa;
   }
 }
 

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectShowMembersController', ProjectShowMembersController);
 
-    ProjectShowMembersController.$inject = ['utils', 'ProjectMembers', 'project'];
+    ProjectShowMembersController.$inject = ['$scope', 'ProjectGroupings', 'ProjectMembers', 'project'];
 
-    function ProjectShowMembersController(utils, ProjectMembers, project) {
+    function ProjectShowMembersController($scope, ProjectGroupings, ProjectMembers, project) {
 
         var vm = this;
         vm.project = project;
@@ -15,8 +15,14 @@
         vm._destroy = _destroy;
         vm.getUser = getUser;
         vm.grouping = grouping;
+        vm.isGrouped = isGrouped;
+        vm.grouped = grouped;
+        vm.onBegin = onBegin;
+        vm.onDropped = onDropped;
 
         getMembers();
+        getProjectGroupings();
+        $scope.$on('onMembersChange', getMembers);
 
         function getMembers() {
             ProjectMembers.all({
@@ -27,6 +33,20 @@
                 angular.forEach(vm.members, function (member) {
                     vm.usersHash[member.user.id] = member.user;
                 });
+                save();
+            });
+        }
+
+        function getProjectGroupings(){
+            ProjectGroupings.get({
+                projectId: project.id
+            }, function (result) {
+                var cache = result.cache;
+                if(cache){
+                    cache = JSON.parse(cache);
+                    vm.count = cache.count;
+                    vm.groups = cache.groups;
+                }
             });
         }
 
@@ -40,14 +60,22 @@
         }
 
         function _destroy(group, user_id, $event) {
-            $event.stopPropagation();
+            $event && $event.stopPropagation();
             group.members.remove(function (item) {
                 return item == user_id;
             });
+            save();
         }
 
-        function getUser(user_id) {
-            return vm.usersHash[user_id];
+        function getUser(user_id, group) {
+            var user = vm.usersHash[user_id];
+            if(!user){
+                group.members.remove(function (item) {
+                    return item == user_id;
+                });
+                return {};
+            }
+            return user;
         }
 
         function grouping(count) {
@@ -73,6 +101,61 @@
                 });
             }
             vm.groups = groups;
+            save();
+        }
+
+        function save(){
+            if(vm.count && vm.groups){
+                ProjectGroupings.add({
+                    grouping: {
+                        project_id: project.id,
+                        cache: JSON.stringify({
+                            count: vm.count,
+                            groups: vm.groups
+                        })
+                    }
+                });
+            }
+        }
+
+        function isGrouped(member) {
+            if (vm.groups) {
+                for (var i = 0, l = vm.groups.length; i < l; i++) {
+                    if (vm.groups[i].members.has(function (user_id) {
+                            return member.user.id === user_id;
+                        })) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        function grouped() {
+            var grouped = 0;
+            if(vm.groups){
+                angular.forEach(vm.groups, function (group) {
+                    grouped += group.members.length;
+                });
+            }
+            return vm.members && grouped == vm.members.length;
+        }
+
+        function onBegin(group) {
+            vm.origin = group;
+        }
+
+        function onDropped(user_id, $target) {
+            if($target){
+                $target.members.push(user_id);
+            }
+            if(vm.origin){
+                vm.origin.members.remove(function (item) {
+                    return item == user_id;
+                });
+            }
+            if($target || vm.origin){
+                save();
+            }
         }
 
     }

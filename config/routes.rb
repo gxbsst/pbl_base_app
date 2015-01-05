@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users, class_name: 'Pbl::Models::Users::User'
 
   root :to => 'index#index'
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
     resources :sub_categories, defaults: { format: :json }, only: %w(index)
     resources :techniques, defaults: { format: :json }, only: %w(index)
   end
-  #resources :posts, defaults: { format: :json }
+  resources :posts, defaults: { format: :json }
 
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
   resource :user, defaults: { format: :json }, only: %w(show) do
@@ -70,4 +71,6 @@ Rails.application.routes.draw do
   resources :regions, defaults: {format: 'json'}
 
   resources :follows, defaults: {format: 'json'}
+
+  resources :groupings, defaults: {format: 'json'}
 end

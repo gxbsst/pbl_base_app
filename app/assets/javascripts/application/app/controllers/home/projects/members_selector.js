@@ -23,6 +23,7 @@
         vm.remove = remove;
 
         getMembers();
+        $scope.$on('onMembersChange', getMembers);
 
         function getMembers(){
             ProjectMembers.all({
@@ -73,7 +74,7 @@
                     delete user.$selected;
                     return user.id;
                 }).join(',')
-            }, getMembers);
+            }, emit);
         }
 
         function remove() {
@@ -85,9 +86,13 @@
                     delete member.$selected;
                     return member.id;
                 }).join(',')
-            }, getMembers);
+            }, emit);
+
         }
 
+        function emit(){
+            $scope.$emit('onMembersChange');
+        }
 
     }
 
