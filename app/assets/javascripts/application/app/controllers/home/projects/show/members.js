@@ -55,12 +55,12 @@
             Discussions.all({
                 project_id: project.id
             }, function (result) {
-                var groupings = result.data,
-                    count = groupings.length;
+                var discussions = result.data,
+                    count = discussions.length;
                 if (count) {
                     vm.released = true;
                     vm.count = count;
-                    vm.groups = groupings;
+                    vm.groups = discussions;
                 } else {
                     getGroupings();
                 }

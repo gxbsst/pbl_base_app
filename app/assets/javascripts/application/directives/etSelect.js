@@ -5,9 +5,9 @@
         .module('app.directives')
         .directive('etSelect', etSelect);
 
-    etSelect.$inject = ['$rootScope', 'utils'];
+    etSelect.$inject = ['$rootScope', '$parse', 'utils'];
 
-    function etSelect($rootScope, utils) {
+    function etSelect($rootScope, $parse, utils) {
         return {
             require: ['etSelect', '?etConfig'],
             restrict: 'A',
@@ -47,10 +47,9 @@
                 }
 
                 if (attr.ngChange && attr.ngModel) {
-                    scope.$watch(attr.ngModel, function (oldValue, newValue) {
-                        if(oldValue !== newValue){
-                            scope.$eval(attr.ngChange);
-                        }
+                    scope.$watch(attr.ngModel, function () {
+                        var fn = $parse(attr.ngChange);
+                        fn(scope);
                     });
                 }
 
@@ -101,7 +100,11 @@
                 }
 
                 function isSelected(option) {
-                    return option[vm.value] == vm.ngModel;
+                    if(option){
+                        return option[vm.value] == vm.ngModel;
+                    }else{
+                        return !vm.ngModel;
+                    }
                 }
 
                 function active($event) {
@@ -113,7 +116,7 @@
                 }
 
                 function select(option) {
-                    scope.$eval(attr.ngModel + ' = ' + JSON.stringify(option[vm.value]));
+                    scope.$eval(attr.ngModel + ' = ' + (option ? JSON.stringify(option[vm.value]) : '""'));
                     attr.onSelect && scope.$eval(attr.onSelect);
                 }
 
