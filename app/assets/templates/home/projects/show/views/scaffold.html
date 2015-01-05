@@ -5,8 +5,7 @@
     </div>
     <div class="task-list col-1-1 margin-bottom-20">
         <div class="col-1-1 tasks-group">
-            {{project.tasks}}
-            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.tasks track by $index">
+            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.tasks">
                 <div class="tasks-group-item-title">
                     <span class="pull-left" ng-bind="'任务'+($index+1)+'-'"></span>
                     <span class="pull-left" ng-bind="task.title"></span>
@@ -15,9 +14,9 @@
                     <i class="btn-mini pf-doc-eye pull-right" ng-click="vm.showTask($index)"></i>
                     <i class="time pull-right">2014-12-26 20：20</i>
                 </div>
-                <div class="tasks-group-item-cont" ng-show="vm.showtask[$index]">
-                    <ng-include src="'home/projects/show/taskform.html'"></ng-include>
-                </div>
+                <div class="tasks-group-item-cont"
+                     ng-show="vm.showtask[$index]"
+                     ng-include="'home/projects/show/taskform.html'"></div>
                 <div class="clear"></div>
             </div>
         </div>

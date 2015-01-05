@@ -58,11 +58,11 @@
         <div class="col-10-12">
             <input type="text" readOnly="true" et-datepicker="" data-autoclose="1" ng-model="task.start_at_date" class="form-control input-date"
                      data-date-format="yyyy-MM-dd"
-                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time)"
+                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time,task)"
                     />
             <input type="text" readOnly="true" et-timepicker="" ng-model="task.start_at_time" class="form-control input-time"
                     data-time-format="HH:mm" minuteStep="1"
-                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time)"
+                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time,task)"
                     />
         </div>
     </div>
@@ -80,7 +80,34 @@
     <div class="col-1-1 tasks-group-item-form">
         <label class="control-label">对应量规：</label>
         <div class="offset-2-12 col-10-12">
-            <span class="btn btn-gray" role="button">选择量规</span>
+            <table class="table bg-white" ng-if="task.rules">
+                <thead>
+                <tr>
+                    <th>对应技能</th>
+                    <th>量规标准</th>
+                    <th width="60">权重</th>
+                    <th ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled"
+                        ng-bind="$index|gauge:vm.project.rule_template"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="gauge in task.rules" class="gauge-item">
+                    <td ng-bind="gauge.technique.title"></td>
+                    <td ng-bind="gauge.standard"></td>
+                    <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+                    <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
+                    <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
+                </tr>
+                <tr ng-if="!task.rules">
+                    <td colspan="8" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-1-1 tasks-group-item-form">
+        <div class="offset-2-12 col-10-12">
+            <span class="btn btn-gray margin-top-12" et-modal="$project=vm.project;$task=task;title='从量规库中导入';src='home/projects/edit/gauges/task.html'">从量规库中导入</span>
         </div>
     </div>
 </div>
