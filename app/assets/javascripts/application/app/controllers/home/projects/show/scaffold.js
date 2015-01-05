@@ -26,6 +26,7 @@
         vm.removeTask = removeTask;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
+        vm.dateFormat=dateFormat;
 
         $scope.$on('setAddTask', setAddTask);
 
@@ -169,6 +170,21 @@
 
                 console.log(vm.products);
             });
+        }
+
+        function dateFormat(date, time) {
+            console.log(date);
+            console.log(time);
+            if(date==null){date=new Date();}
+            if(time==null){time=new Date();}
+            var datetime;
+            datetime=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+time.getHours()
+                    +":"+time.getMinutes()+":"+time.getSeconds();
+            datetime.replace(/-/g,"/");
+            console.log(datetime);
+            var oDate = new Date(datetime);
+            console.log(oDate);
+            return(oDate);
         }
     }
 

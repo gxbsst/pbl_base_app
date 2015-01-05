@@ -55,10 +55,15 @@
 <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'">
     <div class="col-1-1">
         <label class=" col-2-12 control-label">任务开始时间：</label>
-        <div class="col-10-12">start_at
-
-            <input type="text"  ng-model="task.site" class="form-control input-date" et-sync="{taskId:task.id,task:{site:task.site},$service:'Tasks',$disabled:disabled}"/>
-            <input type="text"  ng-model="task.site" class="form-control input-time" et-sync="{taskId:task.id,task:{site:task.site},$service:'Tasks',$disabled:disabled}"/>
+        <div class="col-10-12">
+            <input type="text" readOnly="true" et-datepicker="" data-autoclose="1" ng-model="task.start_at_date" class="form-control input-date"
+                     data-date-format="yyyy-MM-dd"
+                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time)"
+                    />
+            <input type="text" readOnly="true" et-timepicker="" ng-model="task.start_at_time" class="form-control input-time"
+                    data-time-format="HH:mm" minuteStep="1"
+                    ng-change="vm.dateFormat(task.start_at_date, task.start_at_time)"
+                    />
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@
         'app.filters',
         'app.services',
         'app.directives',
+        'app.directives.datetime',
         'app.pbl'
     ]);
 
