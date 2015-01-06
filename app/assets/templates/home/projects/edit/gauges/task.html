@@ -1,0 +1,30 @@
+<div class="gauges-list scrollbar" ng-controller="GaugesProjectController as vm" et-scrollbar>
+    <div ng-if="!vm.project.rules" class="loading margin-top-16"><i class="pf-spinner-2 rotation"></i></div>
+    <div ng-if="vm.project.rules&&!vm.project.rules.length" class="center text-red margin-top-16">您还没有定义任何量规</div>
+
+    <table class="table bg-white" ng-if="vm.project.rules">
+        <thead>
+        <tr>
+            <th width="30">&nbsp;</th>
+            <th>对应技能</th>
+            <th>量规标准</th>
+            <th width="60">权重</th>
+            <th ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled"
+                ng-bind="$index|gauge:vm.project.rule_template"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="gauge in vm.project.rules" class="gauge-item">
+            <td class="center padding-6"><input type="checkbox" ng-model="gauge.selected" ng-change="onChange(gauge)" ng-init="gauge.selected=isSelected(gauge)"/></td>
+            <td ng-bind="gauge.technique.title"></td>
+            <td ng-bind="gauge.standard"></td>
+            <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+            <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
+            <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
+        </tr>
+        <tr ng-if="!vm.project.rules">
+            <td colspan="8" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -12,7 +12,7 @@
         $scope.task = {
             task_type: 1
         };
-
+        $scope.addTask=true;
         $scope.modalEmit = modalEmit;
 
         function modalEmit() {

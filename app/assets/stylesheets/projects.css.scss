@@ -712,6 +712,33 @@
 
 .task-form{
   padding:8px 15px;
+
+  .input-date{
+    width:125px;
+    float:left;
+    margin-right:10px;
+  }
+  .input-time{
+    width:90px;
+  }
+  .input-duration{
+    margin-right:10px;
+  }
+  input[type="radio"]{
+    width:17px;
+    height:17px;
+    border:1px solid #ededed;
+    vertical-align:middle;
+    margin:10px;
+    padding:0;
+  }
+
+  input[type="radio"]:checked{
+    color:#000;
+    background-position:0 -112px;
+  }
+
+
 }
 
 .nav-ball{
@@ -1154,35 +1181,10 @@
 }
 
 .project-show-scaffold, .project-show-assignment{
-  .input-date{
-    width:125px;
-    float:left;
-    margin-right:10px;
-  }
-  .input-time{
-    width:90px;
-  }
-  .input-duration{
-    margin-right:10px;
-  }
-  input[type="radio"]{
-    width:17px;
-    height:17px;
-    border:1px solid #ededed;
-    vertical-align:middle;
-    margin:10px;
-    padding:0;
-  }
-
-  input[type="radio"]:checked{
-    color:#000;
-    background-position:0 -112px;
-  }
 
   .btn > [class^="pf-"]:before, .btn > [class*=" pf-"]:before{
     vertical-align:sub;
   }
-
   .task-list{
     .tasks-group-item{
       border-top:1px solid #ebebeb;

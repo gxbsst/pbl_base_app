@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectShowScaffoldController', ProjectShowScaffoldController);
 
-    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
+    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges','Groupings','Discussions'];
 
-    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
+    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,Groupings,Discussions) {
 
         var vm = this;
         vm.showTask=showTask;
@@ -30,8 +30,24 @@
 
         $scope.$on('setAddTask', setAddTask);
 
+        $scope.$on('onProjectTaskGauges',onProjectTaskGauges);
+
+        getProjectGauges();
         onProjectTasks();
         onProjectProducts();
+
+        getDiscussions();
+
+        $scope.$watch(function () {
+            return vm.project.rule_head;
+        }, function (heads) {
+
+            vm.project.ruleHeads = (heads || '11111').substr(0, 5).split('').map(function (v, i) {
+                return {
+                    disabled: v == 0
+                }
+            });
+        });
 
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
@@ -42,6 +58,48 @@
         vm.chooseType = chooseType;
 
         vm.showTask(0);
+
+        function getDiscussions() {
+            Discussions.all({
+                project_id: project.id
+            }, function (result) {
+                var discussions = result.data,
+                    count = discussions.length;
+                if (count) {
+                    vm.released = true;
+                    vm.count = count;
+                    vm.groups = discussions;
+                } else {
+                    getGroupings();
+                }
+            });
+        }
+        function getGroupings() {
+            console.log("getGroupings");
+            Groupings.get({
+                projectId: project.id
+            }, function (result) {
+                console.log("getGroupings");
+                var cache = result.cache;
+                if (cache) {
+                    cache = JSON.parse(cache);
+                    vm.count = cache.count;
+                    vm.groups = cache.groups;
+
+                    console.log("getGroupingscache");
+                }
+            });
+        }
+
+        function getProjectGauges() {
+            ProjectGauges.all({
+                project_id: project.id
+            }, function (result) {
+                project.rules = result.data;
+            });
+        }
+
+
         function showTask(id){
             //for (var i=0;i<vm.project.tasks.length;i++){
             //    vm.showtask[i]=false;
@@ -135,6 +193,17 @@
             Tasks.add({"task": task}, onProjectTasks);
         }
 
+        function onProjectTaskGauges(event, data) {
+            console.log("onProjectTaskGauges");
+
+            var taskitem=vm.tasks.findOne(function (item) {
+                return item.id == data.id;
+            });
+            taskitem.rule_ids=data.rule_ids;
+            getTaskRules(taskitem);
+            //onProjectTasks();
+        }
+
         function removeTask(task, $event) {
             //vm.project.tasks.splice(vm.project.tasks.length, 0, task);
             $event.stopPropagation();
@@ -149,10 +218,33 @@
                 project_id: vm.project.id
             }, function (result) {
                 vm.tasks = result.data;
+
+                for(var i=0;i<vm.tasks.length;i++){
+                    if(vm.tasks[i].start_at){
+                        vm.tasks[i].start_at_time=new Date(vm.tasks[i].start_at);
+                        vm.tasks[i].start_at_date=new Date(vm.tasks[i].start_at);
+                    }else{
+                        vm.tasks[i].start_at_time=new Date();
+                        vm.tasks[i].start_at_date=new Date();
+                    }
+                    vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
+                    getTaskRules(vm.tasks[i]);
+                }
                 getTaskResources();
             });
         }
 
+        function getTaskRules(task){
+            task.rules=[];
+            console.log("getTaskRules");
+            for(var i= 0,rule;i<task.rule_ids.length;i++){
+                rule=vm.project.rules.findOne(function (item) {
+                        return item.id == task.rule_ids[i];
+                    });
+                task.rules.push(rule);
+            }
+
+        }
         function onProjectProducts() {
             console.log("products");
             ProjectProducts.all({
@@ -172,11 +264,10 @@
             });
         }
 
-        function dateFormat(date, time) {
-            console.log(date);
-            console.log(time);
+        function dateFormat(date, time, task) {
             if(date==null){date=new Date();}
             if(time==null){time=new Date();}
+
             var datetime;
             datetime=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+time.getHours()
                     +":"+time.getMinutes()+":"+time.getSeconds();
@@ -184,6 +275,7 @@
             console.log(datetime);
             var oDate = new Date(datetime);
             console.log(oDate);
+            Tasks.update({taskId:task.id,task:{start_at:oDate}});
             return(oDate);
         }
     }

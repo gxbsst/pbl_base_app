@@ -5,12 +5,15 @@
         .module('app.factories.dateformatter', ['app.factories.dimensions'])
         .provider('$dateParser', ["$localeProvider", function($localeProvider) {
 
+            var cYear=new Date().getFullYear(),
+                cMonth=new Date().getMonth(),
+                cDay=new Date().getDay();
         // define a custom ParseDate object to use instead of native Date
         // to avoid date values wrapping when setting date component values
         function ParseDate() {
-            this.year = 1970;
-            this.month = 0;
-            this.day = 1;
+            this.year = new Date().getFullYear();
+            this.month = new Date().getMonth();
+            this.day = new Date().getDay();
             this.hours = 0;
             this.minutes = 0;
             this.seconds = 0;
@@ -140,7 +143,7 @@
                     var matches = formatRegex.exec(value);
                     if(!matches) return false;
                     // use custom ParseDate object to set parsed values
-                    var date = baseDate && !isNaN(baseDate.getTime()) ? new ParseDate().fromDate(baseDate) : new ParseDate().fromDate(new Date(1970, 0, 1, 0));
+                    var date = baseDate && !isNaN(baseDate.getTime()) ? new ParseDate().fromDate(baseDate) : new ParseDate().fromDate(new Date(cYear, cMonth, cDay, 0));
                     for(var i = 0; i < matches.length - 1; i++) {
                         formatSetMap[i] && formatSetMap[i].call(date, matches[i+1]);
                     }
@@ -178,15 +181,15 @@
                     var time;
 
                     if(value === 'now') {
-                        time = new Date().setFullYear(1970, 0, 1);
+                        time = new Date().setFullYear(cYear, cMonth, cDay);
                     } else if(angular.isString(value) && value.match(/^".+"$/)) {
-                        time = new Date(value.substr(1, value.length - 2)).setFullYear(1970, 0, 1);
+                        time = new Date(value.substr(1, value.length - 2)).setFullYear(cYear, cMonth, cDay);
                     } else if(isNumeric(value)) {
-                        time = new Date(parseInt(value, 10)).setFullYear(1970, 0, 1);
+                        time = new Date(parseInt(value, 10)).setFullYear(cYear, cMonth, cDay);
                     } else if (angular.isString(value) && 0 === value.length) { // Reset time
                         time = key === 'minTime' ? -Infinity : +Infinity;
                     } else {
-                        time = $dateParser.parse(value, new Date(1970, 0, 1, 0));
+                        time = $dateParser.parse(value, new Date(cYear, cMonth, cDay, 0));
                     }
 
                     return time;

@@ -1,28 +1,22 @@
-<div class="project-show-scaffold">
+<div class="project-show-scaffold project-scaffold">
     <div class="project-title col-1-1 ">
         <span class="title-text">教学任务</span>
         <span class="title-pointer"></span>
     </div>
     <div class="task-list col-1-1 margin-bottom-20">
         <div class="col-1-1 tasks-group">
-            {{project.tasks}}
-            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.tasks track by $index">
-                <div class="tasks-group-item-title">
-                    <span class="pull-left" ng-bind="'任务'+($index+1)+'-'"></span>
-                    <span class="pull-left" ng-bind="task.title"></span>
-                    <span class="pull-left"></span>
-                    <i class="btn-mini pf-trash-o pull-right" ng-click="vm.removeTask(task)"></i>
-                    <i class="btn-mini pf-doc-eye pull-right" ng-click="vm.showTask($index)"></i>
-                    <i class="time pull-right">2014-12-26 20：20</i>
+
+            <div class="tasks" ng-repeat="task in vm.tasks">
+                <div class="task-title" ng-click="task.$show=!task.$show">
+                    <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
+                    <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
+                    <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"></i>
                 </div>
-                <div class="tasks-group-item-cont" ng-show="vm.showtask[$index]">
-                    <ng-include src="'home/projects/show/taskform.html'"></ng-include>
-                </div>
-                <div class="clear"></div>
+                <div class="task-content" ng-show="task.$show" ng-include="'home/projects/show/taskform.html'"></div>
             </div>
         </div>
     </div>
     <div class="col-1-1 col-1-1 margin-top-20 margin-bottom-20 text-right">
-        <span class="btn btn-blue  btn-padding">增加任务</span>
+        <span class="btn btn-blue btn-padding" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';padding=0;src='home/projects/edit/task-creator.html'"><i class="pf-expand"></i> 增加任务</span>
     </div>
 </div>

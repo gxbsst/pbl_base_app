@@ -4,7 +4,9 @@
     angular
         .module('app.directives.datetime', ['app.factories.dateformatter'])
         .provider('$timepicker', function() {
-
+            var cYear=new Date().getFullYear(),
+                cMonth=new Date().getMonth(),
+                cDay=new Date().getDay();
         var defaults = this.defaults = {
             animation: 'am-fade',
             prefixClass: 'timepicker',
@@ -121,12 +123,12 @@
                     var i, midIndex = scope.midIndex = parseInt(options.length / 2, 10);
                     var hours = [], hour;
                     for(i = 0; i < options.length; i++) {
-                        hour = new Date(1970, 0, 1, viewDate.hour - (midIndex - i) * options.hourStep);
+                        hour = new Date(cYear, cMonth, cDay, viewDate.hour - (midIndex - i) * options.hourStep);
                         hours.push({date: hour, label: formatDate(hour, hoursFormat), selected: $timepicker.$date && $timepicker.$isSelected(hour, 0), disabled: $timepicker.$isDisabled(hour, 0)});
                     }
                     var minutes = [], minute;
                     for(i = 0; i < options.length; i++) {
-                        minute = new Date(1970, 0, 1, 0, viewDate.minute - (midIndex - i) * options.minuteStep);
+                        minute = new Date(cYear, cMonth, cDay, 0, viewDate.minute - (midIndex - i) * options.minuteStep);
                         minutes.push({date: minute, label: formatDate(minute, minutesFormat), selected: $timepicker.$date && $timepicker.$isSelected(minute, 1), disabled: $timepicker.$isDisabled(minute, 1)});
                     }
 
@@ -184,10 +186,10 @@
                 $timepicker.$moveIndex = function(value, index) {
                     var targetDate;
                     if(index === 0) {
-                        targetDate = new Date(1970, 0, 1, viewDate.hour + (value * options.length), viewDate.minute);
+                        targetDate = new Date(cYear, cMonth, cDay, viewDate.hour + (value * options.length), viewDate.minute);
                         angular.extend(viewDate, {hour: targetDate.getHours()});
                     } else if(index === 1) {
-                        targetDate = new Date(1970, 0, 1, viewDate.hour, viewDate.minute + (value * options.length * options.minuteStep));
+                        targetDate = new Date(cYear, cMonth, cDay, viewDate.hour, viewDate.minute + (value * options.length * options.minuteStep));
                         angular.extend(viewDate, {minute: targetDate.getMinutes()});
                     }
                     $timepicker.$build();
@@ -384,8 +386,8 @@
 
                 function validateAgainstMinMaxTime(parsedTime) {
                     if (!angular.isDate(parsedTime)) return;
-                    var isMinValid = isNaN(options.minTime) || new Date(parsedTime.getTime()).setFullYear(1970, 0, 1) >= options.minTime;
-                    var isMaxValid = isNaN(options.maxTime) || new Date(parsedTime.getTime()).setFullYear(1970, 0, 1) <= options.maxTime;
+                    var isMinValid = isNaN(options.minTime) || new Date(parsedTime.getTime()).setFullYear(cYear, cMonth, cDay) >= options.minTime;
+                    var isMaxValid = isNaN(options.maxTime) || new Date(parsedTime.getTime()).setFullYear(cYear, cMonth, cDay) <= options.maxTime;
                     var isValid = isMinValid && isMaxValid;
                     controller.$setValidity('date', isValid);
                     controller.$setValidity('min', isMinValid);
