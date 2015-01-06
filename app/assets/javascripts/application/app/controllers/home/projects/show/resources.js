@@ -18,6 +18,7 @@
         getDiscussions();
         getTasks();
         getProjectProducts();
+        $scope.$on('onProjectResources', getProjectResources);
 
         $scope.$watch(function () {
             return [vm.discussions, vm.tasks];
@@ -64,6 +65,7 @@
         function getResources(query) {
             if (query) {
                 Resources.all(query, function (result) {
+                    vm.loaded = true;
                     angular.forEach(result.data, function (resource) {
                         vm.resources[resource.id] = resource;
                     });
@@ -154,6 +156,10 @@
                         resource_ids: resource_ids
                     }
                 });
+            }
+
+            if(!vm.discussion && !vm.task){
+                $scope.$emit('onProjectResources');
             }
 
             delete vm.$uploading;

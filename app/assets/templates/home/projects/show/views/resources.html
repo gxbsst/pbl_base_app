@@ -16,7 +16,8 @@
         <div class="clearfix"></div>
     </div>
     <div class="hr"></div>
-    <div class="loading" ng-if="vm.resources|isEmpty"><i class="pf-spinner-2 rotation"></i></div>
+    <div class="loading" ng-if="!vm.loaded"><i class="pf-spinner-2 rotation"></i></div>
+    <div class="text-red center" ng-if="vm.loaded&&(vm.resources|isEmpty)">项目里还没有上传任何资源...</div>
     <ul class="files margin-bottom-20">
         <li ng-repeat="resource in vm.resources" ng-show="vm.show(resource)" ng-class="{disabled:doc.$disabled}">
             <i ng-class="resource.name|icon"></i>

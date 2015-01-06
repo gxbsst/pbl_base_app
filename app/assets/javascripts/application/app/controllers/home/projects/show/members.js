@@ -168,7 +168,7 @@
                     grouped += group.members.length;
                 });
             }
-            return vm.members && grouped == vm.members.length;
+            return vm.members && vm.members.length && grouped == vm.members.length;
         }
 
         function onBegin(group) {

@@ -738,7 +738,6 @@
     background-position:0 -112px;
   }
 
-
 }
 
 .nav-ball{
@@ -1159,6 +1158,14 @@
     width:120px;
     text-align:center;
     background:#fafafa;
+  }
+  table.table.disabled{
+    color:#999 !important;
+    border-color:#e0e0e0 !important;
+    background:#fafafa !important;
+    .head{
+      background:#f0f0f0 !important;
+    }
   }
 }
 
