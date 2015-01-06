@@ -1,0 +1,9 @@
+<div class="resource-uploader">
+    <select et-select="discussions" ng-model="vm.discussion" ng-disabled="vm.$uploading" et-config="label='full_name';optional=true;placeholder='选择所属小组'"></select>
+    <select et-select="tasks" ng-model="vm.task" ng-disabled="vm.$uploading" et-config="optional=true;placeholder='选择所属任务'"></select>
+    <div class="row">
+        <span class="btn btn-lg btn-blue" ng-class="{uploading:vm.$uploading}"
+              qn-upload="{bucket:QINIU.buckets.static,ownerType:vm.ownerType(),ownerId:vm.ownerId()}"
+              on-begin="vm.onUploadBegin" on-success="vm.onUploadSuccess"><i class="pf-cloud-upload"></i> 选择并上传文件</span>
+    </div>
+</div>

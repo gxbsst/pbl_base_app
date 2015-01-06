@@ -1,7 +1,7 @@
 <div class="et-select" ng-transclude>
     <div class="et-select-container" ng-class="{active:selectConfig.focusin}">
         <input type="hidden" class="et-select-value" ng-model="selectConfig.ngModel" et-sync="selectConfig.syncConfig"/>
-        <div class="et-select-label form-control" ng-class="{focusin:selectConfig.focusin}" ng-click="selectConfig.active($event)" ng-bind="(selectConfig.selected[selectConfig.label]||selectConfig.placeholder)|i18n"></div>
+        <div class="et-select-label form-control" ng-class="{disabled:selectConfig.disabled,focusin:selectConfig.focusin}" ng-click="selectConfig.active($event)" ng-bind="(selectConfig.selected[selectConfig.label]||selectConfig.placeholder)|i18n"></div>
         <div class="et-select-options" ng-class="{'et-top-options':selectConfig.top}" ng-show="selectConfig.show&&selectConfig.options.length">
             <ul class="selection" et-scrollbar>
                 <li ng-if="selectConfig.optional" ng-class="{'et-select-selected active':selectConfig.isSelected()}" ng-click="selectConfig.select()" ng-bind="selectConfig.placeholder|i18n"></li>

@@ -46,12 +46,16 @@
                     }, true);
                 }
 
-                if (attr.ngChange && attr.ngModel) {
+                if (attr.ngChange) {
                     scope.$watch(attr.ngModel, function () {
                         var fn = $parse(attr.ngChange);
                         fn(scope);
                     });
                 }
+
+                attr.ngDisabled && scope.$watch(attr.ngDisabled, function (disabled) {
+                    vm.disabled = disabled;
+                });
 
                 scope.$on('onDocumentClick', function () {
                     delete vm.show;

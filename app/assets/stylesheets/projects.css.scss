@@ -1364,97 +1364,48 @@
 }
 
 .project-show-resources{
-  .search-head{
-    .search-title{
-      font-size:15px;
-      padding:0 10px;
+  .head{
+    .et-select{
+      width:130px;
     }
-    .search-form{
-      .search-select{
-        margin-right:10px;
+    .search{
+      $height:28px;
+      display:inline-block;
+      border-bottom:1px solid #ccc;
+      padding:0 4px 4px;
+      vertical-align:bottom;
+      &:after{
+        clear:both;
+        content:'';
       }
-      .input-search{
+      i{
+        float:left;
+        color:#999;
+        font-size:18px;
+        line-height:$height;
+      }
+      input{
+        float:left;
+        height:$height;
         border:none;
-        border-bottom:2px solid #666666;
-        height:30px;
-        width:205px;
-        font-size:16px;
-        display:inline-block;
-        text-indent:10px;
-        text-align:left;
-        line-height:26px;
-        color:#666666;
-        input{
-          height:26px;
-          border:none;
-          font-size:18px;
-          line-height:18px;
-          margin-left:4px;
-          width:160px;
-          vertical-align:top;
-        }
+        font-size:13px;
+        line-height:$height;
+        margin-left:4px;
+        width:130px;
       }
     }
   }
-  /*
-  .resources-list{
-    border-bottom:1px solid #e1e1e1;
-    border-left:1px solid #e1e1e1;
-    border-right:1px solid #e1e1e1;
-    margin-top:20px;
-    .resources-item{
-      border-top:1px solid #e1e1e1;
-      &.active{
-        .resources-item-title{
-          background:#e6e6e6;
-        }
-        .resources-item-cont{
-          display:inherit;
-        }
-      }
-      .resources-item-title{
-        text-indent:10px;
-        padding:5px;
-        cursor:pointer;
-        background:#f1f1f1;
-      }
-      .resources-item-cont{
-        display:none;
-        .resource-item{
-          margin:0 16px;
-          padding:16px 0;
-          border-bottom:1px solid #d8d8d8;
-          .resource-item-info{
-            height:38px;
-            .resource-item-logo{
-              font-size:38px;
-              margin-right:16px;
-              float:left;
-              width:38px;
-            }
-            .resource-item-title{
-              width:500px;
-              float:left;
-            }
-            .resource-item-btn{
-              float:right;
-              i{
-                font-size:18px;
-                line-height:18px;
-                margin-right:6px;
-                color:#55acef;
-                &::before{
-                  vertical-align:sub;
-                }
-              }
-            }
-          }
-          &:last-child{
-            border-bottom:none;
-          }
-        }
-      }
-    }
+}
+
+.resource-uploader{
+  padding:20px;
+  text-align:center;
+  .et-select{
+    width:140px;
+    margin:0 5px;
   }
-  */
+  .btn{
+    width:290px;
+    margin:10px 5px 0;
+  }
 }

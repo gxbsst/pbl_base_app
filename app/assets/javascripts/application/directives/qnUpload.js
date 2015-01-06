@@ -45,7 +45,6 @@
                         updateCount = function () {
                             !count && onCompleted.call(self, uploaded);
                         };
-
                     if (files.length) {
                         scope.$apply(function () {
                             onBegin.call(self, files);
@@ -112,7 +111,8 @@
                                             }
                                         });
                                         angular.extend(resource, data);
-                                        Resources.add(resource, function () {
+                                        Resources.add(resource, function (result) {
+                                            data.resource = result.data;
                                             onSuccess.call(file, data, xhr);
                                         });
                                     } catch (e) {

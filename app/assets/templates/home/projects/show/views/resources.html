@@ -1,30 +1,28 @@
 <div class="project-show-resources">
-    <div class="project-title col-1-1 ">
+    <div class="project-title">
         <span class="title-text">项目资源</span>
         <span class="title-pointer"></span>
     </div>
-    <div class="col-1-1">
-        <div class="col-1-1 search-head">
-            <div class="col-1-4">
-                <span class="btn btn-gray" role="button">上传资源</span>
-            </div>
-            <div class="col-3-4 text-right search-form">
-                <select class="margin-right-6" ng-model="vm.discussion" ng-change="vm.setDiscussion(vm.discussion)" et-select="vm.discussions" et-config="optional=true;label='full_name';placeholder='全部小组'"></select>
-                <select class="margin-right-6" ng-model="vm.task" ng-change="vm.setTask(vm.task)" et-select="vm.tasks" et-config="optional=true;placeholder='全部任务'"></select>
-                <span class="pf-search input-search">
-                    <input type="text" class=" " placeholder="输入关键字进行搜索"/>
-                </span>
-            </div>
+    <div class="head">
+        <span class="btn btn-gray" et-modal="$project=vm.project;$discussions=vm.discussions;$tasks=vm.tasks;title='资源上传';controller='ResourceUploaderController as vm';src='home/projects/show/upload.html'">上传资源</span>
+        <div class="pull-right">
+            <select class="margin-right-6" ng-model="vm.discussion" et-select="vm.discussions" et-config="optional=true;label='full_name';placeholder='全部小组'"></select>
+            <select class="margin-right-6" ng-model="vm.task" et-select="vm.tasks" et-config="optional=true;placeholder='全部任务'"></select>
+            <span class="search">
+                <i class="pf-search"></i>
+                <input type="text" ng-model="vm.keyword" placeholder="按文件名查找资源..."/>
+            </span>
         </div>
+        <div class="clearfix"></div>
     </div>
-    <div class="row">
-        <ul class="files">
-            <li ng-repeat="resource in vm.resources" ng-class="{disabled:doc.$disabled}">
-                <i ng-class="resource.name|icon"></i>
-                <span ng-bind="resource.name"></span>
-                <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
-                <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeDocument(resource)"></i>
-            </li>
-        </ul>
-    </div>
+    <div class="hr"></div>
+    <div class="loading" ng-if="vm.resources|isEmpty"><i class="pf-spinner-2 rotation"></i></div>
+    <ul class="files margin-bottom-20">
+        <li ng-repeat="resource in vm.resources" ng-show="vm.show(resource)" ng-class="{disabled:doc.$disabled}">
+            <i ng-class="resource.name|icon"></i>
+            <span ng-bind="resource.name"></span>
+            <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+            <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeDocument(resource)"></i>
+        </li>
+    </ul>
 </div>

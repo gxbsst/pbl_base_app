@@ -153,6 +153,7 @@ ul.selection{
   background:#f0f0f0 !important;
   color:#c8c8c8 !important;
   border-color:#c8c8c8 !important;
+  //@include filter(grayscale(100%));
 }
 
 .loading{
@@ -162,7 +163,7 @@ ul.selection{
 }
 
 .tag{
-  $height: 22px;
+  $height:22px;
   display:inline-block;
   padding:0 8px;
   color:#666;
@@ -218,6 +219,7 @@ ul.selection{
 ul.files{
   $height:40px;
   &:after{
+    display:block;
     clear:both;
     content:'';
   }

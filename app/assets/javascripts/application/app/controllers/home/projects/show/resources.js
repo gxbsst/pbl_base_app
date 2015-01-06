@@ -3,7 +3,8 @@
 
     angular
         .module('app.pbl')
-        .controller('ProjectShowResourcesController', ProjectShowResourcesController);
+        .controller('ProjectShowResourcesController', ProjectShowResourcesController)
+        .controller('ResourceUploaderController', ResourceUploaderController);
 
     ProjectShowResourcesController.$inject = ['$scope', 'RESOURCE_TYPES', 'ProjectProducts', 'Discussions', 'Tasks', 'Resources', 'project'];
 
@@ -12,8 +13,7 @@
         var vm = this;
         vm.project = project;
         vm.resources = {};
-        vm.setDiscussion = setDiscussion;
-        vm.setTask = setTask;
+        vm.show = show;
 
         getDiscussions();
         getTasks();
@@ -24,19 +24,19 @@
         }, function (values) {
             var discussions = values[0],
                 tasks = values[1];
-            if(discussions && tasks){
+            if (discussions && tasks) {
                 var ids = [];
                 angular.forEach(discussions, function (discussion) {
-                    ids.concat(discussion.resource_ids);
+                    ids = ids.concat(discussion.resource_ids);
                 });
-                angular.forEach(tasks, function (discussion) {
-                    ids.concat(discussion.resource_ids);
+                angular.forEach(tasks, function (task) {
+                    ids = ids.concat(task.resource_ids);
                 });
-                getResources({ ids: ids });
+                ids.length && getResources({ids: ids.join(',')});
             }
         }, true);
 
-        function getDiscussions(){
+        function getDiscussions() {
             Discussions.all({
                 project_id: project.id
             }, function (result) {
@@ -44,7 +44,7 @@
             });
         }
 
-        function getTasks(){
+        function getTasks() {
             Tasks.all({
                 project_id: project.id
             }, function (result) {
@@ -62,7 +62,7 @@
         }
 
         function getResources(query) {
-            if(query){
+            if (query) {
                 Resources.all(query, function (result) {
                     angular.forEach(result.data, function (resource) {
                         vm.resources[resource.id] = resource;
@@ -71,7 +71,7 @@
             }
         }
 
-        function getProjectResources(){
+        function getProjectResources() {
             getResources({
                 owner_types: [
                     RESOURCE_TYPES.project.product,
@@ -83,18 +83,82 @@
             });
         }
 
-        function getResource(resource_id){
-            return vm.resources[resource_id];
+        function show(resource) {
+            return !(
+            (vm.keyword && resource.name.toLowerCase().indexOf(vm.keyword.toLowerCase()) < 0) ||
+            vm.discussion && !(vm.discussions.findOne(function (item) {
+                return item.id == vm.discussion;
+            }).resource_ids || []).has(function (resource_id) {
+                    return resource_id == resource.id;
+                }) ||
+            (vm.task && !(vm.tasks.findOne(function (item) {
+                return item.id == vm.task;
+            }).resource_ids || []).has(function (resource_id) {
+                    return resource_id == resource.id;
+                }))
+            );
         }
 
-        function setDiscussion(discussion){
-            console.log(discussion)
+    }
+
+    ResourceUploaderController.$inject = ['$scope', 'RESOURCE_TYPES', 'Discussions', 'Tasks'];
+
+    function ResourceUploaderController($scope, RESOURCE_TYPES, Discussions, Tasks) {
+        var vm = this,
+            project = $scope.project,
+            discussions = $scope.discussions,
+            tasks = $scope.tasks;
+
+        vm.ownerType = ownerType;
+        vm.ownerId = ownerId;
+        vm.onUploadBegin = onUploadBegin;
+        vm.onUploadSuccess = onUploadSuccess;
+
+        function ownerType() {
+            return (vm.discussion || vm.task) ? '' : RESOURCE_TYPES.project.resource;
         }
 
-        function setTask(task){
-            console.log(task)
+        function ownerId() {
+            return (vm.discussion || vm.task) ? '' : project.id;
         }
 
+        function onUploadBegin() {
+            vm.$uploading = true;
+        }
+
+        function onUploadSuccess(data) {
+            var resource_ids;
+            if (vm.discussion) {
+                resource_ids = discussions.findOne(function (item) {
+                    return item.id == vm.discussion;
+                }).resource_ids || [];
+                resource_ids.push(data.resource.id);
+                Discussions.update({
+                    discussionId: vm.discussion
+                }, {
+                    discussion: {
+                        resource_ids: resource_ids
+                    }
+                });
+            }
+
+            if (vm.task) {
+                resource_ids = tasks.findOne(function (item) {
+                    return item.id == vm.task;
+                }).resource_ids || [];
+                resource_ids.push(data.resource.id);
+                Tasks.update({
+                    taskId: vm.task
+                }, {
+                    task: {
+                        resource_ids: resource_ids
+                    }
+                });
+            }
+
+            delete vm.$uploading;
+
+        }
     }
 
 })();
