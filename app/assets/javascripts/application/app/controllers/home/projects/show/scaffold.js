@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectShowScaffoldController', ProjectShowScaffoldController);
 
-    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges'];
+    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges','Groupings','Discussions'];
 
-    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges) {
+    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,Groupings,Discussions) {
 
         var vm = this;
         vm.showTask=showTask;
@@ -36,6 +36,8 @@
         onProjectTasks();
         onProjectProducts();
 
+        getDiscussions();
+
         $scope.$watch(function () {
             return vm.project.rule_head;
         }, function (heads) {
@@ -56,6 +58,38 @@
         vm.chooseType = chooseType;
 
         vm.showTask(0);
+
+        function getDiscussions() {
+            Discussions.all({
+                project_id: project.id
+            }, function (result) {
+                var discussions = result.data,
+                    count = discussions.length;
+                if (count) {
+                    vm.released = true;
+                    vm.count = count;
+                    vm.groups = discussions;
+                } else {
+                    getGroupings();
+                }
+            });
+        }
+        function getGroupings() {
+            console.log("getGroupings");
+            Groupings.get({
+                projectId: project.id
+            }, function (result) {
+                console.log("getGroupings");
+                var cache = result.cache;
+                if (cache) {
+                    cache = JSON.parse(cache);
+                    vm.count = cache.count;
+                    vm.groups = cache.groups;
+
+                    console.log("getGroupingscache");
+                }
+            });
+        }
 
         function getProjectGauges() {
             ProjectGauges.all({

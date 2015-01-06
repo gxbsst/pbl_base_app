@@ -22,7 +22,7 @@
         vm.removeTask = removeTask;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
-
+        $scope.addTask=true;
         $scope.$on('setAddTask', setAddTask);
 
         Disciplines.all(function (data) {
