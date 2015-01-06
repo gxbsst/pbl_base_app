@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditScaffoldController', ProjectEditScaffoldController);
 
-    ProjectEditScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts'];
+    ProjectEditScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges'];
 
-    function ProjectEditScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts) {
+    function ProjectEditScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges) {
         var vm = this;
 
         project.knowledge = project.knowledge || [];
@@ -23,7 +23,9 @@
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
         $scope.addTask=true;
+
         $scope.$on('setAddTask', setAddTask);
+        $scope.$on('onProjectTaskGauges',onProjectTaskGauges);
 
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
@@ -33,8 +35,42 @@
 
         //onProjectTask();
         //onProjectKnowledge();
+
+        getProjectGauges();
         onProjectTasks();
         onProjectProducts();
+
+
+        $scope.$watch(function () {
+            return vm.project.rule_head;
+        }, function (heads) {
+
+            vm.project.ruleHeads = (heads || '11111').substr(0, 5).split('').map(function (v, i) {
+                return {
+                    disabled: v == 0
+                }
+            });
+        });
+
+
+        function onProjectTaskGauges(event, data) {
+            console.log("onProjectTaskGauges");
+
+            var taskitem=vm.tasks.findOne(function (item) {
+                return item.id == data.id;
+            });
+            taskitem.rule_ids=data.rule_ids;
+            getTaskRules(taskitem);
+            //onProjectTasks();
+        }
+
+        function getProjectGauges() {
+            ProjectGauges.all({
+                project_id: project.id
+            }, function (result) {
+                project.rules = result.data;
+            });
+        }
 
         function onUploadBegin(product) {
             return function () {
@@ -129,8 +165,24 @@
                 project_id: vm.project.id
             }, function (result) {
                 vm.tasks = result.data;
+                for(var i=0;i<vm.tasks.length;i++){
+                    vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
+                    getTaskRules(vm.tasks[i]);
+                }
                 getTaskResources();
             });
+        }
+
+        function getTaskRules(task){
+            task.rules=[];
+            console.log("getTaskRules");
+            for(var i= 0,rule;i<task.rule_ids.length;i++){
+                rule=vm.project.rules.findOne(function (item) {
+                    return item.id == task.rule_ids[i];
+                });
+                task.rules.push(rule);
+            }
+
         }
 
         function onProjectProducts() {
