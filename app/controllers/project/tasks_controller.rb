@@ -24,5 +24,10 @@ module Project
       render :show
     end
 
+    def release
+      @task = Pbl::Models::Projects::Task.release(params[:id])
+      render :show
+    end
+
   end
 end

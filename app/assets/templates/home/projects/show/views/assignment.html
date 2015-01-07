@@ -1,4 +1,4 @@
-<div class="project-show-assignment">
+<div class="project-show-assignment project-scaffold">
     <div class="project-title col-1-1 ">
         <span class="title-text">作业评价</span>
         <span class="title-pointer"></span>
@@ -6,17 +6,15 @@
 
     <div class="task-list col-1-1 margin-bottom-20">
         <div class="col-1-1 tasks-group">
-            <div class="tasks-group-item col-1-1" ng-repeat="task in vm.project.tasks track by $index">
-                <div class="tasks-group-item-title">
-                    <span class="pull-left" ng-bind="'任务'+($index+1)+'-'"></span>
-                    <span class="pull-left" ng-bind="task.title"></span>
-                    <i class="btn-mini pf-trash-o pull-right" ng-click="vm.removeTask(task)"></i>
-                    <i class="btn-mini pf-doc-eye pull-right" ng-click="vm.showTask($index)"></i>
-                    <i class="time pull-right">2014-12-26 20：20</i>
+            <div class="tasks tasks-group-item" ng-repeat="task in vm.tasks">
+                <div class="task-title" ng-click="task.$show=!task.$show">
+                    <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
+                    <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
+                    <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"></i>
                 </div>
-                <div class="tasks-group-item-cont" ng-show="vm.showtask[$index]">
-                    <ng-include src="'home/projects/show/taskview.html'"></ng-include>
 
+                <div class="tasks-group-item-cont" ng-show="task.$show">
+                    <div class="" ng-include="'home/projects/show/taskview.html'"></div>
                     <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8 assignment-list ">
                         <div class="col-1-1">
                             <label class=" col-1-8 control-label">作业状态：</label>
@@ -35,7 +33,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="clear"></div>
             </div>
         </div>
 

@@ -20,6 +20,11 @@ class ProjectsController < ApplicationBaseController
     render :show
   end
 
+  def release
+    @project = Pbl::Models::Project.release(params[:id])
+    render :show
+  end
+
   def destroy
     @project =  Pbl::Project.destroy(params[:id])
     render :show

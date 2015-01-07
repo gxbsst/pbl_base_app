@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   resources :index, only: %w(index)
 
   resources :home, only: %w(index)
-  resources :projects, defaults: {format: 'json'}, only: %w(index create destroy show update delete) do
+  resources :projects, defaults: {format: 'json'} do
+    member do
+      patch 'release'
+    end
     resources :assignments, defaults: {format: 'json'}
   end
   resources :standard_decompositions, defaults: {format: 'json'}
@@ -53,7 +56,11 @@ Rails.application.routes.draw do
     resources :techniques, defaults: {format: 'json'}, only: %w(index create destroy)
     resources :products, defaults: {format: 'json'}, only: %w(index create update destroy)
     resources :rules, defaults: {format: 'json'}, only: %w(index create update destroy)
-    resources :tasks, defaults: {format: 'json'}
+    resources :tasks, defaults: {format: 'json'} do
+      member do
+        patch 'release'
+      end
+    end
   end
 
   resources :member_ships, defaults: { format: :json }

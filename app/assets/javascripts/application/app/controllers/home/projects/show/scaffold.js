@@ -27,6 +27,8 @@
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
         vm.dateFormat=dateFormat;
+        vm.finalpost=finalpost;
+        vm.releaseTask=releaseTask;
 
         $scope.$on('setAddTask', setAddTask);
 
@@ -48,7 +50,6 @@
                 }
             });
         });
-
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
             //测试ng-model绑定
@@ -96,6 +97,15 @@
                 project_id: project.id
             }, function (result) {
                 project.rules = result.data;
+            });
+        }
+
+        function releaseTask() {
+            Task.release({
+                project_id: project.id,
+                action:'release'
+            }, function (result) {
+                onProjectTasks();
             });
         }
 
@@ -158,6 +168,14 @@
             task.submit_way = typeval;
             if (!disabled) {
                 Tasks.update({taskId: task.id, task: {'submit_way': typeval}});
+            }
+        }
+
+        function finalpost(task, typeval, disabled) {
+            console.log("finalpost");
+            task.final = typeval;
+            if (!disabled) {
+                Tasks.update({taskId: task.id, task: {'final': typeval}});
             }
         }
 
@@ -226,6 +244,14 @@
                     }else{
                         vm.tasks[i].start_at_time=new Date();
                         vm.tasks[i].start_at_date=new Date();
+                    }
+                    if(!vm.tasks[i].submit_way){
+                        vm.tasks[i].submit_way=1;
+                        Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 1}});
+                    }
+                    if(!vm.tasks[i].final){
+                        console.log("final");
+                        vm.tasks[i].final=false;
                     }
                     vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
                     getTaskRules(vm.tasks[i]);

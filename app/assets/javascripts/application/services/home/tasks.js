@@ -16,7 +16,7 @@
     Tasks.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Tasks($resource, RESOURCE_ACTIONS) {
-        return $resource('/project/tasks/:taskId', {taskId: '@taskId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/project/tasks/:taskId/:action', {taskId: '@taskId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
 })();

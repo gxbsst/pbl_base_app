@@ -10,7 +10,7 @@
     function addTaskController($scope, Disciplines) {
         var vm = this;
         $scope.task = {
-            task_type: 1
+            task_type: "ProjectTask"
         };
         $scope.addTask=true;
         $scope.modalEmit = modalEmit;

@@ -8,7 +8,8 @@
                 all: {method: 'GET'},
                 add: {method: 'POST'},
                 update: {method: 'PUT'},
-                remove: {method: 'DELETE'}
+                remove: {method: 'DELETE'},
+                release:{method: 'PATCH'}
             },
             PATHS: {
                 image: 'http://img.edutec.com',
