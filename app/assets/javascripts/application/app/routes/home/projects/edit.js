@@ -17,7 +17,7 @@
                 resolve: {
                     project: project
                 },
-                controller: 'ProjectEditController'
+                controller: 'ProjectEditController as vm'
             })
             .state('base.home.projects.edit.design', {
                 url: '',

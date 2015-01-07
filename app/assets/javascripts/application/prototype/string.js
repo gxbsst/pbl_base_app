@@ -36,6 +36,9 @@
             },
             trim: function () {
                 return this.replace(/(^\s*)|(\s*$)/g,'');
+            },
+            toDate: function () {
+                return Date.parse(this);
             }
         });
 

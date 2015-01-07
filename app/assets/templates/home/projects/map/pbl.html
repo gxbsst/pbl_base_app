@@ -2,11 +2,12 @@
     <div class="pbl-map-container">
         <div class="helicopter" ng-style="{left:'40%'}"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
         <div class="timeline">
-            <div class="node">
-                <span>2014年12月06日</span>
+            <div class="node start_at">
+                <span ng-bind="vm.project.start_at|date:'yyyy年MM月dd日'"></span>
             </div>
-            <div class="node">
-                <span>2014年12月13日</span>
+            <div class="node" ng-style="{left:(100/23)*($index+1)+'%'}" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24] track by $index"></div>
+            <div class="node end_at">
+                <span ng-bind="vm.project.end_at|date:'yyyy年MM月dd日'"></span>
             </div>
             <div class="time-progress" ng-style="{width:'40%'}"></div>
         </div>

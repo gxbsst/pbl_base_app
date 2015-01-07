@@ -51,9 +51,9 @@
                 if (pane.selected) {
                     classes.push('active');
                 }
-                //if (vm.justify) {
-                //    classes.push(['col', 1, vm.panels.length].join('-'));
-                //}
+                if (vm.justify) {
+                    classes.push(['col', 1, vm.panels.length].join('-'));
+                }
                 return classes.join(' ');
             }
 

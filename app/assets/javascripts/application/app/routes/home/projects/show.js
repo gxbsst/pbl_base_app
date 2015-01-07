@@ -17,7 +17,7 @@
                 resolve: {
                     project: project
                 },
-                controller: 'ProjectShowController'
+                controller: 'ProjectShowController as vm'
             })
             .state('base.home.projects.show.info', {
                 url: '',

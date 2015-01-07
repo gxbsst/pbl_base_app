@@ -40,6 +40,10 @@
 
     function ProjectEditController($state, $scope, project) {
 
+        var vm = this;
+
+        vm.project = project;
+
         $scope.goto = goto;
 
         function goto(view) {
@@ -50,6 +54,11 @@
     ProjectShowController.$inject = ['$state', '$scope', 'project'];
 
     function ProjectShowController($state, $scope, project) {
+
+        var vm = this;
+
+        vm.project = project;
+        vm.state = 'running';
 
         $scope.goto = goto;
 

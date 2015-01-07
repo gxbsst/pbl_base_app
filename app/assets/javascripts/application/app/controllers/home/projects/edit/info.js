@@ -21,6 +21,7 @@
         vm.onTeachersAdd = onTeachersAdd;
         vm.onTeachersRemove = onTeachersRemove;
         vm.onSetTime = onSetTime;
+        vm.beforeRender = beforeRender;
         vm.teachersFilter = teachersFilter;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
@@ -235,13 +236,29 @@
             }
         }
 
-        function onSetTime(newDate){
+        function onSetTime(newDate) {
             Projects.update({
                 projectId: project.id
             }, {
                 project: {start_at: newDate}
             });
             $scope.$emit('onDocumentClick');
+        }
+
+        function beforeRender($view, $dates, $upDate) {
+            switch($view){
+                case 'day':
+                    $upDate.display = moment($upDate.dateValue).add(1, 'month').format('YYYY年MM月');
+                    break;
+                /*case 'month':
+                    $upDate.display = moment($upDate.dateValue).add(1, 'year').format('YYYY年');
+                    break;*/
+            }
+            angular.forEach($dates, function (date) {
+                if(moment(date.dateValue).timezoneOffset(0).isBefore(moment(), $view == 'hour' ? 'minute' : $view)){
+                    date.selectable = false;
+                }
+            });
         }
 
         function teachersFilter(input) {
