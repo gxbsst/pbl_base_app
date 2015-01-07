@@ -100,9 +100,10 @@
             });
         }
 
-        function releaseTask() {
-            Task.release({
-                project_id: project.id,
+        function releaseTask(task, disabled) {
+            console.log("release task");
+            Tasks.release({
+                taskId: task.id,
                 action:'release'
             }, function (result) {
                 onProjectTasks();
@@ -233,7 +234,8 @@
 
         function onProjectTasks() {
             Tasks.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                    state:'draft'
             }, function (result) {
                 vm.tasks = result.data;
 
@@ -250,7 +252,6 @@
                         Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 1}});
                     }
                     if(!vm.tasks[i].final){
-                        console.log("final");
                         vm.tasks[i].final=false;
                     }
                     vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
@@ -284,7 +285,6 @@
                 }
                 vm.products = products;
 
-                console.log(vm.products);
             });
         }
 
