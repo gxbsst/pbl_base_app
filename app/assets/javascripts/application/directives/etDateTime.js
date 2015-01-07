@@ -1,12 +1,13 @@
 (function () {
     'use strict';
+    var cYear=new Date().getFullYear(),
+        cMonth=new Date().getMonth(),
+        cDay=new Date().getDay();
 
     angular
         .module('app.directives.datetime', ['app.factories.dateformatter'])
         .provider('$timepicker', function() {
-            var cYear=new Date().getFullYear(),
-                cMonth=new Date().getMonth(),
-                cDay=new Date().getDay();
+
         var defaults = this.defaults = {
             animation: 'am-fade',
             prefixClass: 'timepicker',

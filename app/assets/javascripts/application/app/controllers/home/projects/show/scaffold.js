@@ -262,7 +262,6 @@
 
         function getTaskRules(task){
             task.rules=[];
-            console.log("getTaskRules");
             for(var i= 0,rule;i<task.rule_ids.length;i++){
                 rule=vm.project.rules.findOne(function (item) {
                         return item.id == task.rule_ids[i];
@@ -272,7 +271,6 @@
 
         }
         function onProjectProducts() {
-            console.log("products");
             ProjectProducts.all({
                 project_id: vm.project.id
             }, function (result) {

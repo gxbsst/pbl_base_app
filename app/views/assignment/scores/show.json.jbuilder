@@ -1,6 +1,6 @@
 if @score.success?
   json.data do
-    json.partial! 'assignment/works/work', score: @score
+    json.partial! 'assignment/scores/score', score: @score
   end
 else
   json.extract! @score, :code, :body, :headers

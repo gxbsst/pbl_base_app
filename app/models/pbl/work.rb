@@ -1,3 +1,3 @@
 module Pbl
-  Work = Pbl::Models::Projects::Work
+  Work = Pbl::Models::Assignments::Work
 end
