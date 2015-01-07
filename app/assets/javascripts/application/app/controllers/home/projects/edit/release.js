@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditReleaseController', ProjectEditReleaseController);
 
-    ProjectEditReleaseController.$inject = ['$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'project'];
+    ProjectEditReleaseController.$inject = ['$scope','$state', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'Projects', 'project'];
 
-    function ProjectEditReleaseController($scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project) {
+    function ProjectEditReleaseController($scope,$state, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers,Projects, project) {
         var vm = this;
         vm.project = project;
         vm.project.resources = [];
@@ -15,6 +15,7 @@
         vm.limit = 10;
         vm.limitTo = vm.limit;
         vm.toggle = toggle;
+        vm.releaseProject=releaseProject;
 
         getProjectProducts();
         getProjectGauges();
@@ -119,6 +120,18 @@
             return vm.project.resources[singular ? 'findOne' : 'find'](function (resource) {
                 return resource.owner_type == type && resource.owner_id == id;
             });
+        }
+
+        function releaseProject(project, $event) {
+            $event.stopPropagation();
+            if (confirm('您确定要发布这个任务吗？')) {
+                Projects.release({
+                    projectId: project.id,
+                    action:'release'
+                }, function (result) {
+                    $state.go('base.home.projects.show.info');
+                });
+            }
         }
 
     }

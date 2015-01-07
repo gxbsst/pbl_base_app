@@ -21,7 +21,7 @@ class ProjectsController < ApplicationBaseController
   end
 
   def release
-    @project = Pbl::Models::Project.release(params[:id])
+    @project = Pbl::Project.release(params[:id])
     render :show
   end
 
