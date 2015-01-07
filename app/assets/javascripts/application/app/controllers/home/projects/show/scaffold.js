@@ -5,13 +5,17 @@
         .module('app.pbl')
         .controller('ProjectShowScaffoldController', ProjectShowScaffoldController);
 
-    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'Groupings', 'Discussions'];
+    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+        'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'Groupings',
+        'Discussions','Works'];
 
-    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, Groupings, Discussions) {
+    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project,
+                      Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, Groupings,
+                      Discussions,Works) {
 
         var vm = this;
-        vm.showTask = showTask;
-        vm.showtask = [];
+        vm.showTask=showTask;
+        vm.showtask=[];
 
         project.knowledge = project.knowledge || [];
         vm.project = project;
@@ -100,15 +104,62 @@
             });
         }
 
-        function releaseTask(task, disabled) {
-            console.log("release task");
-            Tasks.release({
-                taskId: task.id,
-                action:'release'
-            }, function (result) {
-                onProjectTasks();
-            });
+        function releaseTask(task,$event) {
+            $event.stopPropagation();
+            var request=releaseTaskTest(task);
+            if(request[0]){
+                if (confirm('您确定要发布这个任务吗？')) {
+                    if(task.submit_way=="ProjectTask::Group"){
+                        for (var i=0;i<task.discussion_ids.length;i++){
+                            console.log(task.discussion_ids[i]);
+                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                                'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
+                                'sender_id':vm.project.user_id
+                            }});
+                        }
+
+                        ////////////////////////////////
+                    }else{
+                        var groups=vm.groups.find(function(item){
+                            return task.discussion_ids.findOne(function(taskitem){
+                                return taskitem==item.id;
+                            })
+                        });
+                        var members = groups.map(function (group) {
+                            return group.members;
+                        }).join(",").split(",");
+
+                        for (var i=0;i<members.length;i++){
+                            console.log(members[i]);
+                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                                'acceptor_id': members[i],'acceptor_type':task.submit_way,
+                                'sender_id':vm.project.user_id
+                            }});
+
+                        }
+                    }
+                    Tasks.release({
+                        taskId: task.id,
+                        action:'release'
+                    }, function (result) {
+                        onProjectTasks();
+                    });
+                }
+
+            }else{
+                alert(request[1]);
+            }
         }
+
+        function releaseTaskTest(task){
+            if(task.discussion_ids.length==0||task.discussion_ids==null)
+            {
+                return [false,"请选择参与组后再提交任务"];
+            }
+            return [true,""];
+
+        }
+
 
 
         function showTask(id){
@@ -248,11 +299,10 @@
                         vm.tasks[i].start_at_date=new Date();
                     }
                     if(!vm.tasks[i].submit_way){
-                        vm.tasks[i].submit_way=1;
-                        Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 1}});
+                        vm.tasks[i].submit_way='ProjectTask::Group';
+                        Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 'ProjectTask::Group'}});
                     }
                     if(!vm.tasks[i].final){
-                        console.log("final");
                         vm.tasks[i].final=false;
                     }
                     vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
@@ -264,7 +314,6 @@
 
         function getTaskRules(task){
             task.rules=[];
-            console.log("getTaskRules");
             for(var i= 0,rule;i<task.rule_ids.length;i++){
                 rule=vm.project.rules.findOne(function (item) {
                         return item.id == task.rule_ids[i];
@@ -273,7 +322,6 @@
             }
 
         }
-
         function onProjectProducts() {
             ProjectProducts.all({
                 project_id: vm.project.id

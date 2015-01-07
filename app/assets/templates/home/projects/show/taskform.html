@@ -49,8 +49,8 @@
         <div class="col-1-1">
             <label class=" col-2-12 control-label">作业递交方式：</label>
             <div class="col-10-12">
-                <span class="btn" ng-class="{'btn-blue':task.submit_way==1,'btn-gray':task.submit_way!=1}" role="button" ng-click="vm.chooseSubmitWay(task,1,disabled)">每组一份</span>
-                <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.submit_way==2,'btn-gray':task.submit_way!=2}" role="button" ng-click="vm.chooseSubmitWay(task,2,disabled)">每人一份</span>
+                <span class="btn" ng-class="{'btn-blue':task.submit_way=='ProjectTask::Group','btn-gray':task.submit_way!='ProjectTask::Group'}" role="button" ng-click="vm.chooseSubmitWay(task,'ProjectTask::Group',disabled)">每组一份</span>
+                <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.submit_way=='ProjectTask::User','btn-gray':task.submit_way!='ProjectTask::User'}" role="button" ng-click="vm.chooseSubmitWay(task,'ProjectTask::User',disabled)">每人一份</span>
             </div>
         </div>
     </div>
@@ -144,7 +144,7 @@
         </div>
     </div>
     <div class="col-1-1 margin-bottom-8 margin-top-8 tasks-group-item-form text-right" ng-show="vm.project.state=='release'&&(!addTask)">
-        <span class="btn btn-blue" role="button" ng-click="vm.releaseTask(task,!task.id)">发布任务</span>
+        <span class="btn btn-blue" role="button" ng-click="vm.releaseTask(task,$event)">发布任务</span>
     </div>
 
     </div>
