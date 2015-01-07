@@ -5,22 +5,34 @@
         .module('app.pbl')
         .controller('ProjectShowAssignmentController', ProjectShowAssignmentController);
 
-    ProjectShowAssignmentController.$inject =  ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges','Groupings','Discussions'];
+    ProjectShowAssignmentController.$inject =  ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+        'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges',
+        'Groupings','Discussions','Works'];
 
-    function ProjectShowAssignmentController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,Groupings,Discussions) {
+    function ProjectShowAssignmentController($scope, RESOURCE_TYPES, Resources, project,
+        Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,
+        Groupings,Discussions,Works) {
 
         var vm = this;
         vm.project = project;
         vm.showTask=showTask;
         vm.showtask=[];
-        console.log(vm.project);
-
+        vm.disciplines = [];
+        vm.isgroup=isgroup;
+        vm.dateFormat=dateFormat;
+        vm.getResources = getResources;
 
         getProjectGauges();
         onProjectTasks();
         onProjectProducts();
 
         getDiscussions();
+
+        Disciplines.all(function (data) {
+            vm.disciplines = data.data;
+            //测试ng-model绑定
+            //vm.disciplines.push(vm.project.tasks[0].test.discipline);
+        });
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -90,7 +102,6 @@
         }
         function getTaskRules(task){
             task.rules=[];
-            console.log("getTaskRules");
             for(var i= 0,rule;i<task.rule_ids.length;i++){
                 rule=vm.project.rules.findOne(function (item) {
                     return item.id == task.rule_ids[i];
@@ -100,7 +111,6 @@
 
         }
         function onProjectProducts() {
-            console.log("products");
             ProjectProducts.all({
                 project_id: vm.project.id
             }, function (result) {
@@ -125,6 +135,27 @@
             //    vm.showtask[i]=false;
             //}
             vm.showtask[id]=!vm.showtask[id];
+        }
+
+        function isgroup(id,ids){
+            return ids.has(function (item) {
+                return item == id;
+            })
+        }
+
+        function dateFormat(date) {
+            if(date==null){date=new Date();}else{date=new Date(date)}
+
+            var datetime;
+            datetime=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()
+            +":"+date.getMinutes()+":00";
+            return(datetime);
+        }
+
+        function getResources(task) {
+            return (vm.resources || []).find(function (resource) {
+                return resource.owner_type == RESOURCE_TYPES.project.task && resource.owner_id == task.id;
+            });
         }
 
     }

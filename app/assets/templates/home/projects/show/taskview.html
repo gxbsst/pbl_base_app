@@ -30,7 +30,7 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">学科：</label>
         <div class="col-7-8">
-            <span>语文</span>
+            <span ng-repeat="discipline in vm.disciplines" ng-bind="discipline.name" ng-if="task.discipline_id==discipline.id"></span>
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">参与组：</label>
         <div class="col-7-8">
-            <span>第一组</span>
+            <span class="tag_noicon" ng-repeat="group in vm.groups" ng-if="vm.isgroup(group.id,task.discussion_ids)" ng-bind="group.full_name"></span>
         </div>
     </div>
 </div>
@@ -47,7 +47,8 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">作业递交方式：</label>
         <div class="col-7-8">
-            <span>每组一份</span>
+            <span ng-if="task.submit_way==1">每组一份</span>
+            <span ng-if="task.submit_way==2">每人一份</span>
         </div>
     </div>
 </div>
@@ -55,7 +56,7 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">任务开始时间：</label>
         <div class="col-7-8">
-            <span>2014-12-12 12:12</span>
+            <span>{{vm.dateFormat(task.start_at)}}</span>
         </div>
     </div>
 </div>
@@ -64,14 +65,36 @@
     <label class=" col-1-8 control-label">任务时长：</label>
     <div class="col-7-8">
         <span ng-bind="task.evaluation_duration"></span>
-        <span ng-bind="task.evaluation_cycle"></span>
+        <span ng-repeat="duration in DURATION_UNITS" ng-if="duration.id==task.evaluation_cycle" ng-bind="duration.title"></span>
     </div>
 </div>
 <div class="col-1-1" ng-show="task.task_type==2">
     <div class="col-1-1 tasks-group-item-form">
         <label class="control-label">对应量规：</label>
         <div class="offset-1-12 col-11-12">
-            <span class="btn btn-gray" role="button">选择量规</span>
+            <table class="table bg-white" ng-if="task.rules">
+                <thead>
+                <tr>
+                    <th>对应技能</th>
+                    <th>量规标准</th>
+                    <th width="60">权重</th>
+                    <th ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled"
+                        ng-bind="$index|gauge:vm.project.rule_template"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="gauge in task.rules" class="gauge-item">
+                    <td ng-bind="gauge.technique.title"></td>
+                    <td ng-bind="gauge.standard"></td>
+                    <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+                    <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
+                    <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
+                </tr>
+                <tr ng-if="!task.rules">
+                    <td colspan="8" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -80,27 +103,22 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">最终成果：</label>
         <div class="col-7-8">
-            <span>是</span>
+            <span ng-if="task.final">是</span>
+            <span ng-if="!task.final">否</span>
         </div>
     </div>
 </div>
-<div class="col-1-1 tasks-group-item-form">
-    <label class="control-label">参考资源：</label>
-
-    <div class="row resouce-list-group">
-        <div class="resouce-item"
-             ng-repeat="doc in vm.project.resources">
-            <a class="item-download" ng-href="{{doc|uri}}">
-                <div class="item-logo"> <span class="pf-documents"></span></div>
-                <div>
-                    <div class="item-title" ng-bind="doc.name"></div>
-                    <div class="item-time">2014-12-12 20：20</div>
-                </div>
-            </a>
-            <a ng-click="vm.resouceDelete(doc)" class="item-delete">
-                删除
-            </a>
-        </div>
+<div class="form-group" ng-if="task.id">
+    <strong class="control-label col-2-12">任务资源：</strong>
+    <div class="row col-10-12">
+        <ul class="files">
+            <li ng-repeat="resource in vm.getResources(task)" ng-class="{disabled:resource.$disabled}">
+                <i ng-class="resource.name|icon"></i>
+                <span ng-bind="resource.name"></span>
+                <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="clearfix"></div>

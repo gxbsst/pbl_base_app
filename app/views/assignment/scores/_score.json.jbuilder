@@ -1,5 +1,6 @@
 json.id score[:id]
-json.work_id score[:work_id] if score[:work_id]
+json.owner_id score[:owner_id] if score[:owner_id]
+json.owner_type score[:owner_type] if score[:owner_type]
 json.user_id score[:user_id] if score[:user_id]
 json.comment score[:comment] if score[:comment]
 json.score score[:score] if score[:score]

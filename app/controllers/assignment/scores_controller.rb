@@ -1,26 +1,26 @@
-module Project
+module Assignment
   class ScoresController < ApplicationController
 
     def index
-      @scores = Pbl::Models::Projects::Score.where(params.permit(:work_id, :include))
+      @scores = Pbl::Models::Assignments::Score.where(params.permit(:score_id, :include))
     end
 
     def create
-      @score = Pbl::Models::Projects::Score.create(params[:work])
+      @score = Pbl::Models::Assignments::Score.create(params[:score])
       render :show
     end
 
     def show
-      @score = Pbl::Models::Projects::Score.find(params[:id])
+      @score = Pbl::Models::Assignments::Score.find(params[:id])
     end
 
     def update
-      @score = Pbl::Models::Projects::Score.update(params[:id], params[:task])
+      @score = Pbl::Models::Assignments::Score.update(params[:id], params[:score])
       render :show
     end
 
     def destroy
-      @score = Pbl::Models::Projects::Score.destroy(params[:id])
+      @score = Pbl::Models::Assignments::Score.destroy(params[:id])
       render :show
     end
 

@@ -75,7 +75,6 @@
                 }
             });
         }
-
         function getGroupings() {
             console.log("getGroupings");
             Groupings.get({
@@ -101,21 +100,22 @@
             });
         }
 
-        function releaseTask() {
-            Task.release({
-                project_id: project.id,
-                action: 'release'
+        function releaseTask(task, disabled) {
+            console.log("release task");
+            Tasks.release({
+                taskId: task.id,
+                action:'release'
             }, function (result) {
                 onProjectTasks();
             });
         }
 
 
-        function showTask(id) {
+        function showTask(id){
             //for (var i=0;i<vm.project.tasks.length;i++){
             //    vm.showtask[i]=false;
             //}
-            vm.showtask[id] = !vm.showtask[id];
+            vm.showtask[id]=!vm.showtask[id];
         }
 
         function onUploadBegin(product) {
@@ -215,10 +215,10 @@
         function onProjectTaskGauges(event, data) {
             console.log("onProjectTaskGauges");
 
-            var taskitem = vm.tasks.findOne(function (item) {
+            var taskitem=vm.tasks.findOne(function (item) {
                 return item.id == data.id;
             });
-            taskitem.rule_ids = data.rule_ids;
+            taskitem.rule_ids=data.rule_ids;
             getTaskRules(taskitem);
             //onProjectTasks();
         }
@@ -234,46 +234,47 @@
 
         function onProjectTasks() {
             Tasks.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                    state:'draft'
             }, function (result) {
                 vm.tasks = result.data;
-                for (var i = 0; i < vm.tasks.length; i++) {
-                    if (vm.tasks[i].start_at) {
-                        vm.tasks[i].start_at_time = new Date(vm.tasks[i].start_at);
-                        vm.tasks[i].start_at_date = new Date(vm.tasks[i].start_at);
-                    } else {
-                        vm.tasks[i].start_at_time = new Date();
-                        vm.tasks[i].start_at_date = new Date();
+
+                for(var i=0;i<vm.tasks.length;i++){
+                    if(vm.tasks[i].start_at){
+                        vm.tasks[i].start_at_time=new Date(vm.tasks[i].start_at);
+                        vm.tasks[i].start_at_date=new Date(vm.tasks[i].start_at);
+                    }else{
+                        vm.tasks[i].start_at_time=new Date();
+                        vm.tasks[i].start_at_date=new Date();
                     }
-                    if (!vm.tasks[i].submit_way) {
-                        vm.tasks[i].submit_way = 1;
+                    if(!vm.tasks[i].submit_way){
+                        vm.tasks[i].submit_way=1;
                         Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 1}});
                     }
-                    if (!vm.tasks[i].final) {
+                    if(!vm.tasks[i].final){
                         console.log("final");
-                        vm.tasks[i].final = false;
+                        vm.tasks[i].final=false;
                     }
-                    vm.tasks[i].rule_ids = vm.tasks[i].rule_ids || [];
+                    vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
                     getTaskRules(vm.tasks[i]);
                 }
                 getTaskResources();
             });
         }
 
-        function getTaskRules(task) {
-            task.rules = [];
+        function getTaskRules(task){
+            task.rules=[];
             console.log("getTaskRules");
-            for (var i = 0, rule; i < task.rule_ids.length; i++) {
-                rule = vm.project.rules.findOne(function (item) {
-                    return item.id == task.rule_ids[i];
-                });
+            for(var i= 0,rule;i<task.rule_ids.length;i++){
+                rule=vm.project.rules.findOne(function (item) {
+                        return item.id == task.rule_ids[i];
+                    });
                 task.rules.push(rule);
             }
 
         }
 
         function onProjectProducts() {
-            console.log("products");
             ProjectProducts.all({
                 project_id: vm.project.id
             }, function (result) {
@@ -287,7 +288,6 @@
                 }
                 vm.products = products;
 
-                console.log(vm.products);
             });
         }
 

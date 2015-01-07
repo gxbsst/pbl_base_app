@@ -1,3 +1,3 @@
 module Pbl
-  Score = Pbl::Models::Projects::Score
+  Score = Pbl::Models::Assignments::Score
 end

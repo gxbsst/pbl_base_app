@@ -20,12 +20,12 @@
     <div class="col-1-1 tasks-group-item-form">
         <label class="control-label">任务类型：</label>
         <div class="col-1-1 margin-bottom-8">
-            <span class="btn" ng-class="{'btn-blue':task.task_type==1,'btn-gray':task.task_type!=1}" role="button" ng-click="vm.chooseType(task,1,!task.id)">学科考评型</span>
-            <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type==2,'btn-gray':task.task_type!=2}" role="button" ng-click="vm.chooseType(task,2,!task.id)">技能考评型</span>
+            <span class="btn" ng-class="{'btn-blue':task.task_type=='ProjectTask::Discipline','btn-gray':task.task_type!='ProjectTask::Discipline'}" role="button" ng-click="vm.chooseType(task,'ProjectTask::Discipline',!task.id)">学科考评型</span>
+            <span class="btn  margin-left-8 margin-right-8" ng-class="{'btn-blue':task.task_type=='ProjectTask::Skill','btn-gray':task.task_type!='ProjectTask::Skill'}" role="button" ng-click="vm.chooseType(task,'ProjectTask::Skill',!task.id)">技能考评型</span>
         </div>
     </div>
 
-    <div class="col-1-1 tasks-group-item-form" ng-show="task.task_type==1">
+    <div class="col-1-1 tasks-group-item-form" ng-show="task.task_type=='ProjectTask::Discipline'">
         <div class="col-1-1">
             <label class=" col-2-12 control-label">学科：</label>
             <div class="col-10-12">
@@ -41,6 +41,7 @@
             <div class="col-10-12">
                 <select ng-model="task.discussion_ids" et-select="vm.groups" et-config="label='full_name'"
                         et-sync="{taskId:task.id,task:{discussion_ids:[task.discussion_ids]},$service:'Tasks',$disabled:!task.id}"></select>
+
             </div>
         </div>
     </div>
@@ -75,7 +76,7 @@
                     et-sync="{taskId:task.id,task:{evaluation_cycle:task.evaluation_cycle},$service:'Tasks',$disabled:!task.id}"></select>
         </div>
     </div>
-    <div class="col-1-1" ng-show="task.task_type==2">
+    <div class="col-1-1" ng-show="task.task_type=='ProjectTask::Skill'">
         <div class="col-1-1 tasks-group-item-form">
             <label class="control-label">对应量规：</label>
             <div class="offset-2-12 col-10-12">

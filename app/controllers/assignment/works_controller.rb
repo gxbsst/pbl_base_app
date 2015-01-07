@@ -1,26 +1,26 @@
-module Project
+module Assignment
   class WorksController < ApplicationController
 
     def index
-      @works = Pbl::Models::Projects::Work.where(params.permit(:task_id, :include))
+      @works = Pbl::Models::Assignments::Work.where(params.permit(:work_id, :include ,:state))
     end
 
     def create
-      @work = Pbl::Models::Projects::Work.create(params[:work])
+      @work = Pbl::Models::Assignments::Work.create(params[:work])
       render :show
     end
 
     def show
-      @work = Pbl::Models::Projects::Work.find(params[:id])
+      @work = Pbl::Models::Assignments::Work.find(params[:id])
     end
 
     def update
-      @work = Pbl::Models::Projects::Work.update(params[:id], params[:task])
+      @work = Pbl::Models::Assignments::Work.update(params[:id], params[:work])
       render :show
     end
 
     def destroy
-      @work = Pbl::Models::Projects::Work.destroy(params[:id])
+      @work = Pbl::Models::Assignments::Work.destroy(params[:id])
       render :show
     end
 
