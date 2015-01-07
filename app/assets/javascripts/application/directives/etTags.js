@@ -44,7 +44,13 @@
             }, true);
 
             scope.$watch(function () {
-                return attr.placeholder;
+                var placeholder;
+                try{
+                    placeholder = scope.$eval(attr.placeholder);
+                }catch(e){
+                    placeholder = attr.placeholder;
+                }
+                return placeholder;
             }, function (placeholder) {
                 ctrl.placeholder = placeholder;
             });

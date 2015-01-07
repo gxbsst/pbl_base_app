@@ -5,7 +5,7 @@ class ProjectsController < ApplicationBaseController
   end
 
   def create
-    project = params[:project]
+    project = params[:project] || {}
     project[:user_id] = current_user.id
     @project = Pbl::Project.create(project)
     render :show

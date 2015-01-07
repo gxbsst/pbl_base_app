@@ -3,6 +3,7 @@ json.name project.name if project.name
 json.description project.description if project.description
 json.driven_issue project.driven_issue if project.driven_issue
 json.start_at project.start_at if project.start_at
+json.end_at project.end_at if project.end_at?
 json.duration project.duration if project.duration
 json.duration_unit project.duration_unit if project.duration_unit
 json.grade project.grade if project.grade

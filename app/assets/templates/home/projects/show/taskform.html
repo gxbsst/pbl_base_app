@@ -58,7 +58,7 @@
         <div class="col-1-1">
             <label class="col-2-12 control-label">任务开始时间：</label>
             <div class="input-group dropdown">
-                <input type="text" class="form-control center" ng-value="task.start_at|date:'yyyy-MM-dd HH:mm'"/>
+                <input type="text" class="form-control center" placeholder="请选择开始时间" ng-value="task.start_at|date:'yyyy-MM-dd HH:mm'"/>
                 <span class="input-group-addon"><i class="pf-calendar"></i></span>
                 <div class="dropdown-menu">
                     <datetimepicker ng-model="task.start_at"
