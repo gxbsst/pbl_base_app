@@ -54,6 +54,8 @@ gem 'rails-assets-restangular'
 gem 'rails-assets-lodash'
 gem 'rails-assets-interact'
 gem 'rails-assets-angular-chart.js'
+gem 'rails-assets-angular-moment'
+gem 'rails-assets-angular-bootstrap-datetimepicker'
 
 gem 'htmlcompressor'
 gem 'angular-rails-templates'

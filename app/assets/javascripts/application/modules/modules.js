@@ -7,7 +7,8 @@
         'app.modal',
         'app.scrollbar',
         'validation',
-        'chart.js'
+        'chart.js',
+        'ui.bootstrap.datetimepicker'
     ]);
 
 })();

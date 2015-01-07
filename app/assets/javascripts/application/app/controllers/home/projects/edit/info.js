@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('ProjectEditInfoController', ProjectEditInfoController);
 
-    ProjectEditInfoController.$inject = ['$rootScope', '$q', '$timeout', 'RESOURCE_TYPES', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
+    ProjectEditInfoController.$inject = ['$scope', '$rootScope', '$q', 'RESOURCE_TYPES', 'Resources', 'Projects', 'ProjectTeachers', 'Regions', 'project'];
 
-    function ProjectEditInfoController($rootScope, $q, $timeout, RESOURCE_TYPES, Resources, Projects, ProjectTeachers, Regions, project) {
+    function ProjectEditInfoController($scope, $rootScope, $q, RESOURCE_TYPES, Resources, Projects, ProjectTeachers, Regions, project) {
 
         var vm = this;
         project.cover = project.cover || {};
@@ -20,6 +20,7 @@
         vm.onTagsChange = onTagsChange;
         vm.onTeachersAdd = onTeachersAdd;
         vm.onTeachersRemove = onTeachersRemove;
+        vm.onSetTime = onSetTime;
         vm.teachersFilter = teachersFilter;
         vm.setCountry = setCountry;
         vm.setProvince = setProvince;
@@ -232,6 +233,15 @@
                     assignmentId: teacher.id
                 }, getTeachers);
             }
+        }
+
+        function onSetTime(newDate){
+            Projects.update({
+                projectId: project.id
+            }, {
+                project: {start_at: newDate}
+            });
+            $scope.$emit('onDocumentClick');
         }
 
         function teachersFilter(input) {

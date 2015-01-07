@@ -1,0 +1,82 @@
+@import "compass/css3";
+
+/*.dropdown-menu{
+  position:absolute;
+  display:block;
+  margin-bottom:5px;
+  background:#fff;
+  z-index:999;
+  border:1px solid #aaa;
+}
+
+.datepicker.dropdown-menu{
+  width:260px;
+  height:280px;
+  button{
+    outline:none;
+    border:0px;
+    padding:0px;
+  }
+  tbody{
+    height:180px;
+  }
+}
+
+.timepicker.dropdown-menu{
+  padding:0 4px;
+  button{
+    outline:none;
+    border:0px;
+  }
+  tbody button{
+    padding:6px;
+  }
+}*/
+
+.datetimepicker{
+  background:#fff;
+  @include box-shadow(0 0 12px 0 rgba(0, 0, 0, .3));
+  .glyphicon{
+    display:inline-block;
+    font-family:'PblIconFont';
+    font-style:normal;
+    font-weight:normal;
+    font-size:19px;
+    vertical-align:middle;
+  }
+  .glyphicon-arrow-left:before{
+    content:'\f040';
+  }
+  .glyphicon-arrow-right:before{
+    content:'\f03e';
+  }
+  .table{
+    border:none;
+    & > thead > tr > th{
+      @include border-radius(4px);
+      background-color:transparent;
+    }
+    & > thead > tr:first-child > th:hover{
+      background:#f5f5f5 !important;
+    }
+    & > tbody td.day{
+      font-size:12px;
+      //font-weight:bold;
+      color:#666;
+      background:transparent !important;
+      @include border-radius(4px);
+      &.past, &.future{
+        color:#ccc;
+        font-weight:normal;
+      }
+      &:hover{
+        background:#f5f5f5 !important;
+      }
+      &.active{
+        color:#fff;
+        background:#518cf0 !important;
+        @include border-radius(4px);
+      }
+    }
+  }
+}

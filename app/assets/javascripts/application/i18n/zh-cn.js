@@ -82,6 +82,21 @@
             'enter username': '请输入用户名',
             'all posts': '所有动态'
 
-        }
+        };
+
+        moment.defineLocale('zh-cn', {
+            longDateFormat : {
+                LT : 'HH:mm',
+                LTS : 'HH:mm:ss',
+                L : 'YYYY-MM-DD',
+                LL : 'YYYY-MM-DD',
+                LLL : 'YYYY-MM-DD LT',
+                LLLL : 'YYYY年MMMD日ddddLT',
+                l : 'YYYY-MM-DD',
+                ll : 'YYYY年MMMD日',
+                lll : 'YYYY年MMMD日LT',
+                llll : 'YYYY年MMMD日ddddLT'
+            }
+        });
     }
 })();

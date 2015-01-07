@@ -20,6 +20,10 @@
 //= require angular-sanitize
 //= require angular-ui-router
 //= require angular-chart.js
+//= require moment
+//= require moment/locale/zh-cn
+//= require angular-moment
+//= require angular-bootstrap-datetimepicker
 
 //= require mockjs/dist/mock
 //= require ./application/modules/mock

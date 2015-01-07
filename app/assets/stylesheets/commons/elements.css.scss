@@ -186,6 +186,23 @@ ul.selection{
   }
 }
 
+.dropdown{
+  position:relative;
+  .dropdown-menu{
+    display:none;
+    position:absolute;
+    left:0;
+    top:100%;
+    margin-top:5px;
+  }
+  &.open{
+    z-index:1000;
+    .dropdown-menu{
+      display:block;
+    }
+  }
+}
+
 .hide{
   display:none !important;
 }

@@ -5,13 +5,13 @@
         .module('app.pbl')
         .controller('ProjectShowScaffoldController', ProjectShowScaffoldController);
 
-    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges','Groupings','Discussions'];
+    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project', 'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'Groupings', 'Discussions'];
 
-    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,Groupings,Discussions) {
+    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project, Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, Groupings, Discussions) {
 
         var vm = this;
-        vm.showTask=showTask;
-        vm.showtask=[];
+        vm.showTask = showTask;
+        vm.showtask = [];
 
         project.knowledge = project.knowledge || [];
         vm.project = project;
@@ -26,13 +26,13 @@
         vm.removeTask = removeTask;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
-        vm.dateFormat=dateFormat;
-        vm.finalpost=finalpost;
-        vm.releaseTask=releaseTask;
+        vm.onSetTime = onSetTime;
+        vm.finalpost = finalpost;
+        vm.releaseTask = releaseTask;
 
         $scope.$on('setAddTask', setAddTask);
 
-        $scope.$on('onProjectTaskGauges',onProjectTaskGauges);
+        $scope.$on('onProjectTaskGauges', onProjectTaskGauges);
 
         getProjectGauges();
         onProjectTasks();
@@ -75,6 +75,7 @@
                 }
             });
         }
+
         function getGroupings() {
             console.log("getGroupings");
             Groupings.get({
@@ -103,18 +104,18 @@
         function releaseTask() {
             Task.release({
                 project_id: project.id,
-                action:'release'
+                action: 'release'
             }, function (result) {
                 onProjectTasks();
             });
         }
 
 
-        function showTask(id){
+        function showTask(id) {
             //for (var i=0;i<vm.project.tasks.length;i++){
             //    vm.showtask[i]=false;
             //}
-            vm.showtask[id]=!vm.showtask[id];
+            vm.showtask[id] = !vm.showtask[id];
         }
 
         function onUploadBegin(product) {
@@ -214,10 +215,10 @@
         function onProjectTaskGauges(event, data) {
             console.log("onProjectTaskGauges");
 
-            var taskitem=vm.tasks.findOne(function (item) {
+            var taskitem = vm.tasks.findOne(function (item) {
                 return item.id == data.id;
             });
-            taskitem.rule_ids=data.rule_ids;
+            taskitem.rule_ids = data.rule_ids;
             getTaskRules(taskitem);
             //onProjectTasks();
         }
@@ -236,41 +237,41 @@
                 project_id: vm.project.id
             }, function (result) {
                 vm.tasks = result.data;
-
-                for(var i=0;i<vm.tasks.length;i++){
-                    if(vm.tasks[i].start_at){
-                        vm.tasks[i].start_at_time=new Date(vm.tasks[i].start_at);
-                        vm.tasks[i].start_at_date=new Date(vm.tasks[i].start_at);
-                    }else{
-                        vm.tasks[i].start_at_time=new Date();
-                        vm.tasks[i].start_at_date=new Date();
+                for (var i = 0; i < vm.tasks.length; i++) {
+                    if (vm.tasks[i].start_at) {
+                        vm.tasks[i].start_at_time = new Date(vm.tasks[i].start_at);
+                        vm.tasks[i].start_at_date = new Date(vm.tasks[i].start_at);
+                    } else {
+                        vm.tasks[i].start_at_time = new Date();
+                        vm.tasks[i].start_at_date = new Date();
                     }
-                    if(!vm.tasks[i].submit_way){
-                        vm.tasks[i].submit_way=1;
+                    if (!vm.tasks[i].submit_way) {
+                        vm.tasks[i].submit_way = 1;
                         Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 1}});
                     }
-                    if(!vm.tasks[i].final){
+                    if (!vm.tasks[i].final) {
                         console.log("final");
-                        vm.tasks[i].final=false;
+                        vm.tasks[i].final = false;
                     }
-                    vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
+                    vm.tasks[i].rule_ids = vm.tasks[i].rule_ids || [];
                     getTaskRules(vm.tasks[i]);
                 }
                 getTaskResources();
             });
         }
 
-        function getTaskRules(task){
-            task.rules=[];
+        function getTaskRules(task) {
+            task.rules = [];
             console.log("getTaskRules");
-            for(var i= 0,rule;i<task.rule_ids.length;i++){
-                rule=vm.project.rules.findOne(function (item) {
-                        return item.id == task.rule_ids[i];
-                    });
+            for (var i = 0, rule; i < task.rule_ids.length; i++) {
+                rule = vm.project.rules.findOne(function (item) {
+                    return item.id == task.rule_ids[i];
+                });
                 task.rules.push(rule);
             }
 
         }
+
         function onProjectProducts() {
             console.log("products");
             ProjectProducts.all({
@@ -290,19 +291,15 @@
             });
         }
 
-        function dateFormat(date, time, task) {
-            if(date==null){date=new Date();}
-            if(time==null){time=new Date();}
-
-            var datetime;
-            datetime=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+time.getHours()
-                    +":"+time.getMinutes()+":"+time.getSeconds();
-            datetime.replace(/-/g,"/");
-            console.log(datetime);
-            var oDate = new Date(datetime);
-            console.log(oDate);
-            Tasks.update({taskId:task.id,task:{start_at:oDate}});
-            return(oDate);
+        function onSetTime(newDate, task) {
+            Tasks.update({
+                taskId: task.id
+            }, {
+                task: {
+                    start_at: newDate
+                }
+            });
+            $scope.$broadcast('onDocumentClick');
         }
     }
 
