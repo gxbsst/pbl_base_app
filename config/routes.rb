@@ -71,6 +71,11 @@ Rails.application.routes.draw do
 
   resources :assignments, defaults: {format: 'json'}
 
+  namespace :assignment do
+    resources :works, defaults: {format: 'json'}
+    resources :scores, defaults: {format: 'json'}
+  end
+
   resources :disciplines, defaults: {format: 'json'}
 
   resources :resources, defaults: {format: 'json'}

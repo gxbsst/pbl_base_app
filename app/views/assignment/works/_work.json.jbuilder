@@ -1,0 +1,8 @@
+json.id work[:id]
+json.task_id work[:task_id] if work[:task_id]
+json.task_type work[:task_type] if work[:task_type]
+json.acceptor_id work[:acceptor_id] if work[:acceptor_id]
+json.acceptor_type work[:acceptor_type] if work[:acceptor_type]
+json.sender_id work[:sender_id] if work[:sender_id]
+json.content work[:content] if work[:content]
+json.resource_id work[:resource_id] if work[:resource_id]

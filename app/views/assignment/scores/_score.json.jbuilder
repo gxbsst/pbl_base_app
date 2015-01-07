@@ -1,0 +1,5 @@
+json.id score[:id]
+json.work_id score[:work_id] if score[:work_id]
+json.user_id score[:user_id] if score[:user_id]
+json.comment score[:comment] if score[:comment]
+json.score score[:score] if score[:score]
