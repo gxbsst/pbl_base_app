@@ -1,7 +1,10 @@
 (function () {
     'use strict';
 
-    moment.locale('en');
+    moment.fn.timezoneOffset = function(zone) {
+        var diff = this.zone() + (zone * 60);
+        return this.clone().add(diff, 'minutes');
+    };
 
     moment.defineLocale('zh-cn', {
         longDateFormat : {
@@ -18,9 +21,6 @@
         }
     });
 
-    moment.fn.timezoneOffset = function(zone) {
-        var diff = this.zone() + (zone * 60);
-        return this.clone().add(diff, 'minutes');
-    };
+    moment.locale('zh-cn');
 
 })();
