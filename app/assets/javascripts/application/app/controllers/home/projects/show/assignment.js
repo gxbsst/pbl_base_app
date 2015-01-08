@@ -7,11 +7,11 @@
 
     ProjectShowAssignmentController.$inject =  ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
         'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges',
-        'Groupings','Discussions','Works'];
+        'Groupings','Discussions','Works','Scores','TYPE_DEFIN'];
 
     function ProjectShowAssignmentController($scope, RESOURCE_TYPES, Resources, project,
         Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,
-        Groupings,Discussions,Works) {
+        Groupings,Discussions,Works,Scores,TYPE_DEFIN) {
 
         var vm = this;
         vm.project = project;
@@ -21,11 +21,12 @@
         vm.isgroup=isgroup;
         vm.dateFormat=dateFormat;
         vm.getResources = getResources;
+        vm.getResourcesWork = getResourcesWork;
 
         getProjectGauges();
         onProjectTasks();
         onProjectProducts();
-
+        getMembers();
         getDiscussions();
 
         Disciplines.all(function (data) {
@@ -44,6 +45,18 @@
                 }
             });
         });
+
+        function getMembers() {
+            ProjectMembers.all({
+                projectId: project.id
+            }, function (result) {
+                vm.members = result.data;
+                vm.usersHash = {};
+                angular.forEach(vm.members, function (member) {
+                    vm.usersHash[member.user.id] = member.user;
+                });
+            });
+        }
 
         function getProjectGauges() {
             ProjectGauges.all({
@@ -76,15 +89,9 @@
                 vm.tasks = result.data;
 
                 for(var i=0;i<vm.tasks.length;i++){
-                    if(vm.tasks[i].start_at){
-                        vm.tasks[i].start_at_time=new Date(vm.tasks[i].start_at);
-                        vm.tasks[i].start_at_date=new Date(vm.tasks[i].start_at);
-                    }else{
-                        vm.tasks[i].start_at_time=new Date();
-                        vm.tasks[i].start_at_date=new Date();
-                    }
                     vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
                     getTaskRules(vm.tasks[i]);
+                    getTaskWorks(vm.tasks[i]);
                 }
                 getTaskResources();
             });
@@ -110,6 +117,34 @@
             }
 
         }
+
+        function getTaskWorks(task){
+            Works.all({taskId:task.id}, function (result) {
+                task.works = result.data;
+                for (var i=0;i<task.works.length;i++){
+                    task.works[i].usersHash = {};
+                    if(task.works[i].acceptor_type==TYPE_DEFIN.Group){
+                        var group=vm.groups.find(function(item){
+                            return task.works[i].acceptor_id=item.id;
+                        });
+                        angular.forEach(group.members, function (member) {
+                            task.works[i].usersHash[member.user.id] =vm.usersHash[member.user.id];
+                            task.works[i].usersHash[member.user.id].scores=getWorkScores(task.works[i],vm.usersHash[member.user.id]);
+                        });
+                        //task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
+                    }else{
+                        task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
+                        task.works[i].scores=getWorkScores(task.works[i],vm.usersHash[task.works[i].acceptor_id]);
+                    }
+                }
+            });
+        }
+        function getWorkScores(work,user){
+            Scores.all({workId:work.id,userId:user.id},function(result){
+                return result;
+            });
+        }
+
         function onProjectProducts() {
             ProjectProducts.all({
                 project_id: vm.project.id
@@ -155,6 +190,12 @@
         function getResources(task) {
             return (vm.resources || []).find(function (resource) {
                 return resource.owner_type == RESOURCE_TYPES.project.task && resource.owner_id == task.id;
+            });
+        }
+
+        function getResourcesWork(work) {
+            return (vm.resources || []).find(function (resource) {
+                return resource.owner_type == RESOURCE_TYPES.project.work && resource.owner_id == work.id;
             });
         }
 

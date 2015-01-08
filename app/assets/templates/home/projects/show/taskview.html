@@ -20,13 +20,13 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">任务类型：</label>
         <div class="col-7-8">
-            <span ng-show="task.task_type=='ProjectTask::Discipline'">学科考评型</span>
-            <span ng-show="task.task_type=='ProjectTask::Skill'">技能考评型</span>
+            <span ng-show="task.task_type==TYPE_DEFIN.Discipline">学科考评型</span>
+            <span ng-show="task.task_type==TYPE_DEFIN.Skill">技能考评型</span>
         </div>
     </div>
 </div>
 
-<div class="col-1-1 tasks-group-item-form" ng-show="task.task_type=='ProjectTask::Discipline'">
+<div class="col-1-1 tasks-group-item-form" ng-show="task.task_type==TYPE_DEFIN.Discipline">
     <div class="col-1-1">
         <label class=" col-1-8 control-label">学科：</label>
         <div class="col-7-8">
@@ -47,8 +47,8 @@
     <div class="col-1-1">
         <label class=" col-1-8 control-label">作业递交方式：</label>
         <div class="col-7-8">
-            <span ng-if="task.submit_way=='ProjectTask::Group'">每组一份</span>
-            <span ng-if="task.submit_way=='ProjectTask::User'">每人一份</span>
+            <span ng-if="task.submit_way==TYPE_DEFIN.Group">每组一份</span>
+            <span ng-if="task.submit_way==TYPE_DEFIN.User">每人一份</span>
         </div>
     </div>
 </div>
@@ -68,7 +68,7 @@
         <span ng-repeat="duration in DURATION_UNITS" ng-if="duration.id==task.evaluation_cycle" ng-bind="duration.title"></span>
     </div>
 </div>
-<div class="col-1-1" ng-show="task.task_type=='ProjectTask::Skill'">
+<div class="col-1-1" ng-show="task.task_type==TYPE_DEFIN.Skill">
     <div class="col-1-1 tasks-group-item-form">
         <label class="control-label">对应量规：</label>
         <div class="offset-1-12 col-11-12">

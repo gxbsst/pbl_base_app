@@ -1,55 +1,42 @@
 <div class=" col-1-12 user-info">
-    <img class="user-pic"  ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
+    <img class="user-pic"  ng-src="{{work.submitter|avatar}}">
     <span class="assignment-state">修改中</span>
 </div>
 <div class="col-11-12 assignment-info">
     <div class="col-1-1">
-        <div class="col-3-4">
-            <div>
-                <span class="user-name">张彬:</span>修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中
-                修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中修改中
-            </div>
-            <div class="assignment-resouces">
-                <a><i class=" pf-attachment"></i>徒步浏览量规</a>
-                <a><i class=" pf-attachment"></i>徒步浏览量规</a>
-            </div>
-            <span class="btn btn-disable">评分</span>
-            <div class="assignment-time">
-                提交于2014年12月10日
-            </div>
-            <div class="group-list">
-                <span>小组成员：</span>
-                <a class="group-user active" >
-                    <img class="user-pic"  ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                    <div class="arrow"></div>
-                </a>
-                <a class="group-user" >
-                    <img class="user-pic"  ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                    <div class="arrow"></div>
-                </a>
-                <a class="group-user" >
-                    <img class="user-pic"  ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                    <div class="arrow"></div>
-                </a>
-                <a class="group-user" >
-                    <img class="user-pic"  ng-src="http://img.edutec.com/FlPt_eC1NjQzDLnkhIIgsu4z_Wg3?imageView/1/w/30/h/30/q/90/format/JPG">
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="assignment-score ">
-                <span class="remark">老师评语</span>
-                <span class="score">分数</span>
-            </div>
-            <div class="assignment-score operated" ng-show="false">
-                <span class="remark">老师评语</span>
-                <span class="score">分数</span>
-            </div>
+        <div>
+            <span class="user-name" ng-bind="work.submitter.username+':'"></span>
+            <span ng-bind="work.content"></span>
         </div>
-        <div class="col-1-4 assignment-right">
+        <div>
             <img src="http://dummyimage.com/160x120" alt=""/>
             <div class="sns-btn">
                 <a >评论</a>
                 <a >转发 <i class="pf-praise-solid"></i></a>
+            </div>
+        </div>
+        <div class="assignment-resouces">
+            <ul class="files">
+                <li ng-repeat="resource in vm.getResourcesWork(work)" ng-class="{disabled:resource.$disabled}">
+                    <i ng-class="resource.name|icon"></i>
+                    <span ng-bind="resource.name"></span>
+                    <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                    <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
+                </li>
+            </ul>
+        </div>
+        <span class="btn btn-blue" role="button" et-modal="title='任务评分';$task=task;$work=work;controller='setWorkScoresController';padding=0;src='home/projects/show/workscores-set.html'"> 评分</span>
+        <div class="assignment-time">
+            提交于<span ng-bind="work.submit_at"></span>
+        </div>
+        <div class="group-list" ng-if="work.acceptor_type==TYPE_DEFIN.Group">
+            <span>小组成员：</span>
+            <div class="group-user active" ng-repeat="user in work.usersHash" et-tips="delay=150;black=false;src='home/projects/show/workscore-tip.html'">
+                <img class="user-pic"  ng-src="{{user|avatar}}">
+            </div>
+            <div class="assignment-score " ng-class="{'btn-operated':work.scores}" ng-if="work.acceptor_type==TYPE_DEFIN.User">
+                <span class="remark" ng-bind="work.scores.comment"></span>
+                <span class="score"  ng-bind="work.scores.score"></span>
             </div>
         </div>
     </div>

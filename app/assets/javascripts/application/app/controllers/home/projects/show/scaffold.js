@@ -7,11 +7,11 @@
 
     ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
         'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'Groupings',
-        'Discussions','Works'];
+        'Discussions','Works','TYPE_DEFIN'];
 
     function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project,
                       Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, Groupings,
-                      Discussions,Works) {
+                      Discussions,Works,TYPE_DEFIN) {
 
         var vm = this;
         vm.showTask=showTask;
@@ -109,16 +109,16 @@
             var request=releaseTaskTest(task);
             if(request[0]){
                 if (confirm('您确定要发布这个任务吗？')) {
-                    if(task.submit_way=="ProjectTask::Group"){
+                    console.log(task.submit_way);
+                    if(task.submit_way==TYPE_DEFIN.Group){
+                        console.log(task.discussion_ids);
                         for (var i=0;i<task.discussion_ids.length;i++){
                             console.log(task.discussion_ids[i]);
-                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                                'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
-                                'sender_id':vm.project.user_id
-                            }});
+                            //Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                            //    'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
+                            //    'sender_id':vm.project.user_id
+                            //}});
                         }
-
-                        ////////////////////////////////
                     }else{
                         var groups=vm.groups.find(function(item){
                             return task.discussion_ids.findOne(function(taskitem){
@@ -129,21 +129,22 @@
                             return group.members;
                         }).join(",").split(",");
 
+                        console.log(members);
                         for (var i=0;i<members.length;i++){
                             console.log(members[i]);
-                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                                'acceptor_id': members[i],'acceptor_type':task.submit_way,
-                                'sender_id':vm.project.user_id
-                            }});
+                            //Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                            //    'acceptor_id': members[i],'acceptor_type':task.submit_way,
+                            //    'sender_id':vm.project.user_id
+                            //}});
 
                         }
                     }
-                    Tasks.release({
-                        taskId: task.id,
-                        action:'release'
-                    }, function (result) {
-                        onProjectTasks();
-                    });
+                    //Tasks.release({
+                    //    taskId: task.id,
+                    //    action:'release'
+                    //}, function (result) {
+                    //    onProjectTasks();
+                    //});
                 }
 
             }else{
@@ -211,9 +212,7 @@
 
         function chooseType(task, typeval, disabled) {
             task.task_type = typeval;
-            if (!disabled) {
                 Tasks.update({taskId: task.id, task: {'task_type': typeval}});
-            }
         }
 
         function chooseSubmitWay(task, typeval, disabled) {
@@ -223,12 +222,8 @@
             }
         }
 
-        function finalpost(task, typeval, disabled) {
-            console.log("finalpost");
-            task.final = typeval;
-            if (!disabled) {
-                Tasks.update({taskId: task.id, task: {'final': typeval}});
-            }
+        function finalpost(task) {
+            Tasks.update({taskId: task.id, task: {'final': task.final}});
         }
 
         function addKnowledge() {
@@ -299,9 +294,11 @@
                         vm.tasks[i].start_at_date=new Date();
                     }
                     if(!vm.tasks[i].submit_way){
-                        vm.tasks[i].submit_way='ProjectTask::Group';
-                        Tasks.update({taskId: vm.tasks[i].id, task: {'submit_way': 'ProjectTask::Group'}});
+                        vm.tasks[i].submit_way=TYPE_DEFIN.Group;
+                        Tasks.update({taskId: vm.tasks[i].id, task: {submit_way: TYPE_DEFIN.Group}});
                     }
+                    console.log("final type");
+                    console.log(typeof(vm.tasks[i].final));
                     if(!vm.tasks[i].final){
                         vm.tasks[i].final=false;
                     }

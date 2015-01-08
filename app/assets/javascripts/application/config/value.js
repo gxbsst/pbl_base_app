@@ -75,7 +75,8 @@
                     document: 'ProjectDocument',
                     product: 'ProductSample',
                     resource: 'ProjectResource',
-                    task: 'TaskResource'
+                    task: 'TaskResource',
+                    work: 'WorkResource'
                 }
             },
             ROLES: {
@@ -97,6 +98,14 @@
                 {id: 7, title: '七年级'},
                 {id: 8, title: '八年级'},
                 {id: 9, title: '九年级'}
-            ]
+            ],
+            TYPE_DEFIN:{
+                Discipline:'ProjectTask::Discipline',
+                Skill:'ProjectTask::Skill',
+                Group:'ProjectTask::Group',
+                User:'ProjectTask::User',
+                Work:'Assignments::Work',
+                Rule:'Project::Rule'
+            }
         })
 })();

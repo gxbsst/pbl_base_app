@@ -10,7 +10,6 @@
                 <div class="task-title" ng-click="task.$show=!task.$show">
                     <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
                     <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
-                    <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"></i>
                 </div>
 
                 <div class="tasks-group-item-cont" ng-show="task.$show">
@@ -26,10 +25,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <hr/>
-                        <div class="col-1-1 assignment-item">
-                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
-                        </div>
-                        <div class="col-1-1 assignment-item">
+                        <div class="col-1-1 assignment-item" ng-repeat="work in task.works">
                             <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
                         </div>
                     </div>
