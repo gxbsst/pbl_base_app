@@ -223,6 +223,7 @@
         }
 
         function finalpost(task) {
+            console.log(typeof task.final, task.final)
             Tasks.update({taskId: task.id, task: {'final': task.final}});
         }
 

@@ -5,21 +5,21 @@
         .module('app.pbl')
         .controller('ProjectShowAssignmentController', ProjectShowAssignmentController);
 
-    ProjectShowAssignmentController.$inject =  ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
-        'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts','ProjectGauges',
-        'Groupings','Discussions','Works','Scores','TYPE_DEFIN'];
+    ProjectShowAssignmentController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+        'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'ProjectMembers',
+        'Groupings', 'Discussions', 'Works', 'Scores', 'TYPE_DEFIN'];
 
     function ProjectShowAssignmentController($scope, RESOURCE_TYPES, Resources, project,
-        Disciplines, Knowledge, Tasks, ProjectProducts,ProjectGauges,
-        Groupings,Discussions,Works,Scores,TYPE_DEFIN) {
+                                             Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, ProjectMembers,
+                                             Groupings, Discussions, Works, Scores, TYPE_DEFIN) {
 
         var vm = this;
         vm.project = project;
-        vm.showTask=showTask;
-        vm.showtask=[];
+        vm.showTask = showTask;
+        vm.showtask = [];
         vm.disciplines = [];
-        vm.isgroup=isgroup;
-        vm.dateFormat=dateFormat;
+        vm.isgroup = isgroup;
+        vm.dateFormat = dateFormat;
         vm.getResources = getResources;
         vm.getResourcesWork = getResourcesWork;
 
@@ -88,8 +88,8 @@
             }, function (result) {
                 vm.tasks = result.data;
 
-                for(var i=0;i<vm.tasks.length;i++){
-                    vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
+                for (var i = 0; i < vm.tasks.length; i++) {
+                    vm.tasks[i].rule_ids = vm.tasks[i].rule_ids || [];
                     getTaskRules(vm.tasks[i]);
                     getTaskWorks(vm.tasks[i]);
                 }
@@ -107,10 +107,11 @@
                 vm.resources = result.data;
             });
         }
-        function getTaskRules(task){
-            task.rules=[];
-            for(var i= 0,rule;i<task.rule_ids.length;i++){
-                rule=vm.project.rules.findOne(function (item) {
+
+        function getTaskRules(task) {
+            task.rules = [];
+            for (var i = 0, rule; i < task.rule_ids.length; i++) {
+                rule = vm.project.rules.findOne(function (item) {
                     return item.id == task.rule_ids[i];
                 });
                 task.rules.push(rule);
@@ -118,29 +119,30 @@
 
         }
 
-        function getTaskWorks(task){
-            Works.all({taskId:task.id}, function (result) {
+        function getTaskWorks(task) {
+            Works.all({taskId: task.id}, function (result) {
                 task.works = result.data;
-                for (var i=0;i<task.works.length;i++){
+                for (var i = 0; i < task.works.length; i++) {
                     task.works[i].usersHash = {};
-                    if(task.works[i].acceptor_type==TYPE_DEFIN.Group){
-                        var group=vm.groups.find(function(item){
-                            return task.works[i].acceptor_id=item.id;
+                    if (task.works[i].acceptor_type == TYPE_DEFIN.Group) {
+                        var group = vm.groups.find(function (item) {
+                            return task.works[i].acceptor_id = item.id;
                         });
                         angular.forEach(group.members, function (member) {
-                            task.works[i].usersHash[member.user.id] =vm.usersHash[member.user.id];
-                            task.works[i].usersHash[member.user.id].scores=getWorkScores(task.works[i],vm.usersHash[member.user.id]);
+                            task.works[i].usersHash[member.user.id] = vm.usersHash[member.user.id];
+                            task.works[i].usersHash[member.user.id].scores = getWorkScores(task.works[i], vm.usersHash[member.user.id]);
                         });
                         //task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
-                    }else{
-                        task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
-                        task.works[i].scores=getWorkScores(task.works[i],vm.usersHash[task.works[i].acceptor_id]);
+                    } else {
+                        task.works[i].submitter = vm.usersHash[task.works[i].acceptor_id];
+                        task.works[i].scores = getWorkScores(task.works[i], vm.usersHash[task.works[i].acceptor_id]);
                     }
                 }
             });
         }
-        function getWorkScores(work,user){
-            Scores.all({workId:work.id,userId:user.id},function(result){
+
+        function getWorkScores(work, user) {
+            Scores.all({workId: work.id, userId: user.id}, function (result) {
                 return result;
             });
         }
@@ -165,26 +167,30 @@
 
         vm.showTask(0);
 
-        function showTask(id){
+        function showTask(id) {
             //for (var i=0;i<vm.project.tasks.length;i++){
             //    vm.showtask[i]=false;
             //}
-            vm.showtask[id]=!vm.showtask[id];
+            vm.showtask[id] = !vm.showtask[id];
         }
 
-        function isgroup(id,ids){
+        function isgroup(id, ids) {
             return ids.has(function (item) {
                 return item == id;
             })
         }
 
         function dateFormat(date) {
-            if(date==null){date=new Date();}else{date=new Date(date)}
+            if (date == null) {
+                date = new Date();
+            } else {
+                date = new Date(date)
+            }
 
             var datetime;
-            datetime=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()
-            +":"+date.getMinutes()+":00";
-            return(datetime);
+            datetime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours()
+            + ":" + date.getMinutes() + ":00";
+            return (datetime);
         }
 
         function getResources(task) {

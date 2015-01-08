@@ -3,7 +3,7 @@
 
     angular
         .module('app.services')
-        .service('scores', Scores);
+        .service('Scores', Scores);
 
 
     Scores.$inject = ['$resource', 'RESOURCE_ACTIONS'];

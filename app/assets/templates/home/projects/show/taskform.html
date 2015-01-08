@@ -115,13 +115,13 @@
 
     <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
         <div class="col-1-1">
-            <label class=" col-2-12 control-label">最终成果：{{task.final}}</label>
+            <label class=" col-2-12 control-label">最终成果：</label>
             <div class="col-10-12">
-                <label><input name="final" type="radio"
+                <label><input type="radio"
                               ng-value="true" ng-model="task.final"
                               ng-change="vm.finalpost(task)"
                         >是</label>
-                <label><input name="final" type="radio"
+                <label><input type="radio"
                               ng-value="false" ng-model="task.final"
                               ng-change="vm.finalpost(task)"
                               >否</label>
