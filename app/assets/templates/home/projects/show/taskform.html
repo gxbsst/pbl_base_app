@@ -38,11 +38,12 @@
     <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  " ng-show="vm.project.state=='release'&&(!addTask)">
         <div class="col-1-1">
             <label class=" col-2-12 control-label">参与组：</label>
-            <div class="col-10-12">
-
-                <select ng-model="task.discussion_ids" et-select="vm.groups" et-config="label='full_name'"
-                        et-sync="{taskId:task.id,task:{discussion_ids:[task.discussion_ids]},$service:'Tasks',$disabled:!task.id}"></select>
-
+            <div class="col-10-12 checklabel">
+                <label ng-repeat="group in vm.groups">
+                    <input type='checkbox' ng-checked="vm.groupcheck(group.id,task.discussion_ids)"
+                            ng-click="vm.groupclick(group.id,task)">
+                    <span ng-bind="group.full_name"></span>
+                </label>
             </div>
         </div>
     </div>
@@ -116,7 +117,7 @@
     <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
         <div class="col-1-1">
             <label class=" col-2-12 control-label">最终成果：</label>
-            <div class="col-10-12">
+            <div class="col-10-12 checklabel">
                 <label><input type="radio"
                               ng-value="true" ng-model="task.final"
                               ng-change="vm.finalpost(task)"

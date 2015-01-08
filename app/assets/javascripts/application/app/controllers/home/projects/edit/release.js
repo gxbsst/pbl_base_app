@@ -129,7 +129,7 @@
                     projectId: project.id,
                     action:'release'
                 }, function (result) {
-                    $state.go('base.home.projects.show.info');
+                    $state.go('base.home.projects.show.info',{projectId:project.id});
                 });
             }
         }

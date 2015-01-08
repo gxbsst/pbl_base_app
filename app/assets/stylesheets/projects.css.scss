@@ -737,7 +737,21 @@
     color:#000;
     background-position:0 -112px;
   }
-
+  input[type="checkbox"]{
+    width:17px;
+    height:17px;
+    border:1px solid #ededed;
+    vertical-align:middle;
+    margin:10px;
+    padding:0;
+  }
+  input[type="checkbox"]:checked{
+    color:#000;
+    background-position:0 -112px;
+  }
+  .checklabel label{
+    margin-right:15px;
+  }
 }
 
 .nav-ball{

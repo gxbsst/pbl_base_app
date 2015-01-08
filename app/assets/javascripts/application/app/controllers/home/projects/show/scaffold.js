@@ -33,7 +33,8 @@
         vm.onSetTime = onSetTime;
         vm.finalpost = finalpost;
         vm.releaseTask = releaseTask;
-
+        vm.groupcheck=groupcheck;
+        vm.groupclick=groupclick;
         $scope.$on('setAddTask', setAddTask);
 
         $scope.$on('onProjectTaskGauges', onProjectTaskGauges);
@@ -114,10 +115,10 @@
                         console.log(task.discussion_ids);
                         for (var i=0;i<task.discussion_ids.length;i++){
                             console.log(task.discussion_ids[i]);
-                            //Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                            //    'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
-                            //    'sender_id':vm.project.user_id
-                            //}});
+                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                                'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
+                                'sender_id':vm.project.user_id
+                            }});
                         }
                     }else{
                         var groups=vm.groups.find(function(item){
@@ -132,19 +133,18 @@
                         console.log(members);
                         for (var i=0;i<members.length;i++){
                             console.log(members[i]);
-                            //Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                            //    'acceptor_id': members[i],'acceptor_type':task.submit_way,
-                            //    'sender_id':vm.project.user_id
-                            //}});
-
+                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
+                                'acceptor_id': members[i],'acceptor_type':task.submit_way,
+                                'sender_id':vm.project.user_id
+                            }});
                         }
                     }
-                    //Tasks.release({
-                    //    taskId: task.id,
-                    //    action:'release'
-                    //}, function (result) {
-                    //    onProjectTasks();
-                    //});
+                    Tasks.release({
+                        taskId: task.id,
+                        action:'release'
+                    }, function (result) {
+                        onProjectTasks();
+                    });
                 }
 
             }else{
@@ -223,7 +223,6 @@
         }
 
         function finalpost(task) {
-            console.log(typeof task.final, task.final)
             Tasks.update({taskId: task.id, task: {'final': task.final}});
         }
 
@@ -298,8 +297,6 @@
                         vm.tasks[i].submit_way=TYPE_DEFIN.Group;
                         Tasks.update({taskId: vm.tasks[i].id, task: {submit_way: TYPE_DEFIN.Group}});
                     }
-                    console.log("final type");
-                    console.log(typeof(vm.tasks[i].final));
                     if(!vm.tasks[i].final){
                         vm.tasks[i].final=false;
                     }
@@ -346,6 +343,24 @@
                 }
             });
             $scope.$broadcast('onDocumentClick');
+        }
+
+        function groupcheck(id,ids){
+            if(id&&ids){
+                return ids.has(function(item){
+                    return item==id;
+                })
+            }
+        }
+        function groupclick(id,task){
+            if(id&&task){
+                if(task.discussion_ids.has(function(item){return item==id;})){
+                    task.discussion_ids.remove(function(item){return item==id;});
+                }else{
+                    task.discussion_ids.push(id);
+                }
+                Tasks.update({taskId: task.id, task: {'discussion_ids': task.discussion_ids}});
+            }
         }
     }
 
