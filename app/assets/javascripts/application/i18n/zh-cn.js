@@ -65,6 +65,16 @@
                 moocs: '慕课'
             },
 
+
+            worktypes: {
+                undue:'未开始',
+                opening:'已开始',
+                working:'修改中',
+                submitted:'未批改',
+                evaluating:'评分中',
+                evaluated:'已评分'
+            },
+
             guide: '步骤%1',
             create: '创建',
             'hello world': '你好，世界!',

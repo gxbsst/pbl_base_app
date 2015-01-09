@@ -1277,6 +1277,24 @@
             padding:0 10px;
             border-radius:10px;
             font-size: 12px;
+            &.undue{
+              background:#eab012;
+            }
+            &.opening{
+              background:#79c950;
+            }
+            &.working{
+              background:#eab012;
+            }
+            &.submitted{
+              background:#417ffa;
+            }
+            &.evaluating{
+              background:#eab012;
+            }
+            &.evaluated{
+              background:#79c950;
+            }
           }
         }
         .assignment-info{
@@ -1306,7 +1324,8 @@
               font-size:16px;
             }
             .group-user{
-              margin:0 5px;
+              display: inline-block;
+              margin:0px 5px 10px 5px;
               position:relative;
               .arrow{
                 position:absolute;
@@ -1334,50 +1353,21 @@
               }
             }
           }
-          .assignment-score{
-            width:360px;
-            height:55px;
-            border:1px solid #c6c6c6;
-            line-height:55px;
-            font-size:20px;
-            margin:15px 10px;
-            //            box-shadow: 0 0 15px 0 #c6c6c6;
-            .remark{
-              display:inline-block;
-              width:300px;
-              height:55px;
-              text-indent:5px;
-            }
-            .score{
-              display:inline-block;
-              width:55px;
-              height:55px;
-              border-left:1px solid #c6c6c6;
-              text-align:center;
-              color:#ccc;
-            }
-            &.operated{
-              .remark{
-                font-size:14px;
-                color:#000000;
-              }
-              .score{
-                color:#fb3800;
-              }
-            }
+          .work-content{
+            min-height: 80px;
+            margin-bottom: 10px;
           }
-          .assignment-right{
-            text-align:right;
-            .sns-btn{
-              a{
-                padding:0 10px;
-                i{
-                  font-size:20px;
-                  vertical-align:text-bottom;
-                }
-                &:last-child{
-                  border-left:1px solid;
-                }
+          .sns-btn{
+            a{
+              display: inline-block;
+              padding:0 10px;
+              border: 1px solid #c6c6c6;
+              margin-right: 10px;
+              text-decoration: none;
+              cursor: pointer;
+              i{
+                font-size:14px;
+                vertical-align:text-bottom;
               }
             }
           }
@@ -1701,6 +1691,44 @@
         content:'';
         @include transform(perspective(3em) rotateX(-45deg));
       }
+    }
+  }
+}
+
+.assignment-score{
+  line-height:35px;
+  font-size:20px;
+  margin:15px 10px;
+  //            box-shadow: 0 0 15px 0 #c6c6c6;
+  .remark{
+    border:1px solid #c6c6c6;
+    display:inline-block;
+    padding: 10px;
+    width:300px;
+    min-height:55px;
+    text-indent:5px;
+    margin-right: 10px;
+    top:0;
+    float: left;
+  }
+  .score{
+    border:1px solid #c6c6c6;
+    display:inline-block;
+    width:55px;
+    height:55px;
+    line-height:55px;
+    text-align:center;
+    color:#ccc;
+    top:0;
+    float: left;
+  }
+  &.operated{
+    .remark{
+      font-size:14px;
+      color:#000000;
+    }
+    .score{
+      color:#fb3800;
     }
   }
 }

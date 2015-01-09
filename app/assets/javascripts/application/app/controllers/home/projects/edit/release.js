@@ -128,7 +128,7 @@
                 Projects.release({
                     projectId: project.id,
                     action:'release'
-                }, function (result) {
+                }, function (result) { d
                     $state.go('base.home.projects.show.info',{projectId:project.id});
                 });
             }

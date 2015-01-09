@@ -19,22 +19,29 @@
                         <div class="col-1-1">
                             <label class=" col-1-8 control-label">作业状态：</label>
                             <div class="col-7-8">
-                                已经提交 <span class="red">5</span> 份，未批改 <span class="red">5</span> 份
+                                已经提交 <span class="red"
+                                           ng-bind="vm.workssubmitted(task)">5</span> 份，
+                                未批改 <span class="red" ng-bind="task.worksHash[WORK_TYPES.submitted].length"></span> 份
                                 <!--<span class="btn btn-xs red margin-left-10">交作业提醒</span>-->
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <hr/>
-                        <div class="col-1-1 assignment-item" ng-repeat="work in task.works">
+                        <div class="col-1-1 assignment-item" ng-repeat="work in task.worksHash[WORK_TYPES.submitted]">
+                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
+                        </div>
+                        <div class="col-1-1 assignment-item" ng-repeat="work in task.worksHash[WORK_TYPES.working]">
+                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
+                        </div>
+                        <div class="col-1-1 assignment-item" ng-repeat="work in task.worksHash[WORK_TYPES.evaluating]">
+                            <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
+                        </div>
+                        <div class="col-1-1 assignment-item" ng-repeat="work in task.worksHash[WORK_TYPES.evaluated]">
                             <ng-include src="'home/projects/show/assignmentview.html'"></ng-include>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="col-1-1 col-1-1 margin-top-20 margin-bottom-20 text-right">
-        <span class="btn btn-blue  btn-padding">增加任务</span>
     </div>
 </div>
