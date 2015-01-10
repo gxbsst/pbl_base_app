@@ -7,6 +7,16 @@
         <div class="work-content">
             <span class="user-name" ng-bind="work.submitter.username+':'"></span>
             <span ng-bind="work.content"></span>
+            <div class="form-group">
+                <ul class="files">
+                    <li ng-repeat="resource in vm.getResourcesWork(work)" ng-class="{disabled:resource.$disabled}">
+                        <i ng-class="resource.name|icon"></i>
+                        <span ng-bind="resource.name"></span>
+                        <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                        <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div>
             <!--<img src="http://dummyimage.com/160x120" alt=""/>-->
