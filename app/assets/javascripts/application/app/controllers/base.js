@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips','TYPE_DEFIN'];
+    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips','TYPE_DEFIN','WORK_TYPES'];
 
-    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips,TYPE_DEFIN) {
+    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips,TYPE_DEFIN,WORK_TYPES) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
@@ -20,6 +20,7 @@
             DURATION_UNITS: DURATION_UNITS,
             RESOURCE_TYPES: RESOURCE_TYPES,
             TYPE_DEFIN:TYPE_DEFIN,
+            WORK_TYPES:WORK_TYPES,
             PATHS: PATHS,
             QINIU: QINIU,
             UPLOAD_HANDLES: {

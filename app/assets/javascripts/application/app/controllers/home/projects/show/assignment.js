@@ -5,13 +5,13 @@
         .module('app.pbl')
         .controller('ProjectShowAssignmentController', ProjectShowAssignmentController);
 
-    ProjectShowAssignmentController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+    ProjectShowAssignmentController.$inject = ['$rootScope','$scope', 'RESOURCE_TYPES', 'Resources', 'project',
         'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'ProjectMembers',
-        'Groupings', 'Discussions', 'Works', 'Scores', 'TYPE_DEFIN'];
+        'Groupings', 'Discussions', 'Works', 'Scores', 'TYPE_DEFIN','WORK_TYPES'];
 
-    function ProjectShowAssignmentController($scope, RESOURCE_TYPES, Resources, project,
+    function ProjectShowAssignmentController($rootScope,$scope, RESOURCE_TYPES, Resources, project,
                                              Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, ProjectMembers,
-                                             Groupings, Discussions, Works, Scores, TYPE_DEFIN) {
+                                             Groupings, Discussions, Works, Scores, TYPE_DEFIN,WORK_TYPES) {
 
         var vm = this;
         vm.project = project;
@@ -22,13 +22,14 @@
         vm.dateFormat = dateFormat;
         vm.getResources = getResources;
         vm.getResourcesWork = getResourcesWork;
+        vm.workssubmitted=workssubmitted;
 
         getProjectGauges();
         onProjectTasks();
         onProjectProducts();
         getMembers();
         getDiscussions();
-
+        //console.log($rootScope.currentUser);
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
             //测试ng-model绑定
@@ -55,6 +56,7 @@
                 angular.forEach(vm.members, function (member) {
                     vm.usersHash[member.user.id] = member.user;
                 });
+                console.log(vm.usersHash);
             });
         }
 
@@ -84,7 +86,9 @@
 
         function onProjectTasks() {
             Tasks.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                state:'released',
+                limit:'100'
             }, function (result) {
                 vm.tasks = result.data;
 
@@ -120,31 +124,52 @@
         }
 
         function getTaskWorks(task) {
-            Works.all({taskId: task.id}, function (result) {
-                task.works = result.data;
+            Works.all({taskId: task.id,task_type:task.task_type,limit:'100'}, function (result) {
+                task.works = result.data.find(function(item){
+                        return item.task_id==task.id;
+                });
+
+                task.worksHash={};
+                angular.forEach(WORK_TYPES, function (item) {
+                    task.worksHash[item]=[];
+                });
                 for (var i = 0; i < task.works.length; i++) {
                     task.works[i].usersHash = {};
                     if (task.works[i].acceptor_type == TYPE_DEFIN.Group) {
-                        var group = vm.groups.find(function (item) {
+                        var groups = vm.groups.find(function (item) {
                             return task.works[i].acceptor_id = item.id;
                         });
-                        angular.forEach(group.members, function (member) {
-                            task.works[i].usersHash[member.user.id] = vm.usersHash[member.user.id];
-                            task.works[i].usersHash[member.user.id].scores = getWorkScores(task.works[i], vm.usersHash[member.user.id]);
+
+                        angular.forEach(groups, function (group) {
+                            angular.forEach(group.members, function (member) {
+                                task.works[i].usersHash[member] = vm.usersHash[member];
+                                task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member]);
+                            });
                         });
                         //task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
                     } else {
                         task.works[i].submitter = vm.usersHash[task.works[i].acceptor_id];
                         task.works[i].scores = getWorkScores(task.works[i], vm.usersHash[task.works[i].acceptor_id]);
                     }
+                    task.worksHash[task.works[i].state].push(task.works[i]);
                 }
             });
         }
 
         function getWorkScores(work, user) {
-            Scores.all({workId: work.id, userId: user.id}, function (result) {
-                return result;
-            });
+            if(work&&user){
+                //Scores.all({owner_id:work.id,owner_type:TYPE_DEFIN.Work,userId: user.id}, function (result) {
+                //    return result;
+                //});
+                return {
+                    "id": "246e636a-9852-479e-a0ea-5765cf0d2b40",
+                    "comment": "老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价",
+                    "score": 10,
+                    "owner_id": work.id,
+                    "owner_type": "Assignments::Work",
+                    "user_id":user.id
+                };
+            }
         }
 
         function onProjectProducts() {
@@ -205,6 +230,15 @@
             });
         }
 
+        function workssubmitted(task) {
+            if(task.works){
+                return task.works.find(function(item){
+                    return (item.submit_at)!=null;
+                }).length;
+            }else{
+                return 0;
+            }
+        }
     }
 
 })();

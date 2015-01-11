@@ -3,7 +3,7 @@ lock '3.3.5'
 
 set :application, 'pbl_base_app'
 
-set :repo_url, 'git@172.172.172.62:pbl/pbl_base_app.git'
+set :repo_url, 'git@58.246.127.90:pbl/pbl_base_app.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

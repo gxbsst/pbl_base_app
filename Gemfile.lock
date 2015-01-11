@@ -1,5 +1,5 @@
 GIT
-  remote: git@172.172.172.62:pbl/pbl_service_client.git
+  remote: git@58.246.127.90:pbl/pbl_service_client.git
   revision: 815d7ce0180ea89fc3dd28e38d85d191e0b23ade
   branch: master
   specs:

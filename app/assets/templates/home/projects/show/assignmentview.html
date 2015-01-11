@@ -1,18 +1,28 @@
 <div class=" col-1-12 user-info">
     <img class="user-pic"  ng-src="{{work.submitter|avatar}}">
-    <span class="assignment-state">修改中</span>
+    <span class="assignment-state" ng-class="work.state" ng-bind="('worktypes.'+work.state)|i18n"></span>
 </div>
 <div class="col-11-12 assignment-info">
     <div class="col-1-1">
-        <div>
+        <div class="work-content">
             <span class="user-name" ng-bind="work.submitter.username+':'"></span>
             <span ng-bind="work.content"></span>
+            <div class="form-group">
+                <ul class="files">
+                    <li ng-repeat="resource in vm.getResourcesWork(work)" ng-class="{disabled:resource.$disabled}">
+                        <i ng-class="resource.name|icon"></i>
+                        <span ng-bind="resource.name"></span>
+                        <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
+                        <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div>
-            <img src="http://dummyimage.com/160x120" alt=""/>
+            <!--<img src="http://dummyimage.com/160x120" alt=""/>-->
             <div class="sns-btn">
-                <a >评论</a>
-                <a >转发 <i class="pf-praise-solid"></i></a>
+                <a > <i class="pf-praise-solid"></i> 评论</a>
+                <a > <i class="pf-share"></i> 转发</a>
             </div>
         </div>
         <div class="assignment-resouces">
@@ -25,19 +35,31 @@
                 </li>
             </ul>
         </div>
-        <span class="btn btn-blue" role="button" et-modal="title='任务评分';$task=task;$work=work;controller='setWorkScoresController';padding=0;src='home/projects/show/workscores-set.html'"> 评分</span>
+
+        <span class="btn btn-blue" role="button" ng-if="work.state==WORK_TYPES.submitted"
+              et-modal="title='任务评分 '+task.title;$task=task;$work=work;controller='setWorkScoresController';padding=0;src='home/projects/show/workscores-set.html'"> 评分</span>
+
+        <span class="btn btn-gray" role="button" ng-if="work.state==WORK_TYPES.working||work.state==WORK_TYPES.evaluating"
+              > 评分</span>
+
         <div class="assignment-time">
-            提交于<span ng-bind="work.submit_at"></span>
+            提交于<span ng-bind="vm.dateFormat(work.submit_at)"></span>
         </div>
-        <div class="group-list" ng-if="work.acceptor_type==TYPE_DEFIN.Group">
-            <span>小组成员：</span>
-            <div class="group-user active" ng-repeat="user in work.usersHash" et-tips="delay=150;black=false;src='home/projects/show/workscore-tip.html'">
-                <img class="user-pic"  ng-src="{{user|avatar}}">
+        <div class="group-list col-1-1" ng-if="work.acceptor_type==TYPE_DEFIN.Group">
+            <div class="col-1-12">小组成员：</div>
+            <div class="col-11-12">
+                <span class="group-user evaluated" ng-if="user.scores" ng-repeat="user in work.usersHash"
+                      et-tips="delay=150;black=false;$user=user;src='home/projects/show/workscore-tip.html'">
+                    <img class="user-pic"  ng-src="{{user|avatar}}">
+                </span>
+                <span class="group-user " ng-if="!user.scores" ng-repeat="user in work.usersHash">
+                    <img class="user-pic"  ng-src="{{user|avatar}}">
+                </span>
             </div>
-            <div class="assignment-score " ng-class="{'btn-operated':work.scores}" ng-if="work.acceptor_type==TYPE_DEFIN.User">
-                <span class="remark" ng-bind="work.scores.comment"></span>
-                <span class="score"  ng-bind="work.scores.score"></span>
-            </div>
+        </div>
+        <div class="assignment-score " ng-class="{'operated':work.scores}" ng-if="work.acceptor_type==TYPE_DEFIN.User">
+            <span class="remark" ng-bind="work.scores.comment||'老师评分'"></span>
+            <span class="score"  ng-bind="work.scores.score||'分数'"></span>
         </div>
     </div>
 </div>

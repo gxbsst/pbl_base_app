@@ -22,6 +22,8 @@
         vm.removeTask = removeTask;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
+        vm.finalpost = finalpost;
+
         $scope.addTask=true;
 
         $scope.$on('setAddTask', setAddTask);
@@ -166,6 +168,9 @@
             }, function (result) {
                 vm.tasks = result.data;
                 for(var i=0;i<vm.tasks.length;i++){
+                    if(!vm.tasks[i].final){
+                        vm.tasks[i].final=false;
+                    }
                     vm.tasks[i].rule_ids=vm.tasks[i].rule_ids||[];
                     getTaskRules(vm.tasks[i]);
                 }
@@ -186,6 +191,9 @@
 
         }
 
+        function finalpost(task) {
+            Tasks.update({taskId: task.id, task: {'final': task.final}});
+        }
         function onProjectProducts() {
             console.log("products");
             ProjectProducts.all({

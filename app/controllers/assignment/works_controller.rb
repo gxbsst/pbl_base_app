@@ -2,7 +2,7 @@ module Assignment
   class WorksController < ApplicationController
 
     def index
-      @works = Pbl::Models::Assignments::Work.where(params.permit(:work_id, :task_id, :include ,:state))
+      @works = Pbl::Models::Assignments::Work.where(params.permit(:work_id, :task_id, :task_type, :include ,:state, :limit))
     end
 
     def create

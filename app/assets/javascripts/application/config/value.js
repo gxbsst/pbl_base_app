@@ -106,6 +106,14 @@
                 User:'ProjectTask::User',
                 Work:'Assignments::Work',
                 Rule:'Project::Rule'
+            },
+            WORK_TYPES:{
+                undue:'undue',
+                opening:'opening',
+                working:'working',
+                submitted:'submitted',
+                evaluating:'evaluating',
+                evaluated:'evaluated'
             }
         })
 })();

@@ -1,7 +1,7 @@
 @import "compass/css3";
 @import "commons/easy-animation";
 
-.project-gauges{
+.project-gauges, .wrokscores{
   .table{
     .gauge-btn{
       color:#f06961;
@@ -737,7 +737,21 @@
     color:#000;
     background-position:0 -112px;
   }
-
+  input[type="checkbox"]{
+    width:17px;
+    height:17px;
+    border:1px solid #ededed;
+    vertical-align:middle;
+    margin:10px;
+    padding:0;
+  }
+  input[type="checkbox"]:checked{
+    color:#000;
+    background-position:0 -112px;
+  }
+  .checklabel label{
+    margin-right:15px;
+  }
 }
 
 .nav-ball{
@@ -1262,7 +1276,25 @@
             color:#fff;
             padding:0 10px;
             border-radius:10px;
-            font-size:12px;
+            font-size: 12px;
+            &.undue{
+              background:#eab012;
+            }
+            &.opening{
+              background:#79c950;
+            }
+            &.working{
+              background:#eab012;
+            }
+            &.submitted{
+              background:#417ffa;
+            }
+            &.evaluating{
+              background:#eab012;
+            }
+            &.evaluated{
+              background:#79c950;
+            }
           }
         }
         .assignment-info{
@@ -1292,7 +1324,8 @@
               font-size:16px;
             }
             .group-user{
-              margin:0 5px;
+              display: inline-block;
+              margin:0px 5px 10px 5px;
               position:relative;
               .arrow{
                 position:absolute;
@@ -1320,50 +1353,21 @@
               }
             }
           }
-          .assignment-score{
-            width:360px;
-            height:55px;
-            border:1px solid #c6c6c6;
-            line-height:55px;
-            font-size:20px;
-            margin:15px 10px;
-            //            box-shadow: 0 0 15px 0 #c6c6c6;
-            .remark{
-              display:inline-block;
-              width:300px;
-              height:55px;
-              text-indent:5px;
-            }
-            .score{
-              display:inline-block;
-              width:55px;
-              height:55px;
-              border-left:1px solid #c6c6c6;
-              text-align:center;
-              color:#ccc;
-            }
-            &.operated{
-              .remark{
-                font-size:14px;
-                color:#000000;
-              }
-              .score{
-                color:#fb3800;
-              }
-            }
+          .work-content{
+            min-height: 80px;
+            margin-bottom: 10px;
           }
-          .assignment-right{
-            text-align:right;
-            .sns-btn{
-              a{
-                padding:0 10px;
-                i{
-                  font-size:20px;
-                  vertical-align:text-bottom;
-                }
-                &:last-child{
-                  border-left:1px solid;
-                }
+          .sns-btn{
+            a{
+              display: inline-block;
+              padding:0 10px;
+              border: 1px solid #c6c6c6;
+              margin-right: 10px;
+              text-decoration: none;
+              cursor: pointer;
+              i{
+                font-size:14px;
+                vertical-align:text-bottom;
               }
             }
           }
@@ -1733,6 +1737,106 @@
         background:#8cb978;
         content:'';
         @include transform(perspective(3em) rotateX(-45deg));
+      }
+    }
+  }
+}
+
+.assignment-score{
+  line-height:35px;
+  font-size:20px;
+  margin:15px 10px;
+  //            box-shadow: 0 0 15px 0 #c6c6c6;
+  .remark{
+    border:1px solid #c6c6c6;
+    display:inline-block;
+    padding: 10px;
+    width:300px;
+    min-height:55px;
+    text-indent:5px;
+    margin-right: 10px;
+    top:0;
+    float: left;
+  }
+  .score{
+    border:1px solid #c6c6c6;
+    display:inline-block;
+    width:55px;
+    height:55px;
+    line-height:55px;
+    text-align:center;
+    color:#ccc;
+    top:0;
+    float: left;
+  }
+  &.operated{
+    .remark{
+      font-size:14px;
+      color:#000000;
+    }
+    .score{
+      color:#fb3800;
+    }
+  }
+}
+
+.wrokscores{
+  width: 850px;
+  height: 500px;
+  margin: 20px;
+  table{
+    width:100%;
+    .et-gauge{
+      width: 50px;
+    }
+  }
+  .scorecomment{
+    width: 100%;
+    height: 80px;
+  }
+
+  .redtab{
+    color: #ff0000;
+    margin: auto 8px;
+  }
+
+  .user-pic{
+    border-radius:50%;
+    vertical-align:middle;
+    width:50px;
+    height:50px;
+  }
+  .group-list{
+    span{
+      font-size:16px;
+    }
+    .group-user{
+      display: inline-block;
+      margin:0px 5px 10px 5px;
+      position:relative;
+      .arrow{
+        position:absolute;
+        content:'';
+        display:none;
+        width:10px;
+        height:10px;
+        right:50%;
+        filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5);
+        -moz-transform:rotate(45deg);
+        -o-transform:rotate(45deg);
+        -webkit-transform:rotate(45deg);
+        transform:rotate(45deg);
+        margin-right:-5px;
+        background:#fff;
+        border-left:1px solid #c6c6c6;
+        border-top:1px solid #c6c6c6;
+        z-index:2;
+        top:44px;
+      }
+      &.active{
+        .arrow{
+          display:block;
+        }
       }
     }
   }
