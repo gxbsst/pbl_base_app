@@ -34,8 +34,8 @@
         vm.beforeRender = beforeRender;
         vm.finalpost = finalpost;
         vm.releaseTask = releaseTask;
-        vm.groupcheck=groupcheck;
-        vm.groupclick=groupclick;
+        vm.groupcheck = groupcheck;
+        vm.groupclick = groupclick;
         $scope.$on('setAddTask', setAddTask);
 
         $scope.$on('onProjectTaskGauges', onProjectTaskGauges);
@@ -117,10 +117,13 @@
                         console.log(task.discussion_ids);
                         for (var i = 0; i < task.discussion_ids.length; i++) {
                             console.log(task.discussion_ids[i]);
-                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                                'acceptor_id': task.discussion_ids[i],'acceptor_type':task.submit_way,
-                                'sender_id':vm.project.user_id
-                            }});
+                            Works.add({
+                                work: {
+                                    'task_id': task.id, 'task_type': task.task_type,
+                                    'acceptor_id': task.discussion_ids[i], 'acceptor_type': task.submit_way,
+                                    'sender_id': vm.project.user_id
+                                }
+                            });
                         }
                     } else {
                         var groups = vm.groups.find(function (item) {
@@ -135,15 +138,18 @@
                         console.log(members);
                         for (var i = 0; i < members.length; i++) {
                             console.log(members[i]);
-                            Works.add({work: {'task_id':task.id,'task_type':task.task_type,
-                                'acceptor_id': members[i],'acceptor_type':task.submit_way,
-                                'sender_id':vm.project.user_id
-                            }});
+                            Works.add({
+                                work: {
+                                    'task_id': task.id, 'task_type': task.task_type,
+                                    'acceptor_id': members[i], 'acceptor_type': task.submit_way,
+                                    'sender_id': vm.project.user_id
+                                }
+                            });
                         }
                     }
                     Tasks.release({
                         taskId: task.id,
-                        action:'release'
+                        action: 'release'
                     }, function (result) {
                         onProjectTasks();
                     });
@@ -300,6 +306,7 @@
                     }
                     if (!vm.tasks[i].final) {
                         vm.tasks[i].final = false;
+                    }
                     vm.tasks[i].rule_ids = vm.tasks[i].rule_ids || [];
                     getTaskRules(vm.tasks[i]);
                 }
@@ -364,19 +371,23 @@
             });
         }
 
-        function groupcheck(id,ids){
-            if(id&&ids){
-                return ids.has(function(item){
-                    return item==id;
+        function groupcheck(id, ids) {
+            if (id && ids) {
+                return ids.has(function (item) {
+                    return item == id;
                 })
             }
         }
-            
-        function groupclick(id,task){
-            if(id&&task){
-                if(task.discussion_ids.has(function(item){return item==id;})){
-                    task.discussion_ids.remove(function(item){return item==id;});
-                }else{
+
+        function groupclick(id, task) {
+            if (id && task) {
+                if (task.discussion_ids.has(function (item) {
+                        return item == id;
+                    })) {
+                    task.discussion_ids.remove(function (item) {
+                        return item == id;
+                    });
+                } else {
                     task.discussion_ids.push(id);
                 }
                 Tasks.update({taskId: task.id, task: {'discussion_ids': task.discussion_ids}});
