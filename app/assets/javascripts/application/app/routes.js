@@ -23,6 +23,17 @@
                     friends: getFriends
                 }
             })
+            .state('import', {
+                abstract: true,
+                url: '^/import',
+                templateUrl: 'import/index.html'
+            })
+
+            .state('import.standards', {
+                url: '/standards',
+                templateUrl: 'import/standards.html',
+                controller: 'ImportController as vm'
+            })
             .state('base.demos', {
                 url: '^/demos',
                 views: {

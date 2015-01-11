@@ -1,15 +1,16 @@
-<div class="pbl-map">
-    <div class="pbl-map-container">
-        <div class="helicopter" ng-style="{left:'40%'}"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
-        <div class="timeline">
-            <div class="node start_at">
-                <span ng-bind="vm.project.start_at|date:'yyyy年MM月dd日'"></span>
+<div class="pbl-map" ng-controller="PBLMapController as map" et-resize="map.resize($width)">
+    <div class="timeline" ng-style="{width:map.timeline}">
+        <div class="helicopter" ng-style="{left:map.progress}"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
+        <div class="node" ng-mouseenter="map.show($index,1)" ng-mouseleave="map.show($index,0)" ng-class="{start_at:node.isFirst,end_at:node.isLast,current:node.isCurrent,showed:$index==map.showed}" ng-style="{width:node.width}" ng-repeat="node in map.nodes">
+            <div class="point"></div>
+            <div class="node-tasks" ng-if="node.tasks.length">
+                <div class="marker"></div>
+                <ul>
+                    <li ng-repeat="task in node.tasks" ng-bind="task.title"></li>
+                </ul>
             </div>
-            <div class="node" ng-style="{left:(100/23)*($index+1)+'%'}" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24] track by $index"></div>
-            <div class="node end_at">
-                <span ng-bind="vm.project.end_at|date:'yyyy年MM月dd日'"></span>
-            </div>
-            <div class="time-progress" ng-style="{width:'40%'}"></div>
+            <div class="time" ng-show="map.isShowed(node)" ng-bind="node.date|date:'yyyy年MM月dd日'"></div>
         </div>
+        <div class="time-progress" ng-style="{width:map.progress}"></div>
     </div>
 </div>

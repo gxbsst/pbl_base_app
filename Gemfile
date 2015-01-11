@@ -56,6 +56,7 @@ gem 'rails-assets-interact'
 gem 'rails-assets-angular-chart.js'
 gem 'rails-assets-angular-moment'
 gem 'rails-assets-angular-bootstrap-datetimepicker'
+gem 'rails-assets-moment-timezone'
 
 gem 'htmlcompressor'
 gem 'angular-rails-templates'

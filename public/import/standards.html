@@ -1,0 +1,33 @@
+<input type="file" et-file-select="vm.onChange($files)"/>
+<div class="row margin-bottom-20" ng-repeat="sheet in vm.sheets">
+    <h3 ng-bind="sheet.name"></h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="200">学段</th>
+            <th width="200">课标分类</th>
+            <th>课标</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="standardItem in sheet.rows">
+            <td ng-bind="standardItem['学段']"></td>
+            <td ng-bind="standardItem['课标分类']"></td>
+            <td ng-bind="standardItem['课标']"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<ol ng-repeat="sheet in vm.sheets">
+    <li>
+        <h3 ng-bind="sheet.name"></h3>
+        <ol>
+            <li></li>
+        </ol>
+    </li>
+</ol>
+
+<script type="text/ng-template" id="standard">
+    <li ng-if="item.content|isMarked"><strong ng-bind="item.content"></strong></li>
+</script>

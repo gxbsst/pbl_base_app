@@ -156,6 +156,10 @@ ul.selection{
   //@include filter(grayscale(100%));
 }
 
+.stripe{
+  background-image:url("data:image/gif;base64,R0lGODlhBQAFAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAFAAUAAAIHlBWXtqgnCgA7");
+}
+
 .loading{
   text-align:center;
   padding:6px 0;

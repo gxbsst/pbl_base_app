@@ -12,13 +12,13 @@
         <div class="form-group">
             <label class="control-label pull-left">开始时间：</label>
             <div class="input-group dropdown">
-                <input type="text" class="form-control center" placeholder="请选择开始时间" ng-value="vm.project.start_at|date:'yyyy-MM-dd HH:mm'"/>
+                <input type="text" class="form-control center" placeholder="请选择开始时间" ng-value="vm.project.start_at|date:'yyyy-MM-dd'"/>
                 <span class="input-group-addon"><i class="pf-calendar"></i></span>
                 <div class="dropdown-menu">
-                    <datetimepicker data-ng-model="vm.project.start_at"
-                                    data-datetimepicker-config="{minView:'hour'}"
-                                    data-before-render="vm.beforeRender($view,$dates,$upDate)"
-                                    data-on-set-time="vm.onSetTime(newDate)"></datetimepicker>
+                    <datetimepicker ng-model="vm.project.start_at"
+                                    datetimepicker-config="{minView:'day'}"
+                                    before-render="vm.beforeRender($view,$dates,$upDate)"
+                                    on-set-time="vm.onSetTime(newDate)"></datetimepicker>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                    id="project[duration]" name="project[duration]"
                    ng-model="vm.project.duration"
                    et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
-            <select et-select="DURATION_UNITS" ng-model="vm.project.duration_unit" class="margin-right-6"
+            <select et-select="DURATION_UNITS|sliceTo:1" ng-model="vm.project.duration_unit" class="margin-right-6"
                     et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}"></select>
             <label class="control-label">
                 <input type="checkbox" ng-model="vm.project.public"

@@ -171,6 +171,7 @@
                 }
                 getTaskResources();
             });
+            $scope.$emit('onProjectTasks');
         }
 
         function getTaskRules(task){

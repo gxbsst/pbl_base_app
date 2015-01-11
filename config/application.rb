@@ -29,6 +29,9 @@ module PblWeb
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.time_zone = 'Beijing'
+    config.active_record.default_timezone = :local
+
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( ie.js )
 

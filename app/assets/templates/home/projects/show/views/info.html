@@ -13,7 +13,7 @@
             <div class="info pull-left col-10-12">
                 <strong>项目名称：</strong><span ng-bind-html="vm.project.name||'未命名项目'"></span><br/>
                 <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
-                <strong>开始时间：</strong><span ng-bind="vm.project.start_at|date:'yyyy年MM月dd日'"></span> <strong>结束时间：</strong><span>2014-01-13</span><br/>
+                <strong>开始时间：</strong><span ng-bind="vm.project.start_at|date:'yyyy年MM月dd日'"></span> <strong>结束时间：</strong><span ng-bind="vm.project.end_at|date:'yyyy年MM月dd日'"></span><br/>
                 <strong>驱动性问题：</strong>
                 <div class="row" ng-bind-html="vm.project.driven_issue||'尚未填写驱动性问题'"></div>
                 <a ui-sref="base.home.projects.edit.design({projectId:vm.project.id})" class="pf-doc-eye info-edit"></a>

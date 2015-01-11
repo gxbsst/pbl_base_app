@@ -71,7 +71,7 @@
                     scope.$watch(attr.etSelect, function (options) {
                         vm.options = options;
                         findSelected();
-                    });
+                    }, true);
                 } else {
                     scope.$watch(function () {
                         return vm;

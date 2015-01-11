@@ -63,6 +63,7 @@
                 <span class="input-group-addon"><i class="pf-calendar"></i></span>
                 <div class="dropdown-menu">
                     <datetimepicker ng-model="task.start_at"
+                                    before-render="vm.beforeRender($view,$dates,$upDate)"
                                     on-set-time="vm.onSetTime(newDate,task)"></datetimepicker>
                 </div>
             </div>
