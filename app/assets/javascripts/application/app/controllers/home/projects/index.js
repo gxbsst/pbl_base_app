@@ -56,7 +56,10 @@
                             isLast: i == diff,
                             isCurrent: current,
                             width: i == diff ? 0 : vm.node,
-                            date: date._d
+                            date: date._d,
+                            tasks: tasks.find(function (task) {
+                                return task.start_at && moment(task.start_at).isSame(date, 'days');
+                            })
                         };
                     if (current) {
                         vm.current = node;

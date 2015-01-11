@@ -1,13 +1,14 @@
 <div class="pbl-map" ng-controller="PBLMapController as map" et-resize="map.resize($width)">
     <div class="timeline" ng-style="{width:map.timeline}">
-        <div class="helicopter" ng-style="{left:map.progress}"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
+        <div class="helicopter" ng-style="{left:map.progress,opacity:map.showed>-1?.2:1}"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
         <div class="node" ng-mouseenter="map.show($index,1)" ng-mouseleave="map.show($index,0)" ng-class="{start_at:node.isFirst,end_at:node.isLast,current:node.isCurrent,showed:$index==map.showed}" ng-style="{width:node.width}" ng-repeat="node in map.nodes">
             <div class="point"></div>
             <div class="node-tasks" ng-if="node.tasks.length">
+                <div class="line"></div>
                 <div class="marker"></div>
-                <ul>
-                    <li ng-repeat="task in node.tasks" ng-bind="task.title"></li>
-                </ul>
+                <div class="node-task" ng-style="{height:$index==map.showed?26*node.tasks.length+20:0}">
+                    <div ng-repeat="task in node.tasks" ng-bind="task.title"></div>
+                </div>
             </div>
             <div class="time" ng-show="map.isShowed(node)" ng-bind="node.date|date:'yyyy年MM月dd日'"></div>
         </div>
