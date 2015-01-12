@@ -1432,7 +1432,7 @@
     bottom:0;
     width:50px;
     content:'';
-    z-index:1000;
+    z-index:1;
     @include background-image(linear-gradient(left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)));
   }
   &:after{
@@ -1442,7 +1442,7 @@
     bottom:0;
     width:50px;
     content:'';
-    z-index:1000;
+    z-index:1;
     @include background-image(linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)));
   }
   .loading{

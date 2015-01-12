@@ -373,7 +373,7 @@
         }
 
         function getTask(task){
-            return vm.tasks.findOne(function (item) {
+            return (vm.tasks || []).findOne(function (item) {
                 return item.id == task.id
             });
         }
