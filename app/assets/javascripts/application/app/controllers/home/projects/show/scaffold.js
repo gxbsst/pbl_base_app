@@ -32,6 +32,7 @@
         vm.onUploadSuccess = onUploadSuccess;
         vm.onSetTime = onSetTime;
         vm.beforeRender = beforeRender;
+        vm.getTask = getTask;
         vm.finalpost = finalpost;
         vm.releaseTask = releaseTask;
         vm.groupcheck = groupcheck;
@@ -368,6 +369,12 @@
                 if (!moment(date.dateValue).utcOffset(0).isBetween(start, end, 'day')) {
                     date.selectable = false;
                 }
+            });
+        }
+
+        function getTask(task){
+            return vm.tasks.findOne(function (item) {
+                return item.id == task.id
             });
         }
 

@@ -3,7 +3,8 @@
         <span class="title-text">教学任务</span>
         <span class="title-pointer"></span>
     </div>
-    <div ng-if="!psvm.$task">
+    <div class="col-1-1" ng-if="!vm.tasks"><div class="loading"><i class="pf-spinner-2 rotation"></i></div></div>
+    <div ng-show="!psvm.$task">
         <div class="task-list col-1-1 margin-bottom-20">
             <div class="col-1-1 tasks-group">
                 <div class="tasks" ng-repeat="task in vm.tasks">
@@ -20,5 +21,5 @@
             <span class="btn btn-blue btn-padding" role="button" et-modal="title='增加任务';$project=vm.project;controller='addTaskController';padding=0;src='home/projects/edit/task-creator.html'"><i class="pf-expand"></i> 增加任务</span>
         </div>
     </div>
-    <div ng-if="psvm.$task" ng-init="task=psvm.$task" ng-include="'home/projects/show/taskform.html'"></div>
+    <div ng-if="psvm.$task" et-init="task=vm.getTask(psvm.$task)" ng-include="'home/projects/show/taskform.html'"></div>
 </div>
