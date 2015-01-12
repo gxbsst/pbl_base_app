@@ -27,6 +27,7 @@
         vm.nodes = [];
         vm.show = show;
         vm.isShowed = isShowed;
+        vm.setTask = setTask;
 
         $scope.$on('onProjectTasks', onProjectTasks);
         onProjectTasks();
@@ -46,25 +47,28 @@
                     vm.node = 80;
                     vm.timeline = (vm.node + 6) * diff;
                 }
-                $element.animate({scrollLeft: vm.timeline * progress - width / 2 + vm.padding});
-                for (var i = 0; i <= diff; i++) {
-                    var date = angular.copy(start).add(i, 'days'),
-                        current = date.isSame(now, 'days'),
-                        node = {
-                            $index: i,
-                            isFirst: i == 0,
-                            isLast: i == diff,
-                            isCurrent: current,
-                            width: i == diff ? 0 : vm.node,
-                            date: date._d,
-                            tasks: tasks.find(function (task) {
-                                return task.start_at && moment(task.start_at).isSame(date, 'days');
-                            })
-                        };
-                    if (current) {
-                        vm.current = node;
+                if(!vm.isReady){
+                    for (var i = 0; i <= diff; i++) {
+                        var date = angular.copy(start).add(i, 'days'),
+                            current = date.isSame(now, 'days'),
+                            node = {
+                                $index: i,
+                                isFirst: i == 0,
+                                isLast: i == diff,
+                                isCurrent: current,
+                                width: i == diff ? 0 : vm.node,
+                                date: date._d,
+                                tasks: tasks.find(function (task) {
+                                    return task.start_at && moment(task.start_at).isSame(date, 'days');
+                                })
+                            };
+                        if (current) {
+                            vm.current = node;
+                        }
+                        vm.nodes.push(node);
                     }
-                    vm.nodes.push(node);
+                    vm.isReady = true;
+                    $element.find('.pbl-map-container').delay(400).animate({scrollLeft: vm.timeline * progress - width / 2 + vm.padding});
                 }
             }
         }, true);
@@ -100,6 +104,11 @@
             return typeof vm.showed != 'undefined' ? node.$index == vm.showed : (vm.current ? node.isCurrent : (node.isFirst || node.isLast));
         }
 
+        function setTask(task){
+            vm.task = task;
+            $scope.$emit('onSetView', task);
+        }
+
     }
 
     PBLGuideController.$inject = ['$scope', '$stateParams'];
@@ -128,12 +137,21 @@
 
         var vm = this;
 
-        vm.project = project;
+        vm.project = $scope.project = project;
 
+        $scope.$on('onSetView', onSetView);
         $scope.goto = goto;
 
         function goto(view) {
             $state.go('base.home.projects.edit.' + view, {projectId: project.id});
+        }
+
+        function onSetView(event, task){
+            if(task){
+                vm.$task = task;
+            }else{
+                delete vm.$task;
+            }
         }
     }
 
@@ -146,10 +164,19 @@
         vm.project = $scope.project = project;
         vm.state = 'running';
 
+        $scope.$on('onSetView', onSetView);
         $scope.goto = goto;
 
         function goto(view) {
             $state.go('base.home.projects.show.' + view, {projectId: project.id});
+        }
+
+        function onSetView(event, task){
+            if(task){
+                vm.$task = task;
+            }else{
+                delete vm.$task;
+            }
         }
     }
 

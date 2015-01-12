@@ -1,6 +1,6 @@
 <div class="nav-circular">
-    <a ui-sref="base.home.projects.show.info" class="button" ng-class="{active:$state.includes('base.home.projects.show.info')}">项目背景</a>
-    <a ui-sref="base.home.projects.show.members" class="button" ng-class="{active:$state.includes('base.home.projects.show.members')}">项目成员</a>
+    <a ui-sref="base.home.projects.show.info" class="button" ng-class="{disabled:psvm.$task,active:$state.includes('base.home.projects.show.info')}">项目背景</a>
+    <a ui-sref="base.home.projects.show.members" class="button" ng-class="{disabled:psvm.$task,active:$state.includes('base.home.projects.show.members')}">项目成员</a>
     <!--<a ui-sref="base.home.projects.show.knowledge" class="button" ng-class="{active:$state.includes('base.home.projects.show.knowledge')}">知识归纳</a>-->
     <a ui-sref="base.home.projects.show.scaffold" class="button" ng-class="{active:$state.includes('base.home.projects.show.scaffold')}">
         <span>教学任务</span>
@@ -8,5 +8,5 @@
     </a>
     <a ui-sref="base.home.projects.show.assignment" class="button" ng-class="{active:$state.includes('base.home.projects.show.assignment')}">项目作业</a>
     <a ui-sref="base.home.projects.show.resources" class="button" ng-class="{active:$state.includes('base.home.projects.show.resources')}">项目资源</a>
-    <a ui-sref="base.home.projects.show.statistics" class="button"   ng-class="{active:$state.includes('base.home.projects.show.statistics')}">评价报告</a>
+    <a ui-sref="base.home.projects.show.statistics" class="button" ng-class="{disabled:psvm.$task,active:$state.includes('base.home.projects.show.statistics')}">评价报告</a>
 </div>

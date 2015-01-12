@@ -1425,7 +1425,42 @@
 }
 
 .pbl-map{
+  position:relative;
+  &:before{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:50px;
+    content:'';
+    z-index:1000;
+    @include background-image(linear-gradient(left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)));
+  }
+  &:after{
+    position:absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    width:50px;
+    content:'';
+    z-index:1000;
+    @include background-image(linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)));
+  }
+  .loading{
+    position:absolute;
+    left:0;
+    right:0;
+    height:230px;
+    padding-top:110px;
+  }
+}
+
+.pbl-map-container{
   overflow:auto;
+  background:#fff;
+  @include transition(.5s ease opacity);
+  @include transform(translate3d(0, 0, 0));
+  @include opacity(0);
   .timeline{
     position:relative;
     margin:200px 60px 30px;
@@ -1568,6 +1603,76 @@
         .time{
           color:#eb6e2d;
         }
+      }
+    }
+  }
+  &.ready{
+    @include opacity(1);
+  }
+  &.blur{
+    @include filter(blur(2px));
+    .node-task{
+      height:0 !important;
+    }
+    .helicopter{
+      opacity:.5 !important;
+    }
+  }
+}
+
+.pbl-map-task-container{
+  display:table;
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  height:242px;
+  background:rgba(255, 255, 255, .65);
+  .pbl-map-task{
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    padding:0 15%;
+    h2{
+      margin-bottom:12px;
+    }
+  }
+  .pbl-back{
+    position:absolute;
+    left:60px;
+    bottom:50px;
+    width:32px;
+    height:50px;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    $image:image-url('balloon.png');
+    $image2x:image-url('balloon_2x.png');
+    background-image:$image;
+    background-image:-webkit-image-set($image 1x, $image2x 2x);
+    background-image:-moz-image-set($image 1x, $image2x 2x);
+    background-image:-o-image-set($image 1x, $image2x 2x);
+    background-image:-ms-image-set($image 1x, $image2x 2x);
+    &:before{
+      display:none;
+      position:absolute;
+      left:-20px;
+      bottom:50px;
+      width:130px;
+      height:35px;
+      content:'';
+      background-repeat:no-repeat;
+      $image:image-url('back.png');
+      $image2x:image-url('back_2x.png');
+      background-image:$image;
+      background-image:-webkit-image-set($image 1x, $image2x 2x);
+      background-image:-moz-image-set($image 1x, $image2x 2x);
+      background-image:-o-image-set($image 1x, $image2x 2x);
+      background-image:-ms-image-set($image 1x, $image2x 2x);
+    }
+    &:hover{
+      &:before{
+        display:block;
       }
     }
   }

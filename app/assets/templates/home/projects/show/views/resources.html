@@ -5,9 +5,9 @@
     </div>
     <div class="head">
         <span class="btn btn-gray" et-modal="$project=vm.project;$discussions=vm.discussions;$tasks=vm.tasks;title='资源上传';controller='ResourceUploaderController as vm';src='home/projects/show/upload.html'">上传资源</span>
-        <div class="pull-right">
+        <div class="pull-right" et-init="vm.task=psvm.$task.id">
             <select class="margin-right-6" ng-model="vm.discussion" et-select="vm.discussions" et-config="optional=true;label='full_name';placeholder='全部小组'"></select>
-            <select class="margin-right-6" ng-model="vm.task" et-select="vm.tasks" et-config="optional=true;placeholder='全部任务'"></select>
+            <select class="margin-right-6" ng-disabled="psvm.$task.id" ng-model="vm.task" et-select="vm.tasks" et-config="optional=true;placeholder='全部任务'"></select>
             <span class="search">
                 <i class="pf-search"></i>
                 <input type="text" ng-model="vm.keyword" placeholder="按文件名查找资源..."/>

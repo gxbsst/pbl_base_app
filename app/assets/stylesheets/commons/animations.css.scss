@@ -10,6 +10,18 @@
   }
 }
 
+@include ea-keyframes(wave){
+  0%{
+    @include ea-transform(translate3d(0, 0, 0));
+  }
+  50%{
+    @include ea-transform(translate3d(0, -10px, 0));
+  }
+  99%{
+    @include ea-transform(translate3d(0, 0, 0));
+  }
+}
+
 .rotation{
   display:block;
   margin:0 auto;
@@ -19,4 +31,8 @@
   line-height:23px;
   color:#ccc;
   @include ea-animation(rotation 1s infinite linear);
+}
+
+.wave{
+  @include ea-animation(wave 2s infinite linear);
 }
