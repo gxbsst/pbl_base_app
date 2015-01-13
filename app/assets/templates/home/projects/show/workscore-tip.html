@@ -1,4 +1,4 @@
-<div class="assignment-score " ng-class="{'operated':user.scores}">
+<div class="assignment-score " ng-class="{'operated':user.work[work.id].scores}">
     <span class="remark" ng-bind="user.scores.comment||'老师评分'"></span>
     <span class="score"  ng-bind="user.scores.score||'分数'"></span>
 </div>

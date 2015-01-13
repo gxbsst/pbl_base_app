@@ -124,11 +124,12 @@
         }
 
         function getTaskWorks(task) {
-            Works.all({taskId: task.id,task_type:task.task_type,limit:'100'}, function (result) {
+            Works.all({
+                taskId: task.id,task_type:task.task_type,limit:'100',include:'scores'
+            }, function (result) {
                 task.works = result.data.find(function(item){
-                        return item.task_id==task.id;
+                   return item.task_id==task.id;
                 });
-
                 task.worksHash={};
                 angular.forEach(WORK_TYPES, function (item) {
                     task.worksHash[item]=[];
@@ -143,7 +144,7 @@
                         angular.forEach(groups, function (group) {
                             angular.forEach(group.members, function (member) {
                                 task.works[i].usersHash[member] = vm.usersHash[member];
-                                task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member]);
+                                task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member].id);
                             });
                         });
                         //task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
@@ -156,19 +157,25 @@
             });
         }
 
-        function getWorkScores(work, user) {
-            if(work&&user){
+        function getWorkScores(work, userId) {
+            if(work&&userId){
                 //Scores.all({owner_id:work.id,owner_type:TYPE_DEFIN.Work,userId: user.id}, function (result) {
                 //    return result;
                 //});
-                return {
-                    "id": "246e636a-9852-479e-a0ea-5765cf0d2b40",
-                    "comment": "老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价",
-                    "score": 10,
-                    "owner_id": work.id,
-                    "owner_type": "Assignments::Work",
-                    "user_id":user.id
-                };
+                var score=work.scores.findOne(function(score){
+                    return score.user_id=userId;
+                });
+                return score;
+                //return {
+                //    "id": "246e636a-9852-479e-a0ea-5765cf0d2b40",
+                //    "comment": "老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价",
+                //    "score": 10,
+                //    "owner_id": work.id,
+                //    "owner_type": "Assignments::Work",
+                //    "user_id":user.id
+                //};
+            }else{
+                return null;
             }
         }
 

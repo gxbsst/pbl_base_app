@@ -1208,7 +1208,6 @@
   .task-list{
     .tasks-group-item{
       border-top:1px solid #ebebeb;
-      color:#656565;
       .tasks-group-item-title{
         height:40px;
         line-height:40px;
@@ -1326,28 +1325,28 @@
               display:inline-block;
               margin:0px 5px 10px 5px;
               position:relative;
-              .arrow{
-                position:absolute;
-                content:'';
-                display:none;
-                width:10px;
-                height:10px;
-                right:50%;
-                filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5);
-                -moz-transform:rotate(45deg);
-                -o-transform:rotate(45deg);
-                -webkit-transform:rotate(45deg);
-                transform:rotate(45deg);
-                margin-right:-5px;
-                background:#fff;
-                border-left:1px solid #c6c6c6;
-                border-top:1px solid #c6c6c6;
-                z-index:2;
-                top:44px;
+              &.evaluated:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: block;
+                color: green;
+                font-family: 'PblIconFont';
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+
+                /* Better Font Rendering =========== */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                content: "\e633";
               }
-              &.active{
-                .arrow{
-                  display:block;
+              &.active,&:hover{
+                .user-pic{
+                  box-shadow: 0px 0px 10px 0px green;
                 }
               }
             }
@@ -1975,30 +1974,33 @@
       display:inline-block;
       margin:0px 5px 10px 5px;
       position:relative;
-      .arrow{
-        position:absolute;
-        content:'';
-        display:none;
-        width:10px;
-        height:10px;
-        right:50%;
-        filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5);
-        -moz-transform:rotate(45deg);
-        -o-transform:rotate(45deg);
-        -webkit-transform:rotate(45deg);
-        transform:rotate(45deg);
-        margin-right:-5px;
-        background:#fff;
-        border-left:1px solid #c6c6c6;
-        border-top:1px solid #c6c6c6;
-        z-index:2;
-        top:44px;
+      &.evaluated:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: block;
+        color: green;
+        font-family: 'PblIconFont';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\e633";
       }
-      &.active{
-        .arrow{
-          display:block;
+      &.active,&:hover{
+        .user-pic{
+          box-shadow: 0px 0px 10px 0px green;
         }
       }
     }
+  }
+  .input-score{
+    width: 40px;
   }
 }

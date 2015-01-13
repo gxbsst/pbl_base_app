@@ -26,8 +26,10 @@
     <div class="group-list col-1-1" ng-if="work.acceptor_type==TYPE_DEFIN.Group">
         <div class="col-1-8">小组成员：</div>
         <div class="col-7-8">
-                <span class="group-user evaluated" ng-if="user.scores" ng-repeat="user in work.usersHash">
-                    <img class="user-pic"  ng-src="{{user|avatar}}">
+                <span class="group-user " ng-class="{evaluated:user.scores}"
+                      ng-repeat="user in work.usersHash"
+                        ng-click="clickUser(user.id)">
+                    <img class="user-pic"  ng-src="{{user|avatar}}">{{user.id}}
                 </span>
         </div>
     </div>
@@ -48,19 +50,19 @@
                     <tbody ng-repeat="gauge in task.rules" >
                         <tr class="gauge-item">
                             <td rowspan="2" ng-bind="gauge.standard"></td>
-                            <td rowspan="2" class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+                            <td rowspan="2" class="center "><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
                             <td rowspan="2" class="et-gauge" et-gauge-field>
-                                <textarea ng-model="work.gaugescore[gauge.id]" spellcheck="false"
+                                <textarea ng-model="current.gaugescore[gauge.id]" spellcheck="false"
                                         ng-change="calculateScores()"
-                                        ng-readonly="current.state"
+                                        ng-readonly="!current.state"
                                         ></textarea>
                             </td>
                             <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
                         </tr>
                         <tr class="gauge-item">
                             <td colspan="{{ruleHeadsLength(vm.project.ruleHeads)}}" class="et-gauge">
-                                <textarea ng-model="work.gaugecomment[gauge.id]" spellcheck="false"
-                                          ng-readonly="current.state"
+                                <textarea ng-model="current.gaugecomment[gauge.id]" spellcheck="false"
+                                          ng-readonly="!current.state"
                                         ></textarea>
                             </td>
                         </tr>
@@ -73,7 +75,8 @@
         <div class="col-1-1">
             <label class=" col-1-8 control-label">综合评价：</label>
             <div class="col-7-8 ">
-                <textarea class="scorecomment" ng-model="current.comment"></textarea>
+                <textarea class="scorecomment" ng-model="current.comment"
+                          ng-readonly="!current.state"></textarea>
             </div>
         </div>
     </div>
@@ -81,20 +84,20 @@
         <div class="col-1-1">
             <label class=" col-1-8 control-label">评分：</label>
             <div class="col-7-8  control-label">
-                <span class="redtab" ng-bind="current.score"></span>/100
+                <span class="redtab" ng-if="task.task_type==TYPE_DEFIN.Skill">{{current.score}}</span>
+                <input class="input-score" type="number" ng-model="current.score"
+                       ng-readonly="!current.state"
+                       ng-if="task.task_type!=TYPE_DEFIN.Skill"/>
+                /
+                <span >{{current.total}}</span>
             </div>
         </div>
     </div>
     <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
         <div class="col-1-1 text-center">
-                <span class="btn btn-blue" role="button" ng-if="work.state==WORK_TYPES.submitted"
+                <span class="btn btn-blue" role="button" ng-if="current.state"
                       ng-click="setWorkScore()"
-                      > 评分</span>
-        </div>
-        <div class="col-1-1 text-center">
-                <span class="btn btn-blue" role="button" ng-if="work.state==WORK_TYPES.submitted"
-                      ng-click="getWorkScore()"
-                        > 取值</span>
+                      > 评分</span>user_id:{{$scope.current.user_id}}
         </div>
     </div>
 </div>
