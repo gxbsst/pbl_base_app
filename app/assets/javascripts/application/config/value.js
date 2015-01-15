@@ -12,6 +12,7 @@
                 release:{method: 'PATCH'}
             },
             PATHS: {
+                sso: 'http://sso.dev.pbl.org',
                 image: 'http://img.edutec.com',
                 'static': 'http://static.edutec.com'
             },

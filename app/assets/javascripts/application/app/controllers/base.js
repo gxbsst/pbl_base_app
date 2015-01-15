@@ -29,6 +29,8 @@
                 onCompleted: onCompleted
             },
             HANDLES: {
+                login: login,
+                register: register,
                 follow: follow,
                 unFollow: unFollow,
                 isFriend: isFriend,
@@ -60,6 +62,14 @@
             return function (data) {
                 delete object.$uploading;
             }
+        }
+
+        function login(){
+            //window.location.href = '';
+        }
+
+        function register(){
+
         }
 
         function follow(user_id){

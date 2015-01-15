@@ -10,9 +10,9 @@
         .controller('ProjectShowController', ProjectShowController);
 
 
-    PBLMapController.$inject = ['$scope', '$element', '$interval', 'Tasks'];
+    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
 
-    function PBLMapController($scope, $element, $interval, Tasks) {
+    function PBLMapController($scope, $state, $element, $interval, Tasks) {
         var vm = this,
             project = $scope.project,
             start = moment(project.start_at).set('hour', 0),
@@ -106,6 +106,7 @@
 
         function setTask(task){
             vm.task = task;
+            $state.go('base.home.projects.show.scaffold', {projectId:project.id});
             $scope.$emit('onSetView', task);
         }
 
