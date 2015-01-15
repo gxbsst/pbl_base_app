@@ -28,7 +28,7 @@ gem 'devise'
 
 gem 'devise_cas_authenticatable'
 
-gem 'activerecord-session_store'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 gem 'figaro'
 
