@@ -115,7 +115,7 @@
 
             <div class="text-right">
                  <span class="btn btn-blue" ng-class="{uploading:vm.project.$uploading_doc}"
-                       qn-upload="{bucket:QINIU.buckets.static,ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                       qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
                        on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"> 上传资源</span>
             </div>
         </div>
