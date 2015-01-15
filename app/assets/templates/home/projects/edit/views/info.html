@@ -1,7 +1,7 @@
 <div class="form-horizontal project-info">
     <h3>基本信息填写</h3>
     <div class="upload-cover" et-init="vm.project.cover=vm.findByType(RESOURCE_TYPES.project.cover)" ng-class="{uploading:vm.project.$uploading_cover}"
-         qn-upload="{ownerType:RESOURCE_TYPES.project.cover,ownerId:vm.project.id}"
+         qn-upload="{bucket:QINIU.buckets.image,ownerType:RESOURCE_TYPES.project.cover,ownerId:vm.project.id}"
          on-begin="vm.onUploadBegin('cover')" on-success="vm.onUploadSuccess('cover')">
         <img ng-if="vm.project.cover.key" ng-src="{{vm.project.cover.key|thumb:'100x100'}}"/>上传封面</div>
     <div class="form-group-box">
@@ -83,7 +83,7 @@
         <div class="form-group">
             <label class="control-label">启动文档：</label>
             <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.project.$uploading_doc}"
-                  qn-upload="{bucket:QINIU.buckets.static,ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                  qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
                   on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"><i class="pf-plus"></i> 新增启动文档</span>
             <div class="row">
                 <ul class="files">
