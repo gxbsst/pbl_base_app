@@ -41,7 +41,11 @@
             if($scope.task.submit_way==TYPE_DEFIN.Group)
             {
                 angular.forEach($scope.work.usersHash, function (user) {
+                    angular.forEach($scope.work.usersHash, function (item) {
+                        item.$active=false;
+                    });
                     userId=user.id;
+                    user.$active=true;
                 });
             }else{
                 userId=$scope.work.acceptor_id;
@@ -62,9 +66,13 @@
             }
         }
 
-        function clickUser(userId){
-            console.log(userId);
-            getWorkScore(userId);
+        function clickUser(user,users){
+            console.log(user.id);
+            getWorkScore(user.id);
+            angular.forEach(users, function (item) {
+                item.$active=false;
+            });
+            user.$active=true;
         }
         function ruleHeadsLength(ruleHeads){
             return ruleHeads.find(function(rulehead){
@@ -167,27 +175,31 @@
                     console.log('score.user_id');
                     console.log(score.user_id);
                 }else{
+                    $scope.current.user_id='';
+                    $scope.current.comment='';
+                    $scope.current.score=0;
                     $scope.current.state=true;
                 }
             });
             //scores.push(score);
 
-            angular.forEach($scope.task.rules, function (gauge) {
-                param={
-                    owner_id:gauge.id,
-                    owner_type:TYPE_DEFIN.Rule
-                };
-                if (userId!=''&&userId!=null){
-                    param.user_id=userId;
-                }
-                Scores.all(param, function (result) {
-                    score = result.data[0];
-                    $scope.current.gaugescore[score.owner_id]=score.score;
-                    $scope.current.gaugecomment[score.owner_id]=score.comment;
-                    console.log(score);
+            if($scope.task.task_type==TYPE_DEFIN.Skill){
+                angular.forEach($scope.task.rules, function (gauge) {
+                    param={
+                        owner_id:gauge.id,
+                        owner_type:TYPE_DEFIN.Rule
+                    };
+                    if (userId!=''&&userId!=null){
+                        param.user_id=userId;
+                    }
+                    Scores.all(param, function (result) {
+                        score = result.data[0];
+                        $scope.current.gaugescore[score.owner_id]=score.score;
+                        $scope.current.gaugecomment[score.owner_id]=score.comment;
+                        console.log(score);
+                    });
                 });
-                //scores.push(score);
-            });
+            }
 
             //console.log(scores);
             //angular.forEach(scores, function (score) {

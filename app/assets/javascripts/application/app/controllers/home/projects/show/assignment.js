@@ -152,6 +152,11 @@
                         task.works[i].submitter = vm.usersHash[task.works[i].acceptor_id];
                         task.works[i].scores = getWorkScores(task.works[i], vm.usersHash[task.works[i].acceptor_id]);
                     }
+                    //if(task.works[i].user_id){
+                    //
+                    //}
+                    console.log('task.works[i]');
+                    console.log(task.works[i]);
                     task.worksHash[task.works[i].state].push(task.works[i]);
                 }
             });
