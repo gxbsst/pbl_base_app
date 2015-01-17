@@ -12,10 +12,16 @@
         $stateProvider
             .state('base.home', {
                 abstract: true,
-                url: '',
+                url: '^/home',
                 views: {
                     '': {
                         templateUrl: 'home/layout.html'
+                    },
+                    'header@': {
+                        templateUrl: 'layout/header.html'
+                    },
+                    'footer@': {
+                        templateUrl: 'layout/footer.html'
                     },
                     'toolbar@': {
                         templateUrl: 'home/toolbar/index.html',

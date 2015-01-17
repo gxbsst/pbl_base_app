@@ -147,7 +147,7 @@ ul.selection{
   cursor:move !important;
 }
 
-.disabled{
+.disabled,.btn[disabled]{
   pointer-events:none !important;
   position:relative;
   background:#f0f0f0 !important;

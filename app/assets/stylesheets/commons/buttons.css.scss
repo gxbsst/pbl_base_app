@@ -39,6 +39,30 @@
       @include background-image(linear-gradient(#479eff, #2974ed));
     }
   }
+  &.btn-green{
+    color:#fff;
+    border-color:#63ac23;
+    background-color:#73c828;
+    @include background-image(linear-gradient(#93de4b, #73c828));
+    &:hover{
+      color:#fff;
+      border-color:#5a9c20;
+      background-color:#63ac22;
+      @include background-image(linear-gradient(#82c543, #68b524));
+    }
+  }
+  &.btn-azure{
+    color:#fff;
+    border-color:#3caccf;
+    background-color:#46c8f0;
+    @include background-image(linear-gradient(#6fd0f4, #41b8dc));
+    &:hover{
+      color:#fff;
+      border-color:#369ab9;
+      background-color:#3eb1d5;
+      @include background-image(linear-gradient(#54b2dd, #38a0bf));
+    }
+  }
   &.btn-red{
     color:#fff;
     border-color:#bb0000;

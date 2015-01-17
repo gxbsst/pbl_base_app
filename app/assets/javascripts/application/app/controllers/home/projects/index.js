@@ -7,7 +7,7 @@
         .controller('PBLGuideController', PBLGuideController)
         .controller('ProjectIndexController', ProjectIndexController)
         .controller('ProjectEditController', ProjectEditController)
-        .controller('ProjectShowController', ProjectShowController);
+        .controller('HomeProjectShowController', HomeProjectShowController);
 
 
     PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
@@ -156,9 +156,9 @@
         }
     }
 
-    ProjectShowController.$inject = ['$state', '$scope', 'project'];
+    HomeProjectShowController.$inject = ['$state', '$scope', 'project'];
 
-    function ProjectShowController($state, $scope, project) {
+    function HomeProjectShowController($state, $scope, project) {
 
         var vm = this;
 

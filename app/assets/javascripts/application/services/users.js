@@ -5,6 +5,7 @@
         .module('app.services')
         .service('User', User)
         .service('Users', Users)
+        .service('Register', Register)
         .service('Friends', Friends)
         .service('Follows', Follows)
         .service('Rules', Rules);
@@ -19,6 +20,12 @@
 
     function Users($resource, RESOURCE_ACTIONS) {
         return $resource('/users/:action/:userId', {userId: '@userId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
+    }
+
+    Register.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function Register($resource, RESOURCE_ACTIONS) {
+        return $resource('/register', {}, RESOURCE_ACTIONS);
     }
 
     Friends.$inject = ['$resource', 'RESOURCE_ACTIONS'];

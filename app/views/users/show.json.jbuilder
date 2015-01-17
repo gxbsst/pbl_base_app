@@ -3,5 +3,5 @@ if @user.success?
     json.partial! 'users/user', user: @user
   end
 else
-  json.extract! @user, :code, :body, :headers
+  json.errors @user
 end

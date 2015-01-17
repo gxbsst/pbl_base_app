@@ -1,5 +1,6 @@
 json.id user[:id]
 json.username user[:username]
+json.type user[:type]
 json.email user[:email] if user[:email]
 json.first_name user[:first_name] if user[:first_name]
 json.last_name user[:last_name] if user[:last_name]

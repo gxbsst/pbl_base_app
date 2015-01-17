@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$rootScope', '$document', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips','TYPE_DEFIN','WORK_TYPES'];
+    BaseController.$inject = ['$scope', '$rootScope', '$document', 'modalFactory', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'TYPE_DEFIN', 'WORK_TYPES'];
 
-    function BaseController($scope, $rootScope, $document, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips,TYPE_DEFIN,WORK_TYPES) {
+    function BaseController($scope, $rootScope, $document, modalFactory, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips, TYPE_DEFIN, WORK_TYPES) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
@@ -19,8 +19,8 @@
             GRADES: GRADES,
             DURATION_UNITS: DURATION_UNITS,
             RESOURCE_TYPES: RESOURCE_TYPES,
-            TYPE_DEFIN:TYPE_DEFIN,
-            WORK_TYPES:WORK_TYPES,
+            TYPE_DEFIN: TYPE_DEFIN,
+            WORK_TYPES: WORK_TYPES,
             PATHS: PATHS,
             QINIU: QINIU,
             UPLOAD_HANDLES: {
@@ -29,8 +29,6 @@
                 onCompleted: onCompleted
             },
             HANDLES: {
-                login: login,
-                register: register,
                 follow: follow,
                 unFollow: unFollow,
                 isFriend: isFriend,
@@ -40,6 +38,28 @@
                 getResource: getResource,
                 getResources: getResources,
                 removeResource: removeResource
+            },
+            registerModals: {
+                controller: 'RegisterController as vm',
+                closeable: false,
+                weight: 100,
+                titleHeight: '60px',
+                bgColor: '#fcfcfc',
+                textColor: '#333',
+                center: true,
+                modals: [
+                    {
+                        title: '请选择您的角色',
+                        closeable: true,
+                        src: 'register/roles.html'
+                    }, {
+                        title: '请填写您的帐号信息',
+                        closeable: true,
+                        src: 'register/account.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅'
+                    }
+                ]
             }
         });
 
@@ -64,15 +84,7 @@
             }
         }
 
-        function login(){
-            //window.location.href = '';
-        }
-
-        function register(){
-
-        }
-
-        function follow(user_id){
+        function follow(user_id) {
             Follows.add({
                 user_id: user_id
             }, function () {
@@ -81,11 +93,11 @@
             });
         }
 
-        function unFollow(user_id){
+        function unFollow(user_id) {
             var follow = $rootScope.follows.findOne(function (item) {
                 return item.user_id == user_id;
             });
-            if(follow){
+            if (follow) {
                 Follows.remove({
                     followId: follow.id
                 }, function () {
@@ -95,26 +107,26 @@
             }
         }
 
-        function isFriend(user_id){
+        function isFriend(user_id) {
             return $rootScope.friends.has(function (user) {
                 return user.id == user_id;
             });
         }
 
-        function isFollowed(user_id){
+        function isFollowed(user_id) {
             return $rootScope.follows.has(function (follow) {
                 return follow.user_id == user_id;
             });
         }
 
-        function join(group_id){
+        function join(group_id) {
             Groups.add({
                 groupId: group_id,
                 action: 'member_ships'
             }, getMemberShips);
         }
 
-        function leave(group_id, member_ship_id){
+        function leave(group_id, member_ship_id) {
             Groups.remove({
                 groupId: group_id,
                 action: 'member_ships',
@@ -122,37 +134,37 @@
             }, getMemberShips);
         }
 
-        function getResource(resources, type, id){
+        function getResource(resources, type, id) {
             return (resources || $scope.resources || []).findOne(function (item) {
                 return (id && id == item.owner_id) && item.owner_type == type;
             });
         }
 
-        function getResources(resources, type, id){
+        function getResources(resources, type, id) {
             return (resources || $scope.resources || []).find(function (item) {
                 return item.owner_id == id && item.owner_type == type;
             });
         }
 
-        function removeResource(resourceId, callback){
+        function removeResource(resourceId, callback) {
             Resources.remove({
                 resourceId: resourceId
             }, callback || angular.noop);
         }
 
-        function getFriends(){
+        function getFriends() {
             Friends.get(function (result) {
                 $rootScope.friends = result.data;
             });
         }
 
-        function getFollows(){
+        function getFollows() {
             Follows.get(function (result) {
                 $rootScope.follows = result.data;
             });
         }
 
-        function getMemberShips(){
+        function getMemberShips() {
             MemberShips.get({
                 namespace: 'user'
             }, function (result) {

@@ -23,12 +23,36 @@
                     friends: getFriends
                 }
             })
+            .state('base.index', {
+                url: '',
+                views: {
+                    '': {
+                        templateUrl: 'index/index.html',
+                        controller: 'IndexController as vm'
+                    },
+                    'header@': {
+                        templateUrl: 'index/header.html'
+                    },
+                    'footer@': {
+                        templateUrl: 'layout/footer.html'
+                    }
+                }
+            })
+            .state('base.projects', {
+                abstract: true,
+                url: '^/projects',
+                template: '<div ui-view></div>'
+            })
+            .state('base.projects.show', {
+                url: '/:projectId',
+                templateUrl: 'projects/show.html',
+                controller: 'ProjectShowController as vm'
+            })
             .state('import', {
                 abstract: true,
                 url: '^/import',
                 templateUrl: 'import/index.html'
             })
-
             .state('import.standards', {
                 url: '/standards',
                 templateUrl: 'import/standards.html',

@@ -1,0 +1,15 @@
+<div class="register register-profile">
+    <h3 class="center">第一步 完善个人信息</h3>
+    <form class="form-horizontal" ng-submit="vm.save()">
+
+        <div class="form-group">
+            <input type="password" class="form-control" ng-model="vm.user.password" placeholder="请填写您的密码"/>
+            <span class="error" ng-repeat="error in vm.account.errors.password track by $index" ng-bind="'password_'+error|error"></span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <span class="btn" ng-click="$go(0)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">创建帐号</button>
+        </div>
+    </form>
+</div>
