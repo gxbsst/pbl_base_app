@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
   resources :posts, defaults: { format: :json }
 
-  resources :users, defaults: { format: :json }, only: %w(index show update destroy)
+  resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)

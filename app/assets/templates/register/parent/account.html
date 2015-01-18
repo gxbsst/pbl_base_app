@@ -1,0 +1,25 @@
+<div class="register register-account">
+    <form class="form-horizontal" ng-submit="vm.save(' username  , email,password',2,true)">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="vm.user.username" placeholder="请填写您的帐号"/>
+            <span class="error" ng-repeat="error in vm.verification.errors.username track by $index" ng-bind="'username_'+error|error"></span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="vm.user.email" placeholder="请填写您的邮箱地址"/>
+            <span class="note" ng-if="!vm.verification.errors.email.length">为方便您找回密码，请正确填写邮箱地址</span>
+            <span class="error" ng-repeat="error in vm.verification.errors.email track by $index" ng-bind="'email_'+error|error"></span>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" ng-model="vm.user.password" placeholder="请填写您的密码"/>
+            <span class="error" ng-repeat="error in vm.verification.errors.password track by $index" ng-bind="'password_'+error|error"></span>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" ng-model="vm.user.parent_code" placeholder="填写家长邀请码"/>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <span class="btn btn-gray" ng-click="$go(0)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">创建帐号</button>
+        </div>
+    </form>
+</div>

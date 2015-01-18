@@ -226,6 +226,11 @@
     overflow:hidden;
     content:".";
   }
+  .et-region{
+    .et-select{
+      margin-right:6px;
+    }
+  }
   .upload-cover{
     position:absolute;
     right:20px;
@@ -897,7 +902,7 @@
       border-right:1px solid #f0f0f0;
       &:hover{
         border:none;
-        border-top:3px solid #f6bb3d;
+        border-top:3px solid #f6bbf;
       }
       &.active{
         border:none;

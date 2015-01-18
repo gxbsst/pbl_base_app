@@ -31,10 +31,13 @@
                 username_invalid: '帐号必须由英文字母、数字或者下划线组成，并且以字母开头，长度在4-16位之间',
                 username_taken: '帐号名已被使用',
                 email_required: '邮箱地址必须填写',
-                email_invalid: '邮箱地址格式不正确',
+                email_email_format: '邮箱地址格式不正确',
                 email_taken: '邮箱地址已存在',
                 password_required: '密码必须填写',
-                password_invalid: '密码长度不能少于4位'
+                password_invalid: '密码长度不能少于4位',
+                gender_required: '请选择您的性别',
+                realname_required: '真实姓名必须填写',
+                realname_invalid: '真实姓名只能包含汉字、字母及空格'
             },
 
             VALIDATION: {

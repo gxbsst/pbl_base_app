@@ -150,22 +150,25 @@
                 $scope: scope
             });
 
-            var def;
-
             scope.$watch(attr.etModals, function (config) {
                 if(config){
                     angular.extend(ctrl, config);
-                    def = angular.copy(config);
-                    delete def.modals;
                 }
             }, true);
 
-            scope.$get = function (idx) {
-                return ctrl.modals[idx || 0];
+            scope.$modalConfig = function (config, idx) {
+                if(typeof config == 'undefined'){
+                    return ctrl;
+                }
+                if(typeof config == 'number'){
+                    return ctrl.modals[config];
+                }
+                var conf = typeof idx == 'number' ? ctrl.modals[idx] : ctrl;
+                angular.extend(conf, config);
             };
 
             scope.$go = function (idx) {
-                return $.extend(ctrl, def, ctrl.modals[idx || 0]);
+                return $.extend(ctrl, ctrl.defaults, ctrl.modals[idx || 0]);
             };
 
             element.on('click', function () {

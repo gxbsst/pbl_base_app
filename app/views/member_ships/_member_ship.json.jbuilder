@@ -6,5 +6,5 @@ json.group do
   json.partial! 'groups/group', group: member_ship[:group]
 end if member_ship[:group]
 json.user do
-  json.partial! 'users/user', user: member_ship[:member]
+  json.partial! 'users/base', user: member_ship[:member]
 end if member_ship[:member]

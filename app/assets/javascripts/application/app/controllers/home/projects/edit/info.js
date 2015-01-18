@@ -23,17 +23,11 @@
         vm.onSetTime = onSetTime;
         vm.beforeRender = beforeRender;
         vm.teachersFilter = teachersFilter;
-        vm.setCountry = setCountry;
-        vm.setProvince = setProvince;
-        vm.setCity = setCity;
-        vm.setDistrict = setDistrict;
-        vm.getProvinces = getProvinces;
-        vm.getCities = getCities;
-        vm.getDistricts = getDistricts;
+        vm.getRegion = getRegion;
+        vm.onRegion = onRegion;
 
         getProjectRegion();
         getProjectResources();
-        getCountries();
         getTeachers();
 
         function getProjectRegion() {
@@ -45,70 +39,20 @@
                 delete result.data.parents;
                 regions.push(result.data);
                 vm.regions = regions;
-                vm.$countryId = vm.countryId = findRegion('Country').id;
-                vm.$provinceId = vm.provinceId = findRegion('Province').id;
-                vm.$cityId = vm.cityId = findRegion('City').id;
-                vm.$districtId = vm.districtId = findRegion('District').id;
             });
         }
 
-        function findRegion(type) {
-            return vm.regions.findOne(function (region) {
-                    return region.type == type;
-                }) || {};
+        function getRegion(type) {
+            return ((vm.regions || []).findOne(function (region) {
+                return region.type == type;
+            }) || {}).id;
         }
 
-        function setCountry(countryId) {
-            if (countryId == vm.$countryId)return;
-            vm.$countryId = countryId;
-            Object.removeAll(vm, 'provinceId $provinceId cityId $cityId districtId $districtId');
+        function onRegion($regionId){
             Projects.update({
                 projectId: project.id
             }, {
-                project: {region_id: countryId}
-            });
-        }
-
-        function setProvince(provinceId) {
-            if (provinceId == vm.$provinceId)return;
-            vm.$provinceId = provinceId;
-            Object.removeAll(vm, 'cityId $cityId districtId $districtId');
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: provinceId}
-            });
-        }
-
-        function setCity(cityId) {
-            if (cityId == vm.$cityId)return;
-            vm.$cityId = cityId;
-            Object.removeAll(vm, 'districtId $districtId');
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: cityId}
-            });
-        }
-
-        function setDistrict(districtId) {
-            if (districtId == vm.$districtId)return;
-            vm.$districtId = districtId;
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: districtId}
-            });
-        }
-
-        function getCountries() {
-            vm.provinces = [];
-            vm.cities = [];
-            vm.districts = [];
-            Regions.all({
-                type: 'Country'
-            }, function (result) {
-                vm.countries = result.data;
+                project: {region_id: $regionId}
             });
         }
 

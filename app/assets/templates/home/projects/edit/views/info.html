@@ -46,20 +46,7 @@
             </div>
             <div class="row">
                 <label class="control-label">适用区域：</label>
-                <select class="margin-right-6" et-select="vm.countries" et-config="label='name'" ng-model="vm.countryId"
-                        ng-change="vm.getProvinces(vm.countryId)" on-select="vm.setCountry(vm.countryId)"></select>
-                <span ng-show="vm.provinces.length">
-                    <select class="margin-right-6" et-select="vm.provinces" et-config="label='name'" ng-model="vm.provinceId"
-                            ng-change="vm.getCities(vm.provinceId)" on-select="vm.setProvince(vm.provinceId)"></select>
-                </span>
-                <span ng-show="vm.cities.length">
-                    <select class="margin-right-6" et-select="vm.cities" et-config="label='name'" ng-model="vm.cityId"
-                            ng-change="vm.getDistricts(vm.cityId)" on-select="vm.setCity(vm.cityId)"></select>
-                </span>
-                <span ng-show="vm.districts.length">
-                    <select class="margin-right-6" et-select="vm.districts" et-config="label='name'" ng-model="vm.districtId"
-                            on-select="vm.setDistrict(vm.districtId)"></select>
-                </span>
+                <span et-region="{countryId:vm.getRegion('Country'),provinceId:vm.getRegion('Province'),cityId:vm.getRegion('City'),districtId:vm.getRegion('District')}" on-change="vm.onRegion($regionId)"></span>
             </div>
         </div>
         <div class="form-group">

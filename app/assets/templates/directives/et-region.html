@@ -1,0 +1,25 @@
+<span class="et-region">
+    <span ng-show="regionConfig.country">
+        <select ng-model="regionConfig.countryId" et-select="regionConfig.countries"
+                et-config="label='name';placeholder='请选择国家'"
+                ng-change="regionConfig.getProvinces(regionConfig.countryId)"
+                on-select="regionConfig.setRegion('Country',regionConfig.countryId)"></select>
+    </span>
+    <span ng-show="regionConfig.province&&(regionConfig.fixed||regionConfig.provinces.length)">
+        <select ng-model="regionConfig.provinceId" et-select="regionConfig.provinces"
+                et-config="label='name';placeholder='请选择省份'"
+                ng-change="regionConfig.getCities(regionConfig.provinceId)"
+                on-select="regionConfig.setRegion('Province',regionConfig.provinceId)"></select>
+    </span>
+    <span ng-show="regionConfig.city&&(regionConfig.fixed||regionConfig.cities.length)">
+        <select ng-model="regionConfig.cityId" et-select="regionConfig.cities"
+                et-config="label='name';placeholder='请选择城市'"
+                ng-change="regionConfig.getDistricts(regionConfig.cityId)"
+                on-select="regionConfig.setRegion('City',regionConfig.cityId)"></select>
+    </span>
+    <span ng-show="regionConfig.district&&(regionConfig.fixed||regionConfig.districts.length)">
+        <select ng-model="regionConfig.districtId" et-select="regionConfig.districts"
+                et-config="label='name';placeholder='请选择区县'"
+                on-select="regionConfig.setRegion('District',regionConfig.districtId)"></select>
+    </span>
+</span>

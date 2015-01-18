@@ -78,6 +78,9 @@
                     resource: 'ProjectResource',
                     task: 'TaskResource',
                     work: 'WorkResource'
+                },
+                user: {
+                    avatar: 'UserAvatar'
                 }
             },
             ROLES: {

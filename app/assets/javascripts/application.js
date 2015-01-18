@@ -21,7 +21,6 @@
 //= require angular-ui-router
 //= require angular-chart.js
 //= require moment
-//= require moment-timezone
 //= require moment/locale/zh-cn
 //= require angular-moment
 //= require angular-bootstrap-datetimepicker

@@ -26,6 +26,7 @@
             UPLOAD_HANDLES: {
                 onBegin: onBegin,
                 onProgress: onProgress,
+                onSuccess: onSuccess,
                 onCompleted: onCompleted
             },
             HANDLES: {
@@ -41,23 +42,30 @@
             },
             registerModals: {
                 controller: 'RegisterController as vm',
-                closeable: false,
-                weight: 100,
-                titleHeight: '60px',
-                bgColor: '#fcfcfc',
-                textColor: '#333',
-                center: true,
+                defaults: {
+                    closeable: false,
+                    weight: 100,
+                    titleHeight: '60px',
+                    bgColor: '#fcfcfc',
+                    textColor: '#fff',
+                    center: true
+                },
                 modals: [
                     {
                         title: '请选择您的角色',
                         closeable: true,
+                        textColor: '#333',
                         src: 'register/roles.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,
-                        src: 'register/account.html'
+                        src: 'register/:type/account.html'
                     }, {
-                        title: '欢迎开启项目学习之旅'
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/profile.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/school.html'
                     }
                 ]
             }
@@ -75,6 +83,12 @@
         function onProgress(object) {
             return function (evt) {
                 object.$progress = Math.round(evt.loaded / evt.total * 100);
+            }
+        }
+
+        function onSuccess(object) {
+            return function (data) {
+                delete object.$uploading;
             }
         }
 
