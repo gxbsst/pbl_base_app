@@ -2,7 +2,7 @@ module Assignment
   class ScoresController < ApplicationController
 
     def index
-      @scores = Pbl::Models::Assignments::Score.where(params.permit(:score_id, :work_id, :limit, :owner_id, :owner_type))
+      @scores = Pbl::Models::Assignments::Score.where(params.permit(:score_id, :user_id, :limit, :owner_id, :owner_type))
     end
 
     def create
