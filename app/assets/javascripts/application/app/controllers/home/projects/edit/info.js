@@ -23,7 +23,6 @@
         vm.onSetTime = onSetTime;
         vm.beforeRender = beforeRender;
         vm.teachersFilter = teachersFilter;
-        vm.getRegion = getRegion;
         vm.onRegion = onRegion;
 
         getProjectRegion();
@@ -35,20 +34,11 @@
                 regionId: project.region_id
             }, function (result) {
                 project.region = angular.copy(result.data);
-                var regions = result.data.parents;
-                delete result.data.parents;
-                regions.push(result.data);
-                vm.regions = regions;
+                vm.regions = result.data;
             });
         }
 
-        function getRegion(type) {
-            return ((vm.regions || []).findOne(function (region) {
-                return region.type == type;
-            }) || {}).id;
-        }
-
-        function onRegion($regionId){
+        function onRegion($regionId) {
             Projects.update({
                 projectId: project.id
             }, {
@@ -65,39 +55,6 @@
                     role.label = role.user.username;
                     return role;
                 });
-            });
-        }
-
-        function getProvinces(countryId) {
-            if (!countryId)return;
-            vm.cities = [];
-            vm.districts = [];
-            Regions.all({
-                type: 'Province',
-                parent_id: countryId
-            }, function (result) {
-                vm.provinces = result.data;
-            });
-        }
-
-        function getCities(provinceId) {
-            if (!provinceId)return;
-            vm.districts = [];
-            Regions.all({
-                type: 'City',
-                parent_id: provinceId
-            }, function (result) {
-                vm.cities = result.data;
-            });
-        }
-
-        function getDistricts(cityId) {
-            if (!cityId)return;
-            Regions.all({
-                type: 'District',
-                parent_id: cityId
-            }, function (result) {
-                vm.districts = result.data;
             });
         }
 
@@ -190,16 +147,16 @@
         }
 
         function beforeRender($view, $dates, $upDate) {
-            switch($view){
+            switch ($view) {
                 case 'day':
                     $upDate.display = moment($upDate.dateValue).add(1, 'month').format('YYYY年MM月');
                     break;
                 /*case 'month':
-                    $upDate.display = moment($upDate.dateValue).add(1, 'year').format('YYYY年');
-                    break;*/
+                 $upDate.display = moment($upDate.dateValue).add(1, 'year').format('YYYY年');
+                 break;*/
             }
             angular.forEach($dates, function (date) {
-                if(moment(date.dateValue).timezoneOffset(0).isBefore(moment(), $view == 'hour' ? 'minute' : $view)){
+                if (moment(date.dateValue).timezoneOffset(0).isBefore(moment(), $view == 'hour' ? 'minute' : $view)) {
                     date.selectable = false;
                 }
             });

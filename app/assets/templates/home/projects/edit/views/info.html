@@ -46,7 +46,7 @@
             </div>
             <div class="row">
                 <label class="control-label">适用区域：</label>
-                <span et-region="{countryId:vm.getRegion('Country'),provinceId:vm.getRegion('Province'),cityId:vm.getRegion('City'),districtId:vm.getRegion('District')}" on-change="vm.onRegion($regionId)"></span>
+                <span et-region="{data:vm.regions}" on-change="vm.onRegion($regionId)"></span>
             </div>
         </div>
         <div class="form-group">

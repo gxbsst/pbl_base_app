@@ -41,7 +41,36 @@
                 config && angular.extend(ctrl, config);
             }, true);
 
+            scope.$watch(function () {
+                return ctrl.data;
+            }, function (regions) {
+                if(regions){
+                    angular.forEach(levels, function (type) {
+                        var regionId = getRegion(regions, type);
+                        if(regionId){
+                            ctrl[type.toLowerCase() + 'Id'] = regionId;
+                        }
+                    });
+                }
+            }, true);
+
             getCountries();
+
+            function getRegion(region, type) {
+                if(region){
+                    region = angular.copy(region);
+                    var regions = region.parents;
+                    delete region.parents;
+                    regions.push(region);
+                    region = regions.findOne(function (region) {
+                        return region.type == type;
+                    });
+                    if(region){
+                        return region.id;
+                    }
+                }
+                return null;
+            }
 
             function setRegion(type, id){
                 if (id == ctrl[type])return;
