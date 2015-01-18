@@ -171,11 +171,11 @@
                     $scope.current.score=score.score;
                     $scope.current.comment=score.comment;
                     $scope.current.state=false;
-                    $scope.current.user_id=score.user_id;
+                    $scope.current.user_id=userId;
                     console.log('score.user_id');
                     console.log(score.user_id);
                 }else{
-                    $scope.current.user_id='';
+                    $scope.current.user_id=userId;
                     $scope.current.comment='';
                     $scope.current.score=0;
                     $scope.current.state=true;
