@@ -1,0 +1,1 @@
+Grade = Pbl::Models::Grade

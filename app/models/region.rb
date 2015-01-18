@@ -1,0 +1,1 @@
+Region = Pbl::Models::Region

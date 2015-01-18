@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, class_name: 'Pbl::Models::Users::User'
+  devise_for :users, class_name: 'User'
 
   root :to => 'index#index'
 
@@ -82,6 +82,14 @@ Rails.application.routes.draw do
   resources :resources, defaults: {format: 'json'}
 
   resources :regions, defaults: {format: 'json'}
+
+  resources :schools, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :grades, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :clazzs, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :invitations, defaults: {format: 'json'}, only: %w(create show)
 
   resources :follows, defaults: {format: 'json'}
 

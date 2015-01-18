@@ -31,13 +31,13 @@
     Friends.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Friends($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/friends/:action/:friendId', {friendId: '@friendId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/user/friends/:action/:friendId', {friendId: '@friendId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Follows.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Follows($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Rules.$inject = ['$resource', 'RESOURCE_ACTIONS'];

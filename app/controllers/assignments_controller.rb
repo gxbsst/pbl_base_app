@@ -9,7 +9,7 @@ class AssignmentsController < ApplicationController
       assignment[:resource_id] = params[:project_id]
       assignment[:name] = params[:name]
     end
-    @assignments = Pbl::Models::Assignment.where(assignment)
+    @assignments = Assignment.where(assignment)
   end
 
   def create
@@ -28,21 +28,21 @@ class AssignmentsController < ApplicationController
       assignment = assignments
     end
 
-    @assignment = Pbl::Models::Assignment.create(assignment)
+    @assignment = Assignment.create(assignment)
     head :ok
   end
 
   def show
-    @assignment = Pbl::Models::Assignment.find(params[:id])
+    @assignment = Assignment.find(params[:id])
   end
 
   def update
-    @assignment = Pbl::Models::Assignment.update(params[:id], params[:assignment])
+    @assignment = Assignment.update(params[:id], params[:assignment])
     render :show
   end
 
   def destroy
-    @assignment = Pbl::Models::Assignment.destroy(params[:id])
+    @assignment = Assignment.destroy(params[:id])
     render :show
   end
 

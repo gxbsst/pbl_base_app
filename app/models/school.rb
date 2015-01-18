@@ -1,0 +1,1 @@
+School = Pbl::Models::School

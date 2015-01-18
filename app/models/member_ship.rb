@@ -1,0 +1,1 @@
+MemberShip = Pbl::Models::Groups::MemberShip

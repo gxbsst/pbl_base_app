@@ -1,0 +1,1 @@
+Clazz = Pbl::Models::Clazz

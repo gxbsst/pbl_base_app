@@ -1,0 +1,1 @@
+Resource = Pbl::Models::Resource
