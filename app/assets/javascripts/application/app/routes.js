@@ -41,12 +41,27 @@
             .state('base.projects', {
                 abstract: true,
                 url: '^/projects',
-                template: '<div ui-view></div>'
+                template: '<div ui-view></div>',
+                views: {
+                    '': {
+                        template: '<div ui-view></div>'
+                    },
+                    'header@': {
+                        templateUrl: 'index/header.html'
+                    },
+                    'footer@': {
+                        templateUrl: 'layout/footer.html'
+                    }
+                }
+            })
+            .state('base.projects.list', {
+                url: '',
+                templateUrl: 'projects/index.html'
             })
             .state('base.projects.show', {
                 url: '/:projectId',
                 templateUrl: 'projects/show.html',
-                controller: 'ProjectShowController as vm'
+                controller: 'ProjectShowInfoController as vm'
             })
             .state('import', {
                 abstract: true,
