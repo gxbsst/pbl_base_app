@@ -126,7 +126,9 @@
     function ProjectIndexController(Projects) {
 
         var vm = this;
-        Projects.all(function (result) {
+        Projects.all({
+            limit:'100'
+        },function (result) {
             vm.projects = result.data;
         });
 

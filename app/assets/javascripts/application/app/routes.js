@@ -54,14 +54,14 @@
                     }
                 }
             })
-            .state('base.projects.list', {
-                url: '',
-                templateUrl: 'projects/index.html'
-            })
+            //.state('base.projects.list', {
+            //    url: '',
+            //    templateUrl: 'projects/index.html'
+            //})
             .state('base.projects.show', {
                 url: '/:projectId',
                 templateUrl: 'projects/show.html',
-                controller: 'ProjectShowInfoController as vm'
+                controller: 'HomeProjectShowController as vm'
             })
             .state('import', {
                 abstract: true,

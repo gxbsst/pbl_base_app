@@ -5,8 +5,8 @@
         .module('app.pbl')
         .controller('ProjectShowInfoController', ProjectShowInfoController);
 
-    ProjectShowInfoController.$inject = ['$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'project'];
-    function ProjectShowInfoController($scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project) {
+    ProjectShowInfoController.$inject = ['$rootScope','$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'authority', 'project'];
+    function ProjectShowInfoController($rootScope,$scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards,  authority, project) {
 
         var vm = this;
         vm.project = project;
@@ -19,11 +19,12 @@
         vm.onUploadSuccess = onUploadSuccess;
         vm.findByType = findByType;
 
+
         getProjectProducts();
         getProjectGauges();
         getProjectTechniques();
         getProjectStandards();
-
+        getAuthority();
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -35,7 +36,19 @@
             });
         });
 
-
+        function getAuthority(){
+            switch(authority)
+            {
+                case 'teacher':
+                    vm.authority=true;
+                    break;
+                case 'student':
+                    vm.authority=false;
+                    break;
+                default:
+                    vm.authority=false;
+            }
+        }
         function findByType(ownerType, multiple) {
             return vm.project.resources[multiple ? 'find' : 'findOne'](function (resource) {
                 return resource.owner_type == ownerType;

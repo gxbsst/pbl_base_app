@@ -15,7 +15,8 @@
                 url: '/:projectId',
                 templateUrl: 'home/projects/show/layout.html',
                 resolve: {
-                    project: project
+                    project: project,
+                    authority:authority
                 },
                 controller: 'HomeProjectShowController as psvm'
             })
@@ -66,6 +67,41 @@
                     });
             } else {
                 $state.go('base.pbl');
+            }
+            return defer.promise;
+        }
+
+        authority.$inject = ['$rootScope','$q', '$state', '$stateParams', 'getProject','ProjectTeachers','ProjectMembers'];
+
+        function authority($rootScope,$q, $state, $stateParams, getProject,ProjectTeachers,ProjectMembers) {
+            var defer = $q.defer();
+            var Result="none";
+            if ($stateParams.projectId) {
+                getProject({projectId: $stateParams.projectId})
+                    .then(function (project) {
+                        if (project.user_id==$rootScope.currentUser.id){
+                            Result="teacher";
+                        }
+                        ProjectMembers.all({
+                            projectId: project.id
+                        }, function (result) {
+                            angular.forEach(result.data, function (member) {
+                                if (member.user.id==$rootScope.currentUser.id){
+                                    Result="student"
+                                }
+                            });
+                            ProjectTeachers.all({
+                                projectId: project.id
+                            }, function (result) {
+                                result.data.map(function (role) {
+                                    if (role.user_id==$rootScope.currentUser.id){
+                                        Result="teacher"
+                                    }
+                                });
+                                defer.resolve(Result);
+                            });
+                        });
+                    });
             }
             return defer.promise;
         }
