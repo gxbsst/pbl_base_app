@@ -11,9 +11,11 @@
                     <div class="task-title" ng-click="task.$show=!task.$show">
                         <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
                         <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
-                        <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"></i>
+                        <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"
+                                ng-if="vm.authority"></i>
                     </div>
-                    <div class="task-content" ng-show="task.$show" ng-include="'home/projects/show/taskform.html'"></div>
+                    <div class="task-content" ng-if="vm.authority" ng-show="task.$show" ng-include="'home/projects/show/taskform.html'"></div>
+                    <div class="task-content" ng-if="!vm.authority" ng-show="task.$show"  ng-include="'home/projects/show/taskview.html'"></div>
                 </div>
             </div>
         </div>

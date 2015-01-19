@@ -33,7 +33,7 @@ class ProjectsController < ApplicationBaseController
   private
 
     def project_query_params
-      params.permit(:name, :include)
+      params.permit(:name, :include, :limit)
     end
 
 end
