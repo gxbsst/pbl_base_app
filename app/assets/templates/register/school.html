@@ -2,7 +2,7 @@
     <h3 class="center">第二步 编辑学校信息</h3>
     <form class="form-horizontal" ng-submit="vm.save('avatar,realname,gender',4)">
         <div class="form-group">
-            <div et-region="{fixed:true,country:false,district:false}" on-change="vm.onRegion($regionType,$regionId)"></div>
+            <div et-region="{fixed:true,country:false}" on-change="vm.onRegion($regionType,$regionId)"></div>
             <select ng-model="vm.schoolId" et-select="vm.schools"
                     et-config="label='name';placeholder='请选择您所在的学校'"></select>
             <span class="note">

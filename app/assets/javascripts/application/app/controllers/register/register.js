@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', 'Register', 'Users'];
+    RegisterController.$inject = ['$scope', 'Schools', 'Users'];
 
-    function RegisterController($scope, Register, Users) {
+    function RegisterController($scope, Schools, Users) {
 
         var vm = this;
 
@@ -17,6 +17,8 @@
         vm.onSuccess = onSuccess;
         vm.onRegion = onRegion;
         vm.region = {};
+
+        $scope.$on('onSchools', onSchools);
 
         $scope.$watch(function () {
             return vm.user.type;
@@ -160,7 +162,16 @@
         }
 
         function onRegion($regionType, $regionId) {
-            vm.region[$regionType.toLowerCase() + 'Id'] = $regionId;
+            vm.region[$regionType.toLowerCase() + 'Id'] = vm.region.lastId = $regionId;
+            onSchools();
+        }
+
+        function onSchools(){
+            Schools.all({
+                region_id: vm.region.lastId
+            }, function (result) {
+                vm.schools = result.data;
+            });
         }
 
 

@@ -55,7 +55,7 @@
                         title: '请选择您的角色',
                         closeable: true,
                         textColor: '#333',
-                        src: 'register/roles.html'
+                        src: 'register/school.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,

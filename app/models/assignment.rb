@@ -1,1 +1,0 @@
-Assignment = Pbl::Models::Assignment

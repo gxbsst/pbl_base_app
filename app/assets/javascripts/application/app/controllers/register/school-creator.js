@@ -5,16 +5,15 @@
         .module('app.pbl')
         .controller('SchoolCreatorController', SchoolCreatorController);
 
-    SchoolCreatorController.$inject = ['$scope'];
+    SchoolCreatorController.$inject = ['$scope', 'Schools'];
 
-    function SchoolCreatorController($scope) {
+    function SchoolCreatorController($scope, Schools) {
 
         var vm = this;
 
         vm.regionConfig = {
             fixed: true,
-            country: false,
-            district: false
+            country: false
         };
         vm.onRegion = onRegion;
         vm.create = create;
@@ -24,11 +23,25 @@
         }, true);
 
         function onRegion($regionType, $regionId) {
-
+            vm.region = {
+                id: $regionId,
+                type: $regionType
+            };
+            console.log(vm.region);
         }
 
         function create(){
+            console.log(vm.region);
+            Schools.add({
+                school: {
+                    name: vm.name,
+                    region_id: vm.region.id
+                }
+            }, emit);
+        }
 
+        function emit(){
+            $scope.$emit('onSchools');
         }
 
     }
