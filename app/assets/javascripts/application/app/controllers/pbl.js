@@ -12,8 +12,8 @@
         var vm = this;
     }
 
-    PBLShowController.$inject = ['$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'project'];
-    function PBLShowController($scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project) {
+    PBLShowController.$inject = ['$rootScope','$scope', '$filter', 'RESOURCE_TYPES', 'Resources', 'ProjectProducts', 'ProjectGauges', 'ProjectTechniques', 'ProjectStandards', 'ProjectMembers', 'ProjectTeachers', 'project','Tasks'];
+    function PBLShowController($rootScope,$scope, $filter, RESOURCE_TYPES, Resources, ProjectProducts, ProjectGauges, ProjectTechniques, ProjectStandards, ProjectMembers, ProjectTeachers, project, Tasks) {
 
         var vm = this;
         vm.project = project;
@@ -30,7 +30,9 @@
         getProjectGauges();
         getProjectTechniques();
         getProjectStandards();
-
+        getProjectTeacher();
+        onProjectTasks();
+console.log($rootScope.currentUser);
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -42,6 +44,24 @@
             });
         });
 
+        function onProjectTasks() {
+            Tasks.all({
+                project_id: vm.project.id
+            }, function (result) {
+                vm.tasks = result.data;
+            });
+        }
+        function getProjectTeacher() {
+            ProjectTeachers.all({
+                projectId: project.id
+            }, function (result) {
+                vm.teachers = result.data.map(function (role) {
+                    role.user_id = role.user.id;
+                    role.label = role.user.username;
+                    return role;
+                });
+            });
+        }
 
         function findByType(ownerType, multiple) {
             return vm.project.resources[multiple ? 'find' : 'findOne'](function (resource) {

@@ -517,3 +517,90 @@ body{
     }
   }
 }
+
+//projectshow
+#index{
+  .project-info{
+    .project-pic{
+      width: 350px;
+      height: 265px;
+      border: 1px solid #e2e2e2;
+      box-shadow: 0 3px 3px #a8a8a8;
+      float: left;
+      .project-cover{
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+      }
+      .project-btn{
+        text-align: center;
+        .btn{
+          margin: 10px;
+        }
+      }
+    }
+    .project-intro{
+      float: left;
+      margin: 10px 20px;
+      line-height: 28px;
+      font-size: 16px;
+      color: #000;
+      strong{
+        color: #666;
+      }
+      .project-title{
+        font-size: 18px;
+        color: #000;
+      }
+    }
+  }
+  .project-details{
+    .project-tab{
+      .info-tab-btn{
+        margin-top: 30px;
+      }
+      .info-tab-cont{
+        margin-bottom: 30px;
+        .info-cont-row{
+          margin: 20px auto;
+          strong{
+            display: inline-block;
+            font-size: 15px;
+            padding: 10px;
+          }
+        }
+      }
+    }
+    .project-teacher{
+      padding: 10px;
+      .teacher-title{
+        margin: 20px 0;
+        font-size: 16px;
+      }
+      .item-teacher{
+        padding: 10px;
+        .item-info{
+          display: inline-block;
+          float: left;
+          font-size: 17px;
+          text-align: center;
+          margin-left: 5px;
+          .item-name{
+            margin-top: 20px;
+          }
+          .item-info{
+            color: #666;
+
+          }
+        }
+        .item-pic {
+          display: inline-block;
+          float: left;
+          img {
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
