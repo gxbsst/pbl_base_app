@@ -17,8 +17,26 @@
         vm.onSuccess = onSuccess;
         vm.onRegion = onRegion;
         vm.region = {};
+        vm.regionConfig = {
+            fixed: true,
+            country: false
+        };
 
-        $scope.$on('onSchools', onSchools);
+        $scope.$on('onSchools', function (event, school) {
+            if (school) {
+                vm.schoolId = school.id;
+                var regions = {
+                    countryId: school.country_id,
+                    provinceId: school.province_id,
+                    cityId: school.city_id,
+                    districtId: school.district_id
+                };
+                angular.extend(vm.regionConfig, regions);
+                angular.extend(vm.region, regions);
+                vm.region.lastId = school.district_id;
+            }
+            onSchools();
+        });
 
         $scope.$watch(function () {
             return vm.user.type;
@@ -163,10 +181,11 @@
 
         function onRegion($regionType, $regionId) {
             vm.region[$regionType.toLowerCase() + 'Id'] = vm.region.lastId = $regionId;
+            delete vm.schoolId;
             onSchools();
         }
 
-        function onSchools(){
+        function onSchools() {
             Schools.all({
                 region_id: vm.region.lastId
             }, function (result) {

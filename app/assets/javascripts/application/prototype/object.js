@@ -20,6 +20,13 @@
                     }
                 }
                 return results;
+            },
+            size: function (object) {
+                var size = 0;
+                angular.forEach(object, function () {
+                    size++;
+                });
+                return size;
             }
         });
 

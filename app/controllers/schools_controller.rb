@@ -1,11 +1,13 @@
 class SchoolsController < ApplicationController
 
   def index
-    @schools = School.all
+    @schools = School.where(region_id: params[:region_id], limit: 50)
   end
 
   def create
-    @school = School.create(params[:school])
+    school = params[:school]
+    school[:user_id] ||= current_user.id
+    @school = School.create(school)
     render :show
   end
 

@@ -72,13 +72,15 @@
                 return null;
             }
 
-            function setRegion(type, id){
+            function setRegion(type, id, keep){
                 if (id == ctrl[type])return;
                 ctrl[type] = id;
-                angular.forEach(levels.slice(levels.idx(type) + 1), function (regionType) {
-                    delete ctrl[regionType];
-                    delete ctrl[regionType.toLowerCase() + 'Id'];
-                });
+                if(!keep){
+                    angular.forEach(levels.slice(levels.idx(type) + 1), function (regionType) {
+                        delete ctrl[regionType];
+                        delete ctrl[regionType.toLowerCase() + 'Id'];
+                    });
+                }
                 onChange(scope, {$regionType: type, $regionId: id});
             }
 
@@ -91,9 +93,11 @@
                 }, function (result) {
                     ctrl.countries = result.data;
                     if(!ctrl.country){
-                        ctrl.countryId = (ctrl.countries.findOne(function (country, i) {
+                        var country = ctrl.countries.findOne(function (country, i) {
                             return country.name === ctrl.defaultCountry;
-                        }) || ctrl.countries[0]).id;
+                        }) || ctrl.countries[0];
+                        ctrl.countryId = country.id;
+                        setRegion('Country', country.id, true);
                     }
                 });
             }

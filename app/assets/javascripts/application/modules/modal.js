@@ -66,9 +66,11 @@
 
                 childScope.destroyModal = function () {
                     delete $rootScope.modals[config.$id];
-                    body.removeClass('disable-scroll');
                     childScope.$destroy();
                     modalElement.remove();
+                    if(!Object.size($rootScope.modals)){
+                        body.removeClass('disable-scroll');
+                    }
                 };
 
                 body.addClass('disable-scroll').append(modalElement);
