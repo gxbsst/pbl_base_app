@@ -6,42 +6,24 @@
                 <hr/>
             </div>
             <div class="case-list">
-                <div class="case-item">
+                <div class="case-item" ng-repeat="project in vm.projects">
                     <div class="item-pic">
-                        <img src="/images/img001.jpg" alt=""/>
+                        <div class="project-cover">
+                            <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                            <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                        </div>
                     </div>
                     <div class="item-title">
-                        社区小菜园环保活动倡议书
+                        <span ng-bind-html="project.name||'未命名项目'"></span>
                     </div>
                     <div class="item-cont">
-                        <div class="item-tag">三年级，数学，科学</div>
-                        <a href="#/projectsearch" class="item-link">了解详情</a>
+                        <div class="item-tag">
+                            <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
+                        </div>
+                        <a ui-sref="base.pbl.show({projectId:project.id})" class="item-link">了解详情</a>
                     </div>
                 </div>
-                <div class="case-item">
-                    <div class="item-pic">
-                        <img src="/images/img002.jpg" alt=""/>
-                    </div>
-                    <div class="item-title">
-                        社区小菜园环保活动倡议书
-                    </div>
-                    <div class="item-cont">
-                        <div class="item-tag">三年级，数学，科学</div>
-                        <a href="javascript:void(0);" class="item-link">了解详情</a>
-                    </div>
-                </div>
-                <div class="case-item">
-                    <div class="item-pic">
-                        <img src="/images/img003.jpg" alt=""/>
-                    </div>
-                    <div class="item-title">
-                        社区小菜园环保活动倡议书
-                    </div>
-                    <div class="item-cont">
-                        <div class="item-tag">三年级，数学，科学</div>
-                        <a href="javascript:void(0);" class="item-link">了解详情</a>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="row news-row">
@@ -51,63 +33,19 @@
             </div>
             <div class="news-list">
                 <div class="news-group">
-                    <div class="news-item">
+                    <div class="news-item" ng-repeat="learning in vm.learnings">
                         <div class="item-intro">
                             <div class="item-title">
-                                PBL教学法让孩子“学会”变“会学”
+                                <span ng-bind="learning.title"></span>
                             </div>
                             <div class="item-cont">
-                                学生在一个真实的场景中对驱动问题展开探究，解决问题的过程类似学科专家的研究过程...
+                                <span ng-bind="learning.cont"></span>
                             </div>
                             <a href="" class="item-link"><i class="pf-arrowhead-right"></i></a>
                         </div>
                         <div class="item-pic">
-                            <img src="http://placeimg.com/300/255/arch" alt=""/>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <div class="item-intro">
-                            <div class="item-title">
-                                PBL教学法让孩子“学会”变“会学”
-                            </div>
-                            <div class="item-cont">
-                                学生在一个真实的场景中对驱动问题展开探究，解决问题的过程类似学科专家的研究过程...
-                            </div>
-                            <a href="" class="item-link"><i class="pf-arrowhead-right"></i></a>
-                        </div>
-                        <div class="item-pic">
-                            <img src="http://placeimg.com/300/255/animals" alt=""/>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="news-group">
-                    <div class="news-item">
-                        <div class="item-intro">
-                            <div class="item-title">
-                                PBL教学法让孩子“学会”变“会学”
-                            </div>
-                            <div class="item-cont">
-                                学生在一个真实的场景中对驱动问题展开探究，解决问题的过程类似学科专家的研究过程...
-                            </div>
-                            <a href="" class="item-link"><i class="pf-arrowhead-right"></i></a>
-                        </div>
-                        <div class="item-pic">
-                            <img src="http://placeimg.com/300/255/tech" alt=""/>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <div class="item-intro">
-                            <div class="item-title">
-                                PBL教学法让孩子“学会”变“会学”
-                            </div>
-                            <div class="item-cont">
-                                学生在一个真实的场景中对驱动问题展开探究，解决问题的过程类似学科专家的研究过程...
-                            </div>
-                            <a href="" class="item-link"><i class="pf-arrowhead-right"></i></a>
-                        </div>
-                        <div class="item-pic">
-                            <img src="http://placeimg.com/300/255/nature" alt=""/>
+                            <!--<img src="http://placeimg.com/300/255/arch" alt=""/>-->
+                            <img ng-src="{{learning.cover|thumb:'300x255'}}" ng-if="learning.cover" />
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -120,51 +58,21 @@
                 <hr/>
             </div>
             <div class="note-list">
-                <div class="note-item">
+                <div class="note-item" ng-repeat="teacherSaying in vm.teacherSayings">
                     <div class="item-cont">
-                        以问题为导向的教学方法PBL是基于现实世界的以学生为中心
-                        的教育方式，1969年由美国的神经病学教授Barrows在
-                        加拿大的麦可马斯特大学首创
+                        <span ng-bind="teacherSaying.cont"></span>
                     </div>
                     <div class="item-teacher">
                         <div class="item-pic">
-                            <img src="http://placeimg.com/84/84" alt=""/>
+                            <img ng-src="{{teacherSaying.cover|thumb:'84x84'}}" ng-if="teacherSaying.cover" />
                         </div>
                         <div class="item-info">
-                            <div class="item-name">John Lamer</div>
-                            <div class="item-info">BIE 教育负责人</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="note-item">
-                    <div class="item-cont">
-                        以问题为导向的教学方法PBL是基于现实世界的以学生为中心
-                        的教育方式，1969年由美国的神经病学教授Barrows在
-                        加拿大的麦可马斯特大学首创
-                    </div>
-                    <div class="item-teacher">
-                        <div class="item-pic">
-                            <img src="http://placeimg.com/84/84" alt=""/>
-                        </div>
-                        <div class="item-info">
-                            <div class="item-name">John Lamer</div>
-                            <div class="item-info">BIE 教育负责人</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="note-item">
-                    <div class="item-cont">
-                        以问题为导向的教学方法PBL是基于现实世界的以学生为中心
-                        的教育方式，1969年由美国的神经病学教授Barrows在
-                        加拿大的麦可马斯特大学首创
-                    </div>
-                    <div class="item-teacher">
-                        <div class="item-pic">
-                            <img src="http://placeimg.com/84/84" alt=""/>
-                        </div>
-                        <div class="item-info">
-                            <div class="item-name">John Lamer</div>
-                            <div class="item-info">BIE 教育负责人</div>
+                            <div class="item-name">
+                                <span ng-bind="teacherSaying.name"></span>
+                            </div>
+                            <div class="item-info">
+                                <span ng-bind="teacherSaying.title"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -194,6 +194,11 @@ body{
         margin: 20px;
         padding: 2px;
         .item-pic {
+          .project-cover{
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+          }
           img {
             width: 100%;
             -webkit-filter: saturate(0);/* Webkit */
@@ -256,11 +261,12 @@ body{
               margin-bottom: 30px;
             }
             .item-link{
+              position: absolute;
+              bottom: 20px;
+              right: 30px;
               font-size: 22px;
               text-decoration: none;
               color: #666666;
-              float: right;
-              margin-right: 20px;
             }
           }
           .item-pic{
@@ -281,9 +287,9 @@ body{
               }
             }
           }
-        }
-        &:nth-child(even){
-          .news-item{
+
+
+          &:nth-child(4n),&:nth-child(4n+3){
             .item-intro{
               float: right;
               &:before {
@@ -308,18 +314,17 @@ body{
             }
             &:hover{
               .item-intro{
-                  &:before {
-                    border: 11px solid #3c7ff4;
-                    border-top-color: transparent;
-                    border-bottom-color: transparent;
-                    border-left: 0;
-                  }
+                &:before {
+                  border: 11px solid #3c7ff4;
+                  border-top-color: transparent;
+                  border-bottom-color: transparent;
+                  border-left: 0;
+                }
               }
             }
+
           }
-        }
-        &:nth-child(odd){
-          .news-item{
+          &:nth-child(4n+1),&:nth-child(4n+2){
             .item-intro{
               &:after {
                 position: absolute;
@@ -348,6 +353,7 @@ body{
                 }
               }
             }
+
           }
         }
       }
@@ -477,6 +483,7 @@ body{
         i{
           margin-left: 5px;
           color: #aaa;
+          cursor: pointer;
         }
       }
     }
@@ -567,6 +574,18 @@ body{
             display: inline-block;
             font-size: 15px;
             padding: 10px;
+          }
+        }
+      }
+      .tasks{
+        padding: 20px;
+        margin: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        .task-content{
+          padding: 0 20px;
+          label{
+            color: #666;
           }
         }
       }

@@ -5,7 +5,7 @@
                 <div class="project-cover">
                     <span class="text-red" ng-if="vm.project.resources.length&&!vm.project.cover">尚未上传封面</span>
                     <span class="text-gray" ng-if="!vm.project.resources.length"><i class="pf-spinner-2 rotation"></i></span>
-                    <img ng-src="{{vm.project.cover.key|thumb:'356x185'}}" ng-if="vm.project.cover" />
+                    <img ng-src="{{vm.project.cover.key|thumb:'348x185'}}" ng-if="vm.project.cover" />
                 </div>
                 <div class="project-btn">
                     <span class="btn" role="button">引用项目</span>
@@ -118,11 +118,36 @@
                         </div>
                     </div>
                     <div ng-show="vm.tab==2">
-                        <div class="task-title" ng-click="task.$show=!task.$show">
-                            <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
-                            <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
-                            <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"
-                               ng-if="vm.authority"></i>
+                        <div class="tasks" ng-repeat="task in vm.tasks">
+                            <div class="task-title" >
+                                <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
+                            </div>
+                            <div class="task-content">
+                                <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
+                                    <div class="col-1-1">
+                                        <label class=" col-2-12 ">任务描述：</label>
+                                        <div class="col-10-10">
+                                            <span ng-bind="task.description"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1-1 tasks-group-item-form margin-top-8 margin-bottom-8  ">
+                                    <div class="col-1-1">
+                                        <label class=" col-2-12 ">任务开始时间：</label>
+                                        <div class="col-10-12">
+                                            <span>{{vm.dateFormat(task.start_at)}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1-1 margin-bottom-8 tasks-group-item-form">
+                                    <label class=" col-2-12 ">任务时长：</label>
+                                    <div class="col-10-12">
+                                        <span ng-bind="task.evaluation_duration"></span>
+                                        <span ng-repeat="duration in DURATION_UNITS" ng-if="duration.id==task.evaluation_cycle" ng-bind="duration.title"></span>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,21 +158,21 @@
                 </div>
                 <div class="item-teacher">
                     <div class="item-pic">
-                        <img src="http://placeimg.com/84/84" alt=""/>
+                        <img ng-src="{{vm.user|avatar:'84x84'}}"/>
                     </div>
                     <div class="item-info">
-                        <div class="item-name">John Lamer</div>
-                        <div class="item-info">BIE 教育负责人</div>
+                        <div class="item-name" ng-bind="vm.user.username"></div>
+                        <div class="item-info" ng-bind="vm.user.title"></div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="item-teacher">
+                <div class="item-teacher" ng-repeat="teacher in vm.teachers">
                     <div class="item-pic">
-                        <img src="http://placeimg.com/84/84" alt=""/>
+                        <img ng-src="{{teacher.user|avatar:'84x84'}}"/>
                     </div>
                     <div class="item-info">
-                        <div class="item-name">John Lamer</div>
-                        <div class="item-info">BIE 教育负责人</div>
+                        <div class="item-name" ng-bind="teacher.user.username"></div>
+                        <div class="item-info" ng-bind="teacher.user.title"></div>
                     </div>
                     <div class="clearfix"></div>
                 </div>

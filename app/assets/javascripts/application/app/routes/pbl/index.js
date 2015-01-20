@@ -32,7 +32,8 @@
             })
             .state('base.pbl.list', {
                 url: '',
-                templateUrl: 'pbl/index.html'
+                templateUrl: 'pbl/index.html',
+                controller: 'PBLController as vm'
             })
             .state('base.pbl.show', {
                 url: '/:projectId',
