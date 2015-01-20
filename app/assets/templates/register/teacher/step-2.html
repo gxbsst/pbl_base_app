@@ -1,5 +1,5 @@
 <div class="register register-account">
-    <form class="form-horizontal" ng-submit="vm.save(' username  , email,password',2,true)">
+    <form class="form-horizontal" ng-submit="vm.save('type,username,email,password',2,true)">
         <div class="form-group">
             <input type="text" class="form-control" ng-model="vm.user.username" placeholder="请填写您的帐号"/>
             <span class="error" ng-repeat="error in vm.verification.errors.username track by $index" ng-bind="'username_'+error|error"></span>

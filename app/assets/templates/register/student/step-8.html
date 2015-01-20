@@ -1,0 +1,20 @@
+<div class="register register-invitation">
+    <h3 class="center">第六步 请保存您的家长邀请码</h3>
+    <div class="form-horizontal">
+        <div class="form-group margin-top-12">
+            <div class="invitation-code">svsdf21e</div>
+        </div>
+        <div class="form-group">
+            <div class="note">或直接发送至家长邮箱：</div>
+            <input type="text" class="form-control margin-bottom-6" ng-model="vm.parent_email" placeholder="输入家长邮箱地址"/>
+            <div class="center">
+                <span class="btn btn-blue btn-sm">发送邮件</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <span class="btn btn-gray" ng-click="$go(3)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-click="$go(8)">保存并继续</button>
+        </div>
+    </div>
+</div>

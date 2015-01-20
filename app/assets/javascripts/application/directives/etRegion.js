@@ -96,8 +96,10 @@
                         var country = ctrl.countries.findOne(function (country, i) {
                             return country.name === ctrl.defaultCountry;
                         }) || ctrl.countries[0];
-                        ctrl.countryId = country.id;
-                        setRegion('Country', country.id, true);
+                        if(ctrl.countryId != country.id){
+                            ctrl.countryId = country.id;
+                            setRegion('Country', country.id, true);
+                        }
                     }
                 });
             }

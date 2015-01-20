@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', 'Schools', 'Users'];
+    RegisterController.$inject = ['$scope', '$state', 'Schools', 'Clazzs', 'Users'];
 
-    function RegisterController($scope, Schools, Users) {
+    function RegisterController($scope, $state, Schools, Clazzs, Users) {
 
         var vm = this;
 
@@ -16,6 +16,13 @@
         vm.save = save;
         vm.onSuccess = onSuccess;
         vm.onRegion = onRegion;
+        vm.onGrade = onGrade;
+        vm.onDisciplines = onDisciplines;
+        vm.addDiscipline = addDiscipline;
+        vm.onInterests = onInterests;
+        vm.addInterest = addInterest;
+        vm.addClazz = addClazz;
+        vm.enter = enter;
         vm.region = {};
         vm.regionConfig = {
             fixed: true,
@@ -23,27 +30,27 @@
         };
 
         $scope.$on('onSchools', function (event, school) {
-            if (school) {
-                vm.schoolId = school.id;
-                var regions = {
-                    countryId: school.country_id,
-                    provinceId: school.province_id,
-                    cityId: school.city_id,
-                    districtId: school.district_id
-                };
-                angular.extend(vm.regionConfig, regions);
-                angular.extend(vm.region, regions);
-                vm.region.lastId = school.district_id;
-            }
-            onSchools();
+            setSchool(school);
         });
+
+        $scope.$on('onClazzs', function (event, clazz) {
+            if (clazz) {
+                vm.user.clazz_id = clazz.id;
+                vm.user.grade_id = clazz.grade_id;
+            }
+            onClazzs();
+        });
+
+        $scope.$watch(function () {
+            return vm.school;
+        }, setSchool, true);
 
         $scope.$watch(function () {
             return vm.user.type;
         }, function (type) {
             if (type) {
                 var config;
-                for (var i = 1; i < 4; i++) {
+                for (var i = 1; i < 5; i++) {
                     config = $scope.$modalConfig(i);
                     config.src = config.src.replace(/register\/(.+?)\/(.+?)/, 'register/' + type.toLowerCase() + '/$2');
                     switch (type) {
@@ -181,15 +188,84 @@
 
         function onRegion($regionType, $regionId) {
             vm.region[$regionType.toLowerCase() + 'Id'] = vm.region.lastId = $regionId;
-            delete vm.schoolId;
+            delete vm.user.school_id;
             onSchools();
         }
 
-        function onSchools() {
+        function onGrade() {
+            onClazzs();
+        }
+
+        function addClazz(){
+
+        }
+
+        function enter(){
+            $state.go('base.pbl.list');
+        }
+
+        function onDisciplines() {
+            return function (tag, tags) {
+                vm.user.disciplines = tags.map(function (item) {
+                    return item.$label;
+                });
+            };
+        }
+
+        function addDiscipline(discipline){
+            vm.user.disciplines = vm.user.disciplines || [];
+            if(!vm.user.disciplines.has(discipline)){
+                vm.user.disciplines.push(discipline);
+            }
+        }
+
+        function onInterests() {
+            return function (tag, tags) {
+                vm.user.interests = tags.map(function (item) {
+                    return item.$label;
+                });
+            };
+        }
+
+        function addInterest(interest){
+            vm.user.interests = vm.user.interests || [];
+            if(!vm.user.interests.has(interest)){
+                vm.user.interests.push(interest);
+            }
+        }
+
+        function onSchools(region_id) {
             Schools.all({
-                region_id: vm.region.lastId
+                region_id: region_id || vm.region.lastId
             }, function (result) {
                 vm.schools = result.data;
+            });
+        }
+
+        function setSchool(school){
+            if (school) {
+                vm.user.school_id = school.id;
+                var regions = {
+                    countryId: school.country_id,
+                    provinceId: school.province_id,
+                    cityId: school.city_id,
+                    districtId: school.district_id
+                };
+                angular.extend(vm.regionConfig, regions);
+                angular.extend(vm.region, regions);
+                vm.region.lastId = school.region_id;
+                onSchools(school.region_id);
+            }else{
+                onSchools();
+            }
+        }
+
+        function onClazzs() {
+            Clazzs.all({
+                school_id: vm.user.school_id,
+                grade_id: vm.user.grade_id
+            }, function (result) {
+                vm.clazzs = result.data;
             });
         }
 

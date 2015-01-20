@@ -1,9 +1,0 @@
-<div class="register register-roles">
-    <div class="role-teacher" ng-class="{active:vm.user.type=='Teacher'}" ng-click="vm.user.type='Teacher'"><i class="pf-teacher"></i> 我是老师</div>
-    <div class="role-student" ng-class="{active:vm.user.type=='Student'}" ng-click="vm.user.type='Student'"><i class="pf-student"></i> 我是学生</div>
-    <div class="role-parent" ng-class="{active:vm.user.type=='Parent'}" ng-click="vm.user.type='Parent'"><i class="pf-parent"></i> 我是家长</div>
-    <div class="clearfix"></div>
-    <div class="et-modal-footer center">
-        <span class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type" ng-click="$go(1)">下一步</span>
-    </div>
-</div>

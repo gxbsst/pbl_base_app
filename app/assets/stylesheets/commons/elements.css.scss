@@ -252,6 +252,19 @@ ul.selection{
   }
 }
 
+.block-mini{
+  display:inline-block;
+  padding:0 12px;
+  line-height:26px;
+  font-size:12px;
+  background:#f0f0f0;
+  cursor:pointer;
+  &:hover, &.active{
+    background:#0064f0;
+    color:#fff;
+  }
+}
+
 ul.files{
   $height:40px;
   &:after{

@@ -1,11 +1,13 @@
 class ClazzsController < ApplicationController
 
   def index
-    @clazzs = Clazz.all
+    @clazzs = Clazz.all(clazz_query_params)
   end
 
   def create
-    @clazz = Clazz.create(params[:clazz])
+    clazz = params[:clazz]
+    clazz[:user_id] ||= current_user.id
+    @clazz = Clazz.create(clazz)
     render :show
   end
 
@@ -21,6 +23,12 @@ class ClazzsController < ApplicationController
   def destroy
     @clazz = Clazz.destroy(params[:id])
     render :show
+  end
+
+  private
+
+  def clazz_query_params
+    params.permit(:grade_id, :school_id, :include, :limit)
   end
 
 end

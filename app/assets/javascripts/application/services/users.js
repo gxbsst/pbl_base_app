@@ -19,7 +19,12 @@
     Users.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Users($resource, RESOURCE_ACTIONS) {
-        return $resource('/users/:action/:userId', {userId: '@userId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
+        return $resource('/users/:action/:userId', {
+            userId: '@userId',
+            action: '@action',
+            include: 'schools',
+            limit: 100
+        }, RESOURCE_ACTIONS);
     }
 
     Register.$inject = ['$resource', 'RESOURCE_ACTIONS'];

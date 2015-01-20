@@ -1,9 +1,9 @@
-<div class="register register-school">
+<div class="register register-school" ng-init="vm.school=vm.user.school">
     <h3 class="center">第二步 编辑学校信息</h3>
-    <form class="form-horizontal" ng-submit="vm.save('avatar,realname,gender',4)">
+    <form class="form-horizontal" ng-submit="vm.save('school_id',4)">
         <div class="form-group">
             <div et-region="vm.regionConfig" on-change="vm.onRegion($regionType,$regionId)"></div>
-            <select ng-model="vm.schoolId" et-select="vm.schools"
+            <select ng-model="vm.user.school_id" et-select="vm.schools"
                     et-config="label='name';placeholder='请选择您所在的学校'"></select>
             <span class="note">
                 如果您的学校不在列表中，请点击
@@ -14,7 +14,7 @@
         <div class="clearfix"></div>
         <div class="et-modal-footer center">
             <span class="btn btn-gray" ng-click="$go(2)">上一步</span>
-            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">保存并继续</button>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.school_id">保存并继续</button>
         </div>
     </form>
 </div>

@@ -10,6 +10,10 @@ json.first_name user[:first_name] if user[:first_name]
 json.last_name user[:last_name] if user[:last_name]
 json.realname user[:realname] if user[:realname]
 json.nickname user[:nickname] if user[:nickname]
+json.school_id user[:school_id] if user[:school_id]
+json.school do
+  json.partial! 'schools/school', school: user[:school]
+end if user[:school]
 json.followings_count user[:followings_count] || 0
 json.followers_count user[:followers_count] || 0
 json.friends_count user[:friends_count] || 0

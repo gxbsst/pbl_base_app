@@ -5,9 +5,17 @@
         .module('app.pbl')
         .controller('BaseController', BaseController);
 
-    BaseController.$inject = ['$scope', '$rootScope', '$document', 'modalFactory', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'GRADES', 'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'TYPE_DEFIN', 'WORK_TYPES'];
+    BaseController.$inject = [
+        '$scope', '$rootScope', '$document', '$q',
+        'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GRADES',
+        'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations',
+        'TYPE_DEFIN', 'WORK_TYPES'
+    ];
 
-    function BaseController($scope, $rootScope, $document, modalFactory, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, GRADES, Resources, Follows, Friends, Groups, MemberShips, TYPE_DEFIN, WORK_TYPES) {
+    function BaseController($scope, $rootScope, $document, $q,
+                            RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GRADES,
+                            Resources, Follows, Friends, Groups, MemberShips, Invitations,
+                            TYPE_DEFIN, WORK_TYPES) {
 
         $document.on('click', function () {
             $scope.$apply(function () {
@@ -16,6 +24,9 @@
         });
 
         angular.extend($rootScope, {
+            ROLES: ROLES,
+            DISCIPLINES: DISCIPLINES,
+            INTERESTS: INTERESTS,
             GRADES: GRADES,
             DURATION_UNITS: DURATION_UNITS,
             RESOURCE_TYPES: RESOURCE_TYPES,
@@ -38,6 +49,7 @@
                 leave: leave,
                 getResource: getResource,
                 getResources: getResources,
+                getInvitation: getInvitation,
                 removeResource: removeResource
             },
             registerModals: {
@@ -55,17 +67,30 @@
                         title: '请选择您的角色',
                         closeable: true,
                         textColor: '#333',
-                        src: 'register/school.html'
+                        //src: 'register/step-1.html'
+                        src: 'register/student/step-9.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,
-                        src: 'register/:type/account.html'
+                        src: 'register/:type/step-2.html'
                     }, {
                         title: '欢迎开启项目学习之旅',
-                        src: 'register/profile.html'
+                        src: 'register/step-3.html'
                     }, {
                         title: '欢迎开启项目学习之旅',
-                        src: 'register/school.html'
+                        src: 'register/:type/step-4.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/:type/step-5.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/:type/step-6.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/:type/step-7.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/:type/step-8.html'
                     }
                 ]
             }
@@ -158,6 +183,21 @@
             return (resources || $scope.resources || []).find(function (item) {
                 return item.owner_id == id && item.owner_type == type;
             });
+        }
+
+        function getInvitation(ownerType, ownerId){
+            var defer = $q.defer();
+            Invitations.all({
+                owner_type: ownerType,
+                owner_id: ownerId
+            }, function (result) {
+                if(result.data && result.data[0]){
+                    defer.resolve(result.data[0].code);
+                }else{
+                    defer.resolve(null);
+                }
+            });
+            return defer.promise;
         }
 
         function removeResource(resourceId, callback) {

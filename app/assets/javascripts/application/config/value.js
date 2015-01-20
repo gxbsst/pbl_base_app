@@ -9,7 +9,7 @@
                 add: {method: 'POST'},
                 update: {method: 'PUT'},
                 remove: {method: 'DELETE'},
-                release:{method: 'PATCH'}
+                release: {method: 'PATCH'}
             },
             PATHS: {
                 sso: 'http://sso.dev.pbl.org',
@@ -85,8 +85,21 @@
             },
             ROLES: {
                 teacher: 'Teacher',
-                student: 'Student'
+                student: 'Student',
+                parent: 'Parent',
+                clazz: [
+                    {
+                        id: 'Master',
+                        title: '班主任'
+                    },
+                    {
+                        id: 'Teacher',
+                        title: '任课教师'
+                    }
+                ]
             },
+            DISCIPLINES: ['数学', '语文', '英语', '地理', '历史', '政治', '物理', '化学'],
+            INTERESTS: ['看书', '旅游', '睡觉', '美食', '看电影', '画画', '唱歌', '跳舞', '溜冰', '击剑', '打羽毛球', '打乒乓球', '看话剧', '听歌剧'],
             DURATION_UNITS: [
                 {id: 1, title: '小时'},
                 {id: 2, title: '天'},
@@ -103,21 +116,21 @@
                 {id: 8, title: '八年级'},
                 {id: 9, title: '九年级'}
             ],
-            TYPE_DEFIN:{
-                Discipline:'ProjectTask::Discipline',
-                Skill:'ProjectTask::Skill',
-                Group:'ProjectTask::Group',
-                User:'ProjectTask::User',
-                Work:'Assignments::Work',
-                Rule:'Project::Rule'
+            TYPE_DEFIN: {
+                Discipline: 'ProjectTask::Discipline',
+                Skill: 'ProjectTask::Skill',
+                Group: 'ProjectTask::Group',
+                User: 'ProjectTask::User',
+                Work: 'Assignments::Work',
+                Rule: 'Project::Rule'
             },
-            WORK_TYPES:{
-                undue:'undue',
-                opening:'opening',
-                working:'working',
-                submitted:'submitted',
-                evaluating:'evaluating',
-                evaluated:'evaluated'
+            WORK_TYPES: {
+                undue: 'undue',
+                opening: 'opening',
+                working: 'working',
+                submitted: 'submitted',
+                evaluating: 'evaluating',
+                evaluated: 'evaluated'
             }
         })
 })();

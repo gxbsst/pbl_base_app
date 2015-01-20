@@ -14,6 +14,11 @@ class GroupsController < ApplicationBaseController
     group[:owner_id] ||= current_user.id
     group[:owner_type] ||= 'User'
     @group = Group.create(group)
+    invitation = {
+        owner_type: :Group,
+        owner_id: @group[:id]
+    }
+    @invitation = Invitation.create(invitation)
     render :show
   end
 

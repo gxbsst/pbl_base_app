@@ -1,5 +1,5 @@
 <div class="register register-account">
-    <form class="form-horizontal" ng-submit="vm.save(' username  , email,password',2,true)">
+    <form class="form-horizontal" ng-submit="vm.save('type,username,email,password',2,true)">
         <div class="form-group">
             <input type="text" class="form-control" ng-model="vm.user.username" placeholder="请填写您的帐号"/>
             <span class="error" ng-repeat="error in vm.verification.errors.username track by $index" ng-bind="'username_'+error|error"></span>
@@ -14,7 +14,7 @@
             <span class="error" ng-repeat="error in vm.verification.errors.password track by $index" ng-bind="'password_'+error|error"></span>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" ng-model="vm.user.parent_code" placeholder="填写家长邀请码"/>
+            <input type="password" class="form-control" ng-model="vm.user.group_code" placeholder="填写群组邀请码 (没有可为空)"/>
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">
