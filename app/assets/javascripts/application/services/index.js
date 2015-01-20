@@ -26,7 +26,11 @@
         //return $resource('', {}, RESOURCE_ACTIONS);
         this.all=function() {
             return {
-                data: []
+                data: [{title:'BIE',link:'http://bie.org',cover:'FrDWsz9irOCMggMP95kT2n4GfHnG'},
+                    {title:'Edutopia',link:'http://www.edutopia.org',cover:'Fso0isiWXJlOK_G2cFtec24yjvnK'},
+                    {title:'Thommarkham',link:'http://www.thommarkham.com',cover:'FvNNu2zA00l4rAkdaTJvr1wzCfBi'},
+                    {title:'PBL Japan',link:'http://www.pbl-japan.com',cover:'Fl6BSi7JNQixArufRjssi6YQcANo'},
+                    {title:'PBL World',link:'http://pblworld.org',cover:'FiKEXbdWs85hCtf2fXswmDK1m_X1'}]
             };
         }
     }

@@ -84,60 +84,14 @@
                 <hr/>
             </div>
             <div class="link-list">
-                <div class="link-item">
+                <a ng-href="{{link.link}}" target="_blank" class="link-item" ng-repeat="link in vm.links">
                     <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
+                        <img ng-src="{{link.cover|thumb:'124x60'}}" ng-if="link.cover" />
                     </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
+                    <div class="item-title">
+                        <span ng-bind="link.title"></span>
                     </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
-                <div class="link-item">
-                    <div class="item-pic">
-                        <img src="http://placeimg.com/124/60" alt=""/>
-                    </div>
-                    <div class="item-title">链接供应商标题</div>
-                </div>
+                </a>
                 <div class="clearfix"></div>
             </div>
         </div>
