@@ -7,12 +7,12 @@
         .controller('PBLGuideController', PBLGuideController)
         .controller('ProjectIndexController', ProjectIndexController)
         .controller('ProjectEditController', ProjectEditController)
-        .controller('ProjectShowController', ProjectShowController);
+        .controller('HomeProjectShowController', HomeProjectShowController);
 
 
-    PBLMapController.$inject = ['$scope', '$element', '$interval', 'Tasks'];
+    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
 
-    function PBLMapController($scope, $element, $interval, Tasks) {
+    function PBLMapController($scope, $state, $element, $interval, Tasks) {
         var vm = this,
             project = $scope.project,
             start = moment(project.start_at).set('hour', 0),
@@ -106,6 +106,7 @@
 
         function setTask(task){
             vm.task = task;
+            $state.go('base.home.projects.show.scaffold', {projectId:project.id});
             $scope.$emit('onSetView', task);
         }
 
@@ -125,7 +126,9 @@
     function ProjectIndexController(Projects) {
 
         var vm = this;
-        Projects.all(function (result) {
+        Projects.all({
+            limit:'100'
+        },function (result) {
             vm.projects = result.data;
         });
 
@@ -155,9 +158,9 @@
         }
     }
 
-    ProjectShowController.$inject = ['$state', '$scope', 'project'];
+    HomeProjectShowController.$inject = ['$state', '$scope', 'project'];
 
-    function ProjectShowController($state, $scope, project) {
+    function HomeProjectShowController($state, $scope, project) {
 
         var vm = this;
 

@@ -1,0 +1,33 @@
+<div class="register register-school">
+    <h3 class="center">第三步 编辑班级信息</h3>
+    <form class="form-horizontal" ng-submit="vm.save('grade_id,clazz_id',5)">
+        <div class="form-group">
+            <select et-select="GRADES" ng-model="vm.user.gradeId" et-config="placeholder='请选择您所在的年级'"
+                    ng-change="vm.onGrade()"></select>
+        </div>
+        <div class="form-group">
+            <select ng-model="vm.user.clazzId" et-select="vm.clazzs"
+                    et-config="label='name';placeholder='请选择您所在的班级'"></select>
+            <span class="note">
+                如果您的班级不在列表中，请点击
+                <a href="javascript:void(0)"
+                   et-modal="$user=vm.user;title='添加班级';controller='ClazzCreatorController as vm';src='register/clazz-creator.html'">添加</a>
+            </span>
+        </div>
+        <!--<div class="form-group">
+            <select ng-model="vm.user.clazz_id" et-select="ROLES.clazz"
+                    et-config="placeholder='请选择您的角色'"></select>
+            <span class="note">
+                在多个班级任教？您可以继续 <a href="javascript:void(0)" ng-click="vm.addClazz()">添加班级</a>
+            </span>
+        </div>
+        <div class="center">
+            <span class="register-clazz-item" ng-repeat="clazz in vm.user.clazzs"><span ng-bind="clazz.grade_id|grade + clazz.name"></span></span>
+        </div>-->
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <span class="btn btn-gray" ng-click="$go(3)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">保存并继续</button>
+        </div>
+    </form>
+</div>

@@ -35,7 +35,22 @@
                 return string;
             },
             trim: function () {
-                return this.replace(/(^\s*)|(\s*$)/g,'');
+                return this.replace(/(^\s*)|(\s*$)/g, '');
+            },
+            hump: function (toHump, joiner) {
+                if (typeof toHump == 'string') {
+                    joiner = toHump;
+                    toHump = false;
+                }
+                joiner = joiner || '_';
+                var regexp = new RegExp(toHump ? '\\' + joiner + '(\\w)' : '([A-Z])', 'g');
+                if (toHump) {
+                    return this.replace(regexp, function (all, letter) {
+                        return letter.toUpperCase();
+                    });
+                } else {
+                    return this.replace(regexp, joiner + '$1').toLowerCase();
+                }
             },
             toDate: function () {
                 return Date.parse(this);

@@ -23,17 +23,10 @@
         vm.onSetTime = onSetTime;
         vm.beforeRender = beforeRender;
         vm.teachersFilter = teachersFilter;
-        vm.setCountry = setCountry;
-        vm.setProvince = setProvince;
-        vm.setCity = setCity;
-        vm.setDistrict = setDistrict;
-        vm.getProvinces = getProvinces;
-        vm.getCities = getCities;
-        vm.getDistricts = getDistricts;
+        vm.onRegion = onRegion;
 
         getProjectRegion();
         getProjectResources();
-        getCountries();
         getTeachers();
 
         function getProjectRegion() {
@@ -41,74 +34,15 @@
                 regionId: project.region_id
             }, function (result) {
                 project.region = angular.copy(result.data);
-                var regions = result.data.parents;
-                delete result.data.parents;
-                regions.push(result.data);
-                vm.regions = regions;
-                vm.$countryId = vm.countryId = findRegion('Country').id;
-                vm.$provinceId = vm.provinceId = findRegion('Province').id;
-                vm.$cityId = vm.cityId = findRegion('City').id;
-                vm.$districtId = vm.districtId = findRegion('District').id;
+                vm.regions = result.data;
             });
         }
 
-        function findRegion(type) {
-            return vm.regions.findOne(function (region) {
-                    return region.type == type;
-                }) || {};
-        }
-
-        function setCountry(countryId) {
-            if (countryId == vm.$countryId)return;
-            vm.$countryId = countryId;
-            Object.removeAll(vm, 'provinceId $provinceId cityId $cityId districtId $districtId');
+        function onRegion($regionId) {
             Projects.update({
                 projectId: project.id
             }, {
-                project: {region_id: countryId}
-            });
-        }
-
-        function setProvince(provinceId) {
-            if (provinceId == vm.$provinceId)return;
-            vm.$provinceId = provinceId;
-            Object.removeAll(vm, 'cityId $cityId districtId $districtId');
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: provinceId}
-            });
-        }
-
-        function setCity(cityId) {
-            if (cityId == vm.$cityId)return;
-            vm.$cityId = cityId;
-            Object.removeAll(vm, 'districtId $districtId');
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: cityId}
-            });
-        }
-
-        function setDistrict(districtId) {
-            if (districtId == vm.$districtId)return;
-            vm.$districtId = districtId;
-            Projects.update({
-                projectId: project.id
-            }, {
-                project: {region_id: districtId}
-            });
-        }
-
-        function getCountries() {
-            vm.provinces = [];
-            vm.cities = [];
-            vm.districts = [];
-            Regions.all({
-                type: 'Country'
-            }, function (result) {
-                vm.countries = result.data;
+                project: {region_id: $regionId}
             });
         }
 
@@ -121,39 +55,6 @@
                     role.label = role.user.username;
                     return role;
                 });
-            });
-        }
-
-        function getProvinces(countryId) {
-            if (!countryId)return;
-            vm.cities = [];
-            vm.districts = [];
-            Regions.all({
-                type: 'Province',
-                parent_id: countryId
-            }, function (result) {
-                vm.provinces = result.data;
-            });
-        }
-
-        function getCities(provinceId) {
-            if (!provinceId)return;
-            vm.districts = [];
-            Regions.all({
-                type: 'City',
-                parent_id: provinceId
-            }, function (result) {
-                vm.cities = result.data;
-            });
-        }
-
-        function getDistricts(cityId) {
-            if (!cityId)return;
-            Regions.all({
-                type: 'District',
-                parent_id: cityId
-            }, function (result) {
-                vm.districts = result.data;
             });
         }
 
@@ -246,16 +147,16 @@
         }
 
         function beforeRender($view, $dates, $upDate) {
-            switch($view){
+            switch ($view) {
                 case 'day':
                     $upDate.display = moment($upDate.dateValue).add(1, 'month').format('YYYY年MM月');
                     break;
                 /*case 'month':
-                    $upDate.display = moment($upDate.dateValue).add(1, 'year').format('YYYY年');
-                    break;*/
+                 $upDate.display = moment($upDate.dateValue).add(1, 'year').format('YYYY年');
+                 break;*/
             }
             angular.forEach($dates, function (date) {
-                if(moment(date.dateValue).timezoneOffset(0).isBefore(moment(), $view == 'hour' ? 'minute' : $view)){
+                if (moment(date.dateValue).timezoneOffset(0).isBefore(moment(), $view == 'hour' ? 'minute' : $view)) {
                     date.selectable = false;
                 }
             });

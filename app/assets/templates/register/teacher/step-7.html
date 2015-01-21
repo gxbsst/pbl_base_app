@@ -1,0 +1,18 @@
+<div class="register register-disciplines">
+    <h3 class="center">第五步 添加兴趣爱好</h3>
+    <form class="form-horizontal" ng-submit="vm.save('interests',5)">
+        <div class="form-group margin-top-12">
+            <input type="text" ng-model="vm.user.interests" placeholder="输入您的兴趣爱好" on-change="vm.onInterests()" et-tags/>
+        </div>
+        <div class="hr"></div>
+        <div class="row">
+            <div class="note">选择您的兴趣爱好：</div>
+            <span class="block-mini" ng-repeat="entry in INTERESTS track by $index" ng-bind="entry" ng-click="vm.addInterest(entry)"></span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <span class="btn btn-gray" ng-click="$go(3)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">保存并继续</button>
+        </div>
+    </form>
+</div>

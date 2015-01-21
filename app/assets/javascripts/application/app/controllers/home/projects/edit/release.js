@@ -124,11 +124,11 @@
 
         function releaseProject(project, $event) {
             $event.stopPropagation();
-            if (confirm('您确定要发布这个任务吗？')) {
+            if (confirm('您确定要发布这个项目吗？')) {
                 Projects.release({
                     projectId: project.id,
                     action:'release'
-                }, function (result) { d
+                }, function (result) {
                     $state.go('base.home.projects.show.info',{projectId:project.id});
                 });
             }

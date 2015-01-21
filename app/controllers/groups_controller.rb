@@ -1,11 +1,11 @@
 class GroupsController < ApplicationBaseController
 
   def index
-    @groups = Pbl::Models::Groups::Group.where(owner_id: params[:owner_id], owner_type: 'User')
+    @groups = Group.where(owner_id: params[:owner_id], owner_type: 'User')
   end
 
   def current_user_index
-    @groups = Pbl::Models::Groups::Group.where(owner_id: current_user.id, owner_type: 'User')
+    @groups = Group.where(owner_id: current_user.id, owner_type: 'User')
     render :index
   end
 
@@ -13,21 +13,26 @@ class GroupsController < ApplicationBaseController
     group = params[:group]
     group[:owner_id] ||= current_user.id
     group[:owner_type] ||= 'User'
-    @group = Pbl::Models::Groups::Group.create(group)
+    @group = Group.create(group)
+    invitation = {
+        owner_type: :Group,
+        owner_id: @group[:id]
+    }
+    @invitation = Invitation.create(invitation)
     render :show
   end
 
   def show
-    @group = Pbl::Models::Groups::Group.find(params[:id], include_param)
+    @group = Group.find(params[:id], include_param)
   end
 
   def update
-    @group = Pbl::Models::Groups::Group.update(params[:id], params[:group])
+    @group = Group.update(params[:id], params[:group])
     render :show
   end
 
   def destroy
-    @group = Pbl::Models::Groups::Group.destroy(params[:id])
+    @group = Group.destroy(params[:id])
     render :show
   end
 

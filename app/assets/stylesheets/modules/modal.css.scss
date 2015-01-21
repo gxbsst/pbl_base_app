@@ -7,9 +7,9 @@
     bottom:0;
     left:0;
     right:0;
-    background:rgba(0,0,0,.1);
-    -pie-background:rgba(0,0,0,.1);
-    behavior:url('PIE.htc')\0;
+    background:rgba(0, 0, 0, .1);
+    -pie-background:rgba(0, 0, 0, .1);
+    behavior:url('PIE.htc') \0;
     z-index:10000;
   }
 
@@ -24,43 +24,49 @@
     @include transition(.2s ease opacity, .2s ease transform);
     //@include transform(translate3d(0, 0, 0), scale(.3));
     @include box-shadow(0 0 25px 0 #9f9f9f);
-    behavior:url('PIE.htc')\0;
+    @include border-radius(4px 4px 0 0);
+    behavior:url('PIE.htc') \0;
     z-index:10000;
     &.et-modal-show{
       @include opacity(1);
       //@include transform(scale(1));
     }
     .et-modal-title{
-      $height: 44px;
+      position:relative;
       font-size:16px;
-      line-height:$height;
+      line-height:44px;
       padding:0 18px;
-      color:#666;
+      color:#333;
       background:#f8f8f8;
       cursor:default;
-      behavior:url('PIE.htc')\0;
+      @include background-image(linear-gradient(rgba(255, 255, 255, .15), rgba(255, 255, 255, 0)));
+      @include border-radius(4px 4px 0 0);
+      behavior:url('PIE.htc') \0;
       .et-modal-destroy{
+        $size:30px;
         position:absolute;
-        top:0;
+        top:50%;
         right:0;
-        width:$height;
-        height:$height;
+        width:$size;
+        height:$size;
+        margin-top:-$size/2;
         overflow:hidden;
         cursor:pointer;
         i{
           display:block;
-          width:$height;
-          height:$height;
+          width:$size;
+          height:$size;
           text-align:center;
-          line-height:$height;
-          color:#999;
+          line-height:$size;
+          color:#000;
+          @include opacity(.5);
           @include transition(.5s ease all);
           @include transform(rotate(0deg));
         }
         &:hover{
-          background:#ffebeb;
           i{
             color:#ff0000;
+            @include opacity(1);
             @include transform(rotate(360deg));
           }
         }

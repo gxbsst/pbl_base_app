@@ -1,0 +1,1 @@
+Group = Pbl::Models::Groups::Group

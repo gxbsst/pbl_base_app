@@ -1,1 +1,76 @@
-<h2 ng-bind="'NAV.pbl'|i18n"></h2>
+<div class="project-controller">
+    <div id="index" class="container">
+        <div class="row project-options">
+            <div class="options-title">
+                <span ng-bind="'NAV.pbl'|i18n"></span>
+            </div>
+            <div class="options-area">
+                <div class="options-result">
+                    <lable class="options-lab">已选条件：</lable>
+                    <span class="options-tag" ng-if="vm.select.subject!=''"><span ng-bind="vm.select.subject"></span>
+                        <i class="pf-cross" ng-click="vm.changeSelect('subject','')"></i></span>
+                    <span class="options-tag" ng-if="vm.select.phase!=''"><span ng-bind="vm.select.phase"></span>
+                        <i class="pf-cross" ng-click="vm.changeSelect('phase','')"></i></span>
+                    <span class="options-tag" ng-if="vm.select.technique!=''"><span ng-bind="vm.select.technique"></span>
+                        <i class="pf-cross" ng-click="vm.changeSelect('technique','')"></i></span>
+                </div>
+                <div class="options-tab">
+                    <lable class="options-lab">学科：</lable>
+                    <span class="options-link" ng-class="{active:vm.select.subject==subject.key}" ng-repeat="subject in vm.subjects"
+                            ng-bind="subject.title" ng-click="vm.changeSelect('subject',subject.key)"></span>
+                </div>
+                <div class="options-tab">
+                    <lable class="options-lab">年纪：</lable>
+                    <span class="options-link" ng-class="{active:vm.select.phase==phase.key}" ng-repeat="phase in vm.phases"
+                          ng-bind="phase.title" ng-click="vm.changeSelect('phase',phase.key)"></span>
+                </div>
+                <div class="options-tab">
+                    <lable class="options-lab">技能：</lable>
+                    <span class="options-link" ng-class="{active:vm.select.technique==technique.key}" ng-repeat="technique in vm.techniques"
+                          ng-bind="technique.title" ng-click="vm.changeSelect('technique',technique.key)"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row project-select">
+            <div class="select-title">
+                <span class="select-tab active">最新</span>
+                <!--<span class="select-tab">最热</span>-->
+                <div class="select-key">
+                    <div class="input-group">
+                        <input type="text" class="form-control ng-pristine ng-valid"
+                                ng-model="vm.select.name" ng-change="vm.changeSelect('name',vm.select.name)">
+                        <span class="input-group-addon" ng-click="vm.changeSelect('name',vm.select.name)"><i class="pf-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row project-results">
+            <div class="row case-row">
+                <div class="case-list">
+                    <div class="case-item" ng-repeat="project in vm.projects">
+                        <div class="item-pic">
+                            <div class="project-cover">
+                                <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                                <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                            </div>
+                        </div>
+                        <div class="item-title">
+                            <span ng-bind-html="project.name||'未命名项目'"></span>
+                        </div>
+                        <div class="item-cont">
+                            <div class="item-tag">
+                                <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
+                            </div>
+                            <a ui-sref="base.pbl.show({projectId:project.id})" class="item-link">了解详情</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="case-more">
+                    <span class="btn" ng-click="vm.getProjects()"
+                            ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

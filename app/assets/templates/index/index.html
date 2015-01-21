@@ -1,0 +1,99 @@
+<div class="index-controller">
+    <div id="index" class="container">
+        <div class="row case-row">
+            <div class="row-title">
+                <span>精彩案例</span>
+                <hr/>
+            </div>
+            <div class="case-list">
+                <div class="case-item" ng-repeat="project in vm.projects">
+                    <div class="item-pic">
+                        <div class="project-cover">
+                            <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                            <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                        </div>
+                    </div>
+                    <div class="item-title">
+                        <span ng-bind-html="project.name||'未命名项目'"></span>
+                    </div>
+                    <div class="item-cont">
+                        <div class="item-tag">
+                            <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
+                        </div>
+                        <a ui-sref="base.pbl.show({projectId:project.id})" class="item-link">了解详情</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row news-row">
+            <div class="row-title">
+                <span>学习专栏</span>
+                <hr/>
+            </div>
+            <div class="news-list">
+                <div class="news-group">
+                    <div class="news-item" ng-repeat="learning in vm.learnings">
+                        <div class="item-intro">
+                            <div class="item-title">
+                                <span ng-bind="learning.title"></span>
+                            </div>
+                            <div class="item-cont">
+                                <span ng-bind="learning.cont"></span>
+                            </div>
+                            <a href="" class="item-link"><i class="pf-arrowhead-right"></i></a>
+                        </div>
+                        <div class="item-pic">
+                            <!--<img src="http://placeimg.com/300/255/arch" alt=""/>-->
+                            <img ng-src="{{learning.cover|thumb:'300x255'}}" ng-if="learning.cover" />
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row note-row">
+            <div class="row-title">
+                <span>名师寄语</span>
+                <hr/>
+            </div>
+            <div class="note-list">
+                <div class="note-item" ng-repeat="teacherSaying in vm.teacherSayings">
+                    <div class="item-cont">
+                        <span ng-bind="teacherSaying.cont"></span>
+                    </div>
+                    <div class="item-teacher">
+                        <div class="item-pic">
+                            <img ng-src="{{teacherSaying.cover|thumb:'84x84'}}" ng-if="teacherSaying.cover" />
+                        </div>
+                        <div class="item-info">
+                            <div class="item-name">
+                                <span ng-bind="teacherSaying.name"></span>
+                            </div>
+                            <div class="item-info">
+                                <span ng-bind="teacherSaying.title"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row link-row">
+            <div class="row-title">
+                <span>友情链接</span>
+                <hr/>
+            </div>
+            <div class="link-list">
+                <a ng-href="{{link.link}}" target="_blank" class="link-item" ng-repeat="link in vm.links">
+                    <div class="item-pic">
+                        <img ng-src="{{link.cover|thumb:'124x60'}}" ng-if="link.cover" />
+                    </div>
+                    <div class="item-title">
+                        <span ng-bind="link.title"></span>
+                    </div>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,17 @@
 <div class="et-modal" et-observer="modalConfig.modalResize()">
     <div class="et-modal-overlay" ng-if="modalConfig.overlay"></div>
     <div class="et-modal-container" ng-style="{width:modalConfig.width,height:modalConfig.height}" et-draggable>
-        <div class="et-modal-title draggable-handler"><strong ng-bind="modalConfig.title"></strong><span class="et-modal-destroy pull-right" ng-click="destroyModal()" role="link"><i class="pf-cross"></i></span></div>
-        <div class="et-modal-content" ng-if="modalConfig.html" ng-bind-html="modalConfig.html" ng-style="{padding:modalConfig.padding===undefined?18:modalConfig.padding}"></div>
-        <div class="et-modal-content" ng-if="modalConfig.src" ng-include="modalConfig.src" ng-style="{padding:modalConfig.padding===undefined?18:modalConfig.padding}"></div>
+        <div class="et-modal-title draggable-handler"
+             ng-class="{center:modalConfig.center}"
+             ng-style="{lineHeight:modalConfig.titleHeight,backgroundColor:modalConfig.bgColor,color:modalConfig.textColor}">
+            <strong ng-bind="modalConfig.title" ng-style="{fontWeight:modalConfig.weight}"></strong>
+            <span class="et-modal-destroy pull-right" ng-if="modalConfig.closeable" ng-click="destroyModal()" role="link"><i class="pf-cross"></i></span>
+        </div>
+        <div class="et-modal-content" ng-if="modalConfig.html"
+             ng-style="{padding:modalConfig.padding===undefined?18:modalConfig.padding}"
+             ng-bind-html="modalConfig.html"></div>
+        <div class="et-modal-content" ng-if="modalConfig.src"
+             ng-style="{padding:modalConfig.padding===undefined?18:modalConfig.padding}"
+             ng-include="modalConfig.src"></div>
     </div>
 </div>

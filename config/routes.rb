@@ -1,18 +1,13 @@
 Rails.application.routes.draw do
 
+  devise_for :users, class_name: 'User'
   get 'custom_login', to: 'application#custom_login'
-
-  devise_for :users, class_name: 'Pbl::Models::Users::User'
-
+  
   root :to => 'index#index'
 
   resources :index, only: %w(index)
 
-  resources :home, only: %w(index) do
-    collection do
-      get :login
-    end
-  end
+  resources :home, only: %w(index)
   resources :projects, defaults: {format: 'json'} do
     member do
       patch 'release'
@@ -32,6 +27,7 @@ Rails.application.routes.draw do
   resources :posts, defaults: { format: :json }
 
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
+  resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
@@ -87,6 +83,14 @@ Rails.application.routes.draw do
   resources :resources, defaults: {format: 'json'}
 
   resources :regions, defaults: {format: 'json'}
+
+  resources :schools, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :grades, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :clazzs, defaults: {format: 'json'}, only: %w(index create)
+
+  resources :invitations, defaults: {format: 'json'}, only: %w(create show)
 
   resources :follows, defaults: {format: 'json'}
 

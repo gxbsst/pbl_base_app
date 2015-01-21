@@ -1,0 +1,1 @@
+User = Pbl::Models::Users::User

@@ -5,11 +5,11 @@
         .module('app.pbl')
         .controller('ProjectShowScaffoldController', ProjectShowScaffoldController);
 
-    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+    ProjectShowScaffoldController.$inject = ['$scope', 'RESOURCE_TYPES', 'Resources', 'project','authority',
         'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'Groupings',
         'Discussions', 'Works', 'TYPE_DEFIN'];
 
-    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project,
+    function ProjectShowScaffoldController($scope, RESOURCE_TYPES, Resources, project,authority,
                                            Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, Groupings,
                                            Discussions, Works, TYPE_DEFIN) {
 
@@ -46,6 +46,7 @@
         onProjectProducts();
 
         getDiscussions();
+        getAuthority();
 
         $scope.$watch(function () {
             return vm.project.rule_head;
@@ -67,6 +68,19 @@
 
         vm.showTask(0);
 
+        function getAuthority(){
+            switch(authority)
+            {
+                case 'teacher':
+                    vm.authority=true;
+                    break;
+                case 'student':
+                    vm.authority=false;
+                    break;
+                default:
+                    vm.authority=false;
+            }
+        }
         function getDiscussions() {
             Discussions.all({
                 project_id: project.id

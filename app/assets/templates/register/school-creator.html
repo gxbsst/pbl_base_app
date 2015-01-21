@@ -1,0 +1,15 @@
+<div class="register school-creator">
+    <form class="form-horizontal" ng-submit="vm.create()">
+        <div class="form-group">
+            <div et-region="vm.regionConfig" on-change="vm.onRegion($regionType,$regionId)"></div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="vm.school.name" placeholder="请输入学校全名"/>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <button type="submit" class="btn btn-blue"
+                    ng-disabled="!vm.check()">确定</button>
+        </div>
+    </form>
+</div>

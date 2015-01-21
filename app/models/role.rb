@@ -1,0 +1,1 @@
+Role = Pbl::Models::Role

@@ -5,11 +5,11 @@
         .module('app.pbl')
         .controller('ProjectShowAssignmentController', ProjectShowAssignmentController);
 
-    ProjectShowAssignmentController.$inject = ['$rootScope','$scope', 'RESOURCE_TYPES', 'Resources', 'project',
+    ProjectShowAssignmentController.$inject = ['$rootScope','$scope', 'RESOURCE_TYPES', 'Resources', 'project','authority',
         'Disciplines', 'Knowledge', 'Tasks', 'ProjectProducts', 'ProjectGauges', 'ProjectMembers',
         'Groupings', 'Discussions', 'Works', 'Scores', 'TYPE_DEFIN','WORK_TYPES'];
 
-    function ProjectShowAssignmentController($rootScope,$scope, RESOURCE_TYPES, Resources, project,
+    function ProjectShowAssignmentController($rootScope,$scope, RESOURCE_TYPES, Resources, project,authority,
                                              Disciplines, Knowledge, Tasks, ProjectProducts, ProjectGauges, ProjectMembers,
                                              Groupings, Discussions, Works, Scores, TYPE_DEFIN,WORK_TYPES) {
 
@@ -29,6 +29,8 @@
         onProjectProducts();
         getMembers();
         getDiscussions();
+        getAuthority();
+
         //console.log($rootScope.currentUser);
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
@@ -46,6 +48,20 @@
                 }
             });
         });
+
+        function getAuthority(){
+            switch(authority)
+            {
+                case 'teacher':
+                    vm.authority=true;
+                    break;
+                case 'student':
+                    vm.authority=false;
+                    break;
+                default:
+                    vm.authority=false;
+            }
+        }
 
         function getMembers() {
             ProjectMembers.all({
@@ -84,6 +100,22 @@
             });
         }
 
+        function getGroupings() {
+            console.log("getGroupings");
+            Groupings.get({
+                projectId: project.id
+            }, function (result) {
+                console.log("getGroupings");
+                var cache = result.cache;
+                if (cache) {
+                    cache = JSON.parse(cache);
+                    vm.count = cache.count;
+                    vm.groups = cache.groups;
+
+                    console.log("getGroupingscache");
+                }
+            });
+        }
         function onProjectTasks() {
             Tasks.all({
                 project_id: vm.project.id,
@@ -152,6 +184,11 @@
                         task.works[i].submitter = vm.usersHash[task.works[i].acceptor_id];
                         task.works[i].scores = getWorkScores(task.works[i], vm.usersHash[task.works[i].acceptor_id]);
                     }
+                    //if(task.works[i].user_id){
+                    //
+                    //}
+                    console.log('task.works[i]');
+                    console.log(task.works[i]);
                     task.worksHash[task.works[i].state].push(task.works[i]);
                 }
             });

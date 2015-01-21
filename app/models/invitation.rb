@@ -1,0 +1,1 @@
+Invitation = Pbl::Models::Invitation

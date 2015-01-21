@@ -5,7 +5,8 @@
         .module('app.modal', ['app.factories'])
         .provider('modalConfig', modalConfig)
         .factory('modalFactory', modalFactory)
-        .directive('etModal', etModal);
+        .directive('etModal', etModal)
+        .directive('etModals', etModals);
 
     function modalConfig() {
 
@@ -36,6 +37,13 @@
 
         return function showModal(config) {
 
+            config.$id = config.$id || 'modal-' + new Date().getTime();
+            config.overlay = typeof config.overlay == 'boolean' ? config.overlay : true;
+            config.closeable = typeof config.closeable == 'boolean' ? config.closeable : true;
+            config.templateUrl = config.templateUrl || 'modules/modal/et-modal.html';
+
+            if ($rootScope.modals[config.$id])return;
+
             var defer = $q.defer();
 
             $template(config).then(function (template) {
@@ -57,10 +65,12 @@
                 };
 
                 childScope.destroyModal = function () {
-                    delete $rootScope.modals[config.$scope.$id];
-                    body.removeClass('disable-scroll');
+                    delete $rootScope.modals[config.$id];
                     childScope.$destroy();
                     modalElement.remove();
+                    if(!Object.size($rootScope.modals)){
+                        body.removeClass('disable-scroll');
+                    }
                 };
 
                 body.addClass('disable-scroll').append(modalElement);
@@ -107,19 +117,65 @@
         function etModalLink(scope, element, attr, ctrl) {
 
             angular.extend(ctrl, {
-                $scope: scope,
-                overlay: true,
-                disableBodyScroll: true,
-                templateUrl: 'modules/modal/et-modal.html'
+                $id: scope.$id,
+                $scope: scope
             });
 
             utils.params(scope, attr.etModal, ctrl);
 
             element.on('click', function () {
-                !$rootScope.modals[scope.$id] && scope.$apply(function () {
-                    modalFactory(ctrl).then(function (modal) {
-                        $rootScope.modals[scope.$id] = modal;
-                    });
+                modalFactory(ctrl).then(function (modal) {
+                    $rootScope.modals[ctrl.$id] = modal;
+                });
+            });
+
+        }
+    }
+
+    etModals.$inject = ['$rootScope', 'modalFactory'];
+
+    function etModals($rootScope, modalFactory) {
+
+        return {
+            require: 'etModals',
+            restrict: 'A',
+            scope: true,
+            link: etModalsLink,
+            controller: angular.noop,
+            controllerAs: 'modalConfig'
+        };
+
+        function etModalsLink(scope, element, attr, ctrl) {
+
+            angular.extend(ctrl, {
+                $id: scope.$id,
+                $scope: scope
+            });
+
+            scope.$watch(attr.etModals, function (config) {
+                if(config){
+                    angular.extend(ctrl, config);
+                }
+            }, true);
+
+            scope.$modalConfig = function (config, idx) {
+                if(typeof config == 'undefined'){
+                    return ctrl;
+                }
+                if(typeof config == 'number'){
+                    return ctrl.modals[config];
+                }
+                var conf = typeof idx == 'number' ? ctrl.modals[idx] : ctrl;
+                angular.extend(conf, config);
+            };
+
+            scope.$go = function (idx) {
+                return $.extend(ctrl, ctrl.defaults, ctrl.modals[idx || 0]);
+            };
+
+            element.on('click', function () {
+                modalFactory(scope.$go()).then(function (modal) {
+                    $rootScope.modals[ctrl.$id] = modal;
                 });
             });
 

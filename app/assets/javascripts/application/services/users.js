@@ -5,6 +5,7 @@
         .module('app.services')
         .service('User', User)
         .service('Users', Users)
+        .service('Register', Register)
         .service('Friends', Friends)
         .service('Follows', Follows)
         .service('Rules', Rules);
@@ -18,19 +19,30 @@
     Users.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Users($resource, RESOURCE_ACTIONS) {
-        return $resource('/users/:action/:userId', {userId: '@userId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
+        return $resource('/users/:action/:userId', {
+            userId: '@userId',
+            action: '@action',
+            include: 'schools',
+            limit: 100
+        }, RESOURCE_ACTIONS);
+    }
+
+    Register.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function Register($resource, RESOURCE_ACTIONS) {
+        return $resource('/register', {}, RESOURCE_ACTIONS);
     }
 
     Friends.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Friends($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/friends/:action/:friendId', {friendId: '@friendId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/user/friends/:action/:friendId', {friendId: '@friendId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Follows.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Follows($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Rules.$inject = ['$resource', 'RESOURCE_ACTIONS'];

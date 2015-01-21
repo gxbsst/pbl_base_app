@@ -23,6 +23,14 @@
                 }
                 return -1;
             },
+            idx: function (item) {
+                for (var i = 0; i < this.length; i++) {
+                    if (item === this[i]) {
+                        return i;
+                    }
+                }
+                return -1;
+            },
             find: function (fn) {
                 var result = [];
                 for (var i = 0; i < this.length; i++) {
@@ -41,6 +49,11 @@
                 return null;
             },
             has: function (fn) {
+                if(typeof fn != 'function'){
+                    return !!this.findOne(function (item) {
+                        return fn === item;
+                    });
+                }
                 return !!this.findOne(fn);
             },
             remove: function (fn, mark) {

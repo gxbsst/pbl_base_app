@@ -1,0 +1,124 @@
+<div class="project-show-info">
+    <div class="project-title col-1-1 ">
+        <span class="title-text">项目背景</span>
+        <span class="title-pointer"></span>
+    </div>
+    <div class="info-cont col-1-1 " et-init="vm.project.cover=vm.getResources(RESOURCE_TYPES.project.cover,vm.project.id,true)">
+        <div class="col-1-1" et-init="vm.project.cover=vm.getResource(RESOURCE_TYPES.project.cover,vm.project.id)">
+            <div class="cover col-2-12">
+                <span class="text-red" ng-if="vm.project.resources.length&&!vm.project.cover">尚未上传封面</span>
+                <span class="text-gray" ng-if="!vm.project.resources.length"><i class="pf-spinner-2 rotation"></i></span>
+                <img ng-src="{{vm.project.cover.key|thumb:'120x120'}}" ng-if="vm.project.cover" />
+            </div>
+            <div class="info pull-left col-10-12">
+                <strong>项目名称：</strong><span ng-bind-html="vm.project.name||'未命名项目'"></span><br/>
+                <strong>学科标签：</strong><span class="tag" ng-repeat="tag in vm.project.tag_list track by $index" ng-bind="tag"></span><br/>
+                <strong>开始时间：</strong><span ng-bind="vm.project.start_at|date:'yyyy年MM月dd日'"></span> <strong>结束时间：</strong><span ng-bind="vm.project.end_at|date:'yyyy年MM月dd日'"></span><br/>
+                <strong>驱动性问题：</strong>
+                <div class="row" ng-bind-html="vm.project.driven_issue||'尚未填写驱动性问题'"></div>
+                <a ui-sref="base.home.projects.edit.design({projectId:vm.project.id})" class="pf-doc-eye info-edit"></a>
+            </div>
+        </div>
+        <div class="info-description col-1-1">
+            <strong>项目概述：</strong>
+            <div ng-bind-html="vm.project.description||'尚未填写驱动性问题'"></div>
+        </div>
+        <div class="info-tab-btn col-1-1">
+            <a ng-click="vm.infoTab(1)" ng-class="{'active':vm.tab==1}">课程标准</a>
+            <a ng-click="vm.infoTab(2)" ng-class="{'active':vm.tab==2}">学生技能</a>
+            <a ng-click="vm.infoTab(3)" ng-class="{'active':vm.tab==3}">项目量规</a>
+        </div>
+        <div class="info-tab-cont col-1-1">
+            <div ng-show="vm.tab==1">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th width="130">学科</th>
+                        <th width="150">学段</th>
+                        <th>课标</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="entry in vm.project.standard_items">
+                        <td ng-bind="entry.standard_item.parents.subject.name"></td>
+                        <td ng-bind="entry.standard_item.parents.phase.name"></td>
+                        <td ng-bind="entry.standard_item.content"></td>
+                    </tr>
+                    <tr ng-if="!vm.project.standard_items">
+                        <td colspan="3" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="vm.tab==2">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th width="130">技能种类</th>
+                        <th width="150">分类</th>
+                        <th>技能</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="entry in vm.project.techniques">
+                        <td ng-bind="entry.technique.parents.category.name"></td>
+                        <td ng-bind="entry.technique.parents.sub_category.name"></td>
+                        <td ng-bind="entry.technique.title"></td>
+                    </tr>
+                    <tr ng-if="!vm.project.techniques">
+                        <td colspan="3" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="vm.tab==3">
+                <table class="table col-1-1 margin-bottom-20">
+                    <thead>
+                    <tr>
+                        <th>对应技能</th>
+                        <th>量规标准</th>
+                        <th width="60">权重</th>
+                        <th ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled"
+                            ng-bind="$index|gauge:vm.project.rule_template"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="gauge in vm.project.rules" class="gauge-item">
+                        <td ng-bind="gauge.technique.title"></td>
+                        <td ng-bind="gauge.standard"></td>
+                        <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
+                        <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
+                        <td ng-if="gauge._destroy"><i class="pf-spinner-2 rotation"></i></td>
+                    </tr>
+                    <tr ng-if="!vm.project.rules">
+                        <td colspan="8" class="loading"><i class="pf-spinner-2 rotation"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-1-1 margin-bottom-20">
+            <strong>参考资源：</strong>
+            <div class="row resouce-list-group">
+                <div class="row">
+                    <ul class="files">
+                        <li ng-repeat="doc in vm.project.resources" ng-class="{disabled:doc.$disabled}">
+                            <i ng-class="doc.name|icon"></i>
+                            <span ng-bind="doc.name"></span>
+                            <i class="file-download pf-inbox" et-tips="'下载'" et-href="doc|uri:PATHS.static"></i>
+                            <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeDocument(doc)"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-right">
+                 <span class="btn btn-blue" ng-class="{uploading:vm.project.$uploading_doc}"
+                       qn-upload="{ownerType:RESOURCE_TYPES.project.document,ownerId:vm.project.id}"
+                       on-begin="vm.onUploadBegin('doc')" on-success="vm.onUploadSuccess('doc')"> 上传资源</span>
+            </div>
+        </div>
+    </div>
+</div>
+

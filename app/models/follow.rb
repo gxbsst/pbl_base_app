@@ -1,0 +1,1 @@
+Follow = Pbl::Models::Follow

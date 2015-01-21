@@ -21,8 +21,8 @@
         return null;
     }
 
-    function params(scope, string, object, defaultKey) {
-        angular.forEach(string.split(';'), function (config) {
+    function params(scope, attr, object, defaultKey) {
+        angular.forEach(attr.split(';'), function (config) {
             if (config) {
                 config = config.split('=');
                 var value = config[1] || config[0];
