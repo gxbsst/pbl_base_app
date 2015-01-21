@@ -1,46 +1,49 @@
+set :stage, :staging
+
+set :rails_env, 'staging'
+set :deploy_to, "/home/deployer/pbl_base_app"
+# set :repo_url, 'git@172.172.172.62:pbl/pbl_base_app.git'
 
 # Simple Role Syntax
 # ==================
-# Supports bulk-adding hosts to roles, the primary server in each group
-# is considered to be the first unless any hosts have the primary
-# property set.  Don't declare `role :all`, it's a meta role.
-
-role :app, %w{deploy@172.172.172.120}
-role :web, %w{deploy@172.172.172.120}
-role :db,  %w{deploy@172.172.172.120}
-
+# Supports bulk-adding hosts to roles, the primary
+# server in each group is considered to be the first
+## unless any hosts have the primary property set.
+#role :app, %w{124.205.151.249}
+#role :web, %w{124.205.151.249}
+#role :db,  %w{124.205.151.249}
 
 # Extended Server Syntax
 # ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
+# This can be used to drop a more detailed server
+# definition into the server list. The second argument
+# something that quacks like a hash can be used to set
+# extended properties on the server.
+#server '172.172.172.199', user: 'root', roles: %w{web app whenever db}
+# server '172.172.172.120', user: 'deployer', roles: %w{web app whenever db}
+#server '124.205.151.252', user: 'edu', roles: %w{web app}
 
-server '172.172.172.120', user: 'deploy', roles: %w{web app}
-
-
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
-#
-# Global options
-# --------------
+# you can set custom ssh options
+# it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
+# you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
+# set it globally
 #  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+#    #keys: %w(/home/rlisowski/.ssh/id_rsa),
 #    forward_agent: false,
 #    auth_methods: %w(password)
 #  }
-#
-# And/or per server (overrides global)
-# ------------------------------------
-# server 'example.com',
-#   user: 'user_name',
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: 'user_name', # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: 'please use keys'
-#   }
+# and/or per server
+server '172.172.172.120',
+       user: 'deployer',
+       roles: %w{web app db whenever},
+       ssh_options: {
+           user: 'deployer', # overrides user setting above
+           #keys: %w(/home/user_name/.ssh/id_rsa),
+           #forward_agent: true,
+           auth_methods: %w(password),
+           password: '51448888'
+       }
+# setting per server overrides global ssh_options
+
+fetch(:default_env).merge!(rails_env: 'staging', jruby_opts: '"-J-Xmx4096m --1.9"')
+

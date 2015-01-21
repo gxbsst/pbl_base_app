@@ -7,7 +7,7 @@ set :repo_url, 'git@58.246.127.90:pbl/pbl_base_app.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
+set :tmp_dir, "/home/deployer/tmp"
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/pbl_base_app'
 
