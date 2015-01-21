@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
 
+  get 'custom_login', to: 'application#custom_login'
+
   devise_for :users, class_name: 'Pbl::Models::Users::User'
 
   root :to => 'index#index'
 
   resources :index, only: %w(index)
 
-  resources :home, only: %w(index)
+  resources :home, only: %w(index) do
+    collection do
+      get :login
+    end
+  end
   resources :projects, defaults: {format: 'json'} do
     member do
       patch 'release'
