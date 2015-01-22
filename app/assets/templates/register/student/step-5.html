@@ -1,4 +1,4 @@
-<div class="register register-school">
+<div class="register register-school" ng-init="vm.user.clazzs=vm.getClazzs(ROLES.student)">
     <h3 class="center">第三步 编辑班级信息</h3>
     <form class="form-horizontal" ng-submit="vm.save('grade_id,clazz_id',5)">
         <div class="form-group">

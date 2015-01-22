@@ -67,8 +67,8 @@
                         title: '请选择您的角色',
                         closeable: true,
                         textColor: '#333',
-                        //src: 'register/step-1.html'
-                        src: 'register/student/step-9.html'
+                        src: 'register/step-1.html'
+                        //src: 'register/student/step-9.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,
@@ -229,3 +229,14 @@
     }
 
 })();
+
+/*
+var query = window.location.search.substr(1),
+    code = query.query('q'),
+    decode = Base64.decode(code),
+    username = decode.query('username'),
+    password = decode.query('password');
+
+//console.log(Base64.encode('username=test&password=1111'))
+//console.log(Base64.decode('dXNlcm5hbWU9dGVzdCZwYXNzd29yZD0xMTEx'))
+console.log(username,password);*/

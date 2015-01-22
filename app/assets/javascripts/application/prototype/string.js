@@ -54,6 +54,14 @@
             },
             toDate: function () {
                 return Date.parse(this);
+            },
+            query: function (name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
+                    query = this.match(reg);
+                if (query != null) {
+                    return query[2];
+                }
+                return '';
             }
         });
 

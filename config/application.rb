@@ -33,7 +33,7 @@ module PblWeb
     config.active_record.default_timezone = :local
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
-    config.assets.precompile += %w( ie.js )
+    config.assets.precompile += %w( ie.js sso.js )
 
     config.angular_templates.htmlcompressor = {
         :remove_intertag_spaces => true

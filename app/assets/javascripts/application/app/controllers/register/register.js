@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$state', 'Schools', 'Clazzs', 'Users'];
+    RegisterController.$inject = ['$scope', '$state', 'Schools', 'Groups', 'MemberShips', 'Clazzs', 'Users'];
 
-    function RegisterController($scope, $state, Schools, Clazzs, Users) {
+    function RegisterController($scope, $state, Schools, Groups, MemberShips, Clazzs, Users) {
 
         var vm = this;
 
@@ -22,6 +22,7 @@
         vm.onInterests = onInterests;
         vm.addInterest = addInterest;
         vm.addClazz = addClazz;
+        vm.getClazzs = getClazzs;
         vm.enter = enter;
         vm.region = {};
         vm.regionConfig = {
@@ -197,6 +198,10 @@
         }
 
         function addClazz(){
+
+        }
+
+        function getClazzs(type){
 
         }
 

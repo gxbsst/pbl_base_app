@@ -1,11 +1,11 @@
 class GroupsController < ApplicationBaseController
 
   def index
-    @groups = Group.where(owner_id: params[:owner_id], owner_type: 'User')
+    @groups = Group.where(ids: params[:ids], owner_id: params[:owner_id], owner_type: params[:owner_type] || :User)
   end
 
   def current_user_index
-    @groups = Group.where(owner_id: current_user.id, owner_type: 'User')
+    @groups = Group.where(owner_id: current_user.id, owner_type: params[:owner_type] || :User)
     render :index
   end
 

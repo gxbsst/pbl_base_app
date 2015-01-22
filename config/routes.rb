@@ -34,12 +34,17 @@ Rails.application.routes.draw do
     resources :rules, defaults: { format: :json }, only: %w(index)
     get :groups, :to => 'groups#current_user_index'
     resources :groups, defaults: { format: :json }, only: %w(create destroy)
+    get :clazzs, :to => 'clazzs#user_clazzs'
+    resources :clazzs, defaults: { format: :json }, only: %w(index)
     get :member_ships, :to => 'member_ships#current_user_index'
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
   end
 
   resources :groups, defaults: { format: :json }, only: %w(index create show update destroy) do
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
+    collection do
+      get ':ids', to: 'groups#index', constraints: {ids: /.+[,].+/}
+    end
   end
 
   namespace :curriculum do
@@ -88,7 +93,11 @@ Rails.application.routes.draw do
 
   resources :grades, defaults: {format: 'json'}, only: %w(index create)
 
-  resources :clazzs, defaults: {format: 'json'}, only: %w(index create)
+  resources :clazzs, defaults: {format: 'json'}, only: %w(index create) do
+    collection do
+      get ':ids', to: 'clazzs#index', constraints: {ids: /.+[,].+/}
+    end
+  end
 
   resources :invitations, defaults: {format: 'json'}, only: %w(create show)
 
@@ -97,5 +106,7 @@ Rails.application.routes.draw do
   resources :groupings, defaults: {format: 'json'}
 
   resources :discussions, defaults: {format: 'json'}
+
+  resources :sso_callback
 
 end

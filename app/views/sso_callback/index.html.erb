@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PblSso</title>
+  <%= javascript_include_tag 'sso' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="form">
+  <form action="/login" method="post">
+    <input type="text" id="username" name="username"/>
+    <input type="password" id="password" name="password"/>
+    <button type="submit">login</button>
+  </form>
+</div>
+<script type="text/javascript" charset="utf-8">
+    String.prototype.query = function (name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
+                query = this.match(reg);
+        if (query != null) {
+            return query[2];
+        }
+        return '';
+    };
+    $().ready(function () {
+        var query = window.location.search.substr(1),
+            code = query.query('q'),
+            decode = Base64.decode(code),
+            username = decode.query('username'),
+            password = decode.query('password');
+        $('#username').val(username);
+        $('#password').val(password);
+        $('form').submit();
+    });
+</script>
+</body>
+</html>

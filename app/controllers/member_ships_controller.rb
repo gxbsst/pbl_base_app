@@ -10,7 +10,10 @@ class MemberShipsController < ApplicationBaseController
   end
 
   def create
-    @member_ship = MemberShip.create(group_id: params[:group_id], user_id: params[:user_id] || current_user.id)
+    member_ship = params[:member_ship]
+    member_ship[:group_id] ||= params[:group_id]
+    member_ship[:user_id] ||= current_user.id
+    @member_ship = MemberShip.create(member_ship)
     render :show
   end
 
