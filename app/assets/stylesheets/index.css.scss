@@ -2,6 +2,30 @@ body{
   padding-bottom:60px;
 }
 
+.logo{
+  $height:60px;
+  width:200px;
+  height:$height;
+  padding:0;
+  margin-right:25px;
+  background-repeat:no-repeat;
+  background-position:center;
+  &.zh-cn{
+    background-image:image-url('logo_zh-cn.png');
+    background-image:-webkit-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
+    background-image:-moz-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
+    background-image:-o-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
+    background-image:-ms-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
+  }
+  &.en-us{
+    background-image:image-url('logo_en-us.png');
+    background-image:-webkit-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
+    background-image:-moz-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
+    background-image:-o-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
+    background-image:-ms-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
+  }
+}
+
 #header{
   $height:60px;
   border-bottom:1px solid #dcdcdc;
@@ -23,28 +47,6 @@ body{
       }
       &.active{
         color:#4182f0;
-      }
-      &.logo{
-        width:200px;
-        height:$height;
-        padding:0;
-        margin-right:25px;
-        background-repeat:no-repeat;
-        background-position:center;
-        &.zh-cn{
-          background-image:image-url('logo_zh-cn.png');
-          background-image:-webkit-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
-          background-image:-moz-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
-          background-image:-o-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
-          background-image:-ms-image-set(image-url('logo_zh-cn.png') 1x, image-url('logo_zh-cn_2x.png') 2x);
-        }
-        &.en-us{
-          background-image:image-url('logo_en-us.png');
-          background-image:-webkit-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
-          background-image:-moz-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
-          background-image:-o-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
-          background-image:-ms-image-set(image-url('logo_en-us.png') 1x, image-url('logo_en-us_2x.png') 2x);
-        }
       }
     }
   }

@@ -1,7 +1,5 @@
 <div class="navbar container">
-    <span class="logo">
-        <img src="/assets/logo.png" alt=""/>
-    </span>
+    <a ui-sref="base.index" class="logo" ng-class="getLocale()"></a>
     <span class="nav-main">
         <a ui-sref="base.index"  ng-class="{active:$state.includes('base.index')}">首页</a>
         <a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" >项目案例</a>
