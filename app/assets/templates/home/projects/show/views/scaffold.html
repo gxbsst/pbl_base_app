@@ -10,7 +10,7 @@
                 <div class="tasks" ng-repeat="task in vm.tasks">
                     <div class="task-title" ng-click="task.$show=!task.$show">
                         <i ng-class="task.$show?'pf-triangle-up':'pf-triangle-down'"></i>
-                        <strong ng-bind="'任务'+($index+1)+' '+task.title"></strong>
+                        <strong ng-bind="'任务 - '+task.title"></strong>
                         <i class="btn-mini pf-cross pull-right margin-top-10" ng-click="vm.removeTask(task,$event)"
                                 ng-if="vm.authority"></i>
                     </div>

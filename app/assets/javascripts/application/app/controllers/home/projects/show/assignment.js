@@ -1,3 +1,4 @@
+
 (function () {
     'use strict';
 
@@ -22,7 +23,12 @@
         vm.dateFormat = dateFormat;
         vm.getResources = getResources;
         vm.getResourcesWork = getResourcesWork;
+        vm.removeResource = removeResource;
+        vm.removeResourceWork = removeResourceWork;
+        vm.workSubmitted = workSubmitted;
         vm.workssubmitted=workssubmitted;
+        vm.onUploadBegin = onUploadBegin;
+        vm.onUploadSuccess = onUploadSuccess;
 
         getProjectGauges();
         onProjectTasks();
@@ -31,7 +37,7 @@
         getDiscussions();
         getAuthority();
 
-        //console.log($rootScope.currentUser);
+        console.log($rootScope.currentUser);
         Disciplines.all(function (data) {
             vm.disciplines = data.data;
             //测试ng-model绑定
@@ -48,6 +54,45 @@
                 }
             });
         });
+
+        function workSubmitted(work){
+            Works.update({workId:work.id,
+                work:{content:work.content,state:WORK_TYPES.submitted,worker_id:$rootScope.currentUser.id}
+            },function(){
+                work.state=WORK_TYPES.submitted;
+            });
+        }
+        function removeResource(resource) {
+            resource.$disabled = true;
+            Resources.remove({
+                resourceId: resource.id
+            }, getTaskResources);
+        }
+        function removeResourceWork(resource,work) {
+            resource.$disabled = true;
+            Resources.remove({
+                resourceId: resource.id
+            }, function(){
+                //console.log(new Date());
+                getWorkResources(work)
+            });
+        }
+
+        function onUploadBegin(product) {
+            return function () {
+                product.$uploading = true;
+            }
+        }
+
+        function onUploadSuccess(product) {
+            return function () {
+                product.resource && Resources.remove({
+                    resourceId: product.resource.id
+                });
+                delete product.$uploading;
+                getWorkResources(product);
+            }
+        }
 
         function getAuthority(){
             switch(authority)
@@ -72,7 +117,6 @@
                 angular.forEach(vm.members, function (member) {
                     vm.usersHash[member.user.id] = member.user;
                 });
-                console.log(vm.usersHash);
             });
         }
 
@@ -101,21 +145,18 @@
         }
 
         function getGroupings() {
-            console.log("getGroupings");
             Groupings.get({
                 projectId: project.id
             }, function (result) {
-                console.log("getGroupings");
                 var cache = result.cache;
                 if (cache) {
                     cache = JSON.parse(cache);
                     vm.count = cache.count;
                     vm.groups = cache.groups;
-
-                    console.log("getGroupingscache");
                 }
             });
         }
+
         function onProjectTasks() {
             Tasks.all({
                 project_id: vm.project.id,
@@ -166,30 +207,43 @@
                 angular.forEach(WORK_TYPES, function (item) {
                     task.worksHash[item]=[];
                 });
+                task.worksHash['self']=[];
+
                 for (var i = 0; i < task.works.length; i++) {
+                    getWorkResources(task.works[i]);
                     task.works[i].usersHash = {};
+                    var worksstudent=false;
                     if (task.works[i].acceptor_type == TYPE_DEFIN.Group) {
                         var groups = vm.groups.find(function (item) {
-                            return task.works[i].acceptor_id = item.id;
+                            return task.works[i].acceptor_id == item.id;
                         });
 
                         angular.forEach(groups, function (group) {
                             angular.forEach(group.members, function (member) {
                                 task.works[i].usersHash[member] = vm.usersHash[member];
                                 task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member].id);
+
+                                if(member==$rootScope.currentUser.id){
+                                    worksstudent=true;
+                                }
                             });
                         });
-                        //task.works[i].submitter =vm.usersHash[task.works[i].acceptor_id];
+                        task.works[i].submitter =vm.usersHash[task.works[i].worker_id];
                     } else {
                         task.works[i].submitter = vm.usersHash[task.works[i].acceptor_id];
                         task.works[i].scores = getWorkScores(task.works[i], vm.usersHash[task.works[i].acceptor_id]);
+
+                        if(task.works[i].acceptor_id==$rootScope.currentUser.id){
+                            worksstudent=true;
+                        }
                     }
-                    //if(task.works[i].user_id){
-                    //
-                    //}
-                    console.log('task.works[i]');
-                    console.log(task.works[i]);
-                    task.worksHash[task.works[i].state].push(task.works[i]);
+
+                    if(worksstudent){
+                        task.worksHash['self'].push(task.works[i]);
+                    }else
+                    {
+                        task.worksHash[task.works[i].state].push(task.works[i]);
+                    }
                 }
             });
         }
@@ -230,7 +284,6 @@
                 }
                 vm.products = products;
 
-                console.log(vm.products);
             });
         }
 
@@ -269,8 +322,18 @@
         }
 
         function getResourcesWork(work) {
-            return (vm.resources || []).find(function (resource) {
+            return (work.resources || []).find(function (resource) {
                 return resource.owner_type == RESOURCE_TYPES.project.work && resource.owner_id == work.id;
+            });
+        }
+
+        function getWorkResources(work) {
+            Resources.all({
+                owner_types: RESOURCE_TYPES.project.work,
+                owner_ids: work.id
+            }, function (result) {
+                work.resources = result.data;
+                //console.log(new Date());
             });
         }
 

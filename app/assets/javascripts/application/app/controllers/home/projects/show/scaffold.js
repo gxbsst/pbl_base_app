@@ -98,21 +98,18 @@
         }
 
         function getGroupings() {
-            console.log("getGroupings");
             Groupings.get({
                 projectId: project.id
             }, function (result) {
-                console.log("getGroupings");
                 var cache = result.cache;
                 if (cache) {
                     cache = JSON.parse(cache);
                     vm.count = cache.count;
                     vm.groups = cache.groups;
-
-                    console.log("getGroupingscache");
                 }
             });
         }
+
 
         function getProjectGauges() {
             ProjectGauges.all({
