@@ -32,10 +32,12 @@
         function scoreInit(){
             Works.update({
                 workId:$scope.work.id,
-                work:{state:WORK_TYPES.evaluating}
+                work:{state:WORK_TYPES.evaluating,
+                    lock_by:$rootScope.currentUser.id
+                }
             }, function(){
-                console.log("set score");
                 $scope.work.state=WORK_TYPES.evaluating;
+                $scope.work.lock_by=$rootScope.currentUser.id;
             });
 
             if($scope.task.submit_way==TYPE_DEFIN.Group)
@@ -44,6 +46,7 @@
                     angular.forEach($scope.work.usersHash, function (item) {
                         item.$active=false;
                     });
+                    getWorkScore(user.id);
                     userId=user.id;
                     user.$active=true;
                 });
@@ -131,23 +134,19 @@
                 Scores.add({
                     score: score
                 }, function(){
-                    console.log("set score");
-                    Works.update({
-                        workId:$scope.work.id,
-                        work:{state:WORK_TYPES.evaluated}
-                    }, function(){
-                        console.log("set score");
-                        $scope.work.state=WORK_TYPES.evaluated;
-                    });
+                    //setWorkState($scope.work.id,WORK_TYPES.evaluated);
                 });
             });
-            //Scores.add({
-            //    score: scores
-            //}, function(){
-            //    console.log("set over");
-            //});
         }
 
+        function setWorkState(workId,action){
+            Works.update({
+                workId:workId,
+                work:{state:action}
+            }, function(){
+                $scope.work.state=action;
+            });
+        }
         function getWorkScore(userId){
 
             var scores=[],score={};
@@ -165,15 +164,11 @@
             }
             Scores.all(param, function (result) {
                 score = result.data[0];
-                if (score!=null){
-                    console.log('score');
-                    console.log(score);
+                if (score){
                     $scope.current.score=score.score;
                     $scope.current.comment=score.comment;
                     $scope.current.state=false;
                     $scope.current.user_id=userId;
-                    console.log('score.user_id');
-                    console.log(score.user_id);
                 }else{
                     $scope.current.user_id=userId;
                     $scope.current.comment='';
@@ -194,9 +189,13 @@
                     }
                     Scores.all(param, function (result) {
                         score = result.data[0];
-                        $scope.current.gaugescore[score.owner_id]=score.score;
-                        $scope.current.gaugecomment[score.owner_id]=score.comment;
-                        console.log(score);
+                        if(score){
+                            $scope.current.gaugescore[param.owner_id]=score.score;
+                            $scope.current.gaugecomment[param.owner_id]=score.comment;
+                        }else{
+                            $scope.current.gaugescore[param.owner_id]=0;
+                            $scope.current.gaugecomment[param.owner_id]='';
+                        }
                     });
                 });
             }

@@ -25,10 +25,11 @@
         vm.getResourcesWork = getResourcesWork;
         vm.removeResource = removeResource;
         vm.removeResourceWork = removeResourceWork;
-        vm.workSubmitted = workSubmitted;
+        vm.workAction = workAction;
         vm.workssubmitted=workssubmitted;
         vm.onUploadBegin = onUploadBegin;
         vm.onUploadSuccess = onUploadSuccess;
+        vm.project.rules=[];
 
         getProjectGauges();
         onProjectTasks();
@@ -55,11 +56,13 @@
             });
         });
 
-        function workSubmitted(work){
+        function workAction(work,action){
             Works.update({workId:work.id,
-                work:{content:work.content,state:WORK_TYPES.submitted,worker_id:$rootScope.currentUser.id}
+                work:{content:work.content,state:action,worker_id:$rootScope.currentUser.id}
             },function(){
-                work.state=WORK_TYPES.submitted;
+                work.state=action;
+                work.worker_id=$rootScope.currentUser.id;
+                work.submitter =vm.usersHash[$rootScope.currentUser.id];
             });
         }
         function removeResource(resource) {
@@ -124,7 +127,7 @@
             ProjectGauges.all({
                 project_id: project.id
             }, function (result) {
-                project.rules = result.data;
+                vm.project.rules = result.data;
             });
         }
 

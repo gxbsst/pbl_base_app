@@ -94,7 +94,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="gauge in task.rules" class="gauge-item">
+                    <tr ng-repeat="gauge in task.rules track by $index" class="gauge-item">
                         <td ng-bind="gauge.technique.title"></td>
                         <td ng-bind="gauge.standard"></td>
                         <td class="center"><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>

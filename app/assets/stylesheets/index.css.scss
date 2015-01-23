@@ -248,8 +248,8 @@ body{
           }
           img{
             width:100%;
-            -webkit-filter:saturate(0); /* Webkit */
-            filter:saturate(0); /* W3C */
+//            -webkit-filter:saturate(0); /* Webkit */
+//            filter:saturate(0); /* W3C */
           }
         }
         .item-title{
@@ -268,8 +268,8 @@ body{
           border:3px solid #3d7ef2;
           .item-pic{
             img{
-              -webkit-filter:saturate(1); /* Webkit */
-              filter:saturate(1); /* W3C */
+//              -webkit-filter:saturate(1); /* Webkit */
+//              filter:saturate(1); /* W3C */
             }
           }
           .item-cont{

@@ -13,7 +13,7 @@
                   on-begin="vm.onUploadBegin(work)" on-success="vm.onUploadSuccess(work)"><i class="pf-cloud-upload"></i> 上传示例</span>
 
                 <span class="btn btn-blue student-btn" role="button"
-                      ng-click="vm.workSubmitted(work)">提交</span>
+                      ng-click="vm.workAction(work,WORK_TYPES.submitted)">提交</span>
 
         <div class="row offset-2-12 col-10-12">
             <ul class="files">
