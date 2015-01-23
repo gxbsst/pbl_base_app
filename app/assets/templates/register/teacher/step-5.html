@@ -1,4 +1,4 @@
-<div class="register register-school" ng-init="vm.user.id='2d598d90-49bc-4ba2-b65b-b62eaf7d05cf';vm.user.clazzs=vm.getClazzs()">
+<div class="register register-school" et-exec="vm.getClazzs()">
     <h3 class="center">第三步 编辑班级信息</h3>
     <form class="form-horizontal" ng-submit="$go(5)">
         <div class="form-group">
@@ -18,12 +18,13 @@
             <select ng-model="vm.clazz.role" et-select="ROLES.clazz"
                     et-config="placeholder='请选择您的角色'"></select>
             <div class="center margin-top-6">
-                <span class="btn btn-blue btn-sm" ng-click="vm.addClazz()">添加到我的班级</span>
+                <span class="btn btn-blue btn-sm" ng-class="{disabled:!vm.clazz.clazz_id||!vm.clazz.role}" ng-click="vm.addClazz()">加入班级</span>
             </div>
         </div>
         <div class="hr hr-dotted"></div>
         <div class="center">
-            <span class="register-clazz-item block-mini" ng-repeat="entry in vm.user.clazzs"><span ng-bind="(entry.clazz.grade_id|grade)+entry.clazz.name"></span></span>
+            <span class="text-red" ng-if="!vm.user.clazzs.length">还没有加入任何班级</span>
+            <span class="register-clazz-item block-mini" ng-repeat="entry in vm.user.clazzs" ng-if="entry.clazz"><span ng-bind="(entry.clazz.grade_id|grade)+entry.clazz.name"></span><i class="pf-cross" ng-click="vm.removeClazz(entry.id)"></i></span>
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">

@@ -18,6 +18,9 @@
     font-size:12px;
     color:#969696;
   }
+  .block-mini{
+    margin:2px;
+  }
   h3{
     font-size:14px;
   }
@@ -153,9 +156,6 @@
   &.register-disciplines{
     .form-horizontal{
       width:450px;
-    }
-    .block-mini{
-      margin:2px;
     }
   }
   &.register-invitation{

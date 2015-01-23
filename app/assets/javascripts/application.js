@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require Chart.js
+//= require js-base64
 //= require jquery
 //= require jquery_ujs
 //= require interact

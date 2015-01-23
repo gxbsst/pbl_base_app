@@ -7,7 +7,7 @@
         <div class="hr"></div>
         <div class="row">
             <div class="note">选择您的兴趣爱好：</div>
-            <span class="block-mini" ng-repeat="entry in INTERESTS track by $index" ng-bind="entry" ng-click="vm.addInterest(entry)"></span>
+            <span class="block-mini" role="button" ng-repeat="entry in INTERESTS track by $index" ng-bind="entry" ng-click="vm.addInterest(entry)"></span>
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">

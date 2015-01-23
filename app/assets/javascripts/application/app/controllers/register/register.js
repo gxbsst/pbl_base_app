@@ -22,9 +22,11 @@
         vm.onInterests = onInterests;
         vm.addInterest = addInterest;
         vm.addClazz = addClazz;
+        vm.removeClazz = removeClazz;
         vm.getClazzs = getClazzs;
         vm.enter = enter;
         vm.region = {};
+        vm.clazz = {};
         vm.regionConfig = {
             fixed: true,
             country: false
@@ -102,7 +104,13 @@
                     delete vm.$fields;
                     angular.extend(vm.user, result.data);
                     if (typeof step == 'number') {
-                        $scope.$go(step);
+                        if(create){
+                            $scope.HANDLES.login(vm.user).then(function () {
+                                $scope.$go(step);
+                            });
+                        }else{
+                            $scope.$go(step);
+                        }
                     }
                 } else {
                     vm.verification.errors = result.errors[0];
@@ -198,10 +206,12 @@
         }
 
         function addClazz(step) {
+            vm.clazz.user_id = vm.user.id;
             Students.add({
                 type: vm.user.type,
                 student: vm.clazz
             }, function () {
+                vm.clazz = {};
                 if (typeof step === 'number') {
                     $scope.$go(step);
                 } else {
@@ -210,15 +220,20 @@
             });
         }
 
+        function removeClazz(id){
+            if(confirm('您确定要退出这个班级吗？')){
+                Students.remove({
+                    studentId: id
+                }, getClazzs);
+            }
+        }
+
         function getClazzs() {
-            var defer = $q.defer();
             Students.all({
                 user_id: vm.user.id
             }, function (result) {
                 vm.user.clazzs = result.data;
-                defer.resolve(result.data);
             });
-            return defer.promise;
         }
 
         function enter() {
