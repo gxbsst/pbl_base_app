@@ -150,7 +150,7 @@ ul.selection{
   cursor:move !important;
 }
 
-.disabled,.btn[disabled]{
+.disabled, .btn[disabled]{
   pointer-events:none !important;
   position:relative;
   background:#f0f0f0 !important;
@@ -261,10 +261,26 @@ ul.selection{
   line-height:26px;
   font-size:12px;
   background:#f0f0f0;
-  cursor:pointer;
-  &:hover, &.active{
-    background:#0064f0;
-    color:#fff;
+  &[role="button"]{
+    cursor:pointer;
+    &:hover, &.active{
+      background:#0064f0;
+      color:#fff;
+    }
+  }
+  .pf-cross{
+    display:block;
+    float:right;
+    width:26px;
+    height:26px;
+    line-height:26px;
+    text-align:center;
+    font-size:13px;
+    margin-right:-12px;
+    cursor:pointer;
+    &:hover{
+      color:#f00000;
+    }
   }
 }
 

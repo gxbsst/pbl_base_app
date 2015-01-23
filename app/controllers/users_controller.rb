@@ -9,7 +9,7 @@ class UsersController < UserController
 
   def create
     @user = User.create(params[:user])
-    if @user[:type] == :Student
+    if @user.success? && @user[:type] == :Student
       invitation = {
           owner_type: :Student,
           owner_id: @user[:id]

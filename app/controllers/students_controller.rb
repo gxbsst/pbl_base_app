@@ -12,6 +12,9 @@ class StudentsController < ApplicationController
         FriendShip.destroy(entry[:id])
       end
     end
+    if student[:role].present?
+
+    end
     @student = Student.create(student)
     if @student.success?
       students = Student.where(clazz_id: @student[:clazz_id])
@@ -22,7 +25,7 @@ class StudentsController < ApplicationController
                              friend_id: entry[:user_id]
                          }) if @student[:user_id] != entry[:user_id]
       end
-      FriendShip.create(friend_ship)
+      FriendShip.create(friend_ship) unless friend_ship.empty?
     end
     render :show
   end

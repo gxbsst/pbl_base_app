@@ -41,6 +41,7 @@
                 onCompleted: onCompleted
             },
             HANDLES: {
+                login: login,
                 follow: follow,
                 unFollow: unFollow,
                 isFriend: isFriend,
@@ -52,7 +53,7 @@
                 getInvitation: getInvitation,
                 removeResource: removeResource
             },
-            registerModals: {
+            RegisterModals: {
                 controller: 'RegisterController as vm',
                 defaults: {
                     closeable: false,
@@ -123,6 +124,20 @@
             }
         }
 
+        function login(user) {
+            var defer = $q.defer(),
+                code = Base64.encode([['username', user.username].join('='), ['password', user.password].join('=')].join('&'));
+            $('<iframe src="/custom_login?q=' + code + '"></iframe>').appendTo('body');
+            var listener = $scope.$watch(function () {
+                return $scope.logined;
+            }, function () {
+                defer.resolve(null);
+                delete $scope.logined;
+                listener();
+            });
+            return defer.promise;
+        }
+
         function follow(user_id) {
             Follows.add({
                 user_id: user_id
@@ -185,15 +200,15 @@
             });
         }
 
-        function getInvitation(ownerType, ownerId){
+        function getInvitation(ownerType, ownerId) {
             var defer = $q.defer();
             Invitations.all({
                 owner_type: ownerType,
                 owner_id: ownerId
             }, function (result) {
-                if(result.data && result.data[0]){
+                if (result.data && result.data[0]) {
                     defer.resolve(result.data[0].code);
-                }else{
+                } else {
                     defer.resolve(null);
                 }
             });
@@ -207,7 +222,7 @@
         }
 
         function getFriends() {
-            if($rootScope.currentUser){
+            if ($rootScope.currentUser) {
                 Friends.get(function (result) {
                     $rootScope.friends = result.data;
                 });
@@ -221,7 +236,7 @@
         }
 
         function getMemberShips() {
-            if($rootScope.currentUser){
+            if ($rootScope.currentUser) {
                 MemberShips.get({
                     namespace: 'user'
                 }, function (result) {
@@ -235,12 +250,12 @@
 })();
 
 /*
-var query = window.location.search.substr(1),
-    code = query.query('q'),
-    decode = Base64.decode(code),
-    username = decode.query('username'),
-    password = decode.query('password');
+ var query = window.location.search.substr(1),
+ code = query.query('q'),
+ decode = Base64.decode(code),
+ username = decode.query('username'),
+ password = decode.query('password');
 
-//console.log(Base64.encode('username=test&password=1111'))
-//console.log(Base64.decode('dXNlcm5hbWU9dGVzdCZwYXNzd29yZD0xMTEx'))
-console.log(username,password);*/
+ //console.log(Base64.encode('username=test&password=1111'))
+ //console.log(Base64.decode('dXNlcm5hbWU9dGVzdCZwYXNzd29yZD0xMTEx'))
+ console.log(username,password);*/
