@@ -224,8 +224,11 @@
                         angular.forEach(groups, function (group) {
                             angular.forEach(group.members, function (member) {
                                 task.works[i].usersHash[member] = vm.usersHash[member];
+                                task.works[i].usersHash[member].scores ={};
                                 task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member].id);
-
+                                console.log(task.works[i].id);
+                                console.log(task.works[i].usersHash[member].scores);
+                                console.log(task.works[i].usersHash[member]);
                                 if(member==$rootScope.currentUser.id){
                                     worksstudent=true;
                                 }
@@ -260,16 +263,8 @@
                     return score.user_id=userId;
                 });
                 return score;
-                //return {
-                //    "id": "246e636a-9852-479e-a0ea-5765cf0d2b40",
-                //    "comment": "老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价老师评价",
-                //    "score": 10,
-                //    "owner_id": work.id,
-                //    "owner_type": "Assignments::Work",
-                //    "user_id":user.id
-                //};
             }else{
-                return null;
+                return {};
             }
         }
 
