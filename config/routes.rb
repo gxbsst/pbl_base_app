@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  devise_for :users, class_name: 'User'
-  get 'custom_login', to: 'application#custom_login'
+  devise_for :users, class_name: 'Pbl::Models::Users::User'
+  get 'custom_login', to: 'user#custom_login'
   
   root :to => 'index#index'
 
@@ -26,7 +26,10 @@ Rails.application.routes.draw do
   end
   resources :posts, defaults: { format: :json }
 
-  resources :users, defaults: { format: :json }, only: %w(index create show update destroy)
+  resources :users, defaults: { format: :json }, only: %w(index create show update destroy) do
+    get :clazzs, :to => 'clazzs#user_clazzs'
+    resources :clazzs, defaults: { format: :json }, only: %w(index)
+  end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
     resources :friends, defaults: { format: :json }, only: %w(index)
@@ -72,6 +75,10 @@ Rails.application.routes.draw do
 
   resources :member_ships, defaults: { format: :json }
 
+  resources :friend_ships, defaults: { format: :json }
+
+  resources :students, defaults: { format: :json }
+
   resources :knowledge, defaults: {format: 'json'}
 
   resources :roles, defaults: {format: 'json'}
@@ -107,6 +114,6 @@ Rails.application.routes.draw do
 
   resources :discussions, defaults: {format: 'json'}
 
-  resources :sso_callback
+  resources :sso_callback, only: %w(index)
 
 end

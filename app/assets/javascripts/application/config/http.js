@@ -13,17 +13,17 @@
         $httpProvider.interceptors.push(interceptors);
 
         interceptors.$injector = ['$q'];
-        function interceptors($q){
+        function interceptors($q) {
             return {
                 responseError: responseError,
                 response: response
             };
 
-            function responseError(rejection){
-                switch(rejection.status){
+            function responseError(rejection) {
+                switch (rejection.status) {
                     case 401:
                     case 422:
-                        window.location.reload();
+                        //window.location.href = '/custom_login?callback_url=' + encodeURIComponent(window.location.href);
                         break;
                     case 500:
 
@@ -32,15 +32,15 @@
                 return $q.reject(rejection);
             }
 
-            function response(response){
+            function response(response) {
                 /*if(response.data){
-                    switch(response.data.code){
-                        case 401:
-                        case 422:
-                            window.location.reload();
-                            break;
-                    }
-                }*/
+                 switch(response.data.code){
+                 case 401:
+                 case 422:
+                 window.location.reload();
+                 break;
+                 }
+                 }*/
                 return response || $q.when(response);
             }
         }

@@ -19,7 +19,7 @@
     Users.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Users($resource, RESOURCE_ACTIONS) {
-        return $resource('/users/:action/:userId', {
+        return $resource('/users/:userId/:action', {
             userId: '@userId',
             action: '@action',
             include: 'schools',
@@ -36,19 +36,19 @@
     Friends.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Friends($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/friends/:action/:friendId', {friendId: '@friendId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
+        return $resource('/user/friends/:friendId/:action', {friendId: '@friendId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Follows.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Follows($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/follows/:action/:followId', {followId: '@followId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
+        return $resource('/user/follows/:followId/:action', {followId: '@followId', action: '@action', limit: 100}, RESOURCE_ACTIONS);
     }
 
     Rules.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Rules($resource, RESOURCE_ACTIONS) {
-        return $resource('/user/rules/:action/:ruleId', {ruleId: '@ruleId', action: '@action'}, RESOURCE_ACTIONS);
+        return $resource('/user/rules/:ruleId/:action', {ruleId: '@ruleId', action: '@action'}, RESOURCE_ACTIONS);
     }
 
 })();

@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$state', 'Schools', 'Groups', 'MemberShips', 'Clazzs', 'Users'];
+    RegisterController.$inject = ['$scope', '$state', '$q', 'Schools', 'Students', 'Clazzs', 'Users'];
 
-    function RegisterController($scope, $state, Schools, Groups, MemberShips, Clazzs, Users) {
+    function RegisterController($scope, $state, $q, Schools, Students, Clazzs, Users) {
 
         var vm = this;
 
@@ -197,15 +197,31 @@
             onClazzs();
         }
 
-        function addClazz(){
-
+        function addClazz(step) {
+            Students.add({
+                type: vm.user.type,
+                student: vm.clazz
+            }, function () {
+                if (typeof step === 'number') {
+                    $scope.$go(step);
+                } else {
+                    getClazzs();
+                }
+            });
         }
 
-        function getClazzs(type){
-
+        function getClazzs() {
+            var defer = $q.defer();
+            Students.all({
+                user_id: vm.user.id
+            }, function (result) {
+                vm.user.clazzs = result.data;
+                defer.resolve(result.data);
+            });
+            return defer.promise;
         }
 
-        function enter(){
+        function enter() {
             $state.go('base.pbl.list');
         }
 
@@ -217,9 +233,9 @@
             };
         }
 
-        function addDiscipline(discipline){
+        function addDiscipline(discipline) {
             vm.user.disciplines = vm.user.disciplines || [];
-            if(!vm.user.disciplines.has(discipline)){
+            if (!vm.user.disciplines.has(discipline)) {
                 vm.user.disciplines.push(discipline);
             }
         }
@@ -232,9 +248,9 @@
             };
         }
 
-        function addInterest(interest){
+        function addInterest(interest) {
             vm.user.interests = vm.user.interests || [];
-            if(!vm.user.interests.has(interest)){
+            if (!vm.user.interests.has(interest)) {
                 vm.user.interests.push(interest);
             }
         }
@@ -247,7 +263,7 @@
             });
         }
 
-        function setSchool(school){
+        function setSchool(school) {
             if (school) {
                 vm.user.school_id = school.id;
                 var regions = {
@@ -260,7 +276,7 @@
                 angular.extend(vm.region, regions);
                 vm.region.lastId = school.region_id;
                 onSchools(school.region_id);
-            }else{
+            } else {
                 onSchools();
             }
         }

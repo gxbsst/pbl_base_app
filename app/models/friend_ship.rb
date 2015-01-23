@@ -1,0 +1,1 @@
+FriendShip = Pbl::Models::FriendShip

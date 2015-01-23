@@ -68,7 +68,7 @@
                         closeable: true,
                         textColor: '#333',
                         src: 'register/step-1.html'
-                        //src: 'register/student/step-9.html'
+                        //src: 'register/teacher/step-5.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,
@@ -207,9 +207,11 @@
         }
 
         function getFriends() {
-            Friends.get(function (result) {
-                $rootScope.friends = result.data;
-            });
+            if($rootScope.currentUser){
+                Friends.get(function (result) {
+                    $rootScope.friends = result.data;
+                });
+            }
         }
 
         function getFollows() {
@@ -219,11 +221,13 @@
         }
 
         function getMemberShips() {
-            MemberShips.get({
-                namespace: 'user'
-            }, function (result) {
-                $rootScope.member_ships = result.data;
-            });
+            if($rootScope.currentUser){
+                MemberShips.get({
+                    namespace: 'user'
+                }, function (result) {
+                    $rootScope.member_ships = result.data;
+                });
+            }
         }
 
     }

@@ -1,7 +1,7 @@
 # config valid only for Capistrano 3.1
 lock '3.3.5'
 
-set :application, 'pbl_base_app'
+set :share, 'pbl_base_app'
 
 set :repo_url, 'git@58.246.127.90:pbl/pbl_base_app.git'
 

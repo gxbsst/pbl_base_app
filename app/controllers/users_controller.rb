@@ -1,4 +1,7 @@
-class UsersController < ApplicationBaseController
+class UsersController < UserController
+
+  before_action :authenticate_user!, except: :create
+  before_filter :set_user, except: :create
 
   def index
     @users = User.all(user_query_params)

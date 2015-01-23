@@ -1,6 +1,6 @@
-<div class="register register-school" ng-init="vm.user.clazzs=vm.getClazzs(ROLES.student)">
+<div class="register register-school" ng-init="vm.clazz=vm.getClazzs()">
     <h3 class="center">第三步 编辑班级信息</h3>
-    <form class="form-horizontal" ng-submit="vm.save('grade_id,clazz_id',5)">
+    <form class="form-horizontal" ng-submit="vm.addClazz('clazz_id',5)">
         <div class="form-group">
             <select et-select="GRADES" ng-model="vm.user.gradeId" et-config="placeholder='请选择您所在的年级'"
                     ng-change="vm.onGrade()"></select>

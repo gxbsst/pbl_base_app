@@ -5,17 +5,10 @@ class ClazzsController < ApplicationController
   end
 
   def user_clazzs
-    memberships = MemberShip.all(user_id: params[:user_id] || current_user.id)
-    ids = []
-    memberships[:data].each do |membership|
-      ids.push(membership[:group_id])
-    end
-    groups = Group.where(ids: ids.join(','), owner_type: ids.length > 0 ? :Clazz : :Invalid)
-    ids = []
-    groups[:data].each do |group|
-      ids.push(group[:owner_id])
-    end
-    @clazzs = Clazz.where(ids: ids.join(','), grade_id: ids.length > 0 ? nil : 0)
+    students = Student.all(user_id: params[:user_id] || current_user.id)
+    ids = students[:data].map(&:clazz_id).join(',')
+    return render 'share/empty' if ids.empty?
+    @clazzs = Clazz.where(ids: ids)
     render :index
   end
 

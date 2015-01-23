@@ -1,0 +1,1 @@
+Student = Pbl::Models::Student

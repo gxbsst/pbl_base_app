@@ -97,6 +97,8 @@
                 User.get(function (result) {
                     $rootScope.currentUser = result.data;
                     defer.resolve($rootScope.currentUser);
+                }, function () {
+                    defer.resolve();
                 });
             }
             return defer.promise;
@@ -112,6 +114,8 @@
                 Friends.get(function (result) {
                     $rootScope.friends = result.data;
                     defer.resolve($rootScope.friends);
+                }, function () {
+                    defer.resolve();
                 });
             }
             return defer.promise;

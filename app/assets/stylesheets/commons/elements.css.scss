@@ -19,10 +19,13 @@
 
 .hr{
   clear:both;
-  border-bottom:1px solid #ccc;
+  border-bottom:1px solid #dcdcdc;
   height:0;
   overflow:hidden;
   margin:12px 0;
+  &.hr-dotted{
+    border-bottom-style:dotted;
+  }
 }
 
 .aligm-middle{
