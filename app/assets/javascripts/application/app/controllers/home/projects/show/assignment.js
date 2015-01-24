@@ -260,7 +260,7 @@
                 //    return result;
                 //});
                 var score=work.scores.findOne(function(score){
-                    return score.user_id=userId;
+                    return score.user_id==userId;
                 });
                 return score;
             }else{
