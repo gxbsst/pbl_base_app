@@ -6,8 +6,13 @@
         <a ui-sref="base.home.index" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
     </span>
     <span class="user-tools">
-        <a href="javascript:void(0)" ng-click="HANDLES.login()">登录</a> /
-        <a href="javascript:void(0)" et-modals="RegisterModals">注册</a>
+        <span ng-if="currentUser">
+            欢迎您，<a ui-sref="base.home.users.show({userId:currentUser.id})" ng-bind="currentUser.realname||currentUser.username"></a>
+        </span>
+        <span ng-show="!currentUser">
+            <a href="javascript:void(0)" ng-click="HANDLES.login()">登录</a> /
+            <a href="javascript:void(0)" et-modals="RegisterModals">注册</a>
+        </span>
     </span>
 </div>
 <div class="banner">

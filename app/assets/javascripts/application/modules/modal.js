@@ -5,6 +5,7 @@
         .module('app.modal', ['app.factories'])
         .provider('modalConfig', modalConfig)
         .factory('modalFactory', modalFactory)
+        .factory('modals', modals)
         .directive('etModal', etModal)
         .directive('etModals', etModals);
 
@@ -68,7 +69,7 @@
                     delete $rootScope.modals[config.$id];
                     childScope.$destroy();
                     modalElement.remove();
-                    if(!Object.size($rootScope.modals)){
+                    if (!Object.size($rootScope.modals)) {
                         body.removeClass('disable-scroll');
                     }
                 };
@@ -153,16 +154,64 @@
             });
 
             scope.$watch(attr.etModals, function (config) {
-                if(config){
+                if (config) {
                     angular.extend(ctrl, config);
                 }
             }, true);
 
-            scope.$modalConfig = function (config, idx) {
-                if(typeof config == 'undefined'){
+            scope.getModalConfig = function (config, idx) {
+                if (typeof config == 'undefined') {
                     return ctrl;
                 }
-                if(typeof config == 'number'){
+                if (typeof config == 'number') {
+                    return ctrl.modals[config];
+                }
+                var conf = typeof idx == 'number' ? ctrl.modals[idx] : ctrl;
+                angular.extend(conf, config);
+            };
+
+            scope.setStep = function (idx) {
+                angular.extend(ctrl, ctrl.defaults);
+                angular.extend(ctrl, ctrl.modals[idx || 0]);
+                return ctrl;
+            };
+
+            element.on('click', function () {
+                modalFactory(scope.setStep()).then(function (modal) {
+                    $rootScope.modals[ctrl.$id] = modal;
+                });
+            });
+
+        }
+    }
+
+    modals.$inject = ['$rootScope', '$q', '$controller', 'modalFactory'];
+
+    function modals($rootScope, $q, $controller, modalFactory) {
+
+        return function (config, scope) {
+
+            scope = scope || $rootScope.$new();
+
+            var defer = $q.defer(),
+                locals = {
+                    $scope: scope
+                },
+                ctrl = $controller(angular.noop, locals),
+                modal;
+
+            locals.$scope.modalConfig = ctrl;
+
+            angular.extend(ctrl, {
+                $id: scope.$id,
+                $scope: scope
+            });
+
+            scope.getModalConfig = function (config, idx) {
+                if (typeof config == 'undefined') {
+                    return ctrl;
+                }
+                if (typeof config == 'number') {
                     return ctrl.modals[config];
                 }
                 var conf = typeof idx == 'number' ? ctrl.modals[idx] : ctrl;
@@ -170,14 +219,27 @@
             };
 
             scope.$go = function (idx) {
-                return $.extend(ctrl, ctrl.defaults, ctrl.modals[idx || 0]);
+                angular.extend(ctrl, ctrl.defaults);
+                angular.extend(ctrl, ctrl.modals[idx || 0]);
+                return ctrl;
             };
 
-            element.on('click', function () {
-                modalFactory(scope.$go()).then(function (modal) {
-                    $rootScope.modals[ctrl.$id] = modal;
-                });
-            });
+            scope.$watch(function () {
+                return config;
+            }, function (config) {
+                if (config) {
+                    angular.extend(ctrl, config);
+                    if (!modal) {
+                        modal = modalFactory(scope.setStep());
+                        modal.then(function (modal) {
+                            $rootScope.modals[ctrl.$id] = modal;
+                            defer.resolve(modal);
+                        });
+                    }
+                }
+            }, true);
+
+            return defer.promise;
 
         }
     }

@@ -94,11 +94,13 @@
             if($rootScope.currentUser){
                 defer.resolve($rootScope.currentUser);
             }else{
-                User.get(function (result) {
+                User.get({
+                    include: 'schools'
+                },function (result) {
                     $rootScope.currentUser = result.data;
                     defer.resolve($rootScope.currentUser);
                 }, function () {
-                    defer.resolve();
+                    defer.resolve(null);
                 });
             }
             return defer.promise;

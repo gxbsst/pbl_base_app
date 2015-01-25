@@ -164,11 +164,12 @@
     }
     .invitation-code{
       width:350px;
+      height:80px;
+      line-height:80px;
       font-size:26px;
       color:#f60;
       border:1px solid #e0e0e0;
       text-align:center;
-      line-height:80px;
     }
   }
   &.register-finish{

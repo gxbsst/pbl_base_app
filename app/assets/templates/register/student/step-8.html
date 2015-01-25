@@ -1,8 +1,8 @@
-<div class="register register-invitation">
+<div class="register register-invitation" et-exec="vm.getInvitation()">
     <h3 class="center">第六步 请保存您的家长邀请码</h3>
-    <div class="form-horizontal">
+    <form class="form-horizontal" ng-submit="vm.save(8)">
         <div class="form-group margin-top-12">
-            <div class="invitation-code" ng-bind="vm.invitation"></div>
+            <div class="invitation-code" ng-bind="vm.invitation.code"></div>
         </div>
         <div class="form-group">
             <div class="note">或直接发送至家长邮箱：</div>
@@ -13,8 +13,8 @@
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">
-            <span class="btn btn-gray" ng-click="$go(3)">上一步</span>
-            <button type="submit" class="btn" ng-class="vm.btn()" ng-click="$go(8)">保存并继续</button>
+            <span class="btn btn-gray" ng-click="setStep(6)">上一步</span>
+            <button type="submit" class="btn" ng-class="vm.btn()">保存并继续</button>
         </div>
-    </div>
+    </form>
 </div>

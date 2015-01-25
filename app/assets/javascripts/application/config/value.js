@@ -7,6 +7,7 @@
             RESOURCE_ACTIONS: {
                 all: {method: 'GET'},
                 add: {method: 'POST'},
+                post: {method: 'POST'},
                 update: {method: 'PUT'},
                 remove: {method: 'DELETE'},
                 release: {method: 'PATCH'}

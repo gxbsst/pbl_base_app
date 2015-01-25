@@ -35,10 +35,13 @@ Rails.application.routes.draw do
     resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
     resources :rules, defaults: { format: :json }, only: %w(index)
+    get :invitations, :to => 'invitations#current_user_index'
+    resources :invitations, defaults: {format: 'json'}, only: %w(create show)
     get :groups, :to => 'groups#current_user_index'
     resources :groups, defaults: { format: :json }, only: %w(create destroy)
     get :clazzs, :to => 'clazzs#user_clazzs'
     resources :clazzs, defaults: { format: :json }, only: %w(index)
+    resources :steps, defaults: { format: :json }, only: %w(index create show update)
     get :member_ships, :to => 'member_ships#current_user_index'
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
   end
@@ -105,8 +108,6 @@ Rails.application.routes.draw do
       get ':ids', to: 'clazzs#index', constraints: {ids: /.+[,].+/}
     end
   end
-
-  resources :invitations, defaults: {format: 'json'}, only: %w(create show)
 
   resources :follows, defaults: {format: 'json'}
 

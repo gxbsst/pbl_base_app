@@ -11,19 +11,36 @@
 
         $stateProvider
             .state('base.home.user', {
-                url: '^/me',
+                url: '^/i',
                 templateUrl: 'user/index.html'
             })
             .state('base.home.users', {
+                abstract: true,
                 url: '^/users',
-                templateUrl: 'users/index.html',
-                controller: 'UsersIndexController as vm'
+                template: '<div ui-view></div>'
             })
             .state('base.home.users.show', {
-                url: '^/users/:userId',
+                url: '/:userId',
                 templateUrl: 'users/show.html',
-                controller: 'UsersShowController as vm'
+                controller: 'UsersShowController as vm',
+                resolve: {
+                    user: getUser
+                }
             });
+
+        getUser.$inject = ['$q', 'User'];
+
+        function getUser($q, User){
+            var defer = $q.defer();
+            User.get({
+                include: 'schools'
+            },function (result) {
+                defer.resolve(result.data);
+            }, function () {
+                defer.resolve(null);
+            });
+            return defer.promise;
+        }
 
     }
 

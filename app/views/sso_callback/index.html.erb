@@ -1,9 +1,9 @@
 <script type="text/javascript" charset="utf-8">
-    var angular = window.top.angular,
-        scope = angular.element('body').scope();
-    setTimeout(function () {
-        scope.$apply(function () {
-            scope.logged = true;
-        });
-    }, 5000);
+    var top = window.top,
+            angular = top.angular,
+            scope = angular.element('body').scope();
+    top.$httpProvider.defaults.headers.common['X-CSRF-Token'] = '<%= form_authenticity_token %>';
+    scope.$apply(function () {
+        scope.logged = true;
+    });
 </script>

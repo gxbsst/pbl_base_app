@@ -4,6 +4,11 @@ class InvitationsController < ApplicationController
     @invitations = Invitation.all
   end
 
+  def current_user_index
+    @invitations = Invitation.where(owner_type: :User, owner_id: params[:user_id] || current_user.id)
+    render :index
+  end
+
   def create
     @invitation = Invitation.create(params[:invitation])
     render :show

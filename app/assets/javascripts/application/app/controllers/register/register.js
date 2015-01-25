@@ -5,13 +5,13 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$state', '$q', 'User', 'Schools', 'Students', 'Clazzs', 'Users'];
+    RegisterController.$inject = ['$scope', '$rootScope', '$state', '$q', 'Users', 'User', 'Steps', 'Schools', 'Students', 'Clazzs'];
 
-    function RegisterController($scope, $state, $q, User, Schools, Students, Clazzs, Users) {
+    function RegisterController($scope, $rootScope, $state, $q, Users, User, Steps, Schools, Students, Clazzs) {
 
         var vm = this;
 
-        vm.user = {};
+        vm.user = $scope.currentUser || {};
         vm.btn = btn;
         vm.save = save;
         vm.onSuccess = onSuccess;
@@ -24,6 +24,7 @@
         vm.addClazz = addClazz;
         vm.removeClazz = removeClazz;
         vm.getClazzs = getClazzs;
+        vm.getInvitation = getInvitation;
         vm.enter = enter;
         vm.region = {};
         vm.clazz = {};
@@ -52,28 +53,8 @@
             return vm.user.type;
         }, function (type) {
             if (type) {
-                var config;
-                for (var i = 1; i < 5; i++) {
-                    config = $scope.$modalConfig(i);
-                    config.src = config.src.replace(/register\/(.+?)\/(.+?)/, 'register/' + type.toLowerCase() + '/$2');
-                    switch (type) {
-                        case 'Teacher':
-                            $scope.$modalConfig({
-                                bgColor: '#4182F0'
-                            }, i);
-                            break;
-                        case 'Student':
-                            $scope.$modalConfig({
-                                bgColor: '#73c828'
-                            }, i);
-                            break;
-                        case 'Parent':
-                            $scope.$modalConfig({
-                                bgColor: '#46c8f0'
-                            }, i);
-                            break;
-                    }
-                }
+                var ctrl = $scope.getModalConfig();
+                $scope.RegisterModalConfig(ctrl.$scope, type);
             }
         });
 
@@ -92,33 +73,53 @@
         }
 
         function save(fields, step, create) {
-            vm.$fields = fields.replace(/\s/g, '');
-            var user = filter();
-            if (check())return;
-            Users[create ? 'add' : 'update']({
-                userId: create ? null : vm.user.id
-            }, {
-                user: user
-            }, function (result) {
-                if (!result.errors) {
-                    delete vm.$fields;
-                    angular.extend(vm.user, result.data);
-                    if (typeof step == 'number') {
-                        if(create){
-                            $scope.HANDLES.login(vm.user).then(function () {
-                                getCurrentUser().then(function (currentUser) {
-                                    $rootScope.currentUser = currentUser;
-                                    $scope.$go(step);
+            if(typeof fields == 'number'){
+                step = fields;
+                fields = null;
+            }
+            if(fields){
+                vm.$fields = fields.replace(/\s/g, '');
+                var user = filter();
+                if (check())return;
+                Users[create ? 'add' : 'update']({
+                    userId: create ? null : vm.user.id
+                }, {
+                    user: user
+                }, function (result) {
+                    if (!result.errors) {
+                        delete vm.$fields;
+                        angular.extend(vm.user, result.data);
+                        if (typeof step == 'number') {
+                            if(create){
+                                $rootScope.HANDLES.login(vm.user).then(function () {
+                                    getCurrentUser().then(function (currentUser) {
+                                        $rootScope.currentUser = currentUser;
+                                        setStep(step);
+                                    });
                                 });
-                            });
-                        }else{
-                            $scope.$go(step);
+                            }else{
+                                setStep(step);
+                            }
                         }
+                    } else {
+                        vm.verification.errors = result.errors[0];
                     }
-                } else {
-                    vm.verification.errors = result.errors[0];
-                }
-            });
+                });
+            }else{
+                setStep(step);
+            }
+        }
+
+        function setStep(step){
+            if($rootScope.currentUser){
+                Steps.post({
+                    current_step: step
+                }, function () {
+                    $scope.setStep(step);
+                });
+            }else{
+                $scope.setStep(step);
+            }
         }
 
         function getCurrentUser(){
@@ -224,10 +225,10 @@
                 type: vm.user.type,
                 student: vm.clazz
             }, function () {
-                vm.clazz = {};
                 if (typeof step === 'number') {
-                    $scope.$go(step);
+                    save(step);
                 } else {
+                    vm.clazz = {};
                     getClazzs();
                 }
             });
@@ -241,11 +242,28 @@
             }
         }
 
-        function getClazzs() {
+        function getClazzs(one) {
             Students.all({
                 user_id: vm.user.id
             }, function (result) {
-                vm.user.clazzs = result.data;
+                var clazzs = result.data;
+                if(one){
+                    vm.user.clazz = clazzs[0];
+                    vm.clazz = {
+                        $grade_id: clazzs[0].clazz.grade_id,
+                        clazz_id: clazzs[0].clazz.id
+                    };
+                }else{
+                    vm.user.clazzs = clazzs;
+                }
+            });
+        }
+
+        function getInvitation(){
+            User.get({
+                action: 'invitations'
+            }, function (result) {
+                 vm.invitation = result.data[0];
             });
         }
 
@@ -311,8 +329,8 @@
 
         function onClazzs() {
             Clazzs.all({
-                school_id: vm.user.school_id,
-                grade_id: vm.user.grade_id
+                school_id: vm.user.school ? vm.user.school.id : vm.user.school_id,
+                grade_id: vm.clazz ? vm.clazz.$grade_id : vm.user.grade_id
             }, function (result) {
                 vm.clazzs = result.data;
             });

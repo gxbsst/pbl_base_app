@@ -6,15 +6,15 @@
         .controller('BaseController', BaseController);
 
     BaseController.$inject = [
-        '$scope', '$rootScope', '$document', '$q',
+        '$scope', '$rootScope', '$document', '$q', 'modals',
         'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GRADES',
-        'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations',
+        'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations', 'User',
         'TYPE_DEFIN', 'WORK_TYPES'
     ];
 
-    function BaseController($scope, $rootScope, $document, $q,
+    function BaseController($scope, $rootScope, $document, $q, modals,
                             RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GRADES,
-                            Resources, Follows, Friends, Groups, MemberShips, Invitations,
+                            Resources, Follows, Friends, Groups, MemberShips, Invitations, User,
                             TYPE_DEFIN, WORK_TYPES) {
 
         $document.on('click', function () {
@@ -76,7 +76,7 @@
                         src: 'register/:type/step-2.html'
                     }, {
                         title: '欢迎开启项目学习之旅',
-                        src: 'register/step-3.html'
+                        src: 'register/:type/step-3.html'
                     }, {
                         title: '欢迎开启项目学习之旅',
                         src: 'register/:type/step-4.html'
@@ -92,13 +92,67 @@
                     }, {
                         title: '欢迎开启项目学习之旅',
                         src: 'register/:type/step-8.html'
+                    }, {
+                        title: '欢迎开启项目学习之旅',
+                        src: 'register/:type/step-9.html'
                     }
                 ]
-            }
+            },
+            RegisterModalConfig: RegisterModalConfig
         });
 
         getFollows();
         getMemberShips();
+
+        var currentUser = $rootScope.currentUser;
+
+        if(currentUser){
+            currentUser.current_step = currentUser.current_step || 2;
+            var steps;
+            switch(currentUser.type){
+                case ROLES.teacher:
+                    steps = 7;
+                    break;
+                case ROLES.student:
+                    steps = 8;
+                    break;
+                case ROLES.parent:
+                    steps = 8;
+                    break;
+            }
+            if(currentUser.current_step < steps){
+                modals($rootScope.RegisterModals).then(function (modal) {
+                    var scope = modal.scope;
+                    RegisterModalConfig(scope, $rootScope.currentUser.type);
+                    scope.setStep($rootScope.currentUser.current_step);
+                });
+            }
+        }
+
+        function RegisterModalConfig(scope, type){
+            var config;
+            for (var i = 1; i < $rootScope.RegisterModals.modals.length; i++) {
+                config = scope.getModalConfig(i);
+                config.src = config.src.replace(/register\/(.+?)\/(.+?)/, 'register/' + type.toLowerCase() + '/$2');
+                switch (type) {
+                    case 'Teacher':
+                        scope.getModalConfig({
+                            bgColor: '#4182F0'
+                        }, i);
+                        break;
+                    case 'Student':
+                        scope.getModalConfig({
+                            bgColor: '#73c828'
+                        }, i);
+                        break;
+                    case 'Parent':
+                        scope.getModalConfig({
+                            bgColor: '#46c8f0'
+                        }, i);
+                        break;
+                }
+            }
+        }
 
         function onBegin(object) {
             return function (data) {
@@ -126,8 +180,9 @@
 
         function login(user) {
             var defer = $q.defer(),
-                code = Base64.encode([['username', user.username].join('='), ['password', user.password].join('=')].join('&'));
-            $('<iframe src="/custom_login?q=' + code + '"></iframe>').appendTo('body');
+                code = Base64.encode([['username', user.username].join('='), ['password', user.password].join('=')].join('&')),
+                iframe = $('<iframe style="display:none" src="/custom_login?q=' + code + '"></iframe>').appendTo('body');
+
             var listener = $scope.$watch(function () {
                 return $scope.logged;
             }, function (logged) {
@@ -135,6 +190,7 @@
                     defer.resolve(null);
                     delete $scope.logged;
                     listener();
+                    iframe.remove();
                 }
             });
             return defer.promise;

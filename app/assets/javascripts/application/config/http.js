@@ -9,6 +9,8 @@
 
     function configure($httpProvider) {
 
+        window.$httpProvider = $httpProvider;
+
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name="csrf-token"]').attr('content');
         $httpProvider.interceptors.push(interceptors);
 
@@ -23,6 +25,7 @@
                 switch (rejection.status) {
                     case 401:
                     case 422:
+                        //window.location.reload();
                         //window.location.href = '/custom_login?callback_url=' + encodeURIComponent(window.location.href);
                         break;
                     case 500:

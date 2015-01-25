@@ -22,3 +22,4 @@ json.friends do
 end if user[:friends]
 json.interests user[:interests] if user[:interests]
 json.disciplines user[:disciplines] if user[:disciplines]
+json.current_step @step[:current_step] if @step

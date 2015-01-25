@@ -1,0 +1,25 @@
+<div class="register register-profile">
+    <h3 class="center">第一步 编辑个人信息</h3>
+    <form class="form-horizontal" ng-submit="vm.save('avatar,realname,gender',3)">
+        <div class="avatar" ng-class="{uploading:vm.user.$uploading}"
+             qn-upload="{bucket:QINIU.buckets.image,ownerType:RESOURCE_TYPES.user.avatar,ownerId:vm.user.id}"
+             on-begin="UPLOAD_HANDLES.onBegin(vm.user)" on-success="vm.onSuccess(vm.user)">
+            <img ng-src="{{ vm.user|avatar:'80x80' }}" />
+            点击上传头像
+        </div>
+        <div class="form-group center">
+            <label for="user.gender.male" class="control-label"><input type="radio" id="user.gender.male" ng-model="vm.user.gender" ng-value="1"/> 男</label>
+            <label for="user.gender.female" class="control-label"><input type="radio" id="user.gender.female" ng-model="vm.user.gender" ng-value="2"/> 女</label>
+            <div class="error" ng-repeat="error in vm.verification.errors.gender track by $index" ng-bind="'gender_'+error|error"></div>
+        </div>
+        <div class="form-group center">
+            <input type="text" class="form-control center" ng-model="vm.user.realname" placeholder="请输入您的真实姓名"/>
+            <span class="note" ng-if="!vm.verification.errors.realname.length">请填写真实姓名，否则无法通过实名认证</span>
+            <span class="error" ng-repeat="error in vm.verification.errors.realname track by $index" ng-bind="'realname_'+error|error"></span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="et-modal-footer center">
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.realname">保存并继续</button>
+        </div>
+    </form>
+</div>
