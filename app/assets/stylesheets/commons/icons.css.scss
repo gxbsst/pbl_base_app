@@ -22,6 +22,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.pf-space:before {
+  content: "\　";
+}
 
 .pf-group-eye:before {
   content: "\e637";

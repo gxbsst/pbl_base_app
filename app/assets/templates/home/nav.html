@@ -18,6 +18,12 @@
     <li>
         <a ui-sref="base.home.projects.index" ng-class="{active:$state.includes('base.home.projects')}"><i class="pf-folder"></i><span>项目学习</span></a>
     </li>
+    <li ng-if="$state.includes('base.home.projects')">
+        <a ui-sref="base.home.projects.index" ng-class="{active:$state.includes('base.home.projects')}"><i class="pf-space"></i><span>我参与的PBL</span></a>
+    </li>
+    <li ng-if="$state.includes('base.home.projects')">
+        <a ui-sref="base.home.projects.index" ng-class="{active:$state.includes('base.home.projects')}"><i class="pf-space"></i><span>我创建的PBL</span></a>
+    </li>
     <li>
         <a href="#"><i class="pf-documents"></i>作业</a>
     </li>

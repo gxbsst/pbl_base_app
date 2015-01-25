@@ -1,10 +1,10 @@
 <div ng-if="!vm.projects" class="loading"><i class="pf-spinner-2 rotation"></i></div>
-<div class="row" ng-if="vm.projects">
+<div class="row">
     <div class="text-center project-list list-first" ng-if="!vm.projects.length">
         <div>还没有自己的PBL项目？立即创建</div>
         <div><span ui-sref="base.home.projects.edit.design" ng-bind="'  创建属于自己的PBL'" class=" pf-expand btn btn-lg btn-blue"></span></div>
     </div>
-    <div class="project-list" ng-if="vm.projects.length">
+    <div id="project-list" class="project-list" ng-if="vm.projects.length">
         <div class="text-right">
             <span class="project-pointer draft"></span><span>设计中的PBL项目</span>
             <span class="project-pointer release"></span><span>执行中的PBL项目</span>
@@ -13,14 +13,33 @@
         <div class="text-right">
             <span ui-sref="base.home.projects.edit.design" ng-bind="'  创建PBL'" class="list-btn btn pf-expand btn-sm"></span>
         </div>
-        <div>
-            <ul>
-                <li ng-repeat="project in vm.projects">
-                    <span class="project-pointer" ng-class="project.state||'draft'"></span>
-                    <a ui-sref="base.home.projects.show.info({projectId:project.id})" ui-sref-active="active" ng-bind="project.name || '未命名项目'"></a> /
-                    <a ui-sref="base.home.projects.edit.design({projectId:project.id})">编辑</a>
-                </li>
-            </ul>
+        <div class="row case-row">
+            <div class="row-title">
+                <span>精彩案例</span>
+                <hr/>
+            </div>
+            <div class="case-list">
+                <div ui-sref="base.home.projects.show.info({projectId:project.id})" class="case-item" ng-repeat="project in vm.projects">
+                    <div class="item-pic">
+                        <div class="project-cover">
+                            <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                            <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                            <div class="pic-mask">
+                                <span ng-bind-html="project.description"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-title">
+                        <span ng-bind-html="project.name||'未命名项目'"></span>
+                    </div>
+                    <div class="item-cont">
+                        <div class="item-tag">
+                            <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
