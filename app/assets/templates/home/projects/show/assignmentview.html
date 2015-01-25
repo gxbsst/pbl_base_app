@@ -40,6 +40,7 @@
         </div>
         <div class="group-list col-1-1" ng-if="work.acceptor_type==TYPE_DEFIN.Group">
             <div class="col-1-12">小组成员：</div>
+            {{work.scores}}
             <div class="col-11-12">
                 <span class="group-user evaluated" ng-if="user.scores" ng-repeat="user in work.usersHash"
                       et-tips="delay=150;black=false;$user=user;src='home/projects/show/workscore-tip.html'">
@@ -47,6 +48,7 @@
                 </span>
                 <span class="group-user " ng-if="!user.scores" ng-repeat="user in work.usersHash">
                     <img class="user-pic"  ng-src="{{user|avatar}}">
+                    {{user.scores.id}}
                 </span>
             </div>
         </div>
