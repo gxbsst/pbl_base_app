@@ -221,14 +221,21 @@
                             return task.works[i].acceptor_id == item.id;
                         });
 
+                        task.works[i].userScores = {};
                         angular.forEach(groups, function (group) {
                             angular.forEach(group.members, function (member) {
                                 task.works[i].usersHash[member] = vm.usersHash[member];
-                                task.works[i].usersHash[member].scores ={};
-                                task.works[i].usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member].id);
-                                console.log(task.works[i].id);
-                                console.log(task.works[i].usersHash[member].scores);
-                                console.log(task.works[i].usersHash[member]);
+                                vm.usersHash[member].scores ={};
+                                //vm.usersHash[member].scores = getWorkScores(task.works[i], vm.usersHash[member].id);
+                                Object.merge(vm.usersHash[member].scores,getWorkScores(task.works[i], vm.usersHash[member].id));
+
+                                task.works[i].userScores[member] ={};
+                                //task.works[i].userScores[member] = getWorkScores(task.works[i], vm.usersHash[member].id);
+                                Object.merge(task.works[i].userScores[member],getWorkScores(task.works[i], vm.usersHash[member].id));
+                                //console.log(task.works[i].id);
+                                //console.log(task.works[i].usersHash[member].scores);
+                                //console.log(task.works[i].usersHash[member]);
+                                //console.log(task.works[i].userScores[member]);
                                 if(member==$rootScope.currentUser.id){
                                     worksstudent=true;
                                 }
@@ -260,7 +267,7 @@
                 //    return result;
                 //});
                 var score=work.scores.findOne(function(score){
-                    return score.user_id=userId;
+                    return score.user_id==userId;
                 });
                 return score;
             }else{

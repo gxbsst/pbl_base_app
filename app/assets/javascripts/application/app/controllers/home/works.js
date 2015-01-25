@@ -95,6 +95,7 @@
                    $scope.current.score+=parseInt($scope.current.gaugescore[gauge.id])*parseInt($scope.current.gaugeweight[gauge.id])/100;
                 }
             });
+            $scope.current.score=parseInt($scope.current.score);
         }
 
         function setWorkScore(userId){
@@ -134,11 +135,24 @@
                 Scores.add({
                     score: score
                 }, function(){
-                    //setWorkState($scope.work.id,WORK_TYPES.evaluated);
+                    getWorkScore(userId);
                 });
             });
         }
 
+        function judgeWorkState(work){
+            var workstate=true;
+            angular.forEach(work.userScores, function (score) {
+                if (!score.id){
+                    console.log("false");
+                    workstate=false;
+                }
+            });
+            if(workstate&&work.state == WORK_TYPES.evaluating){
+                setWorkState(work.id,WORK_TYPES.evaluated);
+                work.state=WORK_TYPES.evaluated;
+            }
+        }
         function setWorkState(workId,action){
             Works.update({
                 workId:workId,
@@ -169,6 +183,8 @@
                     $scope.current.comment=score.comment;
                     $scope.current.state=false;
                     $scope.current.user_id=userId;
+                    Object.merge($scope.work.userScores[userId],score);
+                    judgeWorkState($scope.work);
                 }else{
                     $scope.current.user_id=userId;
                     $scope.current.comment='';
