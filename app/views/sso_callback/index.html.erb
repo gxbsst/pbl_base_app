@@ -1,7 +1,9 @@
 <script type="text/javascript" charset="utf-8">
     var angular = window.top.angular,
         scope = angular.element('body').scope();
-    scope.$apply(function () {
-        scope.logined = true;
-    });
+    setTimeout(function () {
+        scope.$apply(function () {
+            scope.logged = true;
+        });
+    }, 5000);
 </script>

@@ -129,11 +129,13 @@
                 code = Base64.encode([['username', user.username].join('='), ['password', user.password].join('=')].join('&'));
             $('<iframe src="/custom_login?q=' + code + '"></iframe>').appendTo('body');
             var listener = $scope.$watch(function () {
-                return $scope.logined;
-            }, function () {
-                defer.resolve(null);
-                delete $scope.logined;
-                listener();
+                return $scope.logged;
+            }, function (logged) {
+                if(logged){
+                    defer.resolve(null);
+                    delete $scope.logged;
+                    listener();
+                }
             });
             return defer.promise;
         }

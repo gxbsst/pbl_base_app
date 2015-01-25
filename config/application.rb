@@ -39,5 +39,9 @@ module PblWeb
         :remove_intertag_spaces => true
     }
 
+    config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'ALLOWALL'
+    }
+
   end
 end

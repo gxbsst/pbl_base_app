@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150104132728) do
+ActiveRecord::Schema.define(version: 20150123161855) do
 
   create_table "groupings", force: true do |t|
     t.string   "project_id"
@@ -29,5 +29,12 @@ ActiveRecord::Schema.define(version: 20150104132728) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+
+  create_table "steps", force: true do |t|
+    t.string   "user_id"
+    t.integer  "current_step"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

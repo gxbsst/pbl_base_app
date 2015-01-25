@@ -5,9 +5,9 @@
         .module('app.pbl')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$scope', '$state', '$q', 'Schools', 'Students', 'Clazzs', 'Users'];
+    RegisterController.$inject = ['$scope', '$state', '$q', 'User', 'Schools', 'Students', 'Clazzs', 'Users'];
 
-    function RegisterController($scope, $state, $q, Schools, Students, Clazzs, Users) {
+    function RegisterController($scope, $state, $q, User, Schools, Students, Clazzs, Users) {
 
         var vm = this;
 
@@ -106,7 +106,10 @@
                     if (typeof step == 'number') {
                         if(create){
                             $scope.HANDLES.login(vm.user).then(function () {
-                                $scope.$go(step);
+                                getCurrentUser().then(function (currentUser) {
+                                    $rootScope.currentUser = currentUser;
+                                    $scope.$go(step);
+                                });
                             });
                         }else{
                             $scope.$go(step);
@@ -116,6 +119,16 @@
                     vm.verification.errors = result.errors[0];
                 }
             });
+        }
+
+        function getCurrentUser(){
+            var defer = $q.defer();
+            User.get(function (result) {
+                defer.resolve(result.data);
+            }, function () {
+                defer.reject();
+            });
+            return defer.promise;
         }
 
         function filter() {
