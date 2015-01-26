@@ -9,9 +9,9 @@
 </head>
 <body>
 <ul class="nav">
-  <li><a href="<%= admin_standard_items_path %>">课标库</a></li>
-  <li><a href="#">技能库</a></li>
-  <li><a href="#">量规库</a></li>
+  <li><%= link_to '课标库', admin_standard_items_path %></li>
+  <li><%= link_to '技能库', admin_techniques_path %></li>
+  <li><%= link_to '量规库', admin_gauges_path %></li>
 </ul>
 <div class="main">
   <%= yield %>

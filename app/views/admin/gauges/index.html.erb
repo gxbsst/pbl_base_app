@@ -1,0 +1,41 @@
+<h3>
+  量规列表
+  <%= link_to '新建量规', new_admin_gauge_path %>
+</h3>
+<div class="hr"></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>关联技能</th>
+    <th>量规标准</th>
+    <th>权重</th>
+    <th>★☆☆☆☆</th>
+    <th>★★☆☆☆</th>
+    <th>★★★☆☆</th>
+    <th>★★★★☆</th>
+    <th>★★★★★</th>
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @gauges[:data].each do |gauge| %>
+      <tr>
+        <td class="center"><%= gauge[:technique][:title] %></td>
+        <td><%= gauge[:standard] %></td>
+        <td class="center"><%= gauge[:weight] %>%</td>
+        <td><%= gauge[:level_1] %></td>
+        <td><%= gauge[:level_2] %></td>
+        <td><%= gauge[:level_3] %></td>
+        <td><%= gauge[:level_4] %></td>
+        <td><%= gauge[:level_5] %></td>
+        <td class="center">
+          <%= link_to '编辑', edit_admin_gauge_path(gauge.id) %>
+          <span class="space-x">/</span>
+          <%= link_to '删除', admin_gauge_path(gauge.id), data: {confirm: '您确定要删除吗？', method: :delete} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="hr"></div>
+<%= pagination(@gauges[:meta], admin_gauges_path) %>

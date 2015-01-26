@@ -1,0 +1,36 @@
+<h3>
+  课标列表
+  <%= link_to '新建技能', new_admin_technique_path %>
+  <span class="space-x">/</span>
+  <%= link_to '分类管理', admin_categories_path %>
+  <%= link_to '子分类管理', admin_sub_categories_path %>
+</h3>
+<div class="hr"></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>所属学科</th>
+    <th>所属学段</th>
+    <th>所属分类</th>
+    <th>课标内容</th>
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @techniques[:data].each do |technique| %>
+      <tr>
+        <td><%= technique[:subject][:name] %></td>
+        <td><%= technique[:phase][:name] %></td>
+        <td><%= technique[:standard][:title] %></td>
+        <td><%= technique[:content] %></td>
+        <td class="center">
+          <%= link_to '编辑', edit_admin_technique_path(technique.id) %>
+          <span class="space-x">/</span>
+          <%= link_to '删除', admin_technique_path(technique.id), data: {confirm: '您确定要删除吗？', method: :delete} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="hr"></div>
+<%= pagination(@techniques[:meta], admin_techniques_path) %>

@@ -1,0 +1,8 @@
+<h3>
+  新建量规
+  <%= link_to '返回列表', admin_gauges_path %>
+</h3>
+<div class="hr"></div>
+<%= form_for @gauge, :as => :gauge, :url => admin_gauges_path, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'admin/gauges/form', :f => f %>
+<% end %>

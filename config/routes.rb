@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     resources :standards, defaults: {format: 'json'}, only: %w(index)
   end
 
-  resources :gauges, defaults: {format: 'json'}, only: %w(index)
+  resources :gauges, defaults: {format: 'json'}, only: %w(index show)
   resource :gauge_recommends, defaults: { format: :json }, only: %w(show)
 
   resources :product_forms, defaults: {format: 'json'}, only: %w(index)
@@ -125,6 +125,10 @@ Rails.application.routes.draw do
     resources :subjects
     resources :phases
     resources :standards
+    resources :techniques
+    resources :categories
+    resources :sub_categories
+    resources :gauges
   end
 
 end

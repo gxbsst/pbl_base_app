@@ -1,0 +1,36 @@
+<div class="form-group">
+  <strong>关联技能：</strong>
+  <select name="gauge[technique_id]" class="form-control relation-select" data-path="/skill/techniques?limit=100" data-field="title">
+    <option>Loading...</option>
+  </select>
+  <span class="space-x"></span>
+  <strong>设置量规权重：</strong>
+  <%= f.text_field :weight, placeholder: '1-100之间', class: %w(form-control form-control-st) %>
+</div>
+<div class="form-group">
+  <%= f.label :standard,  '量规标准', class: %w(control-label) %>
+  <%= f.text_area :standard, placeholder: '请输入量规标准', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :level_1,  '★☆☆☆☆', class: %w(control-label) %>
+  <%= f.text_area :level_1, placeholder: '请输入一星标准', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :level_2,  '★★☆☆☆', class: %w(control-label) %>
+  <%= f.text_area :level_2, placeholder: '请输入二星标准', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :level_3,  '★★★☆☆', class: %w(control-label) %>
+  <%= f.text_area :level_3, placeholder: '请输入三星标准', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :level_4,  '★★★★☆', class: %w(control-label) %>
+  <%= f.text_area :level_4, placeholder: '请输入四星标准', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :level_5,  '★★★★★', class: %w(control-label) %>
+  <%= f.text_area :level_5, placeholder: '请输入五星标准', class: %w(form-control) %>
+</div>
+<div class="center">
+  <%= f.submit value: '确定', class: %w(btn btn-blue) %>
+</div>
