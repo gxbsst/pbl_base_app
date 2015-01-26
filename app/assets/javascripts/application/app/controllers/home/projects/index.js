@@ -121,10 +121,9 @@
 
     }
 
-    ProjectIndexController.$inject = ['$scope','Projects','ProjectProducts','Resources','RESOURCE_TYPES'];
+    ProjectIndexController.$inject = ['$rootScope','$scope','Projects','ProjectProducts','Resources','RESOURCE_TYPES','criteria'];
 
-    function ProjectIndexController($scope,Projects,ProjectProducts,Resources,RESOURCE_TYPES) {
-
+    function ProjectIndexController($rootScope,$scope,Projects,ProjectProducts,Resources,RESOURCE_TYPES,criteria) {
         var vm = this;
         vm.projects=[];
         vm.getProjects=getProjects;
@@ -139,11 +138,18 @@
             phase:'',
             technique:'',
             name:'',
-            order:'desc'
+            order:'desc',
+            user_id:'',
+            actor_id:''
         };
+        if(criteria){
+            vm.select[criteria]=$rootScope.currentUser.id;
+        }
+
         getProjects();
 
         function getProjects(){
+            console.log(vm.select.user_id);
             Projects.all({
                 limit:vm.meta.total_count,
                 page:vm.meta.current_page+1,
@@ -151,7 +157,9 @@
                 phase:vm.select.phase,
                 technique:vm.select.technique,
                 name:vm.select.name,
-                order:vm.select.order
+                order:vm.select.order,
+                user_id:vm.select.user_id,
+                actor_id:vm.select.actor_id
             },function (result) {
                 angular.forEach(result.data, function (project) {
                     getProjectProducts(project);

@@ -213,7 +213,7 @@ body{
   box-shadow:0 0 8px 0 #999;
 }
 
-#index,#project-list{
+#index{
   margin:auto;
   .row{
     .row-title{
@@ -586,7 +586,14 @@ body{
   .project-results{
     .case-more{
       text-align:center;
-      margin-bottom:20px;
+      margin:20px auto;
+      font-size: 17px;
+      color: #666666;
+      span{
+        display: inline-block;
+        padding: 20px;
+        cursor: pointer;
+      }
     }
   }
 }

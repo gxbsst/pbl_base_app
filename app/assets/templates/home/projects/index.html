@@ -4,12 +4,7 @@
         <div>还没有自己的PBL项目？立即创建</div>
         <div><span ui-sref="base.home.projects.edit.design" ng-bind="'  创建属于自己的PBL'" class=" pf-expand btn btn-lg btn-blue"></span></div>
     </div>
-    <div id="project-list" class="project-list" ng-if="vm.projects.length">
-        <div class="text-right">
-            <span class="project-pointer draft"></span><span>设计中的PBL项目</span>
-            <span class="project-pointer release"></span><span>执行中的PBL项目</span>
-            <span class="project-pointer completed"></span><span>已完结的PBL项目</span>
-        </div>
+    <div class="project-list" ng-if="vm.projects.length">
         <div class="text-right">
             <span ui-sref="base.home.projects.edit.design" ng-bind="'  创建PBL'" class="list-btn btn pf-expand btn-sm"></span>
         </div>
@@ -23,7 +18,7 @@
                     <div class="item-pic">
                         <div class="project-cover">
                             <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
-                            <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                            <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
                             <div class="pic-mask">
                                 <span ng-bind-html="project.description"></span>
                             </div>
@@ -33,12 +28,25 @@
                         <span ng-bind-html="project.name||'未命名项目'"></span>
                     </div>
                     <div class="item-cont">
-                        <div class="item-tag">
-                            <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
+                        <div class="item-time">
+                            <div>
+                                开始时间: <span ng-bind="project.start_at | date : 'yyyy-MM-dd'"></span>
+                            </div>
+                            <div>
+                                结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
+                            </div>
+                        </div>
+                        <div class="item-state">
+                            <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
                         </div>
                     </div>
                 </div>
 
+            </div>
+            <div class="clearfix"></div>
+            <div class="case-more">
+                    <span ng-click="vm.getProjects()"
+                          ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
             </div>
         </div>
     </div>

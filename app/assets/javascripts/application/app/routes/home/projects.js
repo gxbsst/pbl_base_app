@@ -18,9 +18,13 @@
             .state('base.home.projects.index', {
                 url: '',
                 templateUrl: 'home/projects/index.html',
+                resolve: {
+                    criteria: function(){
+                        return 'user_id';
+                    }
+                },
                 controller:'ProjectIndexController as vm'
             });
-
     }
 
 })();
