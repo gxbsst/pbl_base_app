@@ -1,0 +1,7 @@
+<div class="register register-finish" ng-style="{color:modalConfig.bgColor}" ng-click="vm.enter()" et-exec="vm.getChildren()" ng-show="vm.user.children.length">
+    <i class="pf-learning"></i>
+    查看子女动态吧！
+</div>
+<div class="register register-finish" ng-show="!vm.user.children">
+    <div class="loading"><i class="pf-spinner-2 rotation"></i></div>
+</div>

@@ -1,20 +1,18 @@
-<div class="register register-school">
-    <h3 class="center">第二步 编辑学校信息</h3>
-    <form class="form-horizontal" ng-submit="vm.save('school_id',4)">
-        <div class="form-group">
-            <div et-region="vm.regionConfig" on-change="vm.onRegion($regionType,$regionId)"></div>
-            <select ng-model="vm.user.school_id" et-select="vm.schools"
-                    et-config="label='name';placeholder='请选择您所在的学校'"></select>
-            <span class="note">
-                如果您的学校不在列表中，请点击
-                <a href="javascript:void(0)"
-                   et-modal="$region=vm.region;title='添加学校';controller='SchoolCreatorController as vm';src='register/school-creator.html'">添加</a>
-            </span>
+<div class="register register-disciplines">
+    <h3 class="center">第二步 添加您感兴趣的学科</h3>
+    <form class="form-horizontal" ng-submit="vm.save('disciplines',4)">
+        <div class="form-group margin-top-12">
+            <input type="text" ng-model="vm.user.disciplines" placeholder="输入符合您的学科" on-change="vm.onDisciplines()" et-tags/>
+        </div>
+        <div class="hr"></div>
+        <div class="row">
+            <div class="note">选择您感兴趣的学科：</div>
+            <span class="block-mini" role="button" ng-repeat="entry in DISCIPLINES track by $index" ng-bind="entry" ng-click="vm.addDiscipline(entry)"></span>
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">
             <span class="btn btn-gray" ng-click="setStep(2)">上一步</span>
-            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.type">保存并继续</button>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.disciplines">保存并继续</button>
         </div>
     </form>
 </div>

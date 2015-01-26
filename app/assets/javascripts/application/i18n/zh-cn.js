@@ -36,6 +36,7 @@
                 password_required: '密码必须填写',
                 password_invalid: '密码长度不能少于4位',
                 gender_required: '请选择您的性别',
+                relation_required: '请选择您与学生的关系',
                 realname_required: '真实姓名必须填写',
                 realname_invalid: '真实姓名只能包含汉字、字母及空格'
             },

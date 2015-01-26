@@ -9,28 +9,61 @@ class UsersController < UserController
 
   def create
     user = params[:user]
+    group_code = user[:group_code]
+    user.delete(:group_code) if group_code
+    parent_code = user[:parent_code]
+    user.delete(:parent_code) if parent_code
     @user = User.create(user)
     if @user.success?
+      id = @user[:id]
       case @user[:type]
-        when :Student
+        when 'Student'
           invitation = {
               owner_type: :Student,
-              owner_id: @user[:id]
+              owner_id: id
           }
           @invitation = Invitation.create(invitation)
-        when :Parent
-          unless user[:parent_code].blank?
-            invitations = Invitation.where(code: user[:parent_code])
-            friend_ship = []
+          if group_code.present?
+            invitations = Invitation.where(code: group_code)
             invitations[:data].each do |invitation|
-              friend_ship.push({
-                                   user_id: @user[:id],
-                                   friend_id: invitation[:user_id],
-                                   relation: '0'
-                               })
+              case invitation[:owner_type]
+                when 'Clazz'
+                  student = Student.create({
+                                                user_id: id,
+                                                clazz_id: invitation[:owner_id]
+                                            })
+                  if student.success?
+                    students = Student.where(clazz_id: student[:clazz_id])
+                    friend_ship = []
+                    students[:data].each do |entry|
+                      friend_ship.push({
+                                           user_id: student[:user_id],
+                                           friend_id: entry[:user_id]
+                                       }) if student[:user_id] != entry[:user_id]
+                    end
+                    FriendShip.create(friend_ship) unless friend_ship.empty?
+                  end
+                when 'Group'
+                  MemberShip.create({
+                                        user_id: id,
+                                        group_id: invitation[:owner_id]
+                                    })
+                else
+              end
             end
-            FriendShip.create(friend_ship) unless friend_ship.empty?
           end
+        when 'Parent'
+          if parent_code.present?
+            invitations = Invitation.where(code: parent_code)
+            invitations[:data].each do |invitation|
+              FriendShip.create({
+                                    user_id: id,
+                                    friend_id: invitation[:owner_id],
+                                    relation: '0'
+                                })
+            end
+          end
+        else
       end
     end
     render :show
@@ -42,13 +75,15 @@ class UsersController < UserController
 
   def update
     id = params[:id]
+    user = params[:user]
+    relation = user[:relation]
+    if relation
+      user.delete(:relation)
+      user[:gender] = relation if relation.to_i > 0
+      update_friend_ships(id, relation)
+    end
     if params[:include]
       id += "?include=#{params[:include]}"
-    end
-    user = params[:user]
-    if user[:relation]
-      user[:gender] = user[:relation] if user[:relation] > 0
-      update_friend_ships(id, user[:relation])
     end
     User.update(id, user)
     set_user
@@ -73,16 +108,15 @@ class UsersController < UserController
   end
 
   def update_friend_ship(friend_ships, relation)
-    user = {user: { relation: relation.to_s }}
     friend_ships[:data].each do |friend_ship|
-      FriendShip.update(friend_ship[:id], user)
+      FriendShip.update(friend_ship[:id], { relation: relation })
     end
   end
 
-  def update_friend_ships(id, relation)
-    friend_ships = FriendShip.where(user_id: id, relation: relation.to_s)
+  def update_friend_ships(user_id, relation)
+    friend_ships = FriendShip.where(user_id: user_id, relation_null: false)
     update_friend_ship(friend_ships, relation)
-    friend_ships = FriendShip.where(friend_id: id, relation: relation.to_s)
+    friend_ships = FriendShip.where(friend_id: user_id, relation_null: false)
     update_friend_ship(friend_ships, relation)
   end
 

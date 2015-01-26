@@ -117,7 +117,7 @@
                     steps = 8;
                     break;
                 case ROLES.parent:
-                    steps = 8;
+                    steps = 4;
                     break;
             }
             if(currentUser.current_step < steps){

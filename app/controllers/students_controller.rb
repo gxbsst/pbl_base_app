@@ -12,9 +12,6 @@ class StudentsController < ApplicationController
         FriendShip.destroy(entry[:id])
       end
     end
-    if student[:role].present?
-
-    end
     @student = Student.create(student)
     if @student.success?
       students = Student.where(clazz_id: @student[:clazz_id])

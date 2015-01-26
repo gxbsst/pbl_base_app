@@ -175,7 +175,8 @@
   &.register-finish{
     text-align:center;
     font-size:16px;
-    padding:50px 80px;
+    width:420px;
+    padding:50px 0;
     cursor:pointer;
     @include border-radius(10px);
     i{

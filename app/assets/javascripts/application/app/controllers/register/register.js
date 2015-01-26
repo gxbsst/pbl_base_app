@@ -22,9 +22,11 @@
         vm.onInterests = onInterests;
         vm.addInterest = addInterest;
         vm.addClazz = addClazz;
+        vm.addChild = addChild;
         vm.removeClazz = removeClazz;
         vm.getClazzs = getClazzs;
         vm.getInvitation = getInvitation;
+        vm.getChildren = getChildren;
         vm.enter = enter;
         vm.region = {};
         vm.clazz = {};
@@ -73,11 +75,11 @@
         }
 
         function save(fields, step, create) {
-            if(typeof fields == 'number'){
+            if (typeof fields == 'number') {
                 step = fields;
                 fields = null;
             }
-            if(fields){
+            if (fields) {
                 vm.$fields = fields.replace(/\s/g, '');
                 var user = filter();
                 if (check())return;
@@ -90,14 +92,14 @@
                         delete vm.$fields;
                         angular.extend(vm.user, result.data);
                         if (typeof step == 'number') {
-                            if(create){
+                            if (create) {
                                 $rootScope.HANDLES.login(vm.user).then(function () {
                                     getCurrentUser().then(function (currentUser) {
                                         $rootScope.currentUser = currentUser;
                                         setStep(step);
                                     });
                                 });
-                            }else{
+                            } else {
                                 setStep(step);
                             }
                         }
@@ -105,24 +107,24 @@
                         vm.verification.errors = result.errors[0];
                     }
                 });
-            }else{
+            } else {
                 setStep(step);
             }
         }
 
-        function setStep(step){
-            if($rootScope.currentUser){
+        function setStep(step) {
+            if ($rootScope.currentUser) {
                 Steps.post({
                     current_step: step
                 }, function () {
                     $scope.setStep(step);
                 });
-            }else{
+            } else {
                 $scope.setStep(step);
             }
         }
 
-        function getCurrentUser(){
+        function getCurrentUser() {
             var defer = $q.defer();
             User.get(function (result) {
                 defer.resolve(result.data);
@@ -190,6 +192,12 @@
                     vm.verification.errors.gender.push('required');
                 }
             }
+            if (vm.$fields.has('relation')) {
+                if (typeof user.relation != 'number') {
+                    hasError = true;
+                    vm.verification.errors.relation.push('required');
+                }
+            }
             if (vm.$fields.has('realname')) {
                 if (!user.realname) {
                     hasError = true;
@@ -234,8 +242,19 @@
             });
         }
 
-        function removeClazz(id){
-            if(confirm('您确定要退出这个班级吗？')){
+        function addChild() {
+            User.add({
+                action: 'children'
+            }, {
+                child: {
+                    parent_code: vm.user.parent_code,
+                    relation: vm.user.relation
+                }
+            }, getChildren);
+        }
+
+        function removeClazz(id) {
+            if (confirm('您确定要退出这个班级吗？')) {
                 Students.remove({
                     studentId: id
                 }, getClazzs);
@@ -247,28 +266,49 @@
                 user_id: vm.user.id
             }, function (result) {
                 var clazzs = result.data;
-                if(one){
+                if (one) {
                     vm.user.clazz = clazzs[0];
                     vm.clazz = {
                         $grade_id: clazzs[0].clazz.grade_id,
                         clazz_id: clazzs[0].clazz.id
                     };
-                }else{
+                } else {
                     vm.user.clazzs = clazzs;
                 }
             });
         }
 
-        function getInvitation(){
+        function getInvitation() {
             User.get({
                 action: 'invitations'
             }, function (result) {
-                 vm.invitation = result.data[0];
+                vm.invitation = result.data[0];
+            });
+        }
+
+        function getChildren() {
+            User.get({
+                action: 'children'
+            }, function (result) {
+                vm.user.children = result.data;
+                angular.forEach(vm.user.children, function (child) {
+                    vm.user.relation = parseInt(child.relation, 10);
+                });
             });
         }
 
         function enter() {
-            $state.go('base.pbl.list');
+            switch(vm.user.type){
+                case $scope.ROLES.parent:
+                    var child = vm.user.children[0];
+                    if(child){
+                        $state.go('base.home.users.show', {userId: child.friend.id});
+                    }
+                    break;
+                default:
+                    $state.go('base.pbl.list');
+                    break;
+            }
         }
 
         function onDisciplines() {

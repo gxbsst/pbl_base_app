@@ -218,7 +218,7 @@
                 angular.extend(conf, config);
             };
 
-            scope.$go = function (idx) {
+            scope.setStep = function (idx) {
                 angular.extend(ctrl, ctrl.defaults);
                 angular.extend(ctrl, ctrl.modals[idx || 0]);
                 return ctrl;

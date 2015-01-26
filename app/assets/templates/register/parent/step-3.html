@@ -1,6 +1,6 @@
-<div class="register register-profile">
+<div class="register register-profile" et-exec="vm.getChildren()">
     <h3 class="center">第一步 编辑个人信息</h3>
-    <form class="form-horizontal" ng-submit="vm.save('avatar,realname,gender',3)">
+    <form class="form-horizontal" ng-submit="vm.save('avatar,realname,relation',3)">
         <div class="avatar" ng-class="{uploading:vm.user.$uploading}"
              qn-upload="{bucket:QINIU.buckets.image,ownerType:RESOURCE_TYPES.user.avatar,ownerId:vm.user.id}"
              on-begin="UPLOAD_HANDLES.onBegin(vm.user)" on-success="vm.onSuccess(vm.user)">
@@ -11,16 +11,27 @@
             <label for="user.relation.father" class="control-label"><input type="radio" id="user.relation.father" ng-model="vm.user.relation" ng-value="1"/> 爸爸</label>
             <label for="user.relation.mother" class="control-label"><input type="radio" id="user.relation.mother" ng-model="vm.user.relation" ng-value="2"/> 妈妈</label>
             <label for="user.relation.other" class="control-label"><input type="radio" id="user.relation.other" ng-model="vm.user.relation" ng-value="0"/> 其他</label>
-            <div class="error" ng-repeat="error in vm.verification.errors.gender track by $index" ng-bind="'gender_'+error|error"></div>
+            <div class="error" ng-repeat="error in vm.verification.errors.relation track by $index" ng-bind="'relation_'+error|error"></div>
         </div>
         <div class="form-group center">
             <input type="text" class="form-control center" ng-model="vm.user.realname" placeholder="请输入您的真实姓名"/>
             <span class="note" ng-if="!vm.verification.errors.realname.length">请填写真实姓名，否则无法通过实名认证</span>
             <span class="error" ng-repeat="error in vm.verification.errors.realname track by $index" ng-bind="'realname_'+error|error"></span>
         </div>
+        <div class="hr hr-dotted"></div>
+        <div class="form-group center">
+            <div class="loading" ng-if="!vm.user.children"><i class="pf-spinner-2 rotation"></i></div>
+            <div ng-if="vm.user.children&&!vm.user.children.length">
+                <input type="text" class="form-control center" ng-model="vm.user.parent_code" placeholder="请输入您的家长邀请码"/>
+                <span class="btn btn-blue btn-sm margin-top-4" ng-class="{disabled:!vm.user.parent_code}" ng-click="vm.addChild()">关联子女</span>
+            </div>
+            <div ng-if="vm.user.children.length">
+                <strong>已关联子女：</strong><span class="register-clazz-item block-mini" ng-repeat="entry in vm.user.children"><span ng-bind="entry.friend.realname||entry.friend.username"></span></span>
+            </div>
+        </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">
-            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.realname">保存并继续</button>
+            <button type="submit" class="btn" ng-class="vm.btn()" ng-disabled="!vm.user.realname||!vm.user.children.length">保存并继续</button>
         </div>
     </form>
 </div>

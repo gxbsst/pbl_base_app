@@ -4,9 +4,38 @@ class FriendShipsController < ApplicationController
     @friend_ships = FriendShip.all
   end
 
+  def get_user_children
+    @friend_ships = FriendShip.where(user_id: params[:user_id] || current_user.id, relation_null: false, include: 'friends')
+    render :index
+  end
+
+  def add_user_child
+    child = params[:child]
+    if child[:parent_code].present?
+      invitations = Invitation.where(code: child[:parent_code])
+      invitations[:data].each do |invitation|
+        if invitation[:owner_type] == 'Student'
+          friend_ship = {
+              user_id: params[:user_id] || current_user.id,
+              friend_id: invitation[:owner_id],
+              relation: child[:relation]
+          }
+          @friend_ship = FriendShip.where(friend_ship)
+          if @friend_ship[:data].size == 0
+            @friend_ship = FriendShip.create(friend_ship)
+          else
+            @friend_ship = @friend_ship[:data].first
+            @friend_ship.success = true
+          end
+        end
+      end
+    end
+    head :created
+  end
+
   def create
     @friend_ship = FriendShip.create(params[:friend_ship])
-    render :show
+    head :created
   end
 
   def show

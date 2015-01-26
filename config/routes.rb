@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
     resources :rules, defaults: { format: :json }, only: %w(index)
+    get :children, :to => 'friend_ships#get_user_children'
+    post :children, :to => 'friend_ships#add_user_child'
     get :invitations, :to => 'invitations#current_user_index'
     resources :invitations, defaults: {format: 'json'}, only: %w(create show)
     get :groups, :to => 'groups#current_user_index'
