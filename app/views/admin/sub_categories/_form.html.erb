@@ -1,0 +1,12 @@
+<div class="form-group">
+  <strong>选择技能种类：</strong>
+  <select name="sub_category[category_id]" class="form-control relation-select" data-path="/skill/categories?limit=100">
+    <option>Loading...</option>
+  </select>
+</div>
+<div class="form-group">
+  <%= f.text_field :name, placeholder: '请输入分类名称', class: %w(form-control) %>
+</div>
+<div class="center">
+  <%= f.submit value: '确定', class: %w(btn btn-blue) %>
+</div>

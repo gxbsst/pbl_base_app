@@ -2,27 +2,27 @@
   课标列表
   <%= link_to '新建技能', new_admin_technique_path %>
   <span class="space-x">/</span>
-  <%= link_to '分类管理', admin_categories_path %>
-  <%= link_to '子分类管理', admin_sub_categories_path %>
+  <%= link_to '种类管理', admin_categories_path %>
+  <%= link_to '分类管理', admin_sub_categories_path %>
 </h3>
 <div class="hr"></div>
 <table class="table">
   <thead>
   <tr>
-    <th>所属学科</th>
-    <th>所属学段</th>
+    <th>所属种类</th>
     <th>所属分类</th>
-    <th>课标内容</th>
+    <th>技能名称</th>
+    <th>技能描述</th>
     <th width="150">操作</th>
   </tr>
   </thead>
   <tbody>
   <% @techniques[:data].each do |technique| %>
       <tr>
-        <td><%= technique[:subject][:name] %></td>
-        <td><%= technique[:phase][:name] %></td>
-        <td><%= technique[:standard][:title] %></td>
-        <td><%= technique[:content] %></td>
+        <td><%= technique[:category][:name] if technique[:category] %></td>
+        <td><%= technique[:sub_category][:name] if technique[:sub_category] %></td>
+        <td><%= technique[:title] %></td>
+        <td><%= technique[:description] %></td>
         <td class="center">
           <%= link_to '编辑', edit_admin_technique_path(technique.id) %>
           <span class="space-x">/</span>

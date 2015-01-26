@@ -2,10 +2,7 @@ module Admin
   class SubCategoriesController < AdminController
 
     def index
-      @sub_categories = Skills::SubCategory.all(include: 'sub_sub_categories', page: params[:page])
-      @sub_categories[:data].each do |sub_category|
-        sub_category[:sub_category] = Skills::SubCategory.find(sub_category[:sub_sub_category][:sub_category_id])
-      end
+      @sub_categories = Skills::SubCategory.all(include: 'categories', page: params[:page])
     end
 
     def new

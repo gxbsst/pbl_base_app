@@ -4,7 +4,7 @@ module Admin
     def index
       @techniques = Skills::Technique.all(include: 'sub_categories', page: params[:page])
       @techniques[:data].each do |technique|
-        technique[:category] = Skills::Category.find(technique[:sub_category][:category_id])
+        technique[:category] = Skills::Category.find(technique[:sub_category][:category_id]) if technique[:sub_category]
       end
     end
 

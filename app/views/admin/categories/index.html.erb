@@ -1,0 +1,30 @@
+<h3>
+  技能种类列表
+  <%= link_to '新建种类', new_admin_category_path %>
+  <span class="space-x">/</span>
+  <%= link_to '分类管理', admin_sub_categories_path %>
+  <%= link_to '技能管理', admin_techniques_path %>
+</h3>
+<div class="hr"></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>种类名称</th>
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @categories[:data].each do |category| %>
+      <tr>
+        <td><%= category[:name] %></td>
+        <td class="center">
+          <%= link_to '编辑', edit_admin_category_path(category.id) %>
+          <span class="space-x">/</span>
+          <%= link_to '删除', admin_category_path(category.id), data: {confirm: '您确定要删除吗？', method: :delete} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="hr"></div>
+<%= pagination(@categories[:meta], admin_categories_path) %>

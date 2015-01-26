@@ -3,9 +3,6 @@ module Admin
 
     def index
       @categories = Skills::Category.all(include: 'sub_categories', page: params[:page])
-      @categories[:data].each do |category|
-        category[:category] = Skills::Category.find(category[:sub_category][:category_id])
-      end
     end
 
     def new

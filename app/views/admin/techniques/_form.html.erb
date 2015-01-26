@@ -1,21 +1,21 @@
 <div class="form-group">
-  <strong>选择学科：</strong>
-  <select class="form-control relation-select" data-path="/curriculum/subjects?limit=100">
+  <strong>选择技能种类：</strong>
+  <select class="form-control relation-select" data-path="/skill/categories?limit=100">
     <option>Loading...</option>
   </select>
   <span class="space-x"></span>
-  <strong>选择学段：</strong>
-  <select class="form-control relation-select" data-path="/curriculum/phases?subject_id={id}&limit=100">
-    <option>请选择学科</option>
-  </select>
-  <span class="space-x"></span>
-  <strong>选择分类：</strong>
-  <select name="standard_item[standard_id]" class="form-control relation-select" data-path="/curriculum/standards?phase_id={id}&limit=100" data-field="title">
-    <option>请选择学段</option>
+  <strong>选择技能分类：</strong>
+  <select name="technique[sub_category_id]" class="form-control relation-select" data-path="/skill/sub_categories?category_id={id}&limit=100">
+    <option>请选择技能种类</option>
   </select>
 </div>
 <div class="form-group">
-  <%= f.text_field :content, placeholder: '请输入课标内容', class: %w(form-control) %>
+  <%= f.label :title,  '技能名称', class: %w(control-label) %>
+  <%= f.text_field :title, placeholder: '请输入技能名称', class: %w(form-control) %>
+</div>
+<div class="form-group">
+  <%= f.label :description,  '技能描述', class: %w(control-label) %>
+  <%= f.text_area :description, placeholder: '请输入技能描述', class: %w(form-control) %>
 </div>
 <div class="center">
   <%= f.submit value: '确定', class: %w(btn btn-blue) %>

@@ -1,0 +1,8 @@
+<h3>
+  编辑技能分类
+  <%= link_to '返回列表', admin_sub_categories_path %>
+</h3>
+<div class="hr"></div>
+<%= form_for @sub_category, :as => :sub_category, :url => admin_sub_category_path(@sub_category[:id]), method: :PUT, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'admin/sub_categories/form', :f => f %>
+<% end %>
