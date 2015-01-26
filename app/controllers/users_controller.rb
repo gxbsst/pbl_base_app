@@ -8,13 +8,30 @@ class UsersController < UserController
   end
 
   def create
-    @user = User.create(params[:user])
-    if @user.success? && @user[:type] == :Student
-      invitation = {
-          owner_type: :Student,
-          owner_id: @user[:id]
-      }
-      @invitation = Invitation.create(invitation)
+    user = params[:user]
+    @user = User.create(user)
+    if @user.success?
+      case @user[:type]
+        when :Student
+          invitation = {
+              owner_type: :Student,
+              owner_id: @user[:id]
+          }
+          @invitation = Invitation.create(invitation)
+        when :Parent
+          unless user[:parent_code].blank?
+            invitations = Invitation.where(code: user[:parent_code])
+            friend_ship = []
+            invitations[:data].each do |invitation|
+              friend_ship.push({
+                                   user_id: @user[:id],
+                                   friend_id: invitation[:user_id],
+                                   relation: '0'
+                               })
+            end
+            FriendShip.create(friend_ship) unless friend_ship.empty?
+          end
+      end
     end
     render :show
   end
@@ -28,7 +45,12 @@ class UsersController < UserController
     if params[:include]
       id += "?include=#{params[:include]}"
     end
-    User.update(id, params[:user])
+    user = params[:user]
+    if user[:relation]
+      user[:gender] = user[:relation] if user[:relation] > 0
+      update_friend_ships(id, user[:relation])
+    end
+    User.update(id, user)
     set_user
     render :show
   end
@@ -48,6 +70,20 @@ class UsersController < UserController
 
   def user_query_params
     params.permit(:username, :include, :limit)
+  end
+
+  def update_friend_ship(friend_ships, relation)
+    user = {user: { relation: relation.to_s }}
+    friend_ships[:data].each do |friend_ship|
+      FriendShip.update(friend_ship[:id], user)
+    end
+  end
+
+  def update_friend_ships(id, relation)
+    friend_ships = FriendShip.where(user_id: id, relation: relation.to_s)
+    update_friend_ship(friend_ships, relation)
+    friend_ships = FriendShip.where(friend_id: id, relation: relation.to_s)
+    update_friend_ship(friend_ships, relation)
   end
 
 end

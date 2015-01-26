@@ -11,6 +11,11 @@
 
         window.$httpProvider = $httpProvider;
 
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = token;
+        $httpProvider.defaults.withCredentials = true;
+
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name="csrf-token"]').attr('content');
         $httpProvider.interceptors.push(interceptors);
 

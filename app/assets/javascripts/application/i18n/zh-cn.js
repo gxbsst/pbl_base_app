@@ -11,7 +11,7 @@
         i18nConfigProvider.locales['zh-cn'] = {
 
             SITE: {
-                name: '桥 ● 全球教育共同体'
+                name: '北京欧亚融信信息技术有限公司'
             },
 
             DIRECTIVE: {
@@ -87,6 +87,11 @@
                 submitted:'未批改',
                 evaluating:'评分中',
                 evaluated:'已评分'
+            },
+            projecttypes: {
+                draft:'草稿',
+                release:'进行中',
+                completed:'已完成'
             },
 
             guide: '步骤%1',

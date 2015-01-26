@@ -10,9 +10,9 @@
         .controller('HomeProjectShowController', HomeProjectShowController);
 
 
-    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
+    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'type', 'Tasks'];
 
-    function PBLMapController($scope, $state, $element, $interval, Tasks) {
+    function PBLMapController($scope, $state, $element, $interval, type, Tasks) {
         var vm = this,
             project = $scope.project,
             start = moment(project.start_at).set('hour', 0),
@@ -20,6 +20,8 @@
             now = moment(),
             diff = end.diff(start, 'days'),
             progress;
+
+        console.log(type);
 
         vm.resize = resize;
         vm.diff = diff;
@@ -47,7 +49,7 @@
                     vm.node = 80;
                     vm.timeline = (vm.node + 6) * diff;
                 }
-                if(!vm.isReady){
+                if (!vm.isReady) {
                     for (var i = 0; i <= diff; i++) {
                         var date = angular.copy(start).add(i, 'days'),
                             current = date.isSame(now, 'days'),
@@ -85,7 +87,7 @@
             vm.width = $width;
         }
 
-        function getProgress(){
+        function getProgress() {
             now = moment();
             progress = now.diff(start, 'minutes') / end.diff(start, 'minutes');
             progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
@@ -104,9 +106,9 @@
             return typeof vm.showed != 'undefined' ? node.$index == vm.showed : (vm.current ? node.isCurrent : (node.isFirst || node.isLast));
         }
 
-        function setTask(task){
+        function setTask(task) {
             vm.task = task;
-            $state.go('base.home.projects.show.scaffold', {projectId:project.id});
+            $state.go('base.home.projects.show.scaffold', {projectId: project.id});
             $scope.$emit('onSetView', task);
         }
 
@@ -121,17 +123,99 @@
 
     }
 
-    ProjectIndexController.$inject = ['Projects'];
+    ProjectIndexController.$inject = ['$rootScope', '$scope', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES', 'criteria'];
 
-    function ProjectIndexController(Projects) {
-
+    function ProjectIndexController($rootScope, $scope, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES, criteria) {
         var vm = this;
-        Projects.all({
-            limit:'100'
-        },function (result) {
-            vm.projects = result.data;
-        });
+        vm.projects = [];
+        vm.getProjects = getProjects;
+        vm.meta = {
+            total_count: 9,
+            total_pages: 0,
+            current_page: 0,
+            per_page: 10
+        };
+        vm.select = {
+            subject: '',
+            phase: '',
+            technique: '',
+            name: '',
+            order: 'desc',
+            user_id: '',
+            actor_id: ''
+        };
+        if (criteria) {
+            vm.select[criteria] = $rootScope.currentUser.id;
+        }
 
+        console.log($stateParams.type)
+
+        getProjects();
+
+        function getProjects() {
+            console.log(vm.select.user_id);
+            Projects.all({
+                limit: vm.meta.total_count,
+                page: vm.meta.current_page + 1,
+                subject: vm.select.subject,
+                phase: vm.select.phase,
+                technique: vm.select.technique,
+                name: vm.select.name,
+                order: vm.select.order,
+                user_id: vm.select.user_id,
+                actor_id: vm.select.actor_id
+            }, function (result) {
+                angular.forEach(result.data, function (project) {
+                    getProjectProducts(project);
+                    vm.projects.push(project);
+                });
+                vm.meta = result.meta;
+                console.log(vm.meta);
+                console.log(vm.projects);
+            });
+        }
+
+
+        function getResources(type, project, singular) {
+            return project.resources[singular ? 'findOne' : 'find'](function (resource) {
+                return resource.owner_type == type && resource.owner_id == project.id;
+            });
+        }
+
+        function getProjectProducts(project) {
+            ProjectProducts.all({
+                project_id: project.id
+            }, function (result) {
+                project.$products = angular.copy(result.data);
+                var products = result.data,
+                    findFinal = function (product) {
+                        return product.is_final;
+                    };
+                project.final_product = products.findOne(findFinal);
+                if (project.final_product) {
+                    products.remove(findFinal);
+                }
+                project.products = result.data;
+                getProjectResources(project);
+            });
+        }
+
+        function getProjectResources(project) {
+            project.resources = [];
+            Resources.all({
+                owner_types: [
+                    RESOURCE_TYPES.project.cover,
+                    RESOURCE_TYPES.project.product,
+                    RESOURCE_TYPES.project.document,
+                    RESOURCE_TYPES.project.resource].join(','),
+                owner_ids: [project.id].concat(project.$products.map(function (product) {
+                    return product.id;
+                })).join(',')
+            }, function (result) {
+                project.resources = result.data;
+                project.cover = getResources(RESOURCE_TYPES.project.cover, project, true);
+            });
+        }
     }
 
     ProjectEditController.$inject = ['$state', '$scope', 'project'];
@@ -149,10 +233,10 @@
             $state.go('base.home.projects.edit.' + view, {projectId: project.id});
         }
 
-        function onSetView(event, task){
-            if(task){
+        function onSetView(event, task) {
+            if (task) {
                 vm.$task = task;
-            }else{
+            } else {
                 delete vm.$task;
             }
         }
@@ -174,10 +258,10 @@
             $state.go('base.home.projects.show.' + view, {projectId: project.id});
         }
 
-        function onSetView(event, task){
-            if(task){
+        function onSetView(event, task) {
+            if (task) {
                 vm.$task = task;
-            }else{
+            } else {
                 delete vm.$task;
             }
         }

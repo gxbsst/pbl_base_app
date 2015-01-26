@@ -47,11 +47,14 @@
         <div class="row project-results">
             <div class="row case-row">
                 <div class="case-list">
-                    <div class="case-item" ng-repeat="project in vm.projects">
+                    <div ui-sref="base.pbl.show({projectId:project.id})" class="case-item" ng-repeat="project in vm.projects">
                         <div class="item-pic">
                             <div class="project-cover">
                                 <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
                                 <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
+                                <div class="pic-mask">
+                                    <span ng-bind-html="project.description"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="item-title">
@@ -61,13 +64,12 @@
                             <div class="item-tag">
                                 <span ng-repeat="tag in project.tag_list track by $index" ng-bind="tag"></span>
                             </div>
-                            <a ui-sref="base.pbl.show({projectId:project.id})" class="item-link">了解详情</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="case-more">
-                    <span class="btn" ng-click="vm.getProjects()"
+                    <span ng-click="vm.getProjects()"
                             ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
                 </div>
             </div>

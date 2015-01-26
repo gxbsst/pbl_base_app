@@ -8,8 +8,9 @@
             点击上传头像
         </div>
         <div class="form-group center">
-            <label for="user.gender.male" class="control-label"><input type="radio" id="user.gender.male" ng-model="vm.user.gender" ng-value="1"/> 男</label>
-            <label for="user.gender.female" class="control-label"><input type="radio" id="user.gender.female" ng-model="vm.user.gender" ng-value="2"/> 女</label>
+            <label for="user.relation.father" class="control-label"><input type="radio" id="user.relation.father" ng-model="vm.user.relation" ng-value="1"/> 爸爸</label>
+            <label for="user.relation.mother" class="control-label"><input type="radio" id="user.relation.mother" ng-model="vm.user.relation" ng-value="2"/> 妈妈</label>
+            <label for="user.relation.other" class="control-label"><input type="radio" id="user.relation.other" ng-model="vm.user.relation" ng-value="0"/> 其他</label>
             <div class="error" ng-repeat="error in vm.verification.errors.gender track by $index" ng-bind="'gender_'+error|error"></div>
         </div>
         <div class="form-group center">
