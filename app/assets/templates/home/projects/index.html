@@ -1,17 +1,28 @@
 <div ng-if="!vm.projects" class="loading"><i class="pf-spinner-2 rotation"></i></div>
 <div class="row">
-    <div class="text-center project-list list-first" ng-if="!vm.projects.length">
+    <div class="text-center project-list list-first" ng-if="!vm.projects.length&&vm.projectsread">
         <div>还没有自己的PBL项目？立即创建</div>
         <div><span ui-sref="base.home.projects.edit.design" ng-bind="'  创建属于自己的PBL'" class=" pf-expand btn btn-lg btn-blue"></span></div>
     </div>
     <div class="project-list" ng-if="vm.projects.length">
-        <div class="text-right">
-            <span ui-sref="base.home.projects.edit.design" ng-bind="'  创建PBL'" class="list-btn btn pf-expand btn-sm"></span>
-        </div>
         <div class="row case-row">
             <div class="row-title">
-                <span>精彩案例</span>
-                <hr/>
+                <span class="title" ng-bind="('projectlist.'+vm.criteria)|i18n">我创建的项目</span>
+                <span ui-sref="base.home.projects.edit.design" ng-bind="'创建'"
+                      ng-if="vm.criteria=='user_id'" class="list-btn btn pf-expand btn-sm"></span>
+
+                <span class="select-btn" ng-class="{active:vm.select.state=='completed'}"
+                      ng-click="vm.changeState('completed')"
+                      ng-bind="'projecttypes.completed'|i18n"></span>
+                <span class="select-btn" ng-class="{active:vm.select.state=='release'}"
+                      ng-click="vm.changeState('release')"
+                      ng-bind="'projecttypes.release'|i18n"></span>
+                <span class="select-btn"  ng-class="{active:vm.select.state=='draft'}"
+                      ng-click="vm.changeState('draft')"
+                      ng-bind="'projecttypes.draft'|i18n"></span>
+                <span class="select-btn"  ng-class="{active:vm.select.state==''}"
+                      ng-click="vm.changeState('')"
+                      ng-bind="'projecttypes.all'|i18n" ></span>
             </div>
             <div class="case-list">
                 <div ui-sref="base.home.projects.show.info({projectId:project.id})" class="case-item" ng-repeat="project in vm.projects">

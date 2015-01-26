@@ -1,1 +1,90 @@
-{{ currentUser }}
+<div class="user-i">
+    <div class="row ">
+        <div class="row-title">
+            <span class="title">个人资料设置</span>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-7 info-title pic-title">头像</div>
+        <div class="col-6-7 info-cont">
+            <div class="user-pic">
+                <img ng-src="{{ currentUser|avatar|thumb:'120x120' }}"
+                     ui-sref="base.home.user" />
+            </div>
+            <div class="user-pic-update">
+                <div>支持jpg、gif、png、bmp格式</div>
+                <div>
+                        <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.finalProduct.$uploading}" role="button"
+                              qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:vm.finalProduct.id}"
+                              on-begin="vm.onUploadBegin(vm.finalProduct)" on-success="vm.onUploadSuccess(vm.finalProduct)">修改头像</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-7 info-title">帐号/用户名</div>
+        <div class="col-6-7 info-cont">
+            <span ng-bind="vm.user.username"></span>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-7 info-title">注册信息</div>
+        <div class="col-6-7 info-cont">
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">注册邮箱：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.email"></span>
+                </div>
+            </div>
+            <a >修改密码</a>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-7 info-title">基本信息</div>
+        <div class="col-6-7 info-cont">
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">真实姓名：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.realname"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">身份：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.type | typeFilter"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">学校：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.school.name"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">班级：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="class.name" ng-repeat=" class in vm.user.clazzs track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">学科：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="discipline" ng-repeat=" discipline in vm.user.disciplines track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">兴趣爱好：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="interest" ng-repeat=" interest in vm.user.interests track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">个人签名：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.email"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ vm.user }}

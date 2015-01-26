@@ -101,7 +101,7 @@ Rails.application.routes.draw do
 
   resources :regions, defaults: {format: 'json'}
 
-  resources :schools, defaults: {format: 'json'}, only: %w(index create)
+  resources :schools, defaults: {format: 'json'}, only: %w(index create show)
 
   resources :grades, defaults: {format: 'json'}, only: %w(index create)
 
