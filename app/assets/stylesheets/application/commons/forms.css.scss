@@ -51,6 +51,12 @@ input, button, textarea{
   }
 }
 
+select.form-control{
+  display:inline-block;
+  width:auto;
+  height:33px;
+}
+
 .input-group{
   position:relative;
   display:table;

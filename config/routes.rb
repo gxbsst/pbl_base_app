@@ -119,4 +119,12 @@ Rails.application.routes.draw do
 
   resources :sso_callback, only: %w(index)
 
+  namespace :admin do
+    root :to => 'index#index'
+    resources :standard_items
+    resources :subjects
+    resources :phases
+    resources :standards
+  end
+
 end

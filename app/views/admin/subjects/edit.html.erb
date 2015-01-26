@@ -1,0 +1,8 @@
+<h3>
+  编辑学科
+  <%= link_to '返回列表', admin_subjects_path %>
+</h3>
+<div class="hr"></div>
+<%= form_for @subject, :as => :subject, :url => admin_subject_path(@subject[:id]), method: :PUT, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'admin/subjects/form', :f => f %>
+<% end %>

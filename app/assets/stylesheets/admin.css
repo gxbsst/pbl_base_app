@@ -1,0 +1,5 @@
+/*
+ *= require_tree ./application/commons
+ *= require_tree ./admin
+ *= require_self
+*/

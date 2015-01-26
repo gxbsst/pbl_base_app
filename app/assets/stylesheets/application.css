@@ -12,10 +12,10 @@
  *
  *= require angular-chart.js/angular-chart
  *= require angular-bootstrap-datetimepicker
- *= require commons/layouts
- *= require_tree ./commons
- *= require_tree ./modules
- *= require_tree ./jquery/plugins
- *= require_tree .
+ *= require application/commons/layouts
+ *= require_tree ./application/commons
+ *= require_tree ./application/modules
+ *= require_tree ./application/jquery/plugins
+ *= require_tree ./application
  *= require_self
  */

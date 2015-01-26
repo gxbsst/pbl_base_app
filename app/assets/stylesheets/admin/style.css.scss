@@ -1,0 +1,80 @@
+@import "compass/css3";
+
+*, *:after, *:before{
+  @include box-sizing(border-box);
+}
+
+html{
+  font:13px/22px '微软雅黑', '宋体', Arial;
+}
+
+a{
+  color:#1996dc;
+  text-decoration:none;
+  &:hover{
+    color:#065ded;
+    text-decoration:underline;
+  }
+}
+
+h3,h2,h1{
+  a{
+    display:inline-block;
+    margin:0 5px;
+    font-size:12px;
+    font-weight:100;
+  }
+  .space-x{
+    font-size:12px;
+    font-weight:100;
+  }
+}
+
+img{
+  border:none;
+}
+
+.main{
+  padding:15px 25px;
+}
+
+ul.nav{
+  border-bottom:1px solid #ccc;
+  &:after{
+    display:block;
+    content:'';
+    clear:both;
+  }
+  li{
+    float:left;
+    border-right:1px solid #ccc;
+    a{
+      display:block;
+      padding:0 20px;
+      line-height:30px;
+      &:hover{
+        background:#fcfcfc;
+      }
+    }
+  }
+}
+
+select.form-control{
+  width:150px;
+}
+
+.pagination{
+  font-size:12px;
+  line-height:24px;
+  a{
+    display:inline-block;
+    padding:0 8px;
+    margin:0 2px;
+    background:#ddf2f9;
+    &:hover{
+      text-decoration:none;
+      background:#0064f0;
+      color:#fff;
+    }
+  }
+}

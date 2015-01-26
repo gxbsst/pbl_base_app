@@ -1,0 +1,8 @@
+<h3>
+  新建学段
+  <%= link_to '返回列表', admin_phases_path %>
+</h3>
+<div class="hr"></div>
+<%= form_for @phase, :as => :phase, :url => admin_phases_path, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'admin/phases/form', :f => f %>
+<% end %>

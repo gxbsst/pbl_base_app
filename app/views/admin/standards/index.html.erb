@@ -1,0 +1,35 @@
+<h3>
+  分类列表
+  <%= link_to '新建分类', new_admin_standard_path %>
+  <span class="space-x">/</span>
+  <%= link_to '学科管理', admin_subjects_path %>
+  <%= link_to '学段管理', admin_phases_path %>
+  <%= link_to '课标管理', admin_standard_items_path %>
+</h3>
+<div class="hr"></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>所属学科</th>
+    <th>所属学段</th>
+    <th>分类名称</th>
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @standards[:data].each do |standard| %>
+      <tr>
+        <td><%= standard[:subject][:name] %></td>
+        <td><%= standard[:phase][:name] %></td>
+        <td><%= standard[:title] %></td>
+        <td class="center">
+          <%= link_to '编辑', edit_admin_standard_path(standard.id) %>
+          <span class="space-x">/</span>
+          <%= link_to '删除', admin_standard_path(standard.id), data: {confirm: '您确定要删除吗？', method: :delete} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="hr"></div>
+<%= pagination(@standards[:meta], admin_standards_path) %>

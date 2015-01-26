@@ -1,0 +1,8 @@
+<h3>
+  新建课标
+  <%= link_to '返回列表', admin_standard_items_path %>
+</h3>
+<div class="hr"></div>
+<%= form_for @standard_item, :as => :standard_item, :url => admin_standard_items_path, html: {class: 'form-horizontal'} do |f| %>
+    <%= render 'admin/standard_items/form', :f => f %>
+<% end %>

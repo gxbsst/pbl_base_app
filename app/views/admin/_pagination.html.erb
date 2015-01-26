@@ -1,0 +1,16 @@
+<div class="pagination center">
+  <span>
+    每页 <%= meta[:per_page] %> 条，
+    共 <%= meta[:total_count] %> 条
+  </span>
+  <span class="space-x">|</span>
+  <a href="<%= "#{path}?page=1" %>" class="<%= meta[:current_page] === 1 ? 'disabled' : '' %>">首页</a>
+  <% (1..meta[:total_pages]).each do |i| %>
+      <a href="<%= "#{path}?page=#{i}" %>" class="<%= meta[:current_page] === i ? 'disabled' : '' %>"><%= i %></a>
+  <% end %>
+  <a href="<%= "#{path}?page=#{meta[:total_pages]}" %>" class="<%= meta[:current_page] === meta[:total_pages] ? 'disabled' : '' %>">末页</a>
+  <span class="space-x">|</span>
+  <span>
+    第 <%= meta[:current_page] %> / <%= meta[:total_pages] %> 页
+  </span>
+</div>

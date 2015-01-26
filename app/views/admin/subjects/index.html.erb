@@ -1,0 +1,31 @@
+<h3>
+  学科列表
+  <%= link_to '新建学科', new_admin_subject_path %>
+  <span class="space-x">/</span>
+  <%= link_to '学段管理', admin_phases_path %>
+  <%= link_to '分类管理', admin_standards_path %>
+  <%= link_to '课标管理', admin_standard_items_path %>
+</h3>
+<div class="hr"></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>学科名称</th>
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @subjects[:data].each do |subject| %>
+      <tr>
+        <td><%= subject[:name] %></td>
+        <td class="center">
+          <%= link_to '编辑', edit_admin_subject_path(subject.id) %>
+          <span class="space-x">/</span>
+          <%= link_to '删除', admin_subject_path(subject.id), data: {confirm: '您确定要删除吗？', method: :delete} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="hr"></div>
+<%= pagination(@subjects[:meta], admin_subjects_path) %>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>后台管理</title>
+  <%= stylesheet_link_tag 'admin', media: 'all' %>
+  <%= javascript_include_tag 'admin' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<ul class="nav">
+  <li><a href="<%= admin_standard_items_path %>">课标库</a></li>
+  <li><a href="#">技能库</a></li>
+  <li><a href="#">量规库</a></li>
+</ul>
+<div class="main">
+  <%= yield %>
+</div>
+</body>
+</html>
