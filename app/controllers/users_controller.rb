@@ -48,7 +48,7 @@ class UsersController < UserController
     user = params[:user]
     if user[:relation]
       user[:gender] = user[:relation] if user[:relation] > 0
-
+      update_friend_ships(id, user[:relation])
     end
     User.update(id, user)
     set_user
