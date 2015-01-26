@@ -10,9 +10,9 @@
         .controller('HomeProjectShowController', HomeProjectShowController);
 
 
-    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
+    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'type', 'Tasks'];
 
-    function PBLMapController($scope, $state, $element, $interval, Tasks) {
+    function PBLMapController($scope, $state, $element, $interval, type, Tasks) {
         var vm = this,
             project = $scope.project,
             start = moment(project.start_at).set('hour', 0),
@@ -20,6 +20,8 @@
             now = moment(),
             diff = end.diff(start, 'days'),
             progress;
+
+        console.log(type);
 
         vm.resize = resize;
         vm.diff = diff;
@@ -47,7 +49,7 @@
                     vm.node = 80;
                     vm.timeline = (vm.node + 6) * diff;
                 }
-                if(!vm.isReady){
+                if (!vm.isReady) {
                     for (var i = 0; i <= diff; i++) {
                         var date = angular.copy(start).add(i, 'days'),
                             current = date.isSame(now, 'days'),
@@ -85,7 +87,7 @@
             vm.width = $width;
         }
 
-        function getProgress(){
+        function getProgress() {
             now = moment();
             progress = now.diff(start, 'minutes') / end.diff(start, 'minutes');
             progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
@@ -104,9 +106,9 @@
             return typeof vm.showed != 'undefined' ? node.$index == vm.showed : (vm.current ? node.isCurrent : (node.isFirst || node.isLast));
         }
 
-        function setTask(task){
+        function setTask(task) {
             vm.task = task;
-            $state.go('base.home.projects.show.scaffold', {projectId:project.id});
+            $state.go('base.home.projects.show.scaffold', {projectId: project.id});
             $scope.$emit('onSetView', task);
         }
 
@@ -121,51 +123,53 @@
 
     }
 
-    ProjectIndexController.$inject = ['$rootScope','$scope','Projects','ProjectProducts','Resources','RESOURCE_TYPES','criteria'];
+    ProjectIndexController.$inject = ['$rootScope', '$scope', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES', 'criteria'];
 
-    function ProjectIndexController($rootScope,$scope,Projects,ProjectProducts,Resources,RESOURCE_TYPES,criteria) {
+    function ProjectIndexController($rootScope, $scope, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES, criteria) {
         var vm = this;
-        vm.projects=[];
-        vm.getProjects=getProjects;
-        vm.meta={
+        vm.projects = [];
+        vm.getProjects = getProjects;
+        vm.meta = {
             total_count: 9,
             total_pages: 0,
             current_page: 0,
             per_page: 10
         };
-        vm.select={
-            subject:'',
-            phase:'',
-            technique:'',
-            name:'',
-            order:'desc',
-            user_id:'',
-            actor_id:''
+        vm.select = {
+            subject: '',
+            phase: '',
+            technique: '',
+            name: '',
+            order: 'desc',
+            user_id: '',
+            actor_id: ''
         };
-        if(criteria){
-            vm.select[criteria]=$rootScope.currentUser.id;
+        if (criteria) {
+            vm.select[criteria] = $rootScope.currentUser.id;
         }
+
+        console.log($stateParams.type)
 
         getProjects();
 
-        function getProjects(){
+        function getProjects() {
             console.log(vm.select.user_id);
             Projects.all({
-                limit:vm.meta.total_count,
-                page:vm.meta.current_page+1,
-                subject:vm.select.subject,
-                phase:vm.select.phase,
-                technique:vm.select.technique,
-                name:vm.select.name,
-                order:vm.select.order,
-                user_id:vm.select.user_id,
-                actor_id:vm.select.actor_id
-            },function (result) {
+                limit: vm.meta.total_count,
+                page: vm.meta.current_page + 1,
+                subject: vm.select.subject,
+                phase: vm.select.phase,
+                technique: vm.select.technique,
+                name: vm.select.name,
+                order: vm.select.order,
+                user_id: vm.select.user_id,
+                actor_id: vm.select.actor_id
+            }, function (result) {
                 angular.forEach(result.data, function (project) {
                     getProjectProducts(project);
                     vm.projects.push(project);
                 });
-                vm.meta=result.meta;
+                vm.meta = result.meta;
                 console.log(vm.meta);
                 console.log(vm.projects);
             });
@@ -195,6 +199,7 @@
                 getProjectResources(project);
             });
         }
+
         function getProjectResources(project) {
             project.resources = [];
             Resources.all({
@@ -208,7 +213,7 @@
                 })).join(',')
             }, function (result) {
                 project.resources = result.data;
-                project.cover=getResources(RESOURCE_TYPES.project.cover,project,true);
+                project.cover = getResources(RESOURCE_TYPES.project.cover, project, true);
             });
         }
     }
@@ -228,10 +233,10 @@
             $state.go('base.home.projects.edit.' + view, {projectId: project.id});
         }
 
-        function onSetView(event, task){
-            if(task){
+        function onSetView(event, task) {
+            if (task) {
                 vm.$task = task;
-            }else{
+            } else {
                 delete vm.$task;
             }
         }
@@ -253,10 +258,10 @@
             $state.go('base.home.projects.show.' + view, {projectId: project.id});
         }
 
-        function onSetView(event, task){
-            if(task){
+        function onSetView(event, task) {
+            if (task) {
                 vm.$task = task;
-            }else{
+            } else {
                 delete vm.$task;
             }
         }
