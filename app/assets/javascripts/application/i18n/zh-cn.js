@@ -89,9 +89,14 @@
                 evaluated:'已评分'
             },
             projecttypes: {
+                all:'全部',
                 draft:'草稿',
                 release:'进行中',
                 completed:'已完成'
+            },
+            projectlist: {
+                user_id:'我创建的项目',
+                actor_id:'我参与的项目'
             },
 
             guide: '步骤%1',

@@ -12,7 +12,8 @@
         $stateProvider
             .state('base.home.user', {
                 url: '^/i',
-                templateUrl: 'user/index.html'
+                templateUrl: 'user/index.html',
+                controller: 'UserIController as vm'
             })
             .state('base.home.users', {
                 abstract: true,

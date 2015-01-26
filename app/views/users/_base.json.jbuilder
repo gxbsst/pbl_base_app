@@ -1,5 +1,6 @@
 json.id user[:id]
 json.username user[:username]
+json.realname user[:realname] if user[:realname]
 json.avatar user[:avatar] if user[:avatar]
 json.type user[:type] if user[:type]
 json.email user[:email] if user[:email]

@@ -16,13 +16,8 @@
                 template: '<div ui-view></div>'
             })
             .state('base.home.projects.index', {
-                url: '?type',
+                url: '?criteria',
                 templateUrl: 'home/projects/index.html',
-                resolve: {
-                    criteria: function(){
-                        return 'user_id';
-                    }
-                },
                 controller:'ProjectIndexController as vm'
             });
     }

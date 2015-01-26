@@ -123,12 +123,14 @@
 
     }
 
-    ProjectIndexController.$inject = ['$rootScope', '$scope', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES', 'criteria'];
+    ProjectIndexController.$inject = ['$rootScope', '$scope', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES'];
 
-    function ProjectIndexController($rootScope, $scope, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES, criteria) {
+    function ProjectIndexController($rootScope, $scope, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES) {
         var vm = this;
+        vm.projectsread=false;
         vm.projects = [];
         vm.getProjects = getProjects;
+        vm.changeState=changeState;
         vm.meta = {
             total_count: 9,
             total_pages: 0,
@@ -142,13 +144,15 @@
             name: '',
             order: 'desc',
             user_id: '',
-            actor_id: ''
+            actor_id: '',
+            state:''
         };
-        if (criteria) {
-            vm.select[criteria] = $rootScope.currentUser.id;
+        vm.criteria=$stateParams.criteria;
+        if (!vm.criteria) {
+            vm.criteria='user_id';
         }
+        vm.select[vm.criteria] = $rootScope.currentUser.id;
 
-        console.log($stateParams.type)
 
         getProjects();
 
@@ -163,11 +167,13 @@
                 name: vm.select.name,
                 order: vm.select.order,
                 user_id: vm.select.user_id,
-                actor_id: vm.select.actor_id
+                actor_id: vm.select.actor_id,
+                state: vm.select.state
             }, function (result) {
                 angular.forEach(result.data, function (project) {
                     getProjectProducts(project);
                     vm.projects.push(project);
+                    vm.projectsread=true;
                 });
                 vm.meta = result.meta;
                 console.log(vm.meta);
@@ -175,7 +181,18 @@
             });
         }
 
-
+        function changeState(state){
+            vm.select.state = state;
+            vm.projects=[];
+            vm.meta={
+                total_count: 9,
+                total_pages: 0,
+                current_page: 0,
+                per_page: 10
+            };
+            vm.projectsread=false;
+            getProjects();
+        }
         function getResources(type, project, singular) {
             return project.resources[singular ? 'findOne' : 'find'](function (resource) {
                 return resource.owner_type == type && resource.owner_id == project.id;
