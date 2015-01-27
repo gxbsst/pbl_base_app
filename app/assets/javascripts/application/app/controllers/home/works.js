@@ -198,7 +198,8 @@
                 angular.forEach($scope.task.rules, function (gauge) {
                     param={
                         owner_id:gauge.id,
-                        owner_type:TYPE_DEFIN.Rule
+                        owner_type:TYPE_DEFIN.Rule,
+                        work_id:$scope.work.id
                     };
                     if (userId!=''&&userId!=null){
                         param.user_id=userId;

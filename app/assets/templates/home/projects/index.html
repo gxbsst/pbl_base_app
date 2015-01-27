@@ -25,7 +25,7 @@
                       ng-bind="'projecttypes.all'|i18n" ></span>
             </div>
             <div class="case-list">
-                <div ui-sref="base.home.projects.show.info({projectId:project.id})" class="case-item" ng-repeat="project in vm.projects">
+                <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
                     <div class="item-pic">
                         <div class="project-cover">
                             <span class="text-red" ng-if="!project.cover">尚未上传封面</span>

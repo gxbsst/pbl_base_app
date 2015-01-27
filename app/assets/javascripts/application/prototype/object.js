@@ -43,13 +43,15 @@
             },
             merge:function(tObj,sObj){
                 for(var i in sObj){
-                    if(typeof sObj[i] !== "object"){
-                        tObj[i] = sObj[i];
-                    }else if (sObj[i].constructor == Array){
-                        tObj[i] = Object.clone(sObj[i]);
-                    }else{
-                        tObj[i] = tObj[i] || {};
-                        Object.merge(tObj[i],sObj[i]);
+                    if(sObj[i]){
+                        if(typeof sObj[i] !== "object"){
+                            tObj[i] = sObj[i];
+                        }else if (sObj[i].constructor == Array){
+                            tObj[i] = Object.clone(sObj[i]);
+                        }else{
+                            tObj[i] = tObj[i] || {};
+                            Object.merge(tObj[i],sObj[i]);
+                        }
                     }
                 }
             }

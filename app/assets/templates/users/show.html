@@ -1,1 +1,118 @@
-{{ vm.user }}
+<div class="user-info">
+    <div class="row ">
+        <div class="row-title">
+            <span class="title">个人信息</span>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-6 info-title ">
+            <div class="user-pic">
+                <img ng-src="{{ currentUser|avatar|thumb:'120x120' }}"
+                     ui-sref="base.home.user" />
+            </div>
+        </div>
+        <div class="col-5-6 info-cont">
+            <div class="user-pic-update">
+                <div>
+                    <span class="sub-title">帐号:</span><span ng-bind="vm.user.username"></span>
+                </div>
+                <div class="user-btn">
+                    <span class="btn btn-sm" role="button">加关注</span>
+                    <span class="btn btn-sm" role="button">发私信</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row info-divide">
+        <div class="col-1-7 info-title"></div>
+        <div class="col-6-7 info-cont">
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">真实姓名：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.realname"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">身份：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.type | typeFilter"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">学校：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.school.name"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">班级：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="class.name" ng-repeat=" class in vm.user.clazzs track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">学科：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="discipline" ng-repeat=" discipline in vm.user.disciplines track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">兴趣爱好：</div>
+                <div class="col-7-8">
+                    <span class="info-tag" ng-bind="interest" ng-repeat=" interest in vm.user.interests track by $index"></span>
+                </div>
+            </div>
+            <div class="col-1-1">
+                <div class="col-1-8 sub-title">个人签名：</div>
+                <div class="col-7-8">
+                    <span ng-bind="vm.user.bio"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="project-list user-projects">
+    <div class="row ">
+        <div class="row-title">
+            <span class="title">TA参与的项目学习</span>
+        </div>
+    </div>
+    <div class="row case-row">
+
+        <div class="case-list">
+            <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
+                <div class="item-pic">
+                    <div class="project-cover">
+                        <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                        <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
+                        <div class="pic-mask">
+                            <span ng-bind-html="project.description"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-title">
+                    <span ng-bind-html="project.name||'未命名项目'"></span>
+                </div>
+                <div class="item-cont">
+                    <div class="item-time">
+                        <div>
+                            开始时间: <span ng-bind="project.start_at | date : 'yyyy-MM-dd'"></span>
+                        </div>
+                        <div>
+                            结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
+                        </div>
+                    </div>
+                    <div class="item-state">
+                        <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="case-more">
+                    <span ng-click="vm.getProjects()"
+                          ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
+        </div>
+    </div>
+</div>

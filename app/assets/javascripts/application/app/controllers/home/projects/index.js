@@ -121,14 +121,15 @@
 
     }
 
-    ProjectIndexController.$inject = ['$rootScope', '$scope', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES'];
+    ProjectIndexController.$inject = ['$rootScope', '$scope','$state', '$stateParams', 'Projects', 'ProjectProducts', 'Resources', 'RESOURCE_TYPES','PROJECT_TYPES'];
 
-    function ProjectIndexController($rootScope, $scope, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES) {
+    function ProjectIndexController($rootScope, $scope,$state, $stateParams, Projects, ProjectProducts, Resources, RESOURCE_TYPES,PROJECT_TYPES) {
         var vm = this;
         vm.projectsread=false;
         vm.projects = [];
         vm.getProjects = getProjects;
         vm.changeState=changeState;
+        vm.projectShow=projectShow;
         vm.meta = {
             total_count: 9,
             total_pages: 0,
@@ -154,6 +155,21 @@
 
         getProjects();
 
+
+        function projectShow(project){
+            console.log(RESOURCE_TYPES);
+            switch (project.state){
+                case PROJECT_TYPES.draft:
+                    $state.go('base.home.projects.edit.design',{projectId:project.id});
+                    break;
+                case PROJECT_TYPES.release:
+                    $state.go('base.home.projects.show.info',{projectId:project.id});
+                    break;
+                case PROJECT_TYPES.completed:
+                    $state.go('base.pbl.show',{projectId:project.id});
+                    break;
+            }
+        }
         function getProjects() {
             console.log(vm.select.user_id);
             Projects.all({
@@ -281,5 +297,6 @@
             }
         }
     }
+
 
 })();

@@ -132,6 +132,11 @@
                 submitted: 'submitted',
                 evaluating: 'evaluating',
                 evaluated: 'evaluated'
+            },
+            PROJECT_TYPES: {
+                draft: 'draft',
+                release: 'release',
+                completed: 'completed'
             }
         })
 })();

@@ -10,6 +10,7 @@ json.first_name user[:first_name] if user[:first_name]
 json.last_name user[:last_name] if user[:last_name]
 json.realname user[:realname] if user[:realname]
 json.nickname user[:nickname] if user[:nickname]
+json.bio user[:bio] if user[:bio]
 json.school_id user[:school_id] if user[:school_id]
 json.school do
   json.partial! 'schools/school', school: user[:school]

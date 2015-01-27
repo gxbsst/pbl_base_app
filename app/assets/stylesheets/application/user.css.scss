@@ -1,3 +1,61 @@
 .img-radius{
   border-radius: 50%;
 }
+
+
+.user-i{
+  .pic-title{
+    line-height: 120px !important;
+  }
+  .user-pic{
+    display: inline-block;
+    width: 120px;
+    float: left;
+    img{
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .user-pic-update{
+    padding: 20px;
+    display: inline-block;
+    height: 120px;
+    float: left;
+    .btn{
+      margin: 20px 0;
+    }
+  }
+}
+.user-info{
+  .pic-title{
+    line-height: 120px !important;
+  }
+  .user-pic{
+    display: inline-block;
+    width: 120px;
+    float: right;
+    img{
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .user-pic-update{
+    padding: 20px;
+    display: inline-block;
+    height: 120px;
+    float: left;
+    .btn{
+      margin: 20px 0;
+    }
+  }
+  .user-btn{
+    .btn{
+      margin-right:10px;
+    }
+  }
+}
+.user-projects{
+  margin-top: 50px;
+}
