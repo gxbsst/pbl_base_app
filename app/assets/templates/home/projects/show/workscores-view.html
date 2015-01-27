@@ -50,13 +50,13 @@
                         <tr class="gauge-item">
                             <td rowspan="2" ng-bind="gauge.standard"></td>
                             <td rowspan="2" class="center "><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
-                            <td rowspan="2" class="et-gauge">
+                            <td rowspan="2">
                                 <span ng-bind="current.gaugescore[gauge.id]"></span>
                             </td>
                             <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
                         </tr>
                         <tr class="gauge-item">
-                            <td colspan="{{ruleHeadsLength(vm.project.ruleHeads)}}" class="et-gauge">
+                            <td colspan="{{ruleHeadsLength(vm.project.ruleHeads)}}">
                                 <span ng-bind="current.gaugecomment[gauge.id]"></span>
                             </td>
                         </tr>

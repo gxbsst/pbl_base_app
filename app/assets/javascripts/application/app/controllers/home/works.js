@@ -124,7 +124,8 @@
                     owner_id:gauge.id,
                     owner_type:TYPE_DEFIN.Rule,
                     user_id:userId,
-                    scorer_id:$rootScope.currentUser.id
+                    scorer_id:$rootScope.currentUser.id,
+                    work_id:$scope.work.id
                 };
 
                 console.log(score);
@@ -151,15 +152,18 @@
             });
             if(workstate&&work.state == WORK_TYPES.evaluating){
                 setWorkState(work.id,WORK_TYPES.evaluated);
-                work.state=WORK_TYPES.evaluated;
+                //work.state=WORK_TYPES.evaluated;
             }
         }
         function setWorkState(workId,action){
+            console.log("setWorkState");
             Works.update({
                 workId:workId,
                 work:{state:action}
-            }, function(){
+            }, function(result){
+                console.log($scope.work.state);
                 $scope.work.state=action;
+                console.log(result);
             });
         }
         function getWorkScore(userId){
@@ -172,11 +176,9 @@
             //});
             var param={
                 owner_id:$scope.work.id,
-                owner_type:TYPE_DEFIN.Work
+                owner_type:TYPE_DEFIN.Work,
+                user_id:userId
             };
-            if (userId!=''&&userId!=null){
-                param.user_id=userId;
-            }
             Scores.all(param, function (result) {
                 score = result.data[0];
                 if (score){
@@ -208,11 +210,11 @@
                     Scores.all(param, function (result) {
                         score = result.data[0];
                         if(score){
-                            $scope.current.gaugescore[param.owner_id]=score.score;
-                            $scope.current.gaugecomment[param.owner_id]=score.comment;
+                            $scope.current.gaugescore[gauge.id]=score.score;
+                            $scope.current.gaugecomment[gauge.id]=score.comment;
                         }else{
-                            $scope.current.gaugescore[param.owner_id]=0;
-                            $scope.current.gaugecomment[param.owner_id]='';
+                            $scope.current.gaugescore[gauge.id]=0;
+                            $scope.current.gaugecomment[gauge.id]='';
                         }
                     });
                 });
@@ -345,11 +347,11 @@
                     Scores.all(param, function (result) {
                         score = result.data[0];
                         if(score){
-                            $scope.current.gaugescore[param.owner_id]=score.score;
-                            $scope.current.gaugecomment[param.owner_id]=score.comment;
+                            $scope.current.gaugescore[gauge.id]=score.score;
+                            $scope.current.gaugecomment[gauge.id]=score.comment;
                         }else{
-                            $scope.current.gaugescore[param.owner_id]=0;
-                            $scope.current.gaugecomment[param.owner_id]='';
+                            $scope.current.gaugescore[gauge.id]=0;
+                            $scope.current.gaugecomment[gauge.id]='';
                         }
                     });
                 });
