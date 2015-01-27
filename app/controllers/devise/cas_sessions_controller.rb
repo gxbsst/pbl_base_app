@@ -1,6 +1,9 @@
 class Devise::CasSessionsController < Devise::SessionsController
   include DeviseCasAuthenticatable::SingleSignOut::DestroySession
 
+  # protect_from_forgery with: :exception
+  protect_from_forgery except: :destroy
+
   @@session_url = nil
 
   unless Rails.version =~/^4/
