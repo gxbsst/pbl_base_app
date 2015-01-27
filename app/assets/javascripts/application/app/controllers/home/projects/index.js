@@ -10,9 +10,9 @@
         .controller('HomeProjectShowController', HomeProjectShowController);
 
 
-    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'type', 'Tasks'];
+    PBLMapController.$inject = ['$scope', '$state', '$element', '$interval', 'Tasks'];
 
-    function PBLMapController($scope, $state, $element, $interval, type, Tasks) {
+    function PBLMapController($scope, $state, $element, $interval, Tasks) {
         var vm = this,
             project = $scope.project,
             start = moment(project.start_at).set('hour', 0),
@@ -20,8 +20,6 @@
             now = moment(),
             diff = end.diff(start, 'days'),
             progress;
-
-        console.log(type);
 
         vm.resize = resize;
         vm.diff = diff;

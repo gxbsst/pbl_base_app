@@ -1831,7 +1831,7 @@
     position:relative;
     width:300px;
     height:210px;
-    @include transform-origin(0 0 0);
+    @include transform-origin(0, 0);
     @include transform(scale($width/300px, $height/210px));
     i, i:before, i:after{
       position:relative;

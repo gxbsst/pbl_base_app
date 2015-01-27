@@ -27,6 +27,9 @@
                         templateUrl: 'home/toolbar/index.html',
                         controller: 'HomeToolbarController as vm'
                     }
+                },
+                resolve: {
+                    authenticate: authenticate
                 }
             })
             .state('base.home.index', {
@@ -34,6 +37,18 @@
                 templateUrl: 'home/index.html',
                 controller: 'HomeIndexController as vm'
             });
+
+        authenticate.$inject = ['$q', 'currentUser'];
+
+        function authenticate($q, currentUser){
+            var defer = $q.defer();
+            if(currentUser){
+                defer.resolve(currentUser);
+            }else{
+                window.location.href = '/users/sign_in';
+            }
+            return defer.promise;
+        }
 
     }
 

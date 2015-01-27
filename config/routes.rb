@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     post :children, :to => 'friend_ships#add_user_child'
     get :invitations, :to => 'invitations#current_user_index'
     resources :invitations, defaults: {format: 'json'}, only: %w(create show)
-    get :groups, :to => 'groups#current_user_index'
+    get :groups, :to => 'groups#user_index'
     resources :groups, defaults: { format: :json }, only: %w(create destroy)
     get :clazzs, :to => 'clazzs#user_clazzs'
     resources :clazzs, defaults: { format: :json }, only: %w(index)

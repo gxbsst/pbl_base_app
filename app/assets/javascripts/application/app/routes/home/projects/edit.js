@@ -55,16 +55,13 @@
                         defer.resolve(project);
                     });
             }else{
-                var name = prompt('请输入项目名称：', '');
-                if(name){
-                    Projects.add({
-                        project: {
-                            name: name
-                        }
-                    }, function (result) {
-                        $state.go('base.home.projects.edit.design', {projectId:result.data.id});
-                    });
-                }
+                Projects.add({
+                    project: {
+                        name: name
+                    }
+                }, function (result) {
+                    $state.go('base.home.projects.edit.design', {projectId:result.data.id});
+                });
             }
             return defer.promise;
         }
