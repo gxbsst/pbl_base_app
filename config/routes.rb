@@ -73,7 +73,7 @@ Rails.application.routes.draw do
     resources :rules, defaults: {format: 'json'}, only: %w(index create update destroy)
     resources :tasks, defaults: {format: 'json'} do
       member do
-        patch 'release'
+        put 'release'
       end
     end
   end

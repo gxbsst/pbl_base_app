@@ -323,7 +323,6 @@
                     $scope.current.state=false;
                     $scope.current.user_id=userId;
                     Object.merge($scope.work.userScores[userId],score);
-                    judgeWorkState($scope.work);
                 }else{
                     $scope.current.user_id=userId;
                     $scope.current.comment='';
