@@ -3,7 +3,8 @@
 
     angular
         .module('app.pbl')
-        .controller('setWorkScoresController', setWorkScoresController);
+        .controller('setWorkScoresController', setWorkScoresController)
+        .controller('viewWorkScoresController', viewWorkScoresController);
 
     setWorkScoresController.$inject = ['$rootScope','$scope','TYPE_DEFIN','WORK_TYPES','Scores','Works'];
 
@@ -161,6 +162,144 @@
                 $scope.work.state=action;
             });
         }
+        function getWorkScore(userId){
+
+            var scores=[],score={};
+            //Scores.all({
+            //    work_id: $scope.work.id
+            //}, function (result) {
+            //    scores = result.data;
+            //});
+            var param={
+                owner_id:$scope.work.id,
+                owner_type:TYPE_DEFIN.Work
+            };
+            if (userId!=''&&userId!=null){
+                param.user_id=userId;
+            }
+            Scores.all(param, function (result) {
+                score = result.data[0];
+                if (score){
+                    $scope.current.score=score.score;
+                    $scope.current.comment=score.comment;
+                    $scope.current.state=false;
+                    $scope.current.user_id=userId;
+                    Object.merge($scope.work.userScores[userId],score);
+                    judgeWorkState($scope.work);
+                }else{
+                    $scope.current.user_id=userId;
+                    $scope.current.comment='';
+                    $scope.current.score=0;
+                    $scope.current.state=true;
+                }
+            });
+            //scores.push(score);
+
+            if($scope.task.task_type==TYPE_DEFIN.Skill){
+                angular.forEach($scope.task.rules, function (gauge) {
+                    param={
+                        owner_id:gauge.id,
+                        owner_type:TYPE_DEFIN.Rule,
+                        work_id:$scope.work.id
+                    };
+                    if (userId!=''&&userId!=null){
+                        param.user_id=userId;
+                    }
+                    Scores.all(param, function (result) {
+                        score = result.data[0];
+                        if(score){
+                            $scope.current.gaugescore[param.owner_id]=score.score;
+                            $scope.current.gaugecomment[param.owner_id]=score.comment;
+                        }else{
+                            $scope.current.gaugescore[param.owner_id]=0;
+                            $scope.current.gaugecomment[param.owner_id]='';
+                        }
+                    });
+                });
+            }
+
+            //console.log(scores);
+            //angular.forEach(scores, function (score) {
+            //    if(score.owner_type==TYPE_DEFIN.Work){
+            //        $scope.current.comment=score.comment;
+            //        $scope.current.score=score.score;
+            //    }else{
+            //        $scope.work.gaugescore[score.owner_id]=score.score;
+            //        $scope.work.gaugecomment[score.owner_id]=score.comment;
+            //    }
+            //});
+        }
+    }
+
+
+
+    viewWorkScoresController.$inject = ['$rootScope','$scope','TYPE_DEFIN','WORK_TYPES','Scores','Works'];
+
+    function viewWorkScoresController($rootScope,$scope,TYPE_DEFIN,WORK_TYPES,Scores,Works) {
+        var userId='';
+
+        $scope.current={
+            user_id:'',
+            comment:'',
+            score:0,
+            state:false,
+            total:0,
+            gaugescore:{},
+            gaugecomment:{},
+            gaugeweight:{}
+        };
+        $scope.ruleHeadsLength=ruleHeadsLength;
+        $scope.getWorkScore=getWorkScore;
+        $scope.clickUser=clickUser;
+
+        scoreInit();
+        getWorkScore(userId);
+
+        function scoreInit(){
+            if($scope.task.submit_way==TYPE_DEFIN.Group)
+            {
+                angular.forEach($scope.work.usersHash, function (user) {
+                    angular.forEach($scope.work.usersHash, function (item) {
+                        item.$active=false;
+                    });
+                    getWorkScore(user.id);
+                    userId=user.id;
+                    user.$active=true;
+                });
+            }else{
+                userId=$scope.work.acceptor_id;
+            }
+
+            angular.forEach($scope.task.rules, function (gauge) {
+                $scope.current.gaugescore[gauge.id]=0;
+                $scope.current.gaugecomment[gauge.id]='';
+                $scope.current.gaugeweight[gauge.id]=0;
+                if (parseInt(gauge.weight)>0){
+                    $scope.current.gaugeweight[gauge.id]=parseInt(gauge.weight);
+                    $scope.current.total+=parseInt(gauge.weight);
+                }
+            });
+
+            if($scope.task.task_type==TYPE_DEFIN.Discipline){
+                $scope.current.total=100;
+            }
+        }
+
+        function clickUser(user,users){
+            console.log(user.id);
+            getWorkScore(user.id);
+            angular.forEach(users, function (item) {
+                item.$active=false;
+            });
+            user.$active=true;
+        }
+        function ruleHeadsLength(ruleHeads){
+            return ruleHeads.find(function(rulehead){
+                return !rulehead.disabled;
+            }).length;
+        }
+
+
         function getWorkScore(userId){
 
             var scores=[],score={};

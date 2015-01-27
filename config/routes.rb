@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :home, only: %w(index)
   resources :projects, defaults: {format: 'json'} do
     member do
-      patch 'release'
+      put 'release'
     end
     resources :assignments, defaults: {format: 'json'}
   end

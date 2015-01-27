@@ -10,7 +10,7 @@
                 post: {method: 'POST'},
                 update: {method: 'PUT'},
                 remove: {method: 'DELETE'},
-                release: {method: 'PATCH'}
+                release: {method: 'PUT'}
             },
             PATHS: {
                 sso: 'http://sso.dev.pbl.org',

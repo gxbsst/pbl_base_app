@@ -1,10 +1,5 @@
-<div ng-if="!vm.projects" class="loading"><i class="pf-spinner-2 rotation"></i></div>
 <div class="row">
-    <div class="text-center project-list list-first" ng-if="!vm.projects.length&&vm.projectsread">
-        <div>还没有自己的PBL项目？立即创建</div>
-        <div><span ui-sref="base.home.projects.edit.design" ng-bind="'  创建属于自己的PBL'" class=" pf-expand btn btn-lg btn-blue"></span></div>
-    </div>
-    <div class="project-list" ng-if="vm.projects.length">
+    <div class="project-list">
         <div class="row case-row">
             <div class="row-title">
                 <span class="title" ng-bind="('projectlist.'+vm.criteria)|i18n">我创建的项目</span>
@@ -24,40 +19,45 @@
                       ng-click="vm.changeState('')"
                       ng-bind="'projecttypes.all'|i18n" ></span>
             </div>
-            <div class="case-list">
-                <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
-                    <div class="item-pic">
-                        <div class="project-cover">
-                            <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
-                            <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
-                            <div class="pic-mask">
-                                <span ng-bind-html="project.description"></span>
+            <div>
+                <div class="case-list">
+                    <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
+                        <div class="item-pic">
+                            <div class="project-cover">
+                                <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                                <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
+                                <div class="pic-mask">
+                                    <span ng-bind-html="project.description"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-title">
+                            <span ng-bind-html="project.name||'未命名项目'"></span>
+                        </div>
+                        <div class="item-cont">
+                            <div class="item-time">
+                                <div>
+                                    开始时间: <span ng-bind="project.start_at | date : 'yyyy-MM-dd'"></span>
+                                </div>
+                                <div>
+                                    结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
+                                </div>
+                            </div>
+                            <div class="item-state">
+                                <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="item-title">
-                        <span ng-bind-html="project.name||'未命名项目'"></span>
-                    </div>
-                    <div class="item-cont">
-                        <div class="item-time">
-                            <div>
-                                开始时间: <span ng-bind="project.start_at | date : 'yyyy-MM-dd'"></span>
-                            </div>
-                            <div>
-                                结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
-                            </div>
-                        </div>
-                        <div class="item-state">
-                            <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
-                        </div>
-                    </div>
-                </div>
 
+                </div>
+                <div class="clearfix"></div>
+                <div class="case-more">
+                        <span ng-click="vm.getProjects()"
+                              ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
+                </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="case-more">
-                    <span ng-click="vm.getProjects()"
-                          ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
+            <div ng-if="vm.projects.length">
+                <div class="loading"><i class="pf-spinner-2 rotation"></i></div>
             </div>
         </div>
     </div>
