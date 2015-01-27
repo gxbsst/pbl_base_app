@@ -148,7 +148,6 @@ ul.nav-left{
       width: 86px;
       height: 86px;
       border-radius: 50%;
-      cursor: pointer;
     }
   }
   .user-console{
@@ -168,30 +167,6 @@ ul.nav-left{
   }
 }
 
-.user-i{
-  .pic-title{
-    line-height: 120px !important;
-  }
-  .user-pic{
-    display: inline-block;
-    width: 120px;
-    float: left;
-    img{
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-    }
-  }
-  .user-pic-update{
-    padding: 20px;
-    display: inline-block;
-    height: 120px;
-    float: left;
-    .btn{
-      margin: 20px 0;
-    }
-  }
-}
 .row{
   &.info-divide{
     border-bottom: 1px solid #e3e3e3;

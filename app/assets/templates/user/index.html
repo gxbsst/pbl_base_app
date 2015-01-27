@@ -11,14 +11,7 @@
                 <img ng-src="{{ currentUser|avatar|thumb:'120x120' }}"
                      ui-sref="base.home.user" />
             </div>
-            <div class="user-pic-update">
-                <div>支持jpg、gif、png、bmp格式</div>
-                <div>
-                        <span class="btn btn-gray btn-sm" ng-class="{uploading:vm.finalProduct.$uploading}" role="button"
-                              qn-upload="{ownerType:RESOURCE_TYPES.project.product,ownerId:vm.finalProduct.id}"
-                              on-begin="vm.onUploadBegin(vm.finalProduct)" on-success="vm.onUploadSuccess(vm.finalProduct)">修改头像</span>
-                </div>
-            </div>
+
         </div>
     </div>
     <div class="row info-divide">
@@ -36,7 +29,6 @@
                     <span ng-bind="vm.user.email"></span>
                 </div>
             </div>
-            <a >修改密码</a>
         </div>
     </div>
     <div class="row info-divide">
@@ -81,10 +73,9 @@
             <div class="col-1-1">
                 <div class="col-1-8 sub-title">个人签名：</div>
                 <div class="col-7-8">
-                    <span ng-bind="vm.user.email"></span>
+                    <span ng-bind="vm.user.bio"></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{{ vm.user }}

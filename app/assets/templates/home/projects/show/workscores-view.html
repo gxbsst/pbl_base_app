@@ -17,7 +17,6 @@
                         <i ng-class="resource.name|icon"></i>
                         <span ng-bind="resource.name"></span>
                         <i class="file-download pf-inbox" et-tips="'下载'" et-href="resource|uri:PATHS.static"></i>
-                        <i class="file-remove pf-cross" et-tips="'删除'" ng-click="vm.removeResource(resource)"></i>
                     </li>
                 </ul>
             </div>
@@ -51,7 +50,7 @@
                         <tr class="gauge-item">
                             <td rowspan="2" ng-bind="gauge.standard"></td>
                             <td rowspan="2" class="center "><span ng-bind="gauge.weight"></span><span class="text-silver font-size-75">%</span></td>
-                            <td rowspan="2" class="et-gauge" et-gauge-field>
+                            <td rowspan="2" class="et-gauge">
                                 <span ng-bind="current.gaugescore[gauge.id]"></span>
                             </td>
                             <td ng-repeat="column in vm.project.ruleHeads" ng-if="!column.disabled" ng-bind="gauge['level_'+($index+1)]"></td>
