@@ -21,9 +21,9 @@
   <tbody>
   <% @standard_items[:data].each do |standard_item| %>
       <tr>
-        <td class="center"><%= standard_item[:subject][:name] %></td>
-        <td class="center"><%= standard_item[:phase][:name] %></td>
-        <td class="center"><%= standard_item[:standard][:title] %></td>
+        <td class="center"><%= standard_item[:subject][:name] if standard_item[:subject] %></td>
+        <td class="center"><%= standard_item[:phase][:name] if standard_item[:phase] %></td>
+        <td class="center"><%= standard_item[:standard][:title] if standard_item[:standard] %></td>
         <td class="center"><%= (standard_item[:is_category] ? '<font color=red>是</font>' : '<font color=gray>否</font>').html_safe %></td>
         <td><%= standard_item[:content] %></td>
         <td class="center">

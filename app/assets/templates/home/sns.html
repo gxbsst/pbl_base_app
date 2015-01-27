@@ -1,23 +1,6 @@
-<div class="current-user">
-    <div class="user-pic">
-        <img ng-src="{{ currentUser|avatar|thumb:'86x86' }}"
-             ui-sref="base.home.user" />
-        <div>
-            <span ng-bind="currentUser.realname"></span>
-        </div>
-    </div>
-    <div class="user-console">
-        <span><i class="pf-cog"></i></span>
-        <span><i class="pf-message"></i></span>
-    </div>
-    <div class="hr"></div>
-    <div class="user-info">
-        <div ng-if="currentUser.type!='Parent'">
-            学校：<span ng-bind="currentUser.school.name"></span>
-        </div>
-        <div>
-            身份：<span ng-bind="currentUser.type | typeFilter"></span>
-        </div>
+<div class="sns">
+    <div et-tabs>
+        <div et-config="icon='';src='demos/tabs/demo.html'" et-tab></div>
     </div>
 </div>
 
