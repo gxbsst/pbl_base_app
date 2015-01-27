@@ -10,9 +10,10 @@
 <table class="table">
   <thead>
   <tr>
-    <th>所属学科</th>
-    <th>所属学段</th>
-    <th>所属分类</th>
+    <th width="100">所属学科</th>
+    <th width="100">所属学段</th>
+    <th width="100">所属分类</th>
+    <th width="100">做为子类</th>
     <th>课标内容</th>
     <th width="150">操作</th>
   </tr>
@@ -20,9 +21,10 @@
   <tbody>
   <% @standard_items[:data].each do |standard_item| %>
       <tr>
-        <td><%= standard_item[:subject][:name] %></td>
-        <td><%= standard_item[:phase][:name] %></td>
-        <td><%= standard_item[:standard][:title] %></td>
+        <td class="center"><%= standard_item[:subject][:name] %></td>
+        <td class="center"><%= standard_item[:phase][:name] %></td>
+        <td class="center"><%= standard_item[:standard][:title] %></td>
+        <td class="center"><%= (standard_item[:is_category] ? '<font color=red>是</font>' : '<font color=gray>否</font>').html_safe %></td>
         <td><%= standard_item[:content] %></td>
         <td class="center">
           <%= link_to '编辑', edit_admin_standard_item_path(standard_item.id) %>

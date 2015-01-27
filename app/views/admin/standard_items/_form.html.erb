@@ -13,6 +13,10 @@
   <select name="standard_item[standard_id]" class="form-control relation-select" data-path="/curriculum/standards?phase_id={id}&limit=100" data-field="title">
     <option>请选择学段</option>
   </select>
+  <span class="space-x"></span>
+  <%= f.check_box :is_category %>
+  <%= f.label :is_category, '做为子类' %>
+  <label for="standard_item.is_category"></label>
 </div>
 <div class="form-group">
   <%= f.text_field :content, placeholder: '请输入课标内容', class: %w(form-control) %>
