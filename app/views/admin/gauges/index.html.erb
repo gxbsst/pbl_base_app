@@ -20,7 +20,7 @@
   <tbody>
   <% @gauges[:data].each do |gauge| %>
       <tr>
-        <td class="center"><%= gauge[:technique][:title] %></td>
+        <td class="center"><%= gauge[:technique][:title] if gauge[:technique] %></td>
         <td><%= gauge[:standard] %></td>
         <td class="center"><%= gauge[:weight] %>%</td>
         <td><%= gauge[:level_1] %></td>
