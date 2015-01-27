@@ -1,8 +1,10 @@
 <div class="home-controller">
-    <div class="col-1-5">
-        <div ng-include="'home/sns.html'"></div>
+    <div class="col-1-5 layout-left">
+        <div ng-include="'home/user.html'"></div>
         <div class="hr"></div>
         <div ng-include="'home/nav.html'"></div>
+        <div class="hr"></div>
+        <div ng-include="'home/sns.html'"></div>
     </div>
-    <div class="col-4-5" ui-view></div>
+    <div class="col-4-5 layout-right" ui-view></div>
 </div>

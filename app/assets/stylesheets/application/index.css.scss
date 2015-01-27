@@ -26,6 +26,14 @@ body{
   }
 }
 
+.layout-left{
+  border-right:1px solid #e6e6e6;
+  padding-right:15px;
+}
+.layout-right{
+  padding-left:15px;
+}
+
 #header{
   $height:60px;
   border-bottom:1px solid #dcdcdc;
