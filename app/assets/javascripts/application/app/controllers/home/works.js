@@ -186,8 +186,14 @@
                     $scope.current.comment=score.comment;
                     $scope.current.state=false;
                     $scope.current.user_id=userId;
-                    Object.merge($scope.work.userScores[userId],score);
-                    judgeWorkState($scope.work);
+                    if ($scope.work.acceptor_type == TYPE_DEFIN.Group) {
+                        Object.merge($scope.work.userScores[userId],score);
+                        judgeWorkState($scope.work);
+                    }else{
+                        $scope.work.scores = score;
+                        $scope.work.state=WORK_TYPES.evaluated;
+                        setWorkState($scope.work.id,WORK_TYPES.evaluated);
+                    }
                 }else{
                     $scope.current.user_id=userId;
                     $scope.current.comment='';
@@ -324,7 +330,11 @@
                     $scope.current.comment=score.comment;
                     $scope.current.state=false;
                     $scope.current.user_id=userId;
-                    Object.merge($scope.work.userScores[userId],score);
+                    if ($scope.work.acceptor_type == TYPE_DEFIN.Group) {
+                        Object.merge($scope.work.userScores[userId],score);
+                    }else{
+                        $scope.work.scores = score;
+                    }
                 }else{
                     $scope.current.user_id=userId;
                     $scope.current.comment='';

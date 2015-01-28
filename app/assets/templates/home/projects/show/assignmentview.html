@@ -26,14 +26,14 @@
         </div>
         <div class="margin-top-10">
         <span class="btn btn-blue" role="button"
-              ng-if="vm.authority&&(work.state==WORK_TYPES.submitted||(work.state==WORK_TYPES.evaluating&&work.lock_by==currentUser.id))"
+              ng-show="vm.authority&&(work.state==WORK_TYPES.submitted||(work.state==WORK_TYPES.evaluating&&work.lock_by==currentUser.id))"
               et-modal="title='任务评分 '+task.title;$task=task;$work=work;controller='setWorkScoresController';padding=0;src='home/projects/show/workscores-set.html'"> 评分</span>
 
                 <span class="btn btn-blue" role="button"
-                      ng-if="work.worker_id==currentUser.id&&work.state==WORK_TYPES.submitted"
+                      ng-show="work.worker_id==currentUser.id&&work.state==WORK_TYPES.submitted"
                       ng-click="vm.workAction(work,WORK_TYPES.working)">修改</span>
         <span class="btn btn-gray" role="button"
-              ng-if="vm.authority&&work.state==WORK_TYPES.working"
+              ng-show="vm.authority&&work.state==WORK_TYPES.working"
               > 评分</span>
 
         <span class="btn btn-blue" role="button"
