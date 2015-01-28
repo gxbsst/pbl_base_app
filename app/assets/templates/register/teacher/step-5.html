@@ -25,7 +25,7 @@
         <div class="center">
             <div class="loading" ng-if="!vm.user.clazzs"><i class="pf-spinner-2 rotation"></i></div>
             <span class="text-red" ng-if="vm.user.clazzs&&!vm.user.clazzs.length">还没有加入任何班级</span>
-            <span class="register-clazz-item block-mini" ng-repeat="entry in vm.user.clazzs" ng-if="entry.clazz"><span ng-bind="(entry.clazz.grade_id|grade)+entry.clazz.name"></span><i class="pf-cross" ng-click="vm.removeClazz(entry.id)"></i></span>
+            <span class="register-clazz-item block-mini" ng-repeat="entry in vm.user.clazzs" ng-if="entry.clazz"><span ng-bind="entry|group"></span><i class="pf-cross" ng-click="vm.removeClazz(entry.id)"></i></span>
         </div>
         <div class="clearfix"></div>
         <div class="et-modal-footer center">

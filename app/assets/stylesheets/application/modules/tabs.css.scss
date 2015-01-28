@@ -23,6 +23,9 @@
         font-weight:bold;
         border-color:#216fed;
       }
+      [class^='pf-'], [class*=" pf-"]{
+        font-size:26px;
+      }
     }
   }
   .et-tabs-contents{

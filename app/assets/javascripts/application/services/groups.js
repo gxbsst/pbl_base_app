@@ -14,7 +14,6 @@
             groupId: '@groupId',
             action: '@action',
             actionId: '@actionId',
-            include: 'member_ships',
             limit: 100
         }, RESOURCE_ACTIONS);
     }

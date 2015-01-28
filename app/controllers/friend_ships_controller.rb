@@ -4,8 +4,17 @@ class FriendShipsController < ApplicationController
     @friend_ships = FriendShip.all
   end
 
-  def get_user_children
-    @friend_ships = FriendShip.where(user_id: params[:user_id] || current_user.id, relation_null: false, include: 'friends')
+  def user_children
+    if user[:type] == 'Parent'
+      @friend_ships = FriendShip.where(user_id: params[:user_id] || current_user.id, relation_null: :false, include: 'friends')
+      render :index
+    else
+      render 'share/empty'
+    end
+  end
+
+  def user_friends
+    @friend_ships = FriendShip.where(user_id: params[:user_id] || current_user.id, include: 'friends')
     render :index
   end
 
@@ -50,6 +59,12 @@ class FriendShipsController < ApplicationController
   def destroy
     @friend_ship = FriendShip.destroy(params[:id])
     render :show
+  end
+
+  private
+
+  def user
+    User.find(params[:user_id] || current_user.id)
   end
 
 end

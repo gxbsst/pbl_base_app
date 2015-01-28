@@ -4,7 +4,8 @@
              ng-repeat="panel in tabsConfig.panels"
              ng-class="tabsConfig.classes(panel)"
              ng-click="tabsConfig.select(panel)">
-            <span ng-if="" ng-bind-html="panel.title"></span>
+            <i ng-if="panel.icon" ng-class="panel.icon"></i>
+            <span ng-if="panel.title" ng-bind-html="panel.title"></span>
         </div>
     </div>
     <div class="et-tabs-contents col-1-1 no-padding" ng-transclude></div>

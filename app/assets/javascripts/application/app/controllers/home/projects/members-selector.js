@@ -13,8 +13,6 @@
             project = $scope.project;
 
         vm.list = 'friends';
-        vm.users = angular.copy($rootScope.friends);
-        vm.member_ships = angular.copy($rootScope.member_ships);
         vm.filter = filter;
         vm.isSelected = isSelected;
         vm.hasSelected = hasSelected;
@@ -22,6 +20,7 @@
         vm.add = add;
         vm.remove = remove;
 
+        getUsers();
         getMembers();
         $scope.$on('onMembersChange', getMembers);
 
@@ -51,17 +50,30 @@
 
         function setList(list){
             if(list == 'friends'){
-                vm.users = angular.copy($rootScope.friends);
+                getUsers();
             }else{
+                delete vm.users;
                 Groups.get({
-                    groupId: list
+                    groupId: list,
+                    include: 'member_ships,students'
                 }, function (result) {
-                    vm.users = result.data.members.map(function (member) {
-                        return member.user;
-                    });
+                    vm.users = result.data.clazz && result.data.clazz.students ?
+                        result.data.clazz.students.map(function (student) {
+                            return student.user;
+                        }):
+                        result.data.members.map(function (member) {
+                            return member.user;
+                        });
+
                 });
             }
             vm.list = list;
+        }
+
+        function getUsers(){
+            vm.users = angular.copy($rootScope.friends).map(function (friend_ship) {
+                return friend_ship.friend;
+            });
         }
 
         function add() {

@@ -19,8 +19,7 @@
                 template: '<div ui-view></div>',
                 controller: 'BaseController as base',
                 resolve: {
-                    currentUser: getCurrentUser,
-                    friends: getFriends
+                    currentUser: getCurrentUser
                 }
             })
             .state('base.index', {
@@ -100,28 +99,12 @@
                     $rootScope.currentUser = result.data;
                     defer.resolve($rootScope.currentUser);
                 }, function () {
-                    defer.resolve(null);
-                });
-            }
-            return defer.promise;
-        }
-
-        getFriends.$inject = ['$rootScope', '$q', 'Friends'];
-
-        function getFriends($rootScope, $q, Friends){
-            var defer = $q.defer();
-            if($rootScope.friends){
-                defer.resolve($rootScope.friends);
-            }else{
-                Friends.get(function (result) {
-                    $rootScope.friends = result.data;
-                    defer.resolve($rootScope.friends);
-                }, function () {
                     defer.resolve();
                 });
             }
             return defer.promise;
         }
+
     }
 
     routeConfig.$inject = ['$rootScope', '$state', '$stateParams'];

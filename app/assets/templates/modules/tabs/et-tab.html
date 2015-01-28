@@ -1,4 +1,6 @@
-<div class="et-tabs-content" ng-class="{active:tabConfig.selected}" ng-if="tabConfig.selected">
-    <div ng-if="!etConfig.src" ng-transclude></div>
-    <div ng-if="etConfig.src" ng-include="etConfig.src"></div>
+<div class="et-tabs-content" ng-class="{active:tabConfig.selected}" ng-show="tabConfig.selected">
+    <div ng-if="!tabConfig.tabs.reloadOnSelected||(tabConfig.tabs.reloadOnSelected&&tabConfig.selected)">
+        <div ng-if="!etConfig.src" ng-transclude></div>
+        <div ng-if="etConfig.src" ng-include="etConfig.src"></div>
+    </div>
 </div>

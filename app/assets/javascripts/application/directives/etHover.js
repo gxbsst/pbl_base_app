@@ -3,23 +3,23 @@
 
     angular
         .module('app.directives')
-        .directive('ngHover', ngHover);
+        .directive('etHover', etHover);
 
-    function ngHover() {
+    function etHover() {
         return {
             restrict: 'A',
-            link: ngHoverLink
+            link: etHoverLink
         };
     }
 
-    function ngHoverLink(scope, element, attr) {
+    function etHoverLink(scope, element, attr) {
 
         element
             .on('mouseenter', function () {
-                element.addClass(attr.ngHover || 'hover');
+                element.addClass(attr.etHover || 'hover');
             })
             .on('mouseleave', function () {
-                element.removeClass(attr.ngHover || 'hover');
+                element.removeClass(attr.etHover || 'hover');
             });
 
     }

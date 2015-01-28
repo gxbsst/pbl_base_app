@@ -27,15 +27,20 @@ Rails.application.routes.draw do
   resources :posts, defaults: { format: :json }
 
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy) do
+    get :friends, :to => 'friend_ships#user_friends'
+    get :children, :to => 'friend_ships#user_children'
+    post :children, :to => 'friend_ships#add_user_child'
     get :clazzs, :to => 'clazzs#user_clazzs'
     resources :clazzs, defaults: { format: :json }, only: %w(index)
+    get :groups, :to => 'groups#user_index'
+    resources :groups, defaults: { format: :json }, only: %w(create destroy)
   end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
-    resources :friends, defaults: { format: :json }, only: %w(index)
     resources :follows, defaults: { format: :json }, only: %w(index create destroy)
     resources :rules, defaults: { format: :json }, only: %w(index)
-    get :children, :to => 'friend_ships#get_user_children'
+    get :friends, :to => 'friend_ships#user_friends'
+    get :children, :to => 'friend_ships#user_children'
     post :children, :to => 'friend_ships#add_user_child'
     get :invitations, :to => 'invitations#current_user_index'
     resources :invitations, defaults: {format: 'json'}, only: %w(create show)
@@ -52,6 +57,7 @@ Rails.application.routes.draw do
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
     collection do
       get ':ids', to: 'groups#index', constraints: {ids: /.+[,].+/}
+      get ':owner_ids', to: 'groups#index', constraints: {owner_ids: /.+[,].+/}
     end
   end
 
@@ -105,7 +111,7 @@ Rails.application.routes.draw do
 
   resources :grades, defaults: {format: 'json'}, only: %w(index create)
 
-  resources :clazzs, defaults: {format: 'json'}, only: %w(index create) do
+  resources :clazzs, defaults: {format: 'json'}, only: %w(index create show) do
     collection do
       get ':ids', to: 'clazzs#index', constraints: {ids: /.+[,].+/}
     end

@@ -41,6 +41,7 @@
                 onCompleted: onCompleted
             },
             HANDLES: {
+                scrollTop: scrollTop,
                 login: login,
                 follow: follow,
                 unFollow: unFollow,
@@ -176,6 +177,11 @@
             return function (data) {
                 delete object.$uploading;
             }
+        }
+
+        function scrollTop(top){
+            top = top || 0;
+            angular.element('body').animate({scrollTop: top});
         }
 
         function login(user) {

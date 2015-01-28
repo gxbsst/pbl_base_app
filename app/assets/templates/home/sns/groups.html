@@ -1,0 +1,6 @@
+<ul class="sns-list">
+    <li ng-repeat="group in groups" ng-click="$state.go('base.home.groups.show',{groupId:group.id});HANDLES.scrollTop()">
+        <img ng-src="{{group|avatar:'30x30'}}" class="avatar"/>
+        <span ng-bind="group|group"></span>
+    </li>
+</ul>

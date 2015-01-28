@@ -9,14 +9,21 @@
             <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.explore'|i18n"></a></li>
         </ul>
         <ul class="top-right pull-right">
-            <li><i class="pf-search top-search-btn"></i></li>
-            <li ng-hover="hover">
+            <li ng-style="{width:vm.search?200:40}">
+                <i class="pf-search top-right-btn cur-pointer" ng-show="!vm.search" ng-click="vm.search=1"></i>
+                <span class="search-input" ng-show="vm.search">
+                    <i class="pf-search" ng-class="{disabled:vm.keyword}" et-modal="$keyword=vm.keyword;title='搜索平台用户及群组';controller='SearchController as vm';src='index/search.html'"></i>
+                    <input type="text" class="form-control" ng-model="vm.keyword" placeholder="输入关键字"/>
+                    <i class="pf-cross" ng-click="vm.search=0"></i>
+                </span>
+            </li>
+            <li et-hover="hover">
                 <i class="pf-bell top-right-btn"></i>
                 <div class="sub-menu">
                     note list demo abc sdfsdf
                 </div>
             </li>
-            <li class="top-avatar" ng-hover="hover" ng-if="currentUser">
+            <li class="top-avatar" et-hover="hover" ng-if="currentUser">
                 <i class="top-right-btn"><a ui-sref="root.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>
                 <div class="sub-menu">
                     user menu demo

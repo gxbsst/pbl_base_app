@@ -6,7 +6,7 @@
             <li>
                 <strong>我的群组</strong>
                 <ul>
-                    <li class="hover" ng-repeat="member_ship in vm.member_ships" ng-class="{active:vm.list==member_ship.group.id}" ng-click="vm.setList(member_ship.group.id)" ng-bind="member_ship.group.name"></li>
+                    <li class="hover" ng-repeat="group in groups" ng-class="{active:vm.list==group.id}" ng-click="vm.setList(group.id)" ng-bind="group|group"></li>
                 </ul>
             </li>
         </ul>
@@ -17,6 +17,7 @@
 
         </div>
         <div class="member-users scrollbar" et-scrollbar>
+            <div class="loading" ng-if="!vm.users"><i class="pf-spinner-2 rotation"></i></div>
             <ul>
                 <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected,disabled:!vm.isSelected(user)}" ng-show="!vm.filter(user)" ng-click="user.$selected=!user.$selected"><img ng-src="{{user|avatar}}"/> <span ng-bind="user.username"></span></li>
             </ul>

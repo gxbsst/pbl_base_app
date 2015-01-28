@@ -1,0 +1,3 @@
+<ul class="sns-list">
+    <li ng-repeat="user in friends"><img ng-src="{{user.friend|avatar:'30x30'}}" class="avatar"/> <span ng-bind="user.friend.realname||user.friend.username"></span></li>
+</ul>

@@ -24,6 +24,8 @@
 
         function etTabsLink(scope, element, attr, ctrl){
 
+            ctrl.reloadOnSelected = true;
+
             utils.params(scope, attr.etTabs, ctrl);
 
         }
@@ -58,6 +60,7 @@
             }
 
             function addPane(pane) {
+                pane.tabs = vm;
                 if (vm.panels.length == 0) {
                     vm.select(pane);
                 }
