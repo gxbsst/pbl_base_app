@@ -1,23 +1,23 @@
-<div class="navbar container">
-    <a ui-sref="base.index" class="logo" ng-class="getLocale()"></a>
-    <span class="nav-main">
-        <a ui-sref="base.index"  ng-class="{active:$state.includes('base.index')}">首页</a>
-        <a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" >项目案例</a>
-        <a ui-sref="base.home.index" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
-    </span>
-    <span class="user-tools">
-        <span ng-if="currentUser">
-            欢迎您，
-            <a ui-sref="base.home.users.show({userId:currentUser.id})" ng-bind="currentUser.realname||currentUser.username"></a>，
-            <!--<a href="javascript:void(0);" et-logout>退出</a>-->
-            <a href="/users/sign_out" data-method="delete">退出</a>
+<div id="index-navbar" et-scrolltop>
+    <div class="navbar container">
+        <a ui-sref="base.index" class="logo" ng-class="getLocale()"></a>
+        <span class="nav-main">
+            <a ui-sref="base.index"  ng-class="{active:$state.includes('base.index')}">首页</a>
+            <a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" >项目案例</a>
+            <a ui-sref="base.home.index" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
         </span>
-        <span ng-show="!currentUser">
-            <a href="/users/sign_in">登录</a> /
-            <a href="javascript:void(0)" et-modals="RegisterModals">注册</a>
+        <span class="user-tools">
+            <span ng-if="currentUser">
+                欢迎您，
+                <a ui-sref="base.home.users.show({userId:currentUser.id})" ng-bind="currentUser.realname||currentUser.username"></a>，
+                <!--<a href="javascript:void(0);" et-logout>退出</a>-->
+                <a href="/users/sign_out" data-method="delete">退出</a>
+            </span>
+            <span ng-show="!currentUser">
+                <a href="/users/sign_in">登录</a> /
+                <a href="javascript:void(0)" et-modals="RegisterModals">注册</a>
+            </span>
         </span>
-    </span>
+    </div>
 </div>
-<div class="banner">
-    <img src="http://placeimg.com/2000/150/tech" alt=""/>
-</div>
+<div id="index-slider" et-slidershow></div>

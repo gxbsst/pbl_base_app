@@ -1,13 +1,12 @@
 <div class="current-user">
     <div class="user-pic">
-        <img ng-src="{{ currentUser|avatar|thumb:'86x86' }}"
-             ui-sref="base.home.user" />
+        <img ng-src="{{ currentUser|avatar|thumb:'86x86' }}"/>
         <div>
             <span ng-bind="currentUser.realname"></span>
         </div>
     </div>
     <div class="user-console">
-        <span><i class="pf-cog"></i></span>
+        <span ui-sref="base.home.user" ><i class="pf-cog"></i></span>
         <span><i class="pf-message"></i></span>
     </div>
     <div class="hr"></div>
