@@ -23,29 +23,7 @@
       display:inline-block;
       position:relative;
       vertical-align:middle;
-      ul{
-        display:none;
-        position:absolute;
-        left:28px;
-        top:3px;
-        border:1px solid #ccc;
-        li{
-          padding:0 12px;
-          line-height:26px;
-          white-space:nowrap;
-          font-size:12px;
-          border-bottom:1px solid #ccc;
-          background:#fff;
-          cursor:pointer;
-          &:last-of-type{
-            border:none;
-          }
-          &:hover{
-            color:#fff;
-            background:#0064f0;
-          }
-        }
-      }
+      cursor:pointer;
       .pf-edit{
         display:inline-block;
         width:30px;
@@ -57,7 +35,7 @@
         }
       }
       &:hover{
-        ul{
+        .mini-menu{
           display:block;
         }
         .pf-edit{
@@ -97,5 +75,34 @@
         margin:0 25px;
       }
     }
+  }
+}
+
+.group-join{
+  width:300px;
+  .form-control{
+    line-height:40px;
+    font-size:22px;
+    text-align:center;
+    color:#0064f0;
+  }
+  .et-modal-footer{
+    margin:18px -18px -18px !important;
+    background:#fff !important;
+  }
+}
+
+.group-edit{
+  margin-top:-10px;
+  width:450px;
+  .control-label{
+    display:block;
+  }
+  .block-mini{
+    margin:2px;
+  }
+  .et-modal-footer{
+    margin:18px -18px -18px !important;
+    background:#fff !important;
   }
 }

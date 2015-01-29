@@ -1,0 +1,7 @@
+<div class="group-join">
+    <input type="text" class="form-control" ng-model="vm.code" ng-change="vm.errors=''" placeholder="请填写群组邀请码"/>
+    <div class="text-red" ng-if="vm.errors" ng-bind="vm.errors"></div>
+    <div class="et-modal-footer center">
+        <span class="btn btn-blue" ng-class="{disabled:!vm.code}" ng-click="vm.join()">加入群组</span>
+    </div>
+</div>

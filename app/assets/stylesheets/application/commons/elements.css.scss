@@ -373,3 +373,28 @@ ul.files{
 .et-drag{
   cursor:move !important;
 }
+
+ul.mini-menu{
+  display:none;
+  position:absolute;
+  left:30px;
+  top:3px;
+  border:1px solid #ccc;
+  li{
+    padding:0 12px;
+    line-height:26px;
+    white-space:nowrap;
+    font-size:12px;
+    border-bottom:1px solid #ccc;
+    color:#333;
+    background:#fff;
+    cursor:pointer;
+    &:last-of-type{
+      border:none;
+    }
+    &:hover{
+      color:#fff;
+      background:#0064f0;
+    }
+  }
+}

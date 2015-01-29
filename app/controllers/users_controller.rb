@@ -40,7 +40,11 @@ class UsersController < UserController
                                            friend_id: entry[:user_id]
                                        }) if student[:user_id] != entry[:user_id]
                     end
-                    FriendShip.create(friend_ship) unless friend_ship.empty?
+                    begin
+                      FriendShip.create(friend_ship) unless friend_ship.empty?
+                    rescue => error
+                      #puts error
+                    end
                   end
                 when 'Group'
                   MemberShip.create({
@@ -55,11 +59,23 @@ class UsersController < UserController
           if parent_code.present?
             invitations = Invitation.where(code: parent_code)
             invitations[:data].each do |invitation|
-              FriendShip.create({
-                                    user_id: id,
-                                    friend_id: invitation[:owner_id],
-                                    relation: '0'
-                                })
+              if invitation[:owner_type] == 'Student'
+                FriendShip.create({
+                                      user_id: id,
+                                      friend_id: invitation[:owner_id],
+                                      relation: '0'
+                                  })
+                students = Student.where(user_id: invitation[:owner_id])
+                students[:data].each do |student|
+                  groups = Group.where(owner_type: :ClazzParent, owner_id: student[:clazz_id])
+                  groups[:data].each do |group|
+                    MemberShip.create({
+                                          user_id: id,
+                                          group_id: group[:id]
+                                      })
+                  end
+                end
+              end
             end
           end
         else
@@ -70,6 +86,9 @@ class UsersController < UserController
 
   def show
     set_user
+    puts '...............'
+    puts @user.to_hash
+    puts '...............'
   end
 
   def update

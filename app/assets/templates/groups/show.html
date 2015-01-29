@@ -5,7 +5,7 @@
                 <strong ng-bind="vm.group|group"></strong>
                 <div class="group-edit">
                     <i class="pf-edit"></i>
-                    <ul>
+                    <ul class="mini-menu">
                         <li ng-if="vm.isCreator(currentUser.id)">编辑群组</li>
                         <li>退出群组</li>
                         <li ng-if="vm.isCreator(currentUser.id)">删除群组</li>

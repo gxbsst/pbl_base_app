@@ -28,6 +28,65 @@ class GroupsController < ApplicationBaseController
     end
   end
 
+  def join
+    user_id = params[:user_id] || current_user.id
+    user = User.find(user_id)
+    if user.success?
+      invitations = Invitation.where(code: params[:code])
+      invitations[:data].each do |invitation|
+        case invitation[:owner_type]
+          when 'Clazz'
+            if user[:type] == 'Parent'
+              return render json: {errors: '只有老师及学生才能加入班级群！'}
+            else
+              student = Student.create({
+                                           user_id: user_id,
+                                           clazz_id: invitation[:owner_id]
+                                       })
+              if student.success?
+                students = Student.where(clazz_id: student[:clazz_id])
+                friend_ship = []
+                students[:data].each do |entry|
+                  friend_ship.push({
+                                       user_id: user_id,
+                                       friend_id: entry[:user_id]
+                                   }) if user_id != entry[:user_id]
+                end
+                begin
+                  FriendShip.create(friend_ship) unless friend_ship.empty?
+                rescue => error
+                  #puts error
+                end
+                @group = Group.find_by({
+                                           owner_type: :Clazz,
+                                           owner_id: invitation[:owner_id],
+                                           include: 'clazzs'
+                                       })
+                return render 'groups/show'
+              else
+                return render json: {errors: '您已经是该群组成员！'}
+              end
+            end
+          when 'Group', 'ClazzParent'
+            MemberShip.create({
+                                  user_id: user_id,
+                                  group_id: invitation[:owner_id]
+                              })
+            @group = Group.find_by({
+                                       owner_type: :Clazz,
+                                       owner_id: invitation[:owner_id],
+                                       include: 'clazzs'
+                                   })
+            return render 'groups/show'
+          else
+        end
+      end
+    else
+      head 404
+    end
+    render json: {errors: '无效的邀请码，请核对后重试！'}
+  end
+
   def create
     group = params[:group]
     group[:owner_id] ||= current_user.id
@@ -43,7 +102,6 @@ class GroupsController < ApplicationBaseController
 
   def show
     @group = Group.find(params[:id], query_params)
-    @group[:clazz] = Clazz.find(@group[:owner_id]) if @group && @group[:owner_id] && @group[:owner_type] == 'Clazz'
   end
 
   def update

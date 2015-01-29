@@ -7,13 +7,13 @@
 
     BaseController.$inject = [
         '$scope', '$rootScope', '$document', '$q', 'modals',
-        'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GRADES',
+        'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GROUP_TAGS', 'GRADES',
         'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations', 'User',
         'TYPE_DEFIN', 'WORK_TYPES'
     ];
 
     function BaseController($scope, $rootScope, $document, $q, modals,
-                            RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GRADES,
+                            RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GROUP_TAGS, GRADES,
                             Resources, Follows, Friends, Groups, MemberShips, Invitations, User,
                             TYPE_DEFIN, WORK_TYPES) {
 
@@ -27,6 +27,7 @@
             ROLES: ROLES,
             DISCIPLINES: DISCIPLINES,
             INTERESTS: INTERESTS,
+            GROUP_TAGS: GROUP_TAGS,
             GRADES: GRADES,
             DURATION_UNITS: DURATION_UNITS,
             RESOURCE_TYPES: RESOURCE_TYPES,
@@ -104,6 +105,8 @@
 
         getFollows();
         getMemberShips();
+
+        $scope.$on('onGroups', getGroups);
 
         var currentUser = $rootScope.currentUser;
 
@@ -307,6 +310,14 @@
                     $rootScope.member_ships = result.data;
                 });
             }
+        }
+
+        function getGroups(){
+            User.get({
+                action: 'groups'
+            }, function (result) {
+                $rootScope.groups = result.data;
+            });
         }
 
     }

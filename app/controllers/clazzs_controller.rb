@@ -26,6 +26,16 @@ class ClazzsController < ApplicationController
         owner_id: @clazz[:id]
     }
     @invitation = Invitation.create(invitation)
+    group = {
+        owner_type: :ClazzParent,
+        owner_id: @clazz[:id]
+    }
+    @group = Group.create(group)
+    invitation = {
+        owner_type: :ClazzParent,
+        owner_id: @clazz[:id]
+    }
+    @invitation = Invitation.create(invitation)
     render :show
   end
 

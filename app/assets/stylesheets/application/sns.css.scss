@@ -32,4 +32,47 @@
       }
     }
   }
+  .sns-search{
+    position:relative;
+    input{
+      width:100%;
+      border:1px solid #e5e5e5;
+      line-height:20px;
+      padding:5px 30px;
+      background:transparent;
+    }
+    .pf-search, .sns-action{
+      position:absolute;
+      top:0;
+      width:30px;
+      height:30px;
+      line-height:30px;
+      font-size:18px;
+      color:#999;
+      text-align:center;
+      &.pf-search{
+        left:0;
+        z-index:-1;
+      }
+      &.sns-action{
+        right:0;
+        font-size:15px;
+        cursor:pointer;
+        .pf-plus{
+          line-height: 30px;
+        }
+        &:hover{
+          color:#0064f0;
+          .mini-menu{
+            display:block;
+          }
+        }
+      }
+    }
+    &.focusin{
+      .pf-search{
+        color:#0064f0;
+      }
+    }
+  }
 }

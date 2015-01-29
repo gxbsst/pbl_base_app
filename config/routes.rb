@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     get :invitations, :to => 'invitations#current_user_index'
     resources :invitations, defaults: {format: 'json'}, only: %w(create show)
     get :groups, :to => 'groups#user_index'
+    post :join, :to => 'groups#join'
     resources :groups, defaults: { format: :json }, only: %w(create destroy)
     get :clazzs, :to => 'clazzs#user_clazzs'
     resources :clazzs, defaults: { format: :json }, only: %w(index)
