@@ -3,21 +3,13 @@
 
     angular
         .module('app.pbl')
-        .controller('PostsIndexController', PostsIndexController)
-        .controller('PostsShowController', PostsShowController);
+        .controller('PostsController', PostsController);
 
-    PostsIndexController.$inject = ['Posts'];
+    PostsController.$inject = ['owner'];
 
-    function PostsIndexController(Posts) {
+    function PostsController(owner) {
         var vm = this;
-        vm.posts = Posts.all();
-    }
-
-    PostsShowController.$inject = ['$stateParams', 'Posts'];
-
-    function PostsShowController($stateParams, Posts) {
-        var vm = this;
-        vm.post = Posts.get({postId: $stateParams.postId});
+        vm.owner = owner;
     }
 
 })();

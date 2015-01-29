@@ -6,7 +6,7 @@
     <div class="col-1-1" ng-if="!vm.members">
         <div class="loading"><i class="pf-spinner-2 rotation"></i></div>
     </div>
-    <div ng-show="vm.members">
+    <div ng-show="!!vm.members">
         <div class="col-1-1 margin-top-20">
             <div class="left col-3-4">
                 <strong>小组数量：</strong>
@@ -28,7 +28,7 @@
                             <div class="note center text-red lh-35" ng-if="vm.members&&!vm.members.length">项目中没有任何成员</div>
                             <div class="note center text-green lh-35" ng-if="vm.grouped()">成员已全部分组</div>
                             <div class="col-1-4 member et-drag" on-begin="vm.onBegin()" on-dropped="vm.onDropped(member.user.id,$target)" ng-repeat="member in vm.members"
-                                 ng-show="!vm.isGrouped(member)" ng-class="{disabled:member.$disabled}" ng-hover>
+                                 ng-show="!vm.isGrouped(member)" ng-class="{disabled:member.$disabled}" et-hover>
                                 <img ng-src="{{member.user|avatar}}"/>
                                 <span ng-bind="member.user.username"></span>
                                 <i class="pf-cross" et-tips="'从项目中移除该成员'" ng-click="vm.destroy(member,$event)"></i>
@@ -42,7 +42,7 @@
                     <td>
                         <div class="row et-drop" drop="group">
                             <div class="col-1-4 member et-drag" on-begin="vm.onBegin(group)" on-dropped="vm.onDropped(user_id,$target)" ng-repeat="user_id in group.members track by $index"
-                                 ng-hover>
+                                 et-hover>
                                 <img ng-src="{{vm.getUser(user_id,group)|avatar}}"/>
                                 <span ng-bind="vm.getUser(user_id,group).username"></span>
                                 <i class="pf-cross" et-tips="'从分组中移除该组员'" ng-click="vm._destroy(group,user_id,$event)"></i>

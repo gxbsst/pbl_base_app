@@ -18,11 +18,10 @@ class UsersController < UserController
       id = @user[:id]
       case @user[:type]
         when 'Student'
-          invitation = {
-              owner_type: :Student,
-              owner_id: id
-          }
-          @invitation = Invitation.create(invitation)
+          @invitation = Invitation.create({
+                                              owner_type: :Student,
+                                              owner_id: id
+                                          })
           if group_code.present?
             invitations = Invitation.where(code: group_code)
             invitations[:data].each do |invitation|

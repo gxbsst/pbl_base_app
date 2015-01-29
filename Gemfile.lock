@@ -1,18 +1,18 @@
 GIT
   remote: git://github.com/rails/activerecord-session_store.git
-  revision: a30ec3117d189bfe67261e3c80364627107d76ea
+  revision: 1cc0daf77d542045da4f6a43cba9ce04c27453dd
   specs:
-    activerecord-session_store (0.1.0)
+    activerecord-session_store (0.1.1)
       actionpack (>= 4.0.0, < 5)
       activerecord (>= 4.0.0, < 5)
       railties (>= 4.0.0, < 5)
 
 GIT
   remote: git@58.246.127.90:pbl/pbl_service_client.git
-  revision: c172625466a99073030d04f7724685279fe2d038
+  revision: d493d14adc657abc137240899af5003157b6602a
   branch: master
   specs:
-    pbl_service_client (0.0.21)
+    pbl_service_client (0.0.22)
       activemodel
       addressable
       typhoeus
@@ -71,7 +71,7 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
-    capistrano-bundler (1.1.3)
+    capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-rails (1.1.2)
@@ -84,7 +84,7 @@ GEM
       capistrano
       sidekiq
     capistrano-stats (1.1.1)
-    capistrano3-puma (0.8.3)
+    capistrano3-puma (0.8.4)
       capistrano (~> 3.0)
       puma (>= 2.6)
     celluloid (0.16.0)
@@ -144,7 +144,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.6)
     ffi (1.9.6-java)
-    figaro (1.0.0)
+    figaro (1.1.0)
       thor (~> 0.14)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -202,9 +202,9 @@ GEM
       rails-assets-angular (= 1.2.26)
       rails-assets-moment (>= 2.8.4, < 3)
     rails-assets-angular-cache (2.3.7)
-    rails-assets-angular-chart.js (0.3.9)
-      rails-assets-Chart.js (~> 1.0.1.beta.2)
-      rails-assets-angular (~> 1.2.0)
+    rails-assets-angular-chart.js (0.3.19)
+      rails-assets-Chart.js (~> 1.0.1)
+      rails-assets-angular (~> 1.0)
     rails-assets-angular-moment (0.9.0)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
       rails-assets-moment (>= 2.8.0, < 2.10.0)
@@ -221,13 +221,15 @@ GEM
     rails-assets-es5-shim (4.0.5)
     rails-assets-interact (1.2.2)
     rails-assets-jquery (1.10.2)
-    rails-assets-js-base64 (2.1.6)
-    rails-assets-lodash (2.4.1)
+    rails-assets-js-base64 (2.1.7)
+    rails-assets-lodash (3.0.0)
     rails-assets-mockjs (0.1.6)
     rails-assets-moment (2.9.0)
-    rails-assets-restangular (1.4.0)
-      rails-assets-angular
-      rails-assets-lodash (>= 1.3.0, < 2.5.0)
+    rails-assets-restangular (0.5.4)
+      rails-assets-angular (= 1.2.26)
+      rails-assets-angular-resource
+      rails-assets-underscore (>= 1.4.4)
+    rails-assets-underscore (1.7.0)
     railties (4.1.7)
       actionpack (= 4.1.7)
       activesupport (= 4.1.7)
@@ -275,9 +277,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    sidekiq (3.3.0)
+    sidekiq (3.3.1)
       celluloid (>= 0.16.0)
-      connection_pool (>= 2.0.0)
+      connection_pool (>= 2.1.1)
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
@@ -287,7 +289,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.3)
+    sprockets-rails (2.2.4)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)

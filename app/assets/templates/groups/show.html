@@ -1,13 +1,29 @@
 <div class="group-posts">
     <div class="group-header">
         <div class="pull-left">
-            <span class="group-name" ng-bind="vm.group|group"></span>
-            <i class="pf-edit"></i>
-            <div class="note">群号：<span ng-bind="vm.group.no"></span></div>
+            <div class="group-name">
+                <strong ng-bind="vm.group|group"></strong>
+                <div class="group-edit">
+                    <i class="pf-edit"></i>
+                    <ul>
+                        <li ng-if="vm.isCreator(currentUser.id)">编辑群组</li>
+                        <li>退出群组</li>
+                        <li ng-if="vm.isCreator(currentUser.id)">删除群组</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="group-no">群号：<span ng-bind="vm.group.no"></span></div>
         </div>
         <div class="pull-right">
-            <div class="group-code">邀请码：<span ng-bind="vm.group.code"></span></div>
+            <div class="group-code">邀请码：<span ng-bind="vm.group.code||vm.group.clazz.code"></span></div>
+            <div class="group-nav">
+                <a ui-sref="base.home.groups.show.posts({groupId:vm.group.id})"
+                   ng-class="{active:$state.includes('base.home.groups.show.posts')}">群动态</a>
+                <span class="space-x">|</span>
+                <a ui-sref="base.home.groups.show.members({groupId:vm.group.id})"
+                   ng-class="{active:$state.includes('base.home.groups.show.members')}">群成员</a>
+            </div>
         </div>
     </div>
-
+    <div ui-view></div>
 </div>

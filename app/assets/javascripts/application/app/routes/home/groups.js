@@ -22,6 +22,19 @@
                 resolve: {
                     group: getGroup
                 }
+            })
+            .state('base.home.groups.show.posts', {
+                url: '/posts',
+                templateUrl: 'posts/index.html',
+                controller: 'PostsController as vm',
+                resolve: {
+                    owner: owner
+                }
+            })
+            .state('base.home.groups.show.members', {
+                url: '/members',
+                templateUrl: 'groups/members.html',
+                controller: 'GroupsMembersController as vm'
             });
 
         getGroup.$inject = ['$stateParams', '$q', 'Groups'];
@@ -36,6 +49,15 @@
                 defer.resolve(null);
             });
             return defer.promise;
+        }
+
+        owner.$inject = ['group'];
+
+        function owner(group){
+            return {
+                type: 'Group',
+                owner: group
+            }
         }
 
     }
