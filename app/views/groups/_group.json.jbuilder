@@ -5,6 +5,7 @@ json.owner_id group[:owner_id] if group[:owner_id]
 json.owner_type group[:owner_type] if group[:owner_type]
 json.description group[:description] if group[:description]
 json.code group[:invitation_code] if group[:invitation_code]
+json.label group[:label] if group[:label]
 json.members_count group[:members_count] if group[:members_count]
 json.members do
   json.partial! 'member_ships/member_ship', collection: group[:member_ships], :as => :member_ship

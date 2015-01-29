@@ -106,7 +106,7 @@
         getFollows();
         getMemberShips();
 
-        $scope.$on('onGroups', getGroups);
+        $scope.$on('onGroupsChanged', getGroups);
 
         var currentUser = $rootScope.currentUser;
 
@@ -323,14 +323,3 @@
     }
 
 })();
-
-/*
- var query = window.location.search.substr(1),
- code = query.query('q'),
- decode = Base64.decode(code),
- username = decode.query('username'),
- password = decode.query('password');
-
- //console.log(Base64.encode('username=test&password=1111'))
- //console.log(Base64.decode('dXNlcm5hbWU9dGVzdCZwYXNzd29yZD0xMTEx'))
- console.log(username,password);*/

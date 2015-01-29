@@ -67,16 +67,23 @@ class GroupsController < ApplicationBaseController
                 return render json: {errors: '您已经是该群组成员！'}
               end
             end
-          when 'Group', 'ClazzParent'
+          when 'ClazzParent'
             MemberShip.create({
                                   user_id: user_id,
                                   group_id: invitation[:owner_id]
                               })
             @group = Group.find_by({
-                                       owner_type: :Clazz,
+                                       owner_type: :ClazzParent,
                                        owner_id: invitation[:owner_id],
                                        include: 'clazzs'
                                    })
+            return render 'groups/show'
+          when 'Group'
+            MemberShip.create({
+                                  user_id: user_id,
+                                  group_id: invitation[:owner_id]
+                              })
+            @group = Group.find(invitation[:owner_id], include: :clazzs)
             return render 'groups/show'
           else
         end
@@ -90,13 +97,15 @@ class GroupsController < ApplicationBaseController
   def create
     group = params[:group]
     group[:owner_id] ||= current_user.id
-    group[:owner_type] ||= 'User'
+    group[:owner_type] ||= :Group
     @group = Group.create(group)
-    invitation = {
-        owner_type: :Group,
-        owner_id: @group[:id]
-    }
-    @invitation = Invitation.create(invitation)
+    if @group.success?
+      invitation = {
+          owner_type: :Group,
+          owner_id: @group[:id]
+      }
+      Invitation.create(invitation)
+    end
     render :show
   end
 
@@ -105,7 +114,7 @@ class GroupsController < ApplicationBaseController
   end
 
   def update
-    @group = Group.update(params[:id], params[:group])
+    @group = Group.update(params[:id], params[:group].block('code'))
     render :show
   end
 

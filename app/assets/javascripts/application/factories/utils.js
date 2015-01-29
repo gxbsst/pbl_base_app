@@ -30,6 +30,8 @@
                     var key = config[1] ? config[0] : defaultKey;
                     if (/^\$/.test(key)) {
                         scope[key.substr(1)] = v;
+                    } else if (/^@/.test(key)) {
+                        scope[key.substr(1)] = angular.copy(v);
                     } else {
                         object[key] = v;
                     }

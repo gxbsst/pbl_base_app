@@ -17,12 +17,10 @@
       font-size:26px;
       color:#0064f0;
       margin-right:10px;
-      vertical-align:middle;
     }
     .group-edit{
       display:inline-block;
       position:relative;
-      vertical-align:middle;
       cursor:pointer;
       .pf-edit{
         display:inline-block;
@@ -30,9 +28,6 @@
         height:30px;
         font-size:18px;
         line-height:30px;
-        &:before{
-          vertical-align:middle;
-        }
       }
       &:hover{
         .mini-menu{

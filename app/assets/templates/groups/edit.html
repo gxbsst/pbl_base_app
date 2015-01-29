@@ -16,6 +16,6 @@
         <span class="block-mini" role="button" ng-repeat="entry in GROUP_TAGS track by $index" ng-bind="entry" ng-click="vm.addTag(entry)"></span>
     </div>
     <div class="et-modal-footer center">
-        <span class="btn btn-blue" ng-class="{disabled:!vm.code}" ng-click="vm.save()" ng-bind="modalConfig.title"></span>
+        <span class="btn btn-blue" ng-class="{disabled:!vm.group.name||vm.$submitting}" ng-click="vm.save()">确定</span>
     </div>
 </div>
