@@ -84,7 +84,7 @@ GEM
       capistrano
       sidekiq
     capistrano-stats (1.1.1)
-    capistrano3-puma (0.8.4)
+    capistrano3-puma (0.8.5)
       capistrano (~> 3.0)
       puma (>= 2.6)
     celluloid (0.16.0)
@@ -98,7 +98,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.0)
     colorize (0.7.5)
     compass (1.0.3)
       chunky_png (~> 1.2)
@@ -308,7 +308,7 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
-    typhoeus (0.7.0)
+    typhoeus (0.7.1)
       ethon (>= 0.7.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)

@@ -1,0 +1,1 @@
+Message = Pbl::Models::Feeds::Message

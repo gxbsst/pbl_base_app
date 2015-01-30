@@ -4,12 +4,9 @@ class Group < Pbl::Models::Groups::Group
 
     def find_by(options)
       options[:limit] = 1
-      rows = self.where(options)
-      if rows[:data].size > 0
-        self.find(rows[:data].first[:id], options)
-      else
-        nil
-      end
+      entries = self.where(options)
+      return nil if entries[:data].empty?
+      self.find(entries[:data].first[:id], options)
     end
 
   end

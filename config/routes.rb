@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   resources :index, only: %w(index)
 
   resources :home, only: %w(index)
-  resources :projects, defaults: {format: 'json'} do
+  resources :projects, defaults: {format: :json} do
     member do
       put 'release'
     end
-    resources :assignments, defaults: {format: 'json'}
+    resources :assignments, defaults: {format: :json}
   end
-  resources :standard_decompositions, defaults: {format: 'json'}
+  resources :standard_decompositions, defaults: {format: :json}
 
   resources :qiniu_tokens, format: :json, only: %w(create)
   resources :qiniu_stat, format: :json, only: %w(index)
@@ -24,34 +24,45 @@ Rails.application.routes.draw do
     resources :sub_categories, defaults: { format: :json }, only: %w(index)
     resources :techniques, defaults: { format: :json }, only: %w(index)
   end
-  resources :posts, defaults: { format: :json }
 
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy) do
+    delete :unfollow, :to => 'follows#unfollow'
+    resources :follows, defaults: { format: :json }, only: %w(index)
     get :friends, :to => 'friend_ships#user_friends'
     get :children, :to => 'friend_ships#user_children'
     post :children, :to => 'friend_ships#add_user_child'
     get :clazzs, :to => 'clazzs#user_clazzs'
     resources :clazzs, defaults: { format: :json }, only: %w(index)
     get :groups, :to => 'groups#user_index'
-    resources :groups, defaults: { format: :json }, only: %w(create destroy)
+    resources :groups, defaults: { format: :json }, only: %w(create destroy) do
+      delete :leave, :to => 'groups#leave'
+    end
+    resources :posts, defaults: { format: :json }, only: %w(create destroy)
   end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
-    resources :follows, defaults: { format: :json }, only: %w(index create destroy)
+    resources :follows, defaults: { format: :json }, only: %w(index create)
     resources :rules, defaults: { format: :json }, only: %w(index)
     get :friends, :to => 'friend_ships#user_friends'
     get :children, :to => 'friend_ships#user_children'
     post :children, :to => 'friend_ships#add_user_child'
     get :invitations, :to => 'invitations#current_user_index'
-    resources :invitations, defaults: {format: 'json'}, only: %w(create show)
+    resources :invitations, defaults: {format: :json}, only: %w(create show)
     get :groups, :to => 'groups#user_index'
     post :join, :to => 'groups#join'
-    resources :groups, defaults: { format: :json }, only: %w(create destroy)
+    resources :groups, defaults: { format: :json }, only: %w(create) do
+      post :join, :to => 'groups#join'
+      delete :leave, :to => 'groups#leave'
+    end
     get :clazzs, :to => 'clazzs#user_clazzs'
-    resources :clazzs, defaults: { format: :json }, only: %w(index)
+    resources :clazzs, defaults: { format: :json }, only: %w(index) do
+      get :clazzs, :to => 'clazzs#user_clazzs'
+    end
     resources :steps, defaults: { format: :json }, only: %w(index create show update)
     get :member_ships, :to => 'member_ships#current_user_index'
-    resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
+    resources :member_ships, defaults: { format: :json }, only: %w(create)
+    get :posts, :to => 'posts#user_index'
+    resources :posts, defaults: { format: :json }, only: %w(create)
   end
 
   resources :groups, defaults: { format: :json }, only: %w(index create show update destroy) do
@@ -63,27 +74,29 @@ Rails.application.routes.draw do
   end
 
   namespace :curriculum do
-    resources :subjects, defaults: {format: 'json'}, only: %w(index)
-    resources :phases, defaults: {format: 'json'}, only: %w(index)
-    resources :standards, defaults: {format: 'json'}, only: %w(index)
+    resources :subjects, defaults: {format: :json}, only: %w(index)
+    resources :phases, defaults: {format: :json}, only: %w(index)
+    resources :standards, defaults: {format: :json}, only: %w(index)
   end
 
-  resources :gauges, defaults: {format: 'json'}, only: %w(index show)
+  resources :gauges, defaults: {format: :json}, only: %w(index show)
   resource :gauge_recommends, defaults: { format: :json }, only: %w(show)
 
-  resources :product_forms, defaults: {format: 'json'}, only: %w(index)
+  resources :product_forms, defaults: {format: :json}, only: %w(index)
 
   namespace :project do
-    resources :standard_items, defaults: {format: 'json'}, only: %w(index create destroy)
-    resources :techniques, defaults: {format: 'json'}, only: %w(index create destroy)
-    resources :products, defaults: {format: 'json'}, only: %w(index create update destroy)
-    resources :rules, defaults: {format: 'json'}, only: %w(index create update destroy)
-    resources :tasks, defaults: {format: 'json'} do
+    resources :standard_items, defaults: {format: :json}, only: %w(index create destroy)
+    resources :techniques, defaults: {format: :json}, only: %w(index create destroy)
+    resources :products, defaults: {format: :json}, only: %w(index create update destroy)
+    resources :rules, defaults: {format: :json}, only: %w(index create update destroy)
+    resources :tasks, defaults: {format: :json} do
       member do
         put 'release'
       end
     end
   end
+
+  resources :posts, defaults: { format: :json }
 
   resources :member_ships, defaults: { format: :json }
 
@@ -91,42 +104,42 @@ Rails.application.routes.draw do
 
   resources :students, defaults: { format: :json }
 
-  resources :knowledge, defaults: {format: 'json'}
+  resources :knowledge, defaults: {format: :json}
 
-  resources :roles, defaults: {format: 'json'}
+  resources :roles, defaults: {format: :json}
 
-  resources :assignments, defaults: {format: 'json'}
+  resources :assignments, defaults: {format: :json}
 
   namespace :assignment do
-    resources :works, defaults: {format: 'json'}
-    resources :scores, defaults: {format: 'json'}
+    resources :works, defaults: {format: :json}
+    resources :scores, defaults: {format: :json}
   end
   namespace :todo do
-    resources :todos, defaults: {format: 'json'}
-    resources :todo_items, defaults: {format: 'json'}
+    resources :todos, defaults: {format: :json}
+    resources :todo_items, defaults: {format: :json}
   end
 
-  resources :disciplines, defaults: {format: 'json'}
+  resources :disciplines, defaults: {format: :json}
 
-  resources :resources, defaults: {format: 'json'}
+  resources :resources, defaults: {format: :json}
 
-  resources :regions, defaults: {format: 'json'}
+  resources :regions, defaults: {format: :json}
 
-  resources :schools, defaults: {format: 'json'}, only: %w(index create show)
+  resources :schools, defaults: {format: :json}, only: %w(index create show)
 
-  resources :grades, defaults: {format: 'json'}, only: %w(index create)
+  resources :grades, defaults: {format: :json}, only: %w(index create)
 
-  resources :clazzs, defaults: {format: 'json'}, only: %w(index create show) do
+  resources :clazzs, defaults: {format: :json}, only: %w(index create show) do
     collection do
       get ':ids', to: 'clazzs#index', constraints: {ids: /.+[,].+/}
     end
   end
 
-  resources :follows, defaults: {format: 'json'}
+  resources :follows, defaults: {format: :json}
 
-  resources :groupings, defaults: {format: 'json'}
+  resources :groupings, defaults: {format: :json}
 
-  resources :discussions, defaults: {format: 'json'}
+  resources :discussions, defaults: {format: :json}
 
   resources :sso_callback, only: %w(index)
 

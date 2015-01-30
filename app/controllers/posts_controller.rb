@@ -1,30 +1,31 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Posts.all
+    @posts = Post.all
+  end
+
+  def user_index
+    @posts = Post.where(owner_type: :User, owner_id: params[:user_id] || current_user.id)
+    render :index
   end
 
   def create
-    @post = Posts.new(params.require(:post).permit(:title, :content))
-    if @post.save
-      render 'show', :status => :created
-    else
-      render json: @post.errors.full_messages, status: :unprocessable_entity
-    end
+    @post = Post.create(params[:post])
+    render :show
   end
 
   def show
-    set_post
+    @post = Post.find(params[:id])
   end
 
-  def edit
-    set_post
+  def update
+    @post = Post.update(params[:id], params[:post])
+    render :show
   end
 
-  private
-
-  def set_post
-    @post ||= Posts.find(params[:id])
+  def destroy
+    @post = Post.destroy(params[:id])
+    render :show
   end
 
 end

@@ -1,0 +1,1 @@
+Post = Pbl::Models::Feeds::Post
