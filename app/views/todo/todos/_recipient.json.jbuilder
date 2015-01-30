@@ -1,0 +1,6 @@
+json.id recipient[:id]
+json.todo_id recipient[:todo_id] if recipient[:todo_id]
+json.assignee_id recipient[:assignee_id] if recipient[:assignee_id]
+json.assignee_type recipient[:assignee_type] if recipient[:assignee_type]
+json.created_at recipient[:created_at] if recipient[:created_at]
+json.updated_at recipient[:updated_at] if recipient[:updated_at]

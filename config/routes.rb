@@ -101,6 +101,10 @@ Rails.application.routes.draw do
     resources :works, defaults: {format: 'json'}
     resources :scores, defaults: {format: 'json'}
   end
+  namespace :todo do
+    resources :todos, defaults: {format: 'json'}
+    resources :todo_items, defaults: {format: 'json'}
+  end
 
   resources :disciplines, defaults: {format: 'json'}
 
