@@ -8,23 +8,23 @@
         </div>
     </div>
     <div class="posts">
-        <div class="post-container" ng-repeat="message in vm.messages">
+        <div class="post-container" ng-repeat="message in vm.messages" ng-init="post=message.post||message">
             <div class="post">
                 <img ng-src="{{message.sender|avatar:'45x45'}}"/>
                 <h3 ng-bind="message.sender.realname||message.sender.username"></h3>
-                <div class="post-content" ng-bind-html="message.post.content"></div>
+                <div class="post-content" ng-bind-html="post.content"></div>
                 <div class="post-images"></div>
                 <div class="post-tools">
-                    <span ng-bind="message.created_at"></span>
+                    <span ng-bind="post.created_at"></span>
                     <span class="pull-right">
-                        <a href="javascript:void(0)" ng-bind="'评论（'+(message.commemt_count||0)+'）'"></a>
+                        <a href="javascript:void(0)" ng-bind="'评论（'+(post.commemt_count||0)+'）'"></a>
                     </span>
                 </div>
             </div>
             <div class="comment-container">
                 <div class="comments">
                     <div class="center">收起评论 <i class="pf-triangle-up"></i></div>
-                    <div class="comment" ng-repeat="comment in message.comments">
+                    <div class="comment" ng-repeat="comment in post.comments">
                         <img ng-src="{{commnet.user|avatar:'45x45'}}"/>
                         <div ng-bind-html="comment.comment"></div>
                     </div>

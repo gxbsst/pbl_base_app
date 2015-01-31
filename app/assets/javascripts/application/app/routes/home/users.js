@@ -57,7 +57,7 @@
         function owner(currentUser){
             return {
                 type: 'User',
-                owner: currentUser
+                data: currentUser
             }
         }
 

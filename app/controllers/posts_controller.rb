@@ -12,6 +12,14 @@ class PostsController < ApplicationController
     render :index
   end
 
+  def group_index
+    params[:owner_type] = :Group
+    params[:owner_id] = params[:group_id]
+    params[:include] = ((params[:include] || '').split(',') << 'sender').join(',')
+    @posts = Post.where(query_params)
+    render :index
+  end
+
   def create
     post = params[:post]
     post[:user_id] = current_user.id

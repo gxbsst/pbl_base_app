@@ -9,7 +9,7 @@
         <span class="user-tools">
             <span ng-if="currentUser">
                 欢迎您，
-                <a ui-sref="base.home.users.show({userId:currentUser.id})" ng-bind="currentUser.realname||currentUser.username"></a>，
+                <a ui-sref="base.home.user.posts" ng-bind="currentUser.realname||currentUser.username"></a>，
                 <!--<a href="javascript:void(0);" et-logout>退出</a>-->
                 <a href="/users/sign_out" data-method="delete">退出</a>
             </span>

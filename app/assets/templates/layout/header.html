@@ -17,17 +17,11 @@
                     <i class="pf-cross" ng-click="vm.search=0"></i>
                 </span>
             </li>
-            <li et-hover="hover">
-                <i class="pf-bell top-right-btn"></i>
-                <div class="sub-menu">
-                    note list demo abc sdfsdf
-                </div>
+            <li>
+                <i class="pf-bell top-right-btn cur-pointer"></i>
             </li>
-            <li class="top-avatar" et-hover="hover" ng-if="currentUser">
-                <i class="top-right-btn"><a ui-sref="root.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>
-                <div class="sub-menu">
-                    user menu demo
-                </div>
+            <li class="top-avatar" ng-if="currentUser">
+                <i class="top-right-btn"><a ui-sref="base.home.user.posts"><img ng-src="{{ currentUser|avatar }}" /></a></i>
             </li>
         </ul>
     </div>

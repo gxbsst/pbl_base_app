@@ -57,7 +57,7 @@
         function owner(group){
             return {
                 type: 'Group',
-                owner: group
+                data: group
             }
         }
 
