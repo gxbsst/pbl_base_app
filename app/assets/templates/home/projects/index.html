@@ -56,7 +56,7 @@
                               ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
                 </div>
             </div>
-            <div ng-if="vm.projects.length">
+            <div ng-if="!vm.projects.length">
                 <div class="loading"><i class="pf-spinner-2 rotation"></i></div>
             </div>
         </div>

@@ -326,3 +326,21 @@ ul.nav-left{
     }
   }
 }
+
+.et-modal-container{
+  .todo-form{
+    width: 600px;
+    .col-1-1{
+      margin-bottom: 20px;
+    }
+    .form-time{
+      .input-group{
+        display: inline-table;
+        margin-right: 10px;
+      }
+      .control-label{
+        text-align: center;
+      }
+    }
+  }
+}

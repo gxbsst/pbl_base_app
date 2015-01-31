@@ -1,0 +1,44 @@
+<div class="form-horizontal todo-form">
+    <div class="col-1-1 form-time">
+        <div class="col-5-12 input-group dropdown">
+            <input type="text" class="form-control center" placeholder="请选择开始时间" ng-value="todo.start_at|date:'yyyy-MM-dd HH:mm'"/>
+            <span class="input-group-addon"><i class="pf-calendar"></i></span>
+            <div class="dropdown-menu">
+                <datetimepicker ng-model="todo.start_at"
+                                before-render="beforeRender($view,$dates,$upDate,'Start')"
+                                on-set-time="onSetTime(newDate,todo)"
+                        ></datetimepicker>
+            </div>
+        </div>
+        <label class="col-1-12 control-label">到</label>
+        <div class="col-5-12 input-group dropdown">
+            <input type="text" class="form-control center" placeholder="请选择结束时间" ng-value="todo.end_at|date:'yyyy-MM-dd HH:mm'"/>
+            <span class="input-group-addon"><i class="pf-calendar"></i></span>
+            <div class="dropdown-menu">
+                <datetimepicker ng-model="todo.end_at"
+                                before-render="beforeRender($view,$dates,$upDate,'End')"
+                                on-set-time="onSetTime(newDate,todo)"
+                        ></datetimepicker>
+            </div>
+        </div>
+    </div>
+    <div class="col-1-1">
+        <textarea cols="30" rows="2" ng-model="todo.content" placeholder="添加一个待办事项..."
+                  class="form-control ng-scope ng-pristine ng-valid"
+                ></textarea>
+    </div>
+    <div class="col-1-1">
+        <label class="control-label">添加邀请对象：</label>
+        <div class="row">
+            <!--<input type="text" ng-model="todo.users" placeholder="从好友中查找..." on-add="onUsersAdd()" on-remove="onUsersRemove()" et-tags="{options:UsersFilter,template:'home/projects/edit/teacher-selector.html'}"/>-->
+
+            <input type="text" ng-model="todo.users" placeholder="从好友中查找..." />
+        </div>
+    </div>
+    <div class="col-1-1">
+        <div class="col-1-1 text-right">
+            <span class="btn btn-blue" role="button" ng-click="send()">发送</span>
+        </div>
+    </div>
+    {{todo}}
+</div>

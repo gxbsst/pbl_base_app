@@ -19,7 +19,6 @@
 
         function etScrolltopLink(scope, element, attr, ctrl) {
             $(window).scroll(function() {
-                console.log($(window).scrollTop());
                 if($(window).scrollTop()>540){
                     $(element).addClass("hasback");
                 }else{
