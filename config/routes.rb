@@ -37,7 +37,8 @@ Rails.application.routes.draw do
     resources :groups, defaults: { format: :json }, only: %w(create destroy) do
       delete :leave, :to => 'groups#leave'
     end
-    resources :posts, defaults: { format: :json }, only: %w(create destroy)
+    resources :posts, defaults: { format: :json }, only: %w(index)
+    resources :messages, defaults: { format: :json }, only: %w(index)
   end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
@@ -63,10 +64,13 @@ Rails.application.routes.draw do
     resources :member_ships, defaults: { format: :json }, only: %w(create)
     get :posts, :to => 'posts#user_index'
     resources :posts, defaults: { format: :json }, only: %w(create)
+    get :messages, :to => 'messages#user_index'
   end
 
   resources :groups, defaults: { format: :json }, only: %w(index create show update destroy) do
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
+    get :posts, :to => 'posts#user_index'
+    post :posts, :to => 'posts#create'
     collection do
       get ':ids', to: 'groups#index', constraints: {ids: /.+[,].+/}
       get ':owner_ids', to: 'groups#index', constraints: {owner_ids: /.+[,].+/}

@@ -1,3 +1,4 @@
 json.data do
-  json.partial! 'posts/post', collection: @posts, :as => :post
-end
+  json.partial! 'posts/post', collection: @posts[:data], :as => :post
+end if @posts
+json.meta @posts.meta if @posts

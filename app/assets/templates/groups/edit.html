@@ -1,21 +1,25 @@
 <div class="group-edit">
-    <div class="form-group">
+    <div class="form-group" ng-if="!vm.group.clazz">
         <label class="control-label">群组名称：</label>
         <input type="text" class="form-control" ng-model="vm.group.name" placeholder="为你们的群组起个任性的名字吧！(不超过20个字)"/>
     </div>
+    <h3 ng-if="vm.group.clazz">
+        <strong ng-bind="vm.group|group"></strong>
+        <span>班级群不允许修改名称</span>
+    </h3>
     <div class="form-group">
         <label class="control-label">群组描述：</label>
         <textarea ng-model="vm.group.description" rows="4" class="form-control" placeholder="敞开心扉写吧！(不超过100个字)"></textarea>
     </div>
     <div class="form-group">
         <label class="control-label">群组标签：</label>
-        <input type="text" ng-model="vm.group.label" placeholder="请选择标签" et-tags/>
+        <input type="text" ng-model="vm.group.label" placeholder="请选择标签" on-change="vm.label()" et-tags/>
     </div>
     <div class="row">
         <label class="control-label">热门标签推荐：</label>
         <span class="block-mini" role="button" ng-repeat="entry in GROUP_TAGS track by $index" ng-bind="entry" ng-click="vm.addTag(entry)"></span>
     </div>
     <div class="et-modal-footer center">
-        <span class="btn btn-blue" ng-class="{disabled:!vm.group.name||vm.$submitting}" ng-click="vm.save()">确定</span>
+        <span class="btn btn-blue" ng-class="{disabled:(!vm.group.clazz&&!vm.group.name)||vm.$submitting}" ng-click="vm.save()">确定</span>
     </div>
 </div>

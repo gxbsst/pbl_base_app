@@ -1,3 +1,18 @@
-json.id post.id
-json.title post.title
-json.content post.content
+json.id post[:id]
+json.title post[:title] if post[:title]
+json.content post[:content] if post[:content]
+json.no post[:no] if post[:no]
+json.like_count post[:like_count] if post[:like_count]
+json.blocked post[:blocked] if post[:blocked]
+json.hotness post[:hotness] if post[:hotness]
+json.images post[:images] if post[:images]
+json.owner_type post[:owner_type] if post[:owner_type]
+json.owner_id post[:owner_id] if post[:owner_id]
+json.user_id post[:user_id] if post[:user_id]
+json.sender_id post[:sender_id] if post[:sender_id]
+json.origin_id post[:origin_id] if post[:origin_id]
+json.created_at post[:created_at].to_i if post[:created_at]
+json.updated_at post[:updated_at].to_i if post[:updated_at]
+json.sender do
+  json.partial! 'users/base', user: post[:sender]
+end if post[:sender]

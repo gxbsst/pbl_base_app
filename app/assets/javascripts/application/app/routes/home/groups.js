@@ -16,6 +16,7 @@
                 template: '<div ui-view></div>'
             })
             .state('base.home.groups.show', {
+                abstract: true,
                 url: '/:groupId',
                 templateUrl: 'groups/show.html',
                 controller: 'GroupsShowController as vm',
@@ -24,7 +25,7 @@
                 }
             })
             .state('base.home.groups.show.posts', {
-                url: '/posts',
+                url: '',
                 templateUrl: 'posts/index.html',
                 controller: 'PostsController as vm',
                 resolve: {

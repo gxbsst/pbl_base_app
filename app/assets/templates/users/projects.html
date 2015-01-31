@@ -1,0 +1,45 @@
+<div class="project-list user-projects">
+    <div class="row ">
+        <div class="row-title">
+            <span class="title">TA参与的项目学习</span>
+        </div>
+    </div>
+    <div class="row case-row">
+
+        <div class="case-list">
+            <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
+                <div class="item-pic">
+                    <div class="project-cover">
+                        <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                        <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
+                        <div class="pic-mask">
+                            <span ng-bind-html="project.description"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-title">
+                    <span ng-bind-html="project.name||'未命名项目'"></span>
+                </div>
+                <div class="item-cont">
+                    <div class="item-time">
+                        <div>
+                            开始时间: <span ng-bind="project.start_at | date : 'yyyy-MM-dd'"></span>
+                        </div>
+                        <div>
+                            结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
+                        </div>
+                    </div>
+                    <div class="item-state">
+                        <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="case-more">
+                    <span ng-click="vm.getProjects()"
+                          ng-if="vm.meta.current_page<vm.meta.total_pages">查看更多</span>
+        </div>
+    </div>
+</div>

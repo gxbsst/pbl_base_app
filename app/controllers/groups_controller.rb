@@ -139,12 +139,13 @@ class GroupsController < ApplicationBaseController
   end
 
   def update
-    @group = Group.update(params[:id], params[:group].block('code'))
+    @group = Group.update(params[:id], params[:group].pass(%w(name description label)))
     render :show
   end
 
   def destroy
     @group = Group.destroy(params[:id])
+    MemberShip.destroy_by(group_id: @group[:id])
     render :show
   end
 

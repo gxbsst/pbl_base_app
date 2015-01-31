@@ -8,8 +8,8 @@
                     <ul class="mini-menu">
                         <li ng-if="vm.isCreator(currentUser.id)"
                             et-modal="@group=vm.group;title='编辑群组';controller='GroupEditController as vm';src='groups/edit.html'">编辑群组</li>
-                        <li>退出群组</li>
-                        <li ng-if="vm.isCreator(currentUser.id)">删除群组</li>
+                        <li ng-if="!vm.isCreator(currentUser.id)" ng-click="vm.leave()" ng-bind="vm.group.clazz?'退出班级':'退出群组'"></li>
+                        <li ng-if="!vm.group.clazz&&vm.isCreator(currentUser.id)" ng-click="vm.remove()">删除群组</li>
                     </ul>
                 </div>
             </div>

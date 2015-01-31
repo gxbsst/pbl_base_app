@@ -3,16 +3,21 @@
 
     angular
         .module('app.pbl')
-        .controller('UserIController', UserIController);
+        .controller('UserController', UserController);
 
-    UserIController.$inject = ['$scope','$rootScope','User'];
+    UserController.$inject = ['currentUser', 'User'];
 
-    function UserIController($scope,$rootScope,User) {
+    function UserController(currentUser, User) {
+
         var vm = this;
-        vm.user = $rootScope.currentUser;
-        User.get({action:'clazzs'},function(result){
-            vm.user.clazzs=result.data;
-        })
+
+        vm.user = currentUser;
+
+        User.get({
+            action: 'clazzs'
+        }, function (result) {
+            vm.user.clazzs = result.data;
+        });
     }
 
 })();

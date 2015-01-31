@@ -1,16 +1,29 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    @posts = Post.where(query_params)
   end
 
   def user_index
-    @posts = Post.where(owner_type: :User, owner_id: params[:user_id] || current_user.id)
+    params[:owner_type] = :User
+    params[:owner_id] = params[:user_id] || current_user.id
+    params[:include] = ((params[:include] || '').split(',') << 'sender').join(',')
+    @posts = Post.where(query_params)
     render :index
   end
 
   def create
-    @post = Post.create(params[:post])
+    post = params[:post]
+    post[:user_id] = current_user.id
+    post[:sender_id] = current_user.id
+    if params[:group_id].present?
+      post[:owner_type] = :Group
+      post[:owner_id] = params[:group_id]
+    else
+      post[:owner_type] = :User
+      post[:owner_id] = current_user.id
+    end
+    @post = Post.create(post)
     render :show
   end
 
@@ -26,6 +39,12 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.destroy(params[:id])
     render :show
+  end
+
+  private
+
+  def query_params
+    params.permit(:owner_type, :owner_id, :user_id, :sender_id, :include, :limit, :page)
   end
 
 end

@@ -222,7 +222,7 @@ GEM
     rails-assets-interact (1.2.2)
     rails-assets-jquery (1.10.2)
     rails-assets-js-base64 (2.1.7)
-    rails-assets-lodash (3.0.0)
+    rails-assets-lodash (3.0.1)
     rails-assets-mockjs (0.1.6)
     rails-assets-moment (2.9.0)
     rails-assets-restangular (0.5.4)

@@ -316,6 +316,9 @@
             User.get({
                 action: 'groups'
             }, function (result) {
+                result.data.sort(function (a, b) {
+                    return !a.clazz && b.clazz ? 1 : -1;
+                });
                 $rootScope.groups = result.data;
             });
         }

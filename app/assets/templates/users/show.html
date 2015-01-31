@@ -47,7 +47,7 @@
             <div class="col-1-1">
                 <div class="col-1-8 sub-title">班级：</div>
                 <div class="col-7-8">
-                    <span class="info-tag" ng-bind="class.name" ng-repeat=" class in vm.user.clazzs track by $index"></span>
+                    <span class="info-tag" ng-bind="clazz|clazz" ng-repeat="clazz in vm.user.clazzs"></span>
                 </div>
             </div>
             <div class="col-1-1">

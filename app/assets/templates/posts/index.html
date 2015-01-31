@@ -1,2 +1,35 @@
-<h3>动态列表</h3>
-{{vm.owner}}
+<div class="posts-container">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <textarea class="form-control" rows="4" ng-model="vm.post.content" placeholder="有什么新鲜事要分享给大家..."></textarea>
+        </div>
+        <div class="form-group">
+            <span class="btn btn-blue btn-sm pull-right" ng-click="vm.send()">发布</span>
+        </div>
+    </div>
+    <div class="posts">
+        <div class="post-container" ng-repeat="message in vm.messages">
+            <div class="post">
+                <img ng-src="{{message.sender|avatar:'45x45'}}"/>
+                <h3 ng-bind="message.sender.realname||message.sender.username"></h3>
+                <div class="post-content" ng-bind-html="message.post.content"></div>
+                <div class="post-images"></div>
+                <div class="post-tools">
+                    <span ng-bind="message.created_at"></span>
+                    <span class="pull-right">
+                        <a href="javascript:void(0)" ng-bind="'评论（'+(message.commemt_count||0)+'）'"></a>
+                    </span>
+                </div>
+            </div>
+            <div class="comment-container">
+                <div class="comments">
+                    <div class="center">收起评论 <i class="pf-triangle-up"></i></div>
+                    <div class="comment" ng-repeat="comment in message.comments">
+                        <img ng-src="{{commnet.user|avatar:'45x45'}}"/>
+                        <div ng-bind-html="comment.comment"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
