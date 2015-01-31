@@ -6,7 +6,7 @@ module Todo
     end
 
     def create
-      @todo_item = Pbl::Models::Todo::TodoItem.create(params[:todos])
+      @todo_item = Pbl::Models::Todo::TodoItem.create(params[:todo_item])
       render :show
     end
 

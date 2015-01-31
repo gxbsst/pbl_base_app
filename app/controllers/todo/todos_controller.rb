@@ -6,7 +6,7 @@ module Todo
     end
 
     def create
-      @todo = Pbl::Models::Todo::Todo.create(params[:todos])
+      @todo = Pbl::Models::Todo::Todo.create(params[:todo])
       render :show
     end
 
@@ -15,7 +15,7 @@ module Todo
     end
 
     def update
-      @todo = Pbl::Models::Todo::Todo.update(params[:id], params[:todos])
+      @todo = Pbl::Models::Todo::Todo.update(params[:id], params[:todo])
       render :show
     end
 
