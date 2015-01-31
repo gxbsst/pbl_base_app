@@ -9,7 +9,8 @@ set :repo_url, 'git@58.246.127.90:pbl/pbl_base_app.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :tmp_dir, "/home/deployer/tmp"
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/var/www/pbl_base_app'
+# set :deploy_to, '/var/www/pbl_base_app'
+set :deploy_to, "/home/deployer/pbl_base_app"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -24,7 +25,7 @@ set :deploy_to, '/var/www/pbl_base_app'
 set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/application.yml}
+set :linked_files, %w{config/application.yml config/database.yml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log}
