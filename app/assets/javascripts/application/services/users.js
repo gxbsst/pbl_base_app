@@ -25,8 +25,7 @@
         return $resource('/users/:userId/:action', {
             userId: '@userId',
             action: '@action',
-            include: 'schools',
-            limit: 100
+            include: 'schools'
         }, RESOURCE_ACTIONS);
     }
 

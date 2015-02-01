@@ -4,7 +4,7 @@ class UsersController < UserController
   before_filter :set_user, except: :create
 
   def index
-    @users = User.all(user_query_params)
+    @users = User.all(query_params)
   end
 
   def create
@@ -121,8 +121,8 @@ class UsersController < UserController
     @step = Step.find_by_user_id(user_id)
   end
 
-  def user_query_params
-    params.permit(:username, :include, :limit)
+  def query_params
+    params.permit(:username, :include, :limit, :page)
   end
 
   def update_friend_ship(friend_ships, relation)

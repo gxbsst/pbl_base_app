@@ -13,3 +13,6 @@ end if group[:member_ships]
 json.clazz do
   json.partial! 'clazzs/clazz', clazz: group[:clazz]
 end if group[:clazz]
+json.user do
+  json.partial! 'users/base', user: group[:user]
+end if group[:user]

@@ -1,5 +1,32 @@
-<div class="header-search">
-    <ul>
-        <li ng-repeat="user in vm.users"></li>
-    </ul>
+<div class="loading" ng-if="!vm.users||!vm.groups"><i class="pf-spinner-2 rotation"></i></div>
+<div class="search-result" et-tabs="reloadOnSelected=false" ng-show="vm.users&&vm.groups">
+    <div et-config="title='用户('+(vm.users.meta.total_count||0)+')'" et-tab>
+        <ul>
+            <li class="cur-pointer" ng-repeat="user in vm.users.data" et-init="user.followed=HANDLES.isFollowed(user.id)" et-user="user">
+                <img ng-src="{{user|avatar:'60x60'}}" class="avatar"/>
+                <span ng-bind="user|name"></span>
+                <span class="text-gray" ng-bind="' ('+(user.type|typeFilter)+')'"></span>
+                <span class="link-btn pull-right" ng-class="{disabled:user.followed}" ng-click="$event.stopPropagation();HANDLES.follow(user.id)" ng-bind="user.followed?'已关注':'加关注'"></span>
+            </li>
+        </ul>
+        <div class="pagination" ng-if="vm.users.data.length">
+            <span ng-class="{disabled:vm.users.meta.current_page==1}" ng-click="vm.prev('users')"><i class="pf-arrow-left"></i></span>
+            <span ng-class="{disabled:vm.users.meta.current_page==vm.users.meta.total_pages}" ng-click="vm.next('users')"><i class="pf-arrow-right"></i></span>
+        </div>
+        <div ng-if="!vm.users.data.length" class="text-gray center">没有找到相关的用户...</div>
+    </div>
+    <div et-config="title='群组('+(vm.groups.meta.total_count||0)+')'" et-tab>
+        <ul>
+            <li class="cur-pointer" ng-repeat="group in vm.groups.data" et-init="group.joined=HANDLES.isJoined(group.id)" et-group="group">
+                <img ng-src="{{group|avatar:'60x60'}}" class="avatar"/>
+                <span ng-bind="group|group"></span>
+                <span class="link-btn pull-right" ng-class="{disabled:group.joined}" ng-click="$event.stopPropagation();HANDLES.join(group.id)" ng-bind="group.joined?'已加入':'加群组'"></span>
+            </li>
+        </ul>
+        <div class="pagination" ng-if="vm.groups.data.length">
+            <span ng-class="{disabled:vm.groups.meta.current_page==1}" ng-click="vm.prev('groups')"><i class="pf-arrow-left"></i></span>
+            <span ng-class="{disabled:vm.groups.meta.current_page==vm.groups.meta.total_pages}" ng-click="vm.next('groups')"><i class="pf-arrow-right"></i></span>
+        </div>
+        <div ng-if="!vm.groups.data.length" class="text-gray center">没有找到相关的群组...</div>
+    </div>
 </div>

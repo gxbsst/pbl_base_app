@@ -12,8 +12,8 @@
             <li ng-style="{width:vm.search?200:40}">
                 <i class="pf-search top-right-btn cur-pointer" ng-show="!vm.search" ng-click="vm.search=1"></i>
                 <span class="search-input" ng-show="vm.search">
-                    <i class="pf-search" ng-class="{disabled:vm.keyword}" et-modal="$keyword=vm.keyword;title='搜索平台用户及群组';controller='SearchController as vm';src='index/search.html'"></i>
-                    <input type="text" class="form-control" ng-model="vm.keyword" placeholder="输入关键字"/>
+                    <i class="pf-search" id="search-submit" ng-class="{disabled:!vm.keyword}" et-modal="$keyword=vm.keyword;title='搜索平台用户及群组';controller='SearchController as vm';src='index/search.html'"></i>
+                    <input type="text" class="form-control" ng-model="vm.keyword" placeholder="输入关键字" ng-keyup="HANDLES.search(vm.keyword,$event)"/>
                     <i class="pf-cross" ng-click="vm.search=0"></i>
                 </span>
             </li>

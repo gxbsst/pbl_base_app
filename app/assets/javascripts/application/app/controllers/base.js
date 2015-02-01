@@ -6,13 +6,13 @@
         .controller('BaseController', BaseController);
 
     BaseController.$inject = [
-        '$scope', '$rootScope', '$document', '$q', 'modals',
+        '$scope', '$rootScope', '$document', '$q', '$timeout', 'modals',
         'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GROUP_TAGS', 'GRADES',
         'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations', 'User',
         'TYPE_DEFIN', 'WORK_TYPES'
     ];
 
-    function BaseController($scope, $rootScope, $document, $q, modals,
+    function BaseController($scope, $rootScope, $document, $q, $timeout, modals,
                             RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GROUP_TAGS, GRADES,
                             Resources, Follows, Friends, Groups, MemberShips, Invitations, User,
                             TYPE_DEFIN, WORK_TYPES) {
@@ -48,8 +48,10 @@
                 unFollow: unFollow,
                 isFriend: isFriend,
                 isFollowed: isFollowed,
+                isJoined: isJoined,
                 join: join,
                 leave: leave,
+                search: search,
                 getResource: getResource,
                 getResources: getResources,
                 getInvitation: getInvitation,
@@ -104,7 +106,7 @@
         });
 
         getFollows();
-        getMemberShips();
+        getGroups();
 
         $scope.$on('onGroupsChanged', getGroups);
 
@@ -240,19 +242,37 @@
             });
         }
 
+        function isJoined(group_id) {
+            return $rootScope.groups.has(function (group) {
+                return group.id == group_id;
+            });
+        }
+
         function join(group_id) {
             Groups.add({
                 groupId: group_id,
-                action: 'member_ships'
-            }, getMemberShips);
+                action: 'join'
+            }, getGroups);
         }
 
-        function leave(group_id, member_ship_id) {
+        function leave(group_id) {
             Groups.remove({
+                namespace: 'user',
                 groupId: group_id,
-                action: 'member_ships',
-                actionId: member_ship_id
-            }, getMemberShips);
+                action: 'leave'
+            }, getGroups);
+        }
+
+        function search(keyword, $event){
+            var code = $event.keyCode || $event.which,
+                element = angular.element($event.target),
+                button = element.prev();
+            if(code === 13 && keyword){
+                $timeout(function () {
+                    button.trigger('click');
+                });
+            }
+
         }
 
         function getResource(resources, type, id) {
@@ -291,6 +311,9 @@
         function getFriends() {
             if ($rootScope.currentUser) {
                 Friends.get(function (result) {
+                    result.data.sort(function (a, b) {
+                        return (a.friend.realname || a.friend.username).localeCompare((b.friend.realname || b.friend.username));
+                    });
                     $rootScope.friends = result.data;
                 });
             }
@@ -300,16 +323,6 @@
             Follows.get(function (result) {
                 $rootScope.follows = result.data;
             });
-        }
-
-        function getMemberShips() {
-            if ($rootScope.currentUser) {
-                MemberShips.get({
-                    namespace: 'user'
-                }, function (result) {
-                    $rootScope.member_ships = result.data;
-                });
-            }
         }
 
         function getGroups(){

@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     resources :member_ships, defaults: { format: :json }, only: %w(create destroy)
     get :posts, :to => 'posts#group_index'
     post :posts, :to => 'posts#create'
+    post :join, :to => 'groups#join_by_group_id'
     collection do
       get ':ids', to: 'groups#index', constraints: {ids: /.+[,].+/}
       get ':owner_ids', to: 'groups#index', constraints: {owner_ids: /.+[,].+/}

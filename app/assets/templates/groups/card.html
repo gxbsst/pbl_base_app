@@ -1,0 +1,30 @@
+<div class="loading" ng-if="!vm.group"><i class="pf-spinner-2 rotation"></i></div>
+<div class="card" ng-if="vm.group">
+    <div class="banner">
+        <img ng-src="{{vm.group|avatar:'120x120'}}"/>
+        <span ng-bind="vm.group|group"></span>
+    </div>
+    <div class="tools center" et-init="vm.joined=HANDLES.isJoined(vm.group.id)">
+        <span class="btn" ng-if="!vm.joined" ng-click="HANDLES.join(vm.group.id)"><i class="pf-plus"></i> 加入群</span>
+        <span class="btn disabled" ng-if="vm.joined"><i class="pf-checkmark"></i> 已加入</span>
+    </div>
+    <div class="info">
+        <div ng-if="vm.group.description">
+            <h3>群简介：</h3>
+            <div class="text-gray" ng-bind-html="vm.group.description"></div>
+        </div>
+        <div ng-if="vm.group.lable.length">
+            <h3>群标签：</h3>
+            <span class="block-mini" ng-bind="($index?', ':'')+lable" ng-repeat="lable in vm.group.lable track by $index"></span>
+        </div>
+        <h3>群主/管理员</h3>
+        <div class="members">
+            <img class="avatar" ng-src="{{vm.creator|avatar:'30x30'}}" et-user="vm.creator" et-tips="vm.creator|name"/>
+        </div>
+        <h3>群成员 <span ng-bind="'('+vm.members.length+')'"></span></h3>
+        <div class="members scrollbar-macosx" et-scrollbar>
+            <img class="avatar" ng-src="{{member.user|avatar:'30x30'}}" et-tips="member.user|name"
+                 ng-repeat="member in vm.members" et-user="member.user"/>
+        </div>
+    </div>
+</div>

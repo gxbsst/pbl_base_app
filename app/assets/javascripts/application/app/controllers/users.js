@@ -4,7 +4,8 @@
     angular
         .module('app.pbl')
         .controller('FriendsListController', FriendsListController)
-        .controller('UsersShowController', UsersShowController);
+        .controller('UsersShowController', UsersShowController)
+        .controller('UserCardController', UserCardController);
 
     FriendsListController.$inject = ['$scope'];
 
@@ -153,6 +154,22 @@
                 project.cover = getResources(RESOURCE_TYPES.project.cover, project, true);
             });
         }
+    }
+
+    UserCardController.$inject = ['$scope', 'Users'];
+
+    function UserCardController($scope, Users){
+
+        var vm = this,
+            user = $scope.user;
+
+        Users.get({
+            userId: user.id,
+            include: 'schools'
+        }, function (result) {
+            vm.user = result.data;
+        });
+
     }
 
 })();

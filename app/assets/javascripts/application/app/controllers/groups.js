@@ -5,6 +5,7 @@
         .module('app.pbl')
         .controller('GroupsListController', GroupsListController)
         .controller('GroupJoinController', GroupJoinController)
+        .controller('GroupCardController', GroupCardController)
         .controller('GroupEditController', GroupEditController)
         .controller('GroupsShowController', GroupsShowController)
         .controller('GroupsMembersController', GroupsMembersController);
@@ -35,9 +36,9 @@
             }, {
                 code: vm.code
             }, function (result) {
-                if(result.errors){
+                if (result.errors) {
                     vm.errors = result.errors;
-                }else{
+                } else {
                     $scope.$emit('onGroupsChanged');
                     $state.go('base.home.groups.show.posts', {groupId: result.data.id});
                     $scope.destroyModal();
@@ -58,21 +59,21 @@
         vm.label = label;
         vm.addTag = addTag;
 
-        function save(){
+        function save() {
             vm.$submitting = true;
-            if(vm.group.id){
+            if (vm.group.id) {
                 Groups.update({
                     groupId: vm.group.id
                 }, {
                     group: vm.group
                 }, callback);
-            }else{
+            } else {
                 Groups.add({
                     group: vm.group
                 }, callback);
             }
 
-            function callback(result){
+            function callback(result) {
                 delete vm.$submitting;
                 $scope.$emit('onGroupsChanged', result.data);
                 $state.go('base.home.groups.show.posts', {groupId: result.data.id});
@@ -108,35 +109,35 @@
         vm.remove = remove;
 
         $scope.$on('onGroupsChanged', function (event, data) {
-            if(data && data.id === vm.group.id){
+            if (data && data.id === vm.group.id) {
                 angular.extend(vm.group, data);
             }
         });
 
-        function isCreator(user_id){
+        function isCreator(user_id) {
             return user_id == (vm.group.clazz ? vm.group.clazz.user_id : vm.group.owner_id);
         }
 
-        function leave(){
-            if(confirm('您确定要退出吗？')){
+        function leave() {
+            if (confirm('您确定要退出吗？')) {
                 Groups.remove({
                     namespace: 'user',
                     groupId: group.id,
                     action: 'leave'
                 }, function () {
                     $scope.$emit('onGroupsChanged');
-                    $state.go('base.home.user');
+                    $state.go('base.home.user.posts');
                 });
             }
         }
 
-        function remove(){
-            if(confirm('您确定要删除该群组吗？')){
+        function remove() {
+            if (confirm('您确定要删除该群组吗？')) {
                 Groups.remove({
                     groupId: group.id
                 }, function () {
                     $scope.$emit('onGroupsChanged');
-                    $state.go('base.home.user');
+                    $state.go('base.home.user.posts');
                 });
             }
         }
@@ -154,7 +155,7 @@
 
         getMembers();
 
-        function getMembers(){
+        function getMembers() {
 
             Groups.get({
                 groupId: group.id,
@@ -167,9 +168,9 @@
 
         }
 
-        function leave(user){
+        function leave(user) {
 
-            if(confirm('您确定要踢出该成员吗？')){
+            if (confirm('您确定要踢出该成员吗？')) {
                 GroupLeave.remove({
                     userId: user.id,
                     groupId: group.id
@@ -178,11 +179,35 @@
 
         }
 
-        function deleteable(user){
+        function deleteable(user) {
 
             return (group.owner_type == 'Clazz' ? group.clazz.user_id : group.owner_id) == currentUser.id && user.id != currentUser.id;
 
         }
+
+    }
+
+    GroupCardController.$inject = ['$scope', 'Groups'];
+
+    function GroupCardController($scope, Groups) {
+
+        var vm = this,
+            group = $scope.group;
+
+        Groups.get({
+            groupId: group.id,
+            include: 'member_ships,students',
+            limit: 100
+        }, function (result) {
+            vm.group = result.data;
+            if(vm.group.clazz){
+                vm.members = vm.group.clazz.students;
+                vm.creator = vm.group.clazz.user;
+            }else{
+                vm.members = vm.group.members;
+                vm.creator = vm.group.user;
+            }
+        });
 
     }
 

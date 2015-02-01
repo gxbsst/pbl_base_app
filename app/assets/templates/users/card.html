@@ -1,0 +1,21 @@
+<div class="loading" ng-if="!vm.user"><i class="pf-spinner-2 rotation"></i></div>
+<div class="card" ng-if="vm.user">
+    <div class="banner">
+        <img ng-src="{{vm.user|avatar:'120x120'}}"/>
+        <span ng-bind="vm.user|name"></span>
+    </div>
+    <div class="tools center" et-init="vm.followed=HANDLES.isFollowed(vm.user.id)">
+        <span class="btn" ng-if="!vm.followed" ng-click="HANDLES.follow(vm.user.id)"><i class="pf-plus"></i> 关注TA</span>
+        <span class="btn disabled" ng-if="vm.followed"><i class="pf-checkmark"></i> 已关注</span>
+        <span class="btn">私信</span>
+    </div>
+    <div class="info">
+        <div>真实姓名：<span ng-bind-html="vm.user.realname||'<i class=text-gray>未知</i>'"></span></div>
+        <div ng-if="vm.user.type">身份：<span ng-bind="vm.user.type|typeFilter"></span></div>
+        <div ng-if="vm.user.school.name">学校：<span ng-bind="vm.user.school.name"></span></div>
+        <div ng-if="vm.user.clazzs.length">班级：<span ng-bind="($index?', ':'')+(clazz|clazz)" ng-repeat="clazz in vm.user.clazzs"></span></div>
+        <div ng-if="vm.user.disciplines.length">学科：<span ng-bind="($index?', ':'')+discipline" ng-repeat="discipline in vm.user.disciplines track by $index"></span></div>
+        <div ng-if="vm.user.interests.legnth">兴趣爱好：<span ng-bind="($index?', ':'')+interest" ng-repeat="interest in vm.user.interests track by $index"></span></div>
+        <div ng-if="vm.user.bio">个人签名：<span ng-bind="vm.user.bio"></span></div>
+    </div>
+</div>

@@ -11,7 +11,7 @@
                 Teacher: '老师',
                 Student: '学生',
                 Parent: '家长'
-            }[type] || '未知';
+            }[type] || '';
         }
     }
 

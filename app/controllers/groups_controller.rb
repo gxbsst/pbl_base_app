@@ -98,6 +98,17 @@ class GroupsController < ApplicationBaseController
     render json: {errors: '无效的邀请码，请核对后重试！'}
   end
 
+  def join_by_group_id
+    @group = Group.find(params[:group_id])
+    if @group.success?
+      MemberShip.create({
+                            user_id: current_user.id,
+                            group_id: params[:group_id]
+                        })
+    end
+    render :show
+  end
+
   def leave
     user_id = params[:user_id] || current_user.id
     group = Group.find(params[:group_id])
@@ -135,7 +146,8 @@ class GroupsController < ApplicationBaseController
 
   def show
     @group = Group.find(params[:id], query_params)
-    @group[:clazz] = Clazz.find(@group[:owner_id]) if @group[:owner_type] == 'Clazz'
+    @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz'
+    @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'Group'
   end
 
   def update

@@ -12,7 +12,7 @@
   @include opacity(.95);
   @include border-radius(3px);
   behavior:url('PIE.htc') \0;
-  z-index:1;
+  z-index:99999;
   &.et-tips-block{
     text-align:inherit;
     padding:18px;
