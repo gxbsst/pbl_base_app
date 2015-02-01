@@ -11,12 +11,16 @@
                     ><i class="pf-plus"></i>新建事项</span>
         </div>
         <div class="todo-list" et-scrollbar>
-            <div class="todo-item" ng-repeat="todo in todos">
-                <span class="todo-select"><i></i></span>
-                <span class="todo-title" ng-bind="todo.content"></span>
+            <div class="todo-item" ng-repeat="todo in todoQueue['opening']">
+                <span class="todo-select"><i ng-click="completeTodo(todo);"></i></span>
+                <span class="todo-title" ng-bind="todo.content"
+                      et-modal="title='查看事项';$todo=todo;controller='editTodoController';padding=20;src='home/map/todo-view.html'"
+                        ></span>
                 <span class="todo-endat" ng-bind="todo.start_at | date:'yyyy.MM.dd' +'到期'"></span>
                 <span class="todo-edit">
-                    <i class="pf-edit" ng-if="currentUser.id==todo.user_id"></i>
+                    <i class="pf-edit" ng-if="currentUser.id==todo.user_id"
+                       et-modal="title='修改事项';$todo=todo;controller='editTodoController';padding=20;src='home/map/todo-set.html'"
+                            ></i>
                     <i class="pf-trash-o"></i>
                 </span>
             </div>

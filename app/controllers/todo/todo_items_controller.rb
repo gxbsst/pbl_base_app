@@ -2,7 +2,7 @@ module Todo
   class TodoItemsController < ApplicationController
 
     def index
-      @todo_items = Pbl::Models::Todo::TodoItem.where(params.permit(:todo_item_id))
+      @todo_items = Pbl::Models::Todo::TodoItem.where(params.permit(:todo_item_id, :user_id))
     end
 
     def create
@@ -16,6 +16,16 @@ module Todo
 
     def update
       @todo_item = Pbl::Models::Todo::TodoItem.update(params[:id], params[:todo_item])
+      render :show
+    end
+
+    def complete
+      @project = Pbl::Models::Todo::TodoItem.complete(params[:id])
+      render :show
+    end
+
+    def cancel_complete
+      @project = Pbl::Models::Todo::TodoItem.cancel_complete(params[:id])
       render :show
     end
 

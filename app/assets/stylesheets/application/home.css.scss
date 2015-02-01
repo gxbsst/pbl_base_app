@@ -298,10 +298,11 @@ ul.nav-left{
             margin-left: 5px;
             display: inline-block;
             max-width: 70%;
-            line-height: 12px;
+            line-height: 16px;
             cursor: pointer;
             overflow:hidden;
             text-overflow:ellipsis;
+            white-space: nowrap;
             &:before{
               content: '';
               background: #3d7ff7;
