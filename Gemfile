@@ -30,6 +30,10 @@ gem 'devise_cas_authenticatable'
 
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
+gem 'sidekiq'
+gem 'sidekiq-daemon', git: 'https://github.com/yabawock/sidekiq-daemon'
+gem 'sidekiq-limit_fetch'
+
 gem 'figaro'
 
 gem 'qiniu', '~> 6.3.1'

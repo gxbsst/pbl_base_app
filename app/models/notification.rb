@@ -1,0 +1,1 @@
+Notification = Pbl::Models::Notification

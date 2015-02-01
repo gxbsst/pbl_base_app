@@ -23,6 +23,10 @@ class CommentsController < ApplicationController
     comment[:commentable_id] = params[:post_id]
     comment[:user_id] = current_user.id
     @comment = Comment.create(comment)
+    puts '............'
+    puts params[:post_id]
+    puts '............'
+    NotificationDeliveryWorker.perform_async(params[:post_id])
     render :show
   end
 
