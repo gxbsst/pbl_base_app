@@ -120,7 +120,12 @@ Rails.application.routes.draw do
   end
   namespace :todo do
     resources :todos, defaults: {format: :json}
-    resources :todo_items, defaults: {format: :json}
+    resources :todo_items, defaults: {format: :json} do
+      member do
+        put 'complete'
+        put 'cancel_complete'
+      end
+    end
   end
 
   resources :disciplines, defaults: {format: :json}

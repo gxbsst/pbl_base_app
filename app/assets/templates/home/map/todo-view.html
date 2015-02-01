@@ -1,0 +1,14 @@
+<div class="form-horizontal todo-form">
+    <div class="col-1-1 form-time">
+        <div class="col-1-5 input-group">
+            <span ng-bind="todo.start_at|date:'yyyy-MM-dd HH:mm'"></span>
+        </div>
+        <label class="col-1-12">到</label>
+        <div class="col-1-5 input-group dropdown">
+            <span ng-bind="todo.end_at|date:'yyyy-MM-dd HH:mm'"></span>
+        </div>
+    </div>
+    <div class="col-1-1">
+        <span ng-bind="todo.content"></span>
+    </div>
+</div>
