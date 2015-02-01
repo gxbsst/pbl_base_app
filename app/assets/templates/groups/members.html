@@ -1,1 +1,23 @@
-群成员
+<div class="group-members">
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="25%">用户帐号</th>
+            <th width="25%">真实姓名</th>
+            <th width="25%">用户身份</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="member in vm.members" ng-init="user=member.user">
+            <td>
+                <img ng-src="{{user|avatar:'30x30'}}" class="avatar"/>
+                <span ng-bind="user.username"></span>
+            </td>
+            <td ng-bind="user.realname"></td>
+            <td ng-bind="user.type|typeFilter"></td>
+            <td>&nbsp;<i class="pf-cross text-red cur-pointer pull-right" ng-if="vm.deleteable(user)" et-tips="'踢出该成员'" ng-click="vm.leave(user)"></i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

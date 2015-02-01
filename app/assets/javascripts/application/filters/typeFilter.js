@@ -7,18 +7,11 @@
 
     function typeFilter() {
         return function (type) {
-            switch (type){
-                case 'Teacher':
-                    type='老师';
-                    break;
-                case 'Parent':
-                    type='父母';
-                    break;
-                case 'Student':
-                    type='学生';
-                    break;
-            }
-            return type;
+            return {
+                Teacher: '老师',
+                Student: '学生',
+                Parent: '家长'
+            }[type] || '未知';
         }
     }
 

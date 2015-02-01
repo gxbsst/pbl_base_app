@@ -7,27 +7,43 @@
             <span class="btn btn-blue btn-sm pull-right" ng-click="vm.send()">发布</span>
         </div>
     </div>
-    <div class="posts">
-        <div class="post-container" ng-repeat="message in vm.messages" ng-init="post=message.post||message">
-            <div class="post">
-                <img ng-src="{{message.sender|avatar:'45x45'}}"/>
-                <h3 ng-bind="message.sender.realname||message.sender.username"></h3>
-                <div class="post-content" ng-bind-html="post.content"></div>
-                <div class="post-images"></div>
-                <div class="post-tools">
-                    <span ng-bind="post.created_at"></span>
-                    <span class="pull-right">
-                        <a href="javascript:void(0)" ng-bind="'评论（'+(post.commemt_count||0)+'）'"></a>
-                    </span>
+    <div class="post-container" ng-repeat="message in vm.messages" ng-init="post=message.post||message">
+        <div class="post">
+            <img class="avatar" ng-src="{{message.sender|avatar:'45x45'}}"/>
+            <h3 ng-bind="message.sender.realname||message.sender.username"></h3>
+            <div class="post-content" ng-bind-html="post.content"></div>
+            <div class="post-images"></div>
+            <div class="post-tools">
+                <span ng-bind="post.created_at|ago"></span>
+                <span class="pull-right">
+                    <a href="javascript:void(0)" ng-bind="'评论('+(post.commemt_count||0)+')'" ng-click="vm.getComments(post)"></a>
+                </span>
+            </div>
+        </div>
+        <div class="comment-container" et-scroll-to="post.comments">
+            <div class="comments" ng-if="post.show">
+                <div class="btn-line" ng-click="post.show=0">收起评论 <i class="pf-arrow-up"></i></div>
+                <div class="loading" ng-if="!post.comments"><i class="pf-spinner-2 rotation"></i></div>
+                <div class="center" ng-if="post.comments&&!post.comments.length">还没有任何评论...</div>
+                <div class="comment" ng-repeat="comment in post.comments">
+                    <img class="avatar" ng-src="{{comment.user|avatar:'30x30'}}"/>
+                    <strong ng-bind="comment.user|name"></strong>
+                    <span class="text-gray" ng-bind="comment.created_at|ago"></span>
+                    <span class="reply" ng-click="post.comment='回复'+(comment.user|name)+'：'">回复</span>
+                    <div ng-bind-html="comment.comment"></div>
+                </div>
+                <div class="pagination" ng-if="post.meta.total_pages>1">
+                    <span ng-class="{disabled:post.meta.current_page==1}" ng-click="vm.getComments(post,1)">首页</span>
+                    <span ng-class="{disabled:post.meta.current_page==i}" ng-click="vm.getComments(post,i)" ng-repeat="i in []|range:1:post.meta.total_pages" ng-bind="i"></span>
+                    <span ng-class="{disabled:post.meta.current_page==post.meta.total_pages}" ng-click="vm.getComments(post,post.meta.total_pages)">末页</span>
                 </div>
             </div>
-            <div class="comment-container">
-                <div class="comments">
-                    <div class="center">收起评论 <i class="pf-triangle-up"></i></div>
-                    <div class="comment" ng-repeat="comment in post.comments">
-                        <img ng-src="{{commnet.user|avatar:'45x45'}}"/>
-                        <div ng-bind-html="comment.comment"></div>
-                    </div>
+            <div class="comment-sender">
+                <img class="avatar" ng-src="{{currentUser|avatar:'30x30'}}"/>
+                <textarea class="form-control" ng-focus="post.focusin=1" et-focus-on="post.comment" et-scroll-to="post.comment" data-et-scroll-offset="-15" rows="{{post.focusin?4:1}}" ng-model="post.comment" placeholder="发表一下我的观点..."></textarea>
+                <div class="buttons" ng-if="post.focusin">
+                    <span class="btn btn-blue btn-sm" ng-click="vm.comment(post)">发表评论</span>
+                    <span class="btn btn-sm" ng-click="post.focusin=0;post.comment=''">取消</span>
                 </div>
             </div>
         </div>

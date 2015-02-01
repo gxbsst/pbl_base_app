@@ -142,12 +142,47 @@
         }
     }
 
-    GroupsMembersController.$inject = ['$scope', 'group'];
+    GroupsMembersController.$inject = ['currentUser', 'group', 'Groups', 'GroupLeave'];
 
-    function GroupsMembersController($scope, group) {
+    function GroupsMembersController(currentUser, group, Groups, GroupLeave) {
 
         var vm = this;
+
         vm.group = group;
+        vm.leave = leave;
+        vm.deleteable = deleteable;
+
+        getMembers();
+
+        function getMembers(){
+
+            Groups.get({
+                groupId: group.id,
+                include: 'member_ships,students',
+                limit: 100
+            }, function (result) {
+                var group = result.data;
+                vm.members = group.clazz ? group.clazz.students : group.members;
+            });
+
+        }
+
+        function leave(user){
+
+            if(confirm('您确定要踢出该成员吗？')){
+                GroupLeave.remove({
+                    userId: user.id,
+                    groupId: group.id
+                }, getMembers);
+            }
+
+        }
+
+        function deleteable(user){
+
+            return (group.owner_type == 'Clazz' ? group.clazz.user_id : group.owner_id) == currentUser.id && user.id != currentUser.id;
+
+        }
 
     }
 

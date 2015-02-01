@@ -100,7 +100,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, defaults: { format: :json }
+  resources :posts, defaults: { format: :json } do
+    get :comments, :to => 'comments#post_index'
+    post :comments, :to => 'comments#post_create'
+  end
 
   resources :member_ships, defaults: { format: :json }
 

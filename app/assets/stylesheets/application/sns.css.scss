@@ -34,6 +34,7 @@
   }
   .sns-search{
     position:relative;
+    z-index:1;
     input{
       width:100%;
       border:1px solid #e5e5e5;
@@ -59,7 +60,7 @@
         font-size:15px;
         cursor:pointer;
         .pf-plus{
-          line-height: 30px;
+          line-height:30px;
         }
         &:hover{
           color:#0064f0;
@@ -78,5 +79,122 @@
 }
 
 .posts-container{
-  padding-top:20px;
+  padding:20px 0;
+  .post-container{
+    border:1px solid #e5e5e5;
+    margin-top:15px;
+    .post{
+      position:relative;
+      padding:15px 15px 0 70px;
+    }
+    .avatar{
+      position:absolute;
+      top:15px;
+      left:15px;
+      @include border-radius(50%);
+    }
+    .post-tools{
+      margin-top:10px;
+      color:#999;
+    }
+    .comment-container{
+      margin-top:10px;
+      border-top:1px solid #e5e5e5;
+      background:#fafafa;
+      .btn-line{
+        line-height:40px;
+        margin:0 10px;
+        text-align:center;
+        color:#1996dc;
+        cursor:pointer;
+        &:hover{
+          color:#0051d5;
+        }
+      }
+      .pagination{
+        margin-top:10px;
+      }
+      .comment-sender{
+        position:relative;
+        padding:10px 10px 10px 50px;
+        .form-control{
+          line-height:20px;
+          padding:4px 8px;
+          @include border-radius(0);
+        }
+        .buttons{
+          margin-top:8px;
+          .btn{
+            margin-right:8px;
+          }
+        }
+        .avatar{
+          top:10px;
+          left:10px;
+        }
+      }
+      .comment{
+        position:relative;
+        line-height:18px;
+        padding:5px 10px 5px 50px;
+        .avatar{
+          top:5px;
+          left:10px;
+        }
+        .reply{
+          display:none;
+          position:absolute;
+          top:10px;
+          right:10px;
+          line-height:22px;
+          padding:0 12px;
+          color:#0051d5;
+          background:#c8dceb;
+          cursor:pointer;
+          @include border-radius(11px);
+          &:hover{
+            background:#0051d5;
+            color:#fff;
+          }
+        }
+        & > strong{
+          display:inline-block;
+          margin-right:10px;
+        }
+        &:hover{
+          background:#e1ebf0;
+          .reply{
+            display:block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.group-members{
+  padding:20px 0;
+  .table{
+    border-left-width:1px;
+    .pf-cross{
+      display:none;
+    }
+    tbody > tr{
+      &:hover{
+        background:#f5faff;
+        .pf-cross{
+          display:block;
+        }
+      }
+    }
+    th, td{
+      border-width:0 0 1px 0;
+      text-align:left;
+    }
+  }
+  .avatar{
+    vertical-align:middle;
+    margin-right:8px;
+    @include border-radius(50%);
+  }
 }

@@ -4,6 +4,7 @@
     angular
         .module('app.services')
         .service('Groups', Groups)
+        .service('GroupLeave', GroupLeave)
         .service('MemberShips', MemberShips);
 
     Groups.$inject = ['$resource', 'RESOURCE_ACTIONS'];
@@ -13,8 +14,16 @@
             namespace: '@namespace',
             groupId: '@groupId',
             action: '@action',
-            actionId: '@actionId',
-            limit: 100
+            actionId: '@actionId'
+        }, RESOURCE_ACTIONS);
+    }
+
+    GroupLeave.$inject = ['$resource', 'RESOURCE_ACTIONS'];
+
+    function GroupLeave($resource, RESOURCE_ACTIONS) {
+        return $resource('/users/:userId/groups/:groupId/leave', {
+            userId: '@userId',
+            groupId: '@groupId'
         }, RESOURCE_ACTIONS);
     }
 

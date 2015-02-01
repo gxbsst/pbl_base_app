@@ -10,7 +10,7 @@
     function avatar($filter, DEFAULTS) {
         return function(user, params){
             if(!user){
-                return false;
+                return '';
             }
             return $filter('thumb')(user.avatar || DEFAULTS.avatars.user, params || '60x60');
         }

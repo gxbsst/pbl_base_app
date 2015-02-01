@@ -1,0 +1,1 @@
+Comment = Pbl::Models::Comment

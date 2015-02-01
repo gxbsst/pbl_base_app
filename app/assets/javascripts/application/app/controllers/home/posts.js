@@ -5,38 +5,18 @@
         .module('app.pbl')
         .controller('PostsController', PostsController);
 
-    PostsController.$inject = ['owner', 'Groups', 'User'];
+    PostsController.$inject = ['$filter', 'owner', 'Groups', 'Posts', 'User'];
 
-    function PostsController(owner, Groups, User) {
+    function PostsController($filter, owner, Groups, Posts, User) {
 
         var vm = this;
 
         vm.owner = owner;
         vm.send = send;
+        vm.comment = comment;
+        vm.getComments = getComments;
 
         getMessages();
-
-        function send() {
-
-            switch(owner.type){
-                case 'Group':
-                    Groups.add({
-                        groupId: owner.data.id,
-                        action: 'posts'
-                    }, {
-                        post: vm.post
-                    }, getMessages);
-                    break;
-                case 'User':
-                    User.add({
-                        action: 'posts'
-                    }, {
-                        post: vm.post
-                    }, getMessages);
-                    break;
-            }
-
-        }
 
         function getMessages() {
 
@@ -66,6 +46,67 @@
                 });
             }
 
+        }
+
+        function send() {
+
+            switch(owner.type){
+                case 'Group':
+                    Groups.add({
+                        groupId: owner.data.id,
+                        action: 'posts'
+                    }, {
+                        post: vm.post
+                    }, getMessages);
+                    break;
+                case 'User':
+                    User.add({
+                        action: 'posts'
+                    }, {
+                        post: vm.post
+                    }, getMessages);
+                    break;
+            }
+
+        }
+
+        function comment(post){
+
+            if(post.comment){
+                Posts.add({
+                    postId: post.id,
+                    action: 'comments'
+                }, {
+                    comment: {
+                        comment: post.comment
+                    }
+                }, function () {
+                    delete post.comment;
+                    getComments(post);
+                });
+            }
+
+        }
+
+        function getComments(post, page){
+            delete post.comments;
+            post.show = true;
+            Posts.all({
+                postId: post.id,
+                action: 'comments',
+                page: page || 1
+            }, function (result) {
+                delete post.focusin;
+                post.comments = result.data;
+                post.meta = result.meta;
+                angular.forEach(result.data.reverse(), function (comment) {
+                    if (!post.comments.has(function (entry) {
+                            return entry.id == comment.id;
+                        })) {
+                        post.comments.unshift(comment);
+                    }
+                });
+            });
         }
 
     }
