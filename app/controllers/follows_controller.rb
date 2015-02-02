@@ -5,10 +5,23 @@ class FollowsController < ApplicationController
   end
 
   def unfollow
-    Follow.destroy_by({
-                          user_id: params[:user_id],
-                          follower_id: current_user.id
-                      })
+    follows = Follow.where({
+                               user_id: params[:user_id],
+                               follower_id: current_user.id
+                           })
+    follows[:data].each do |entry|
+      Follow.destroy(entry[:id])
+      NotificationDeliveryWorker.perform_async({
+                                                   event_type: :unfollow,
+                                                   sender_type: :User,
+                                                   sender_id: entry[:follower_id],
+                                                   user_id: entry[:user_id],
+                                                   additional_info: {
+                                                       follow_id: entry[:id]
+                                                   },
+                                                   type: :System
+                                               })
+    end if follows[:data]
     head :ok
   end
 
@@ -16,6 +29,18 @@ class FollowsController < ApplicationController
     follow = params[:follow]
     follow[:follower_id] ||= current_user.id
     @follow = Follow.create(follow)
+    if @follow.success?
+      NotificationDeliveryWorker.perform_async({
+                                                   event_type: :follow,
+                                                   sender_type: :User,
+                                                   sender_id: @follow[:follower_id],
+                                                   user_id: @follow[:user_id],
+                                                   additional_info: {
+                                                       follow_id: @follow[:id]
+                                                   },
+                                                   type: :System
+                                               })
+    end
     render :show
   end
 

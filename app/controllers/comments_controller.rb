@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class CommentsController < ApplicationController
 
   def index
@@ -23,10 +25,19 @@ class CommentsController < ApplicationController
     comment[:commentable_id] = params[:post_id]
     comment[:user_id] = current_user.id
     @comment = Comment.create(comment)
-    puts '............'
-    puts params[:post_id]
-    puts '............'
-    NotificationDeliveryWorker.perform_async(params[:post_id])
+    post = Post.find(params[:post_id])
+    if post.success?
+      NotificationDeliveryWorker.perform_async({
+                                                   event_type: :comment,
+                                                   sender_type: :Post,
+                                                   sender_id: post[:id],
+                                                   user_id: post[:sender_id],
+                                                   additional_info: {
+                                                       comment_id: @comment[:id]
+                                                   },
+                                                   type: :System
+                                               })
+    end
     render :show
   end
 

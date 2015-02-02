@@ -3,7 +3,7 @@
         <ul class="nav">
             <li><a ui-sref="base.index" class="logo" ng-class="getLocale()"></a></li>
             <li><a ui-sref="base.news" ng-class="{active:$state.includes('base.news')}" ng-bind="'NAV.news'|i18n"></a></li>
-            <li><a ui-sref="base.home.index" ng-class="{active:$state.includes('base.home')}" ng-bind="'NAV.home'|i18n"></a></li>
+            <li><a ui-sref="base.home.index.posts" ng-class="{active:$state.includes('base.home')}" ng-bind="'NAV.home'|i18n"></a></li>
             <li><a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" ng-bind="'NAV.pbl'|i18n"></a></li>
             <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.amoocs'|i18n"></a></li>
             <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.explore'|i18n"></a></li>
@@ -21,7 +21,7 @@
                 <i class="pf-bell top-right-btn cur-pointer"></i>
             </li>
             <li class="top-avatar" ng-if="currentUser">
-                <i class="top-right-btn"><a ui-sref="base.home.user.posts"><img ng-src="{{ currentUser|avatar }}" /></a></i>
+                <i class="top-right-btn"><a ui-sref="base.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>
             </li>
         </ul>
     </div>

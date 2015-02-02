@@ -16,26 +16,32 @@ class ClazzsController < ApplicationController
     clazz = params[:clazz]
     clazz[:user_id] ||= current_user.id
     @clazz = Clazz.create(clazz)
-    group = {
-        owner_type: :Clazz,
-        owner_id: @clazz[:id]
-    }
-    @group = Group.create(group)
+
+    #创建班级群
+    Group.create({
+                     owner_type: :Clazz,
+                     owner_id: @clazz[:id]
+                 })
+
+    #生成班级邀请码
     invitation = {
         owner_type: :Clazz,
         owner_id: @clazz[:id]
     }
-    @invitation = Invitation.create(invitation)
-    group = {
-        owner_type: :ClazzParent,
-        owner_id: @clazz[:id]
-    }
-    @group = Group.create(group)
+    Invitation.create(invitation)
+
+    #创建家长群
+    group = Group.create({
+                             owner_type: :Parent,
+                             owner_id: @clazz[:id]
+                         })
+
+    #生成家长群邀请码
     invitation = {
-        owner_type: :ClazzParent,
-        owner_id: @clazz[:id]
+        owner_type: :Group,
+        owner_id: group[:id]
     }
-    @invitation = Invitation.create(invitation)
+    Invitation.create(invitation)
     render :show
   end
 

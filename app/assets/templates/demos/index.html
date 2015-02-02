@@ -3,18 +3,66 @@
         box-sizing:content-box !important;
         white-space:nowrap;
     }
+
     .nodes{
         border:1px solid red;
     }
+
     .node{
         display:inline-block;
         width:25%;
         border:1px solid blue;
     }
+
+    .a{
+        border:1px solid red;
+        width:212px;
+        padding:5px;
+    }
+
+    .test-table{
+        display:table;
+        width:200px;
+        height:200px;
+        border-collapse:separate;
+        border-spacing:5px;
+    }
+
+    .test-table > div{
+        display:table-row;
+    }
+
+    .test-table > div > div{
+        display:table-cell;
+        text-align:center;
+        vertical-align:middle;
+        border:1px solid #000;
+    }
 </style>
+<div class="a">
+    <div class="test-table">
+        <div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+        </div>
+        <div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+        </div>
+    </div>
+</div>
 <div class="demos">
     <div class="col-1-1 center">
-        <div class="helicopter"><div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div></div>
+        <div class="helicopter">
+            <div><i><i></i></i><i></i><i></i><i></i><i><i></i></i><i><i></i></i><i></i></div>
+        </div>
         <div class="timeline">
             <div class="nodes">
                 <div class="node">aaaa</div>
@@ -31,29 +79,37 @@
     <div class="col-1-2">
         <a href="javascript:void(0)" ng-click="vm.view='styles/elements.html'">elements</a>
         <a href="javascript:void(0)" ng-click="vm.view='styles/modules.html'">modules</a>
+
         <div ng-init="vm.data={a:'aaa',b:'bbb'}" ng-bind-html="'hello world' | i18n:vm.data"></div>
 
         <span ng-click="setLocale('en-us')" class="btn btn-xs" role="button">en-us</span>
         <span ng-click="setLocale('zh-cn')" et-tips="content='这是一个tips';black=true;" class="btn btn-xs" role="button">zh-cn</span>
-        <span ng-click="setLocale('zh-tw')" et-tips="delay=150;black=false;src='demos/pane/demo.html'" class="btn btn-xs" role="button">zh-tw</span>
+        <span ng-click="setLocale('zh-tw')" et-tips="delay=150;black=false;src='demos/pane/demo.html'"
+              class="btn btn-xs" role="button">zh-tw</span>
+
         <div class="hr"></div>
         <span class="btn btn-xs" role="button">button</span>
         <span class="btn btn-sm" role="button">button</span>
         <span class="btn" role="button">button</span>
         <span class="btn btn-lg" role="button">button</span>
+
         <div class="hr"></div>
         <span class="btn btn-xs btn-gray" role="button">button</span>
         <span class="btn btn-sm btn-gray" role="button">button</span>
         <span class="btn btn-gray" role="button">button</span>
         <span class="btn btn-lg btn-gray" role="button">button</span>
+
         <div class="hr"></div>
         <span class="btn btn-xs btn-blue" role="button">button</span>
         <span class="btn btn-sm btn-blue" role="button">button</span>
         <span class="btn btn-blue" role="button">button</span>
         <span class="btn btn-lg btn-blue" role="button">button</span>
+
         <div ng-init="test=123;aa.selected=1">
-            <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show modal(src)!</a>
-            <a href="javascript:void(0);" et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
+            <a href="javascript:void(0);" et-modal="title='Modal'|i18n:1;src='demos/pane/demo.html'">show
+                modal(src)!</a>
+            <a href="javascript:void(0);"
+               et-modal="title='Modal'|i18n:2;overlay=false;width='40%';html='demos/pane/demo.html'">show
                 modal(html)!</a>
             <a href="javascript:void(0);"
                et-modal="title='Modal'|i18n:3;controller='ModalDemoController';width='30%';src='demos/pane/demo.html'">show
@@ -72,8 +128,10 @@
     </div>
     <hr/>
     <h2 ng-bind="'Pane examples'|i18n" title="{{'Pane examples'|i18n}}"></h2>
+
     <div class="col-1-1">
-        <div et-panel="'App.Pane'|i18n:1" et-config="title='Pane'|i18n:1;src='demos/pane/demo.html'" class="col-1-2"></div>
+        <div et-panel="'App.Pane'|i18n:1" et-config="title='Pane'|i18n:1;src='demos/pane/demo.html'"
+             class="col-1-2"></div>
         <div et-panel="'Pane'|i18n:2" class="col-1-2">This is a pane demo! <img ng-src="{{'img'|i18n}}"/></div>
     </div>
     <hr/>

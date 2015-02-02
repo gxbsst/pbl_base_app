@@ -13,9 +13,9 @@
             <h3>群简介：</h3>
             <div class="text-gray" ng-bind-html="vm.group.description"></div>
         </div>
-        <div ng-if="vm.group.lable.length">
+        <div ng-if="vm.group.label.length">
             <h3>群标签：</h3>
-            <span class="block-mini" ng-bind="($index?', ':'')+lable" ng-repeat="lable in vm.group.lable track by $index"></span>
+            <span class="block-mini" ng-bind="($index?', ':'')+label" ng-repeat="label in vm.group.label track by $index"></span>
         </div>
         <h3>群主/管理员</h3>
         <div class="members">

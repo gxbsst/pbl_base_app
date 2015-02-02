@@ -96,6 +96,11 @@
     .post-tools{
       margin-top:10px;
       color:#999;
+      &:after{
+        display:block;
+        content:'';
+        clear:both;
+      }
     }
     .comment-container{
       margin-top:10px;

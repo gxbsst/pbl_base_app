@@ -35,9 +35,18 @@
                 }
             })
             .state('base.home.index', {
+                abstract: true,
                 url: '',
                 templateUrl: 'home/index.html',
                 controller: 'HomeIndexController as vm'
+            })
+            .state('base.home.index.posts', {
+                url: '',
+                templateUrl: 'posts/index.html',
+                controller: 'PostsController as vm',
+                resolve: {
+                    owner: owner
+                }
             });
 
         authenticate.$inject = ['$q', 'currentUser'];
@@ -94,6 +103,15 @@
                 });
             }
             return defer.promise;
+        }
+
+        owner.$inject = ['currentUser'];
+
+        function owner(currentUser){
+            return {
+                type: 'User',
+                data: currentUser
+            }
         }
 
     }

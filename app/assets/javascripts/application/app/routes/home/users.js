@@ -11,18 +11,9 @@
 
         $stateProvider
             .state('base.home.user', {
-                abstract: true,
                 url: '^/i',
                 templateUrl: 'user/index.html',
                 controller: 'UserController as vm'
-            })
-            .state('base.home.user.posts', {
-                url: '',
-                templateUrl: 'posts/index.html',
-                controller: 'PostsController as vm',
-                resolve: {
-                    owner: owner
-                }
             })
             .state('base.home.users', {
                 abstract: true,
@@ -50,15 +41,6 @@
                 defer.resolve(null);
             });
             return defer.promise;
-        }
-
-        owner.$inject = ['currentUser'];
-
-        function owner(currentUser){
-            return {
-                type: 'User',
-                data: currentUser
-            }
         }
 
     }

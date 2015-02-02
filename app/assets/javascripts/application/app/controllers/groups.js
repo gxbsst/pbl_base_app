@@ -126,7 +126,7 @@
                     action: 'leave'
                 }, function () {
                     $scope.$emit('onGroupsChanged');
-                    $state.go('base.home.user.posts');
+                    $state.go('base.home.user');
                 });
             }
         }
@@ -137,7 +137,7 @@
                     groupId: group.id
                 }, function () {
                     $scope.$emit('onGroupsChanged');
-                    $state.go('base.home.user.posts');
+                    $state.go('base.home.user');
                 });
             }
         }

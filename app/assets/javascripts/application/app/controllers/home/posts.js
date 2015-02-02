@@ -82,6 +82,8 @@
                     }
                 }, function () {
                     delete post.comment;
+                    delete post.scrollToComment;
+                    post.scrollToComments = true;
                     getComments(post);
                 });
             }
@@ -97,6 +99,7 @@
                 page: page || 1
             }, function (result) {
                 delete post.focusin;
+                delete post.scrollToComments;
                 post.comments = result.data;
                 post.meta = result.meta;
                 angular.forEach(result.data.reverse(), function (comment) {

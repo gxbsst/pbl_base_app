@@ -4,12 +4,12 @@
         <span class="nav-main">
             <a ui-sref="base.index"  ng-class="{active:$state.includes('base.index')}">首页</a>
             <a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" >项目案例</a>
-            <a ui-sref="base.home.index" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
+            <a ui-sref="base.home.index.posts" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
         </span>
         <span class="user-tools">
             <span ng-if="currentUser">
                 欢迎您，
-                <a ui-sref="base.home.user.posts" ng-bind="currentUser.realname||currentUser.username"></a>，
+                <a ui-sref="base.home.user" ng-bind="currentUser.realname||currentUser.username"></a>，
                 <!--<a href="javascript:void(0);" et-logout>退出</a>-->
                 <a href="/users/sign_out" data-method="delete">退出</a>
             </span>

@@ -67,7 +67,7 @@ class GroupsController < ApplicationBaseController
                 return render json: {errors: '您已经是该群组成员！'}
               end
             end
-          when 'ClazzParent'
+          when 'Parent'
             @group = Group.find_by({
                                        owner_type: :ClazzParent,
                                        owner_id: invitation[:owner_id]
@@ -80,7 +80,7 @@ class GroupsController < ApplicationBaseController
 
               return render 'groups/show'
             end
-          when 'Group'
+          when 'User'
             @group = Group.find(invitation[:owner_id])
             if @group.success?
               MemberShip.create({
@@ -115,15 +115,35 @@ class GroupsController < ApplicationBaseController
     if group.success?
       case group[:owner_type]
         when 'Clazz'
-          Student.destroy_by({
-                                 user_id: user_id,
-                                 clazz_id: group[:owner_id]
-                             })
+          students = Student.where({
+                                       user_id: user_id,
+                                       clazz_id: group[:owner_id]
+                                   })
+          students[:data].each do |entry|
+            Student.destroy(entry[:id])
+            NotificationDeliveryWorker.perform_async({
+                                                         event_type: :leave,
+                                                         sender_type: :Clazz,
+                                                         sender_id: group[:owner_id],
+                                                         user_id: user_id,
+                                                         type: :System
+                                                     }) if user_id != current_user.id
+          end if students[:data]
         else
-          MemberShip.destroy_by({
-                                user_id: user_id,
-                                group_id: group[:id]
-                            })
+          member_ships = MemberShip.where({
+                                   user_id: user_id,
+                                   group_id: group[:id]
+                               })
+          member_ships[:data].each do |entry|
+            MemberShip.destroy(entry[:id])
+            NotificationDeliveryWorker.perform_async({
+                                                         event_type: :leave,
+                                                         sender_type: :Group,
+                                                         sender_id: group[:id],
+                                                         user_id: user_id,
+                                                         type: :System
+                                                     }) if user_id != current_user.id
+          end if member_ships[:data]
       end
     end
     head :ok
@@ -132,7 +152,7 @@ class GroupsController < ApplicationBaseController
   def create
     group = params[:group]
     group[:owner_id] ||= current_user.id
-    group[:owner_type] ||= :Group
+    group[:owner_type] ||= :User
     @group = Group.create(group)
     if @group.success?
       invitation = {
@@ -146,8 +166,8 @@ class GroupsController < ApplicationBaseController
 
   def show
     @group = Group.find(params[:id], query_params)
-    @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz'
-    @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'Group'
+    @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz' || @group[:owner_type] == 'Parent'
+    @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'User'
   end
 
   def update
@@ -157,7 +177,17 @@ class GroupsController < ApplicationBaseController
 
   def destroy
     @group = Group.destroy(params[:id])
-    MemberShip.destroy_by(group_id: @group[:id])
+    member_ships = MemberShip.where(group_id: @group[:id])
+    member_ships[:data].each do |entry|
+      MemberShip.destroy(entry[:id])
+      NotificationDeliveryWorker.perform_async({
+                                                   event_type: :leave,
+                                                   sender_type: :Group,
+                                                   sender_id: @group[:id],
+                                                   user_id: entry[:user_id],
+                                                   type: :System
+                                               }) if entry[:user_id] != current_user.id
+    end
     render :show
   end
 
