@@ -25,6 +25,9 @@
                     'header@': {
                         templateUrl: 'pbl/header.html'
                     },
+                    'banner@': {
+                        templateUrl: 'layout/banner-pbl.html'
+                    },
                     'footer@': {
                         templateUrl: 'layout/footer.html'
                     }

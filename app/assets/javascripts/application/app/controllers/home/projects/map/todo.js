@@ -47,6 +47,7 @@
 
         function removeTodo(todo){
             if($rootScope.currentUser.id==todo.user_id){
+
                 Todos.remove({
                     todoId: todo.id
                 },function(result){
@@ -73,10 +74,18 @@
         }
     }
 
-    completeTodoController.$inject = ['$rootScope','$scope', 'Todos'];
+    completeTodoController.$inject = ['$rootScope','$scope', 'Todos','TodoItems'];
 
-    function completeTodoController($rootScope,$scope,Todos) {
-
+    function completeTodoController($rootScope,$scope,Todos,TodoItems) {
+        $scope.cancel_complete=cancel_complete;
+        function cancel_complete(todo){
+            TodoItems.cancel_complete({
+                todoId: todo.id,
+                action:'cancel_complete'
+            },function(result){
+                console.log(result);
+            });
+        }
     }
 
     addTodoController.$inject = ['$rootScope','$scope', 'Todos'];

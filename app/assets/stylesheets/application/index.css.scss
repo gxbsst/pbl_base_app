@@ -39,9 +39,7 @@ body{
 
 #header{
   $height:60px;
-  border-bottom:1px solid #dcdcdc;
   line-height:61px;
-  margin-bottom:15px;
   .container{
     margin:0 auto;
   }
@@ -230,16 +228,19 @@ body{
       line-height:10px;
     }
   }
-  .banner{
-    width:100%;
-    position:relative;
-    overflow:hidden;
-    height:150px;
-    img{
-      position:absolute;
-      left:50%;
-      margin-left:-1000px;
-    }
+}
+
+.banner{
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  height:150px;
+  margin-bottom: 15px;
+  border-bottom:1px solid #dcdcdc;
+  img{
+    position:absolute;
+    left:50%;
+    margin-left:-1000px;
   }
 }
 

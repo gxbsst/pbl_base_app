@@ -20,6 +20,9 @@
                     'header@': {
                         templateUrl: 'layout/header.html'
                     },
+                    'banner@': {
+                        templateUrl: 'layout/banner-home.html'
+                    },
                     'footer@': {
                         templateUrl: 'layout/footer.html'
                     },

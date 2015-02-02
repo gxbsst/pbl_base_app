@@ -47,11 +47,11 @@
                 sliderInit(itemlength);
             });
 
-             var auto = setInterval(sliderNext, 5000);
+             var auto = setInterval(sliderNext, 10000);
 
             function resetauto(){
                 clearInterval(auto);
-                auto = setInterval(sliderNext, 5000);
+                auto = setInterval(sliderNext, 10000);
             }
 
             function sliderInit(len){
