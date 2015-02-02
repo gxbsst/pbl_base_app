@@ -16,7 +16,7 @@
             <div class="group-no">群号：<span ng-bind="vm.group.no"></span></div>
         </div>
         <div class="pull-right">
-            <div class="group-code">邀请码：<span ng-bind="vm.group.code||vm.group.clazz.code"></span></div>
+            <div class="group-code">邀请码：<span ng-bind="vm.group.code||vm.group.clazz.code"></span><i class="pf-refresh" ng-click="vm.regenerate()" et-tips="'重新生成邀请码'"></i></div>
             <div class="group-nav">
                 <a ui-sref="base.home.groups.show.posts({groupId:vm.group.id})"
                    ng-class="{active:$state.includes('base.home.groups.show.posts')}">群动态</a>

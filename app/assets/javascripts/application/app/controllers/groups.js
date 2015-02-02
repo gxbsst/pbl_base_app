@@ -98,15 +98,16 @@
 
     }
 
-    GroupsShowController.$inject = ['$scope', '$state', 'group', 'Groups'];
+    GroupsShowController.$inject = ['$scope', '$state', 'group', 'Groups', 'Clazzs'];
 
-    function GroupsShowController($scope, $state, group, Groups) {
+    function GroupsShowController($scope, $state, group, Groups, Clazzs) {
 
         var vm = this;
         vm.group = group;
         vm.isCreator = isCreator;
         vm.leave = leave;
         vm.remove = remove;
+        vm.regenerate = regenerate;
 
         $scope.$on('onGroupsChanged', function (event, data) {
             if (data && data.id === vm.group.id) {
@@ -139,6 +140,27 @@
                     $scope.$emit('onGroupsChanged');
                     $state.go('base.home.user');
                 });
+            }
+        }
+
+        function regenerate() {
+            switch (group.owner_type) {
+                case 'Clazz':
+                    Clazzs.update({
+                        clazzId: group.clazz.id,
+                        action: 'code'
+                    }, function(result){
+                        group.code = result.data.code;
+                    });
+                    break;
+                default:
+                    Groups.update({
+                        groupId: group.id,
+                        action: 'code'
+                    }, function(result){
+                        group.code = result.data.code;
+                    });
+                    break;
             }
         }
     }
@@ -200,10 +222,10 @@
             limit: 100
         }, function (result) {
             vm.group = result.data;
-            if(vm.group.clazz){
+            if (vm.group.clazz) {
                 vm.members = vm.group.clazz.students;
                 vm.creator = vm.group.clazz.user;
-            }else{
+            } else {
                 vm.members = vm.group.members;
                 vm.creator = vm.group.user;
             }

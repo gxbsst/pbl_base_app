@@ -42,7 +42,8 @@ Rails.application.routes.draw do
   end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
-    resources :follows, defaults: { format: :json }, only: %w(index create)
+    get :follows, :to => 'follows#user_index'
+    resources :follows, defaults: { format: :json }, only: %w(create)
     resources :rules, defaults: { format: :json }, only: %w(index)
     get :friends, :to => 'friend_ships#user_friends'
     get :children, :to => 'friend_ships#user_children'
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
     get :posts, :to => 'posts#group_index'
     post :posts, :to => 'posts#create'
     post :join, :to => 'groups#join_by_group_id'
+    put :code, :to => 'invitations#regenerate'
     collection do
       get ':ids', to: 'groups#index', constraints: {ids: /.+[,].+/}
       get ':owner_ids', to: 'groups#index', constraints: {owner_ids: /.+[,].+/}
@@ -143,6 +145,7 @@ Rails.application.routes.draw do
   resources :grades, defaults: {format: :json}, only: %w(index create)
 
   resources :clazzs, defaults: {format: :json}, only: %w(index create show) do
+    put :code, :to => 'invitations#regenerate'
     collection do
       get ':ids', to: 'clazzs#index', constraints: {ids: /.+[,].+/}
     end

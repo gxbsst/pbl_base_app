@@ -131,9 +131,9 @@ class GroupsController < ApplicationBaseController
           end if students[:data]
         else
           member_ships = MemberShip.where({
-                                   user_id: user_id,
-                                   group_id: group[:id]
-                               })
+                                              user_id: user_id,
+                                              group_id: group[:id]
+                                          })
           member_ships[:data].each do |entry|
             MemberShip.destroy(entry[:id])
             NotificationDeliveryWorker.perform_async({
@@ -168,6 +168,21 @@ class GroupsController < ApplicationBaseController
     @group = Group.find(params[:id], query_params)
     @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz' || @group[:owner_type] == 'Parent'
     @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'User'
+    invitation = Invitation.find_by(case @group[:owner_type]
+                                      when 'Clazz'
+                                        {
+                                            owner_type: :Clazz,
+                                            owner_id: @group[:clazz][:id]
+                                        }
+                                      else
+                                        {
+                                            owner_type: :Group,
+                                            owner_id: @group[:id]
+                                        }
+                                    end)
+    unless invitation.nil?
+      @group[:invitation_code] = invitation[:invitation_code]
+    end
   end
 
   def update

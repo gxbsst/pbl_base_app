@@ -4,6 +4,13 @@ class FollowsController < ApplicationController
     @follows = Follow.where(query_params)
   end
 
+  def user_index
+    params[:follower_id] = params[:user_id] || current_user.id
+    params.delete(:user_id)
+    @follows = Follow.where(query_params)
+    render :index
+  end
+
   def unfollow
     follows = Follow.where({
                                user_id: params[:user_id],

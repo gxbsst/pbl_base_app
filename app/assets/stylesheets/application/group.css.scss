@@ -49,6 +49,14 @@
         color:#0064f0;
         vertical-align:text-bottom;
       }
+      i{
+        margin-left:5px;
+        font-size:16px;
+        cursor:pointer;
+        &:hover{
+          color:#0064f0;
+        }
+      }
     }
     .group-nav{
       font-size:14px;

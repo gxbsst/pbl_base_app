@@ -9,6 +9,29 @@ class InvitationsController < ApplicationController
     render :index
   end
 
+  def regenerate
+    if params[:clazz_id].present?
+      invitation = {
+          owner_type: :Clazz,
+          owner_id: params[:clazz_id]
+      }
+      Invitation.destroy_by(invitation)
+      @invitation = Invitation.create(invitation)
+      return render :show
+    end
+
+    if params[:group_id].present?
+      invitation = {
+          owner_type: :Group,
+          owner_id: params[:group_id]
+      }
+      Invitation.destroy_by(invitation)
+      @invitation = Invitation.create(invitation)
+      return render :show
+    end
+    render 'share/empty'
+  end
+
   def create
     @invitation = Invitation.create(params[:invitation])
     render :show
