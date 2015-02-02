@@ -56,6 +56,14 @@ class ClazzsController < ApplicationController
 
   def destroy
     @clazz = Clazz.destroy(params[:id])
+    Group.destroy_by({
+                              owner_type: :Clazz,
+                              owner_id: params[:id]
+                          })
+    Invitation.destroy_by({
+                              owner_type: :Clazz,
+                              owner_id: params[:id]
+                          })
     render :show
   end
 

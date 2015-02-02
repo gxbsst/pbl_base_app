@@ -40,56 +40,81 @@ class GroupsController < ApplicationBaseController
             if user[:type] == 'Parent'
               return render json: {errors: '只有老师及学生才能加入班级群！'}
             else
-              student = Student.create({
-                                           user_id: user_id,
-                                           clazz_id: invitation[:owner_id]
-                                       })
-              if student.success?
-                students = Student.where(clazz_id: student[:clazz_id])
-                friend_ship = []
-                students[:data].each do |entry|
-                  friend_ship.push({
-                                       user_id: user_id,
-                                       friend_id: entry[:user_id]
-                                   }) if user_id != entry[:user_id]
+              clazz = Clazz.find(invitation[:owner_id])
+              if clazz.success?
+                student = Student.create({
+                                             user_id: user_id,
+                                             clazz_id: clazz[:id]
+                                         })
+                if student.success?
+                  #新的班级成员加入成功后给班级所有者发送系统通知
+                  NotificationDeliveryWorker.perform_async({
+                                                               event_type: :join,
+                                                               sender_type: :Clazz,
+                                                               sender_id: clazz[:id],
+                                                               user_id: clazz[:user_id],
+                                                               type: :System
+                                                           })
+
+                  #新的班级成员加入成功后自动为所有同学建立好友关系
+                  students = Student.where(clazz_id: student[:clazz_id])
+                  friend_ship = []
+                  students[:data].each do |entry|
+                    friend_ship.push({
+                                         user_id: user_id,
+                                         friend_id: entry[:user_id]
+                                     }) if user_id != entry[:user_id]
+                  end
+                  begin
+                    FriendShip.create(friend_ship) unless friend_ship.empty?
+                  rescue => error
+                    #puts error
+                  end
+                  @group = Group.find_by({
+                                             owner_type: :Clazz,
+                                             owner_id: invitation[:owner_id]
+                                         })
+                  return render 'groups/show' if @group
+                else
+                  return render json: {errors: '您已经是该群组成员！'}
                 end
-                begin
-                  FriendShip.create(friend_ship) unless friend_ship.empty?
-                rescue => error
-                  #puts error
-                end
-                @group = Group.find_by({
-                                           owner_type: :Clazz,
-                                           owner_id: invitation[:owner_id]
-                                       })
-                return render 'groups/show' if @group
-              else
-                return render json: {errors: '您已经是该群组成员！'}
               end
             end
-          when 'Parent'
+          else
             @group = Group.find_by({
-                                       owner_type: :ClazzParent,
+                                       owner_type: :Group,
                                        owner_id: invitation[:owner_id]
                                    })
-            if @group
+            unless @group.nil?
               MemberShip.create({
                                     user_id: user_id,
-                                    group_id: invitation[:owner_id]
+                                    group_id: @group[:id]
                                 })
-
+              case @group[:owner_type]
+                when 'Parent'
+                  clazz = Clazz.find(@group[:owner_id])
+                  if clazz.success?
+                    #新的家长群成员加入成功后给班级所有者发送系统通知
+                    NotificationDeliveryWorker.perform_async({
+                                                                 event_type: :join,
+                                                                 sender_type: :Clazz,
+                                                                 sender_id: clazz[:id],
+                                                                 user_id: clazz[:user_id],
+                                                                 type: :System
+                                                             })
+                  end
+                else
+                  #新的群组成员加入成功后给群组所有者发送系统通知
+                  NotificationDeliveryWorker.perform_async({
+                                                               event_type: :join,
+                                                               sender_type: :Group,
+                                                               sender_id: @group[:id],
+                                                               user_id: @group[:user_id],
+                                                               type: :System
+                                                           })
+              end
               return render 'groups/show'
             end
-          when 'User'
-            @group = Group.find(invitation[:owner_id])
-            if @group.success?
-              MemberShip.create({
-                                    user_id: user_id,
-                                    group_id: invitation[:owner_id]
-                                })
-              return render 'groups/show'
-            end
-          else
         end
       end
     else
@@ -192,6 +217,10 @@ class GroupsController < ApplicationBaseController
 
   def destroy
     @group = Group.destroy(params[:id])
+    Invitation.destroy_by({
+                              owner_type: :Group,
+                              owner_id: params[:id]
+                          })
     member_ships = MemberShip.where(group_id: @group[:id])
     member_ships[:data].each do |entry|
       MemberShip.destroy(entry[:id])

@@ -9,6 +9,13 @@ class Group < Pbl::Models::Groups::Group
       self.find(entries[:data].first[:id], options)
     end
 
+    def destroy_by(options)
+      entries = self.where(options)
+      entries[:data].each do |entry|
+        self.destroy(entry[:id])
+      end if entries[:data]
+    end
+
   end
 
 end
