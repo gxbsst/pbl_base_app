@@ -4,6 +4,7 @@
     angular
         .module('app.pbl')
         .controller('mapTodoController', mapTodoController)
+        .controller('completeTodoController', completeTodoController)
         .controller('addTodoController', addTodoController)
         .controller('editTodoController', editTodoController);
 
@@ -13,6 +14,7 @@
     function mapTodoController($rootScope,$scope, $state, $element, $interval, Todos, TodoItems) {
         $scope.todoread=false;
         $scope.completeTodo=completeTodo;
+        $scope.removeTodo=removeTodo;
         $scope.todoQueue={};
         TodoItems.all({user_id:$rootScope.currentUser.id},function (result) {
             $scope.todoread=true;
@@ -24,7 +26,14 @@
                     $scope.todoQueue['opening']=($scope.todoQueue['opening']||[]);
                     $scope.todoQueue['opening'].push(todo);
                 }else{
-                    var year=todo.start_at.getYear();
+                    var startD = new Date(Date.parse(todo.start_at));
+                    var endD   = new Date();
+                    var days = Math.abs(parseInt((startD.getTime()-endD.getTime()) / (1000 * 60 * 60 * 24)));
+                    if(days < 30){
+                        console.log("日期范围应在一个月之内");
+                        console.log(todo);
+                    }
+                    var year=startD.getYear();
                     $scope.todoQueue[year]=($scope.todoQueue[year]||[]);
                     $scope.todoQueue[year].push(todo);
                 }
@@ -36,6 +45,24 @@
             });
         });
 
+        function removeTodo(todo){
+            if($rootScope.currentUser.id==todo.user_id){
+                Todos.remove({
+                    todoId: todo.id
+                },function(result){
+                    console.log('Todos.remove');
+                    console.log(result);
+                });
+            }else{
+                TodoItems.remove({
+                    todoId: todo.id
+                },function(result){
+                    console.log('TodoItems.remove');
+                    console.log(result);
+                });
+            }
+        }
+
         function completeTodo(todo){
             TodoItems.complete({
                 todoId: todo.id,
@@ -44,6 +71,12 @@
                 console.log(result);
             });
         }
+    }
+
+    completeTodoController.$inject = ['$rootScope','$scope', 'Todos'];
+
+    function completeTodoController($rootScope,$scope,Todos) {
+
     }
 
     addTodoController.$inject = ['$rootScope','$scope', 'Todos'];

@@ -217,6 +217,7 @@ body{
         display:inline-block;
         line-height:30px;
         vertical-align:bottom;
+        text-decoration: none;
         &.active{
           color:#3d80f5;
           border-bottom:2px solid #3d80f5;
@@ -877,11 +878,14 @@ body{
     }
     &.slider-text{
       z-index:200;
-      .text-content{
+      .text-box{
+        margin: 200px auto;
+        width: 1100px;
+        .text-content{
+        }
+        .text-btn{
 
-      }
-      .text-btn{
-
+        }
       }
     }
   }
