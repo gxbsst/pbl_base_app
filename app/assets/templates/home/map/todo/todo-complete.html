@@ -1,0 +1,29 @@
+<div class="form-horizontal todo-form">
+    <div class="col-1-1">
+        <span><i></i>全选</span>
+        <span>已选择</span><span>1</span><span>个事项</span>
+        <span><i></i></span>
+    </div>
+</div>
+<div class="form-horizontal todo-form" et-scrollbar>
+    <div class="col-1-1 queue-list">
+        <div class="queue-item" ng-repeat="queue in todoQueue">
+            <div class="queue-title" ng-click="queue.$show=!queue.$show">
+                <i ng-class="queue.$show?'pf-triangle-up':'pf-triangle-down'"></i>
+                <strong ng-bind="'任务 - '+queue.title"></strong>
+            </div>
+            <div class="todo-list" ng-show="queue.$show">
+                <div class="todo-item" ng-repeat="todo in queue">
+                    <span class="todo-select"><i ng-click="selectTodo(todo);"></i></span>
+                    <span class="todo-title" ng-bind="todo.content"
+                      et-modal="title='查看事项';$todo=todo;controller='editTodoController';padding=20;src='home/map/todo/todo-view.html'"
+                        ></span>
+                    <span class="todo-completeat" ng-bind="todo.start_at | date:'yyyy.MM.dd' +'已完成'"></span>
+                    <span class="todo-edit">
+                    <i class="pf-refresh" ng-click="cancel_complete(todo)"></i>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

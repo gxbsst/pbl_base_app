@@ -47,6 +47,13 @@
                 sliderInit(itemlength);
             });
 
+             var auto = setInterval(sliderNext, 10000);
+
+            function resetauto(){
+                clearInterval(auto);
+                auto = setInterval(sliderNext, 10000);
+            }
+
             function sliderInit(len){
                 console.log(len);
                 $(element).children('.sliderbox').width(parseInt($(element).width())* len )
@@ -57,22 +64,24 @@
             function sliderPrev(){
                 if(sliderSwitch){
                     sliderSwitch=false;
-                    console.log('prev');
                     $(element).children('.sliderbox').animate({left: '-'+$(element).width()+'px'}, "slow",function(){
                         $(this).append($(this).children('.slideritem:first'));
                         $(this).css({left: '0px'});
                         sliderSwitch=true;
+                        resetauto();
                     });
                 }
             }
             function sliderNext(){
                 if(sliderSwitch){
                     sliderSwitch=false;
-                    console.log('next');
                     $(element).children('.sliderbox').css({left: '-'+$(element).width()+'px'});
-                    $(element).children('.sliderbox').prepend($(this).children('.slideritem:last'));
+                    $(element).children('.sliderbox').each(function(i){
+                        $(this).prepend($(this).children('.slideritem:last'));
+                    });
                     $(element).children('.sliderbox').animate({left: '0px'}, "slow",function(){
                         sliderSwitch=true;
+                        resetauto();
                     });
                 }
             }
