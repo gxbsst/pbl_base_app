@@ -35,8 +35,6 @@ module PblWeb
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( ie.js sso.js admin.js admin.css )
 
-    config.assets.css_compressor= :yui
-
     config.angular_templates.htmlcompressor = {
         :remove_intertag_spaces => true
     }
