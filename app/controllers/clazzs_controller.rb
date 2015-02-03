@@ -17,31 +17,46 @@ class ClazzsController < ApplicationController
     clazz[:user_id] ||= current_user.id
     @clazz = Clazz.create(clazz)
 
-    #创建班级群
-    Group.create({
-                     owner_type: :Clazz,
-                     owner_id: @clazz[:id]
-                 })
-
-    #生成班级邀请码
+    #STEP:生成班级邀请码
     invitation = {
         owner_type: :Clazz,
         owner_id: @clazz[:id]
     }
     Invitation.create(invitation)
 
-    #创建家长群
+    #STEP:自动加入班级
+    Student.create({
+                          user_id: @clazz[:user_id],
+                          clazz_id: @clazz[:id],
+                          role: %w(creator)
+                      })
+
+    #STEP:创建班级群
+    Group.create({
+                     owner_type: :Clazz,
+                     owner_id: @clazz[:id]
+                 })
+
+    #STEP:创建家长群
     group = Group.create({
                              owner_type: :Parent,
                              owner_id: @clazz[:id]
                          })
 
-    #生成家长群邀请码
+    #STEP:生成家长群邀请码
     invitation = {
         owner_type: :Group,
         owner_id: group[:id]
     }
     Invitation.create(invitation)
+
+    #STEP:班级创建者自动加入家长群
+    MemberShip.create({
+                          user_id: @clazz[:user_id],
+                          group_id: group[:id],
+                          role: %w(creator)
+                      })
+
     render :show
   end
 
@@ -56,10 +71,19 @@ class ClazzsController < ApplicationController
 
   def destroy
     @clazz = Clazz.destroy(params[:id])
+
+    #STEP:班级删除成功后删除班级成员
+    Student.destroy_by({
+                           clazz_id: @clazz[:id]
+                       })
+
+    #STEP:班级删除成功后删除对应群组
     Group.destroy_by({
                               owner_type: :Clazz,
                               owner_id: params[:id]
                           })
+
+    #STEP:班级删除成功后删除班级邀请码
     Invitation.destroy_by({
                               owner_type: :Clazz,
                               owner_id: params[:id]

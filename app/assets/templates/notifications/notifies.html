@@ -1,0 +1,9 @@
+<div class="notifies">
+    <div class="notifies-filters">
+        <span class="block-mini" ng-class="{active:!vm.params}" ng-click="vm.filter()">全部消息</span>
+        <span class="block-mini" ng-class="{active:type.selected}" ng-repeat="type in vm.types" ng-bind="type.name" ng-click="vm.filter(type)"></span>
+    </div>
+    <ul>
+        <li ng-repeat="notify in vm.notifies.data">{{vm.template(notify)}}</li>
+    </ul>
+</div>

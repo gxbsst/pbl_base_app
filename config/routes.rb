@@ -42,6 +42,9 @@ Rails.application.routes.draw do
   end
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
+    get :notifies, :to => 'notifications#user_notifies_index'
+    get :sms, :to => 'notifications#user_sms_index'
+    post :sms, :to => 'notifications#user_sms_create'
     get :follows, :to => 'follows#user_index'
     resources :follows, defaults: { format: :json }, only: %w(create)
     resources :rules, defaults: { format: :json }, only: %w(index)
@@ -152,6 +155,10 @@ Rails.application.routes.draw do
   end
 
   resources :follows, defaults: {format: :json}
+
+  resources :notifications, defaults: {format: :json}, only: %w(show) do
+    put :read, :to => 'notifications#read'
+  end
 
   resources :groupings, defaults: {format: :json}
 

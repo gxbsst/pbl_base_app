@@ -44,6 +44,26 @@
                 movie: /mpeg|mpg|mp4|dat|avi|mov|asf|wmv|navi|3gp|rm|ram|rmvb|mkv|flv|f4v|webm/,
                 code: /js|css|rb|jbuilder|scss|json|htm|html|ng|sht|shtm|shtml|xhtml|xml|yaml|yml|ts|php|asp|sh|cmd|bat|applejs|sql|jql|jsp||less|as|es|js2|jsx|cs|c|cc|cpp|h|hpp|coffee|feature|uml|haml|jade/
             },
+            NOTIFIES_TYPES: [
+                {
+                    name: '群组消息',
+                    filters: {
+                        sender_types: 'Group,Clazz'
+                    }
+                },
+                {
+                    name: '好友消息',
+                    filters:{
+                        sender_types: 'User'
+                    }
+                },
+                {
+                    name: '动态消息',
+                    filters: {
+                        sender_types: 'Post'
+                    }
+                }
+            ],
             DEFAULTS: {
                 avatars: {
                     user: 'default-avatar-user',

@@ -9,6 +9,7 @@ class NotificationDeliveryWorker
     begin
       Notification.create(options)
     rescue => e
+      puts options
       Sidekiq.logger.fatal(e)
     end
 

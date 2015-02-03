@@ -16,38 +16,44 @@
 
     angular
         .module('app.mock', [])
-        .config(function ($httpProvider) {
-            var item;
-            item = new Item();
-            return $httpProvider.interceptors.push(function () {
-                return {
-                    request: function (config) {
-                        var result;
-                        result = item.add(config.url, config.method);
-                        if (result) {
-                            config.original = {
-                                url: config.url,
-                                result: result,
-                                method: config.method,
-                                params: config.params,
-                                data: config.data
-                            };
-                            config.data && console.log('[request  ' + config.method + '] ' + config.url + ' => ', config.data);
-                            config.method = "GET";
-                            config.url = "?mockUrl=" + config.url;
-                        }
-                        return config;
-                    },
-                    response: function (response) {
-                        var original = response.config.original;
-                        if (original) {
-                            response.data = original.result;
-                            console.log('[response ' + original.method + '] ' + original.url + ' => ', original.result);
-                        }
-                        return response;
+        .config(mock);
+
+    mock.$inject = ['$httpProvider'];
+
+    function mock($httpProvider){
+
+        var item;
+        item = new Item();
+        return $httpProvider.interceptors.push(function () {
+            return {
+                request: function (config) {
+                    var result;
+                    result = item.add(config.url, config.method);
+                    if (result) {
+                        config.original = {
+                            url: config.url,
+                            result: result,
+                            method: config.method,
+                            params: config.params,
+                            data: config.data
+                        };
+                        config.data && console.log('[request  ' + config.method + '] ' + config.url + ' => ', config.data);
+                        config.method = "GET";
+                        config.url = "?mockUrl=" + config.url;
                     }
-                };
-            });
+                    return config;
+                },
+                response: function (response) {
+                    var original = response.config.original;
+                    if (original) {
+                        response.data = original.result;
+                        console.log('[response ' + original.method + '] ' + original.url + ' => ', original.result);
+                    }
+                    return response;
+                }
+            };
         });
+
+    }
 
 })();

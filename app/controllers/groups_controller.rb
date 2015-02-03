@@ -42,12 +42,15 @@ class GroupsController < ApplicationBaseController
             else
               clazz = Clazz.find(invitation[:owner_id])
               if clazz.success?
+
+                #STEP:根据邀请码加入班级
                 student = Student.create({
                                              user_id: user_id,
                                              clazz_id: clazz[:id]
                                          })
                 if student.success?
-                  #新的班级成员加入成功后给班级所有者发送系统通知
+
+                  #STEP:新的班级成员加入成功后给班级所有者发送系统通知
                   NotificationDeliveryWorker.perform_async({
                                                                event_type: :join,
                                                                sender_type: :Clazz,
@@ -56,7 +59,7 @@ class GroupsController < ApplicationBaseController
                                                                type: :System
                                                            })
 
-                  #新的班级成员加入成功后自动为所有同学建立好友关系
+                  #STEP:新的班级成员加入成功后自动为所有同学建立好友关系
                   students = Student.where(clazz_id: student[:clazz_id])
                   friend_ship = []
                   students[:data].each do |entry|
@@ -81,11 +84,10 @@ class GroupsController < ApplicationBaseController
               end
             end
           else
-            @group = Group.find_by({
-                                       owner_type: :Group,
-                                       owner_id: invitation[:owner_id]
-                                   })
-            unless @group.nil?
+            @group = Group.find(invitation[:owner_id])
+            if @group.success?
+
+              #STEP:根据邀请码加入群组
               MemberShip.create({
                                     user_id: user_id,
                                     group_id: @group[:id]
@@ -94,24 +96,28 @@ class GroupsController < ApplicationBaseController
                 when 'Parent'
                   clazz = Clazz.find(@group[:owner_id])
                   if clazz.success?
-                    #新的家长群成员加入成功后给班级所有者发送系统通知
+
+                    #STEP:新的家长群成员加入成功后给班级所有者发送系统通知
                     NotificationDeliveryWorker.perform_async({
                                                                  event_type: :join,
-                                                                 sender_type: :Clazz,
+                                                                 sender_type: :Parent,
                                                                  sender_id: clazz[:id],
                                                                  user_id: clazz[:user_id],
                                                                  type: :System
                                                              })
                   end
-                else
-                  #新的群组成员加入成功后给群组所有者发送系统通知
+                when 'User'
+
+                  #STEP:新的群组成员加入成功后给群组所有者发送系统通知
                   NotificationDeliveryWorker.perform_async({
                                                                event_type: :join,
                                                                sender_type: :Group,
                                                                sender_id: @group[:id],
-                                                               user_id: @group[:user_id],
+                                                               user_id: @group[:owner_id],
                                                                type: :System
                                                            })
+                else
+
               end
               return render 'groups/show'
             end
@@ -180,11 +186,21 @@ class GroupsController < ApplicationBaseController
     group[:owner_type] ||= :User
     @group = Group.create(group)
     if @group.success?
+
+      #STEP:生成群组邀请码
       invitation = {
           owner_type: :Group,
           owner_id: @group[:id]
       }
       Invitation.create(invitation)
+
+      #STEP:群创建者自动加入该群
+      MemberShip.create({
+                            user_id: @group[:owner_id],
+                            group_id: @group[:id],
+                            role: %w(creator)
+                        })
+
     end
     render :show
   end
@@ -225,7 +241,7 @@ class GroupsController < ApplicationBaseController
     member_ships[:data].each do |entry|
       MemberShip.destroy(entry[:id])
       NotificationDeliveryWorker.perform_async({
-                                                   event_type: :leave,
+                                                   event_type: :destroy,
                                                    sender_type: :Group,
                                                    sender_id: @group[:id],
                                                    user_id: entry[:user_id],

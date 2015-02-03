@@ -6,15 +6,15 @@
         .controller('BaseController', BaseController);
 
     BaseController.$inject = [
-        '$scope', '$rootScope', '$document', '$q', '$timeout', 'modals',
-        'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GROUP_TAGS', 'GRADES',
-        'Resources', 'Follows', 'Friends', 'Groups', 'MemberShips', 'Invitations', 'User',
+        '$scope', '$rootScope', '$document', '$q', '$timeout', '$interval', 'modals',
+        'NOTIFIES_TYPES', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GROUP_TAGS', 'GRADES',
+        'Resources', 'Follows', 'Friends', 'Groups', 'Invitations', 'User',
         'TYPE_DEFIN', 'WORK_TYPES'
     ];
 
-    function BaseController($scope, $rootScope, $document, $q, $timeout, modals,
-                            RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GROUP_TAGS, GRADES,
-                            Resources, Follows, Friends, Groups, MemberShips, Invitations, User,
+    function BaseController($scope, $rootScope, $document, $q, $timeout, $interval, modals,
+                            NOTIFIES_TYPES, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GROUP_TAGS, GRADES,
+                            Resources, Follows, Friends, Groups, Invitations, User,
                             TYPE_DEFIN, WORK_TYPES) {
 
         $document.on('click', function () {
@@ -23,6 +23,8 @@
             });
         });
 
+        $interval(getNotifies, 60 * 1000);
+
         angular.extend($rootScope, {
             ROLES: ROLES,
             DISCIPLINES: DISCIPLINES,
@@ -30,6 +32,7 @@
             GROUP_TAGS: GROUP_TAGS,
             GRADES: GRADES,
             DURATION_UNITS: DURATION_UNITS,
+            NOTIFIES_TYPES: NOTIFIES_TYPES,
             RESOURCE_TYPES: RESOURCE_TYPES,
             TYPE_DEFIN: TYPE_DEFIN,
             WORK_TYPES: WORK_TYPES,
@@ -107,6 +110,7 @@
 
         getFollows();
         getGroups();
+        getNotifies();
 
         $scope.$on('onGroupsChanged', getGroups);
 
@@ -334,6 +338,10 @@
                 });
                 $rootScope.groups = result.data;
             });
+        }
+
+        function getNotifies(){
+
         }
 
     }

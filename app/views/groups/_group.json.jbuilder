@@ -1,5 +1,6 @@
 json.id group[:id]
 json.name group[:name] if group[:name]
+json.avatar group[:avatar] if group[:avatar]
 json.no group[:no] if group[:no]
 json.owner_id group[:owner_id] if group[:owner_id]
 json.owner_type group[:owner_type] if group[:owner_type]
