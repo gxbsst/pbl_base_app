@@ -224,7 +224,7 @@ body{
     }
     .user-tools{
       float:right;
-      margin-top:20px;
+      margin-top:46px;
       line-height:10px;
     }
   }
@@ -897,7 +897,34 @@ body{
   width:100%;
   margin:auto;
   z-index:999;
+  .logo{
+    background-image:image-url('/images/logo1.png') !important;
+  }
+  a{
+    color: #ffffff !important;
+    &.active{
+      color: #d1d1d1 !important;
+      border-bottom: none !important;
+    }
+  }
+
+  .user-tools{
+    color: #ffffff !important;
+  }
   &.hasback{
+    .logo{
+      background-image:image-url('logo_zh-cn.png') !important;
+    }
+    .user-tools{
+      color: #000000 !important;
+    }
+    a{
+      color:#000 !important;
+      &.active{
+        color:#3d80f5 !important;
+        border-bottom:2px solid #3d80f5 !important;
+      }
+    }
     background:#ffffff;
     border-bottom:1px solid #dddddd;
   }

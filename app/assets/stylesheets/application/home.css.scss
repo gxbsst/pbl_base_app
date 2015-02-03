@@ -385,46 +385,70 @@ ul.nav-left{
             }
           }
           .todo-select{
-            width: 11px;
+            width: 18px;
             display: inline-block;
             i{
-              display: none;
-              width: 11px;
-              height: 11px;
-              border: 1px solid #666666;
-              cursor: pointer;
+              &:before{
+                cursor: pointer;
+                border: 1px solid #666666;
+                font-size: 14px;
+              }
+              &.pf-checkmark{
+                &:before{
+                  border: 1px solid #7ccc1f;
+                  background: #7ccc1f;
+                  color: #ffffff;
+                }
+              }
             }
           }
           .todo-title{
             margin-left: 5px;
             display: inline-block;
-            max-width: 70%;
+            max-width: 60%;
             line-height: 16px;
             cursor: pointer;
             overflow:hidden;
             text-overflow:ellipsis;
             white-space: nowrap;
-            &:before{
-              content: '';
-              background: #3d7ff7;
-              width: 6px;
-              height: 6px;
-              display: inline-block;
-              margin-right: 5px;
-              border-radius: 50%;
-              vertical-align: inherit;
-            }
           }
-          .todo-endat{
+          .todo-completeat{
+            float: right;
             margin-left: 5px;
             font-size: 10px;
-            color: #ffffff;
-            background: #89bf5d;
-            padding: 2px 5px;
+            padding: 0 5px;
             border-radius: 2px;
           }
         }
       }
+    }
+  }
+  .todo-ctrl{
+    .todo-selectall{
+      margin-right: 10px;
+      display: inline-block;
+      i{
+        &:before{
+          cursor: pointer;
+          border: 1px solid #666666;
+          font-size: 14px;
+        }
+        &.pf-checkmark{
+          &:before{
+            background: #7ccc1f;
+            border: 1px solid #7ccc1f;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .todo-edit{
+      float: right;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .red{
+      color: #ff6504;
     }
   }
 }

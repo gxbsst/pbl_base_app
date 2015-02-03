@@ -15,62 +15,50 @@
         $scope.todoread=false;
         $scope.completeTodo=completeTodo;
         $scope.removeTodo=removeTodo;
-        $scope.todoQueue={};
         TodoItems.all({user_id:$rootScope.currentUser.id},function (result) {
             $scope.todoread=true;
             $scope.todos=result.data;
-            angular.forEach(result.data, function (todo) {
-                console.log('todo');
-                console.log(todo);
-                if (todo.state=='opening'){
-                    $scope.todoQueue['opening']=($scope.todoQueue['opening']||[]);
-                    $scope.todoQueue['opening'].push(todo);
-                }else{
-                    var startD = new Date(Date.parse(todo.start_at));
-                    var endD   = new Date();
-                    var days = Math.abs(parseInt((startD.getTime()-endD.getTime()) / (1000 * 60 * 60 * 24)));
-                    if(days < 30){
-                        console.log("日期范围应在一个月之内");
-                        console.log(todo);
-                    }
-                    var year=startD.getYear();
-                    $scope.todoQueue[year]=($scope.todoQueue[year]||[]);
-                    $scope.todoQueue[year].push(todo);
-                }
-            });
-            console.log($scope.todoQueue);
-            angular.forEach($scope.todoQueue, function (queue) {
-                console.log('queue');
-                console.log(queue);
-            });
         });
 
-        function removeTodo(todo){
-            if($rootScope.currentUser.id==todo.user_id){
+        function removeTodo(todoitem,$event){
+            $event.stopPropagation();
+            if (confirm('确定删除这个待办事项？')) {
+                if($rootScope.currentUser.id==todoitem.user_id){
 
-                Todos.remove({
-                    todoId: todo.id
-                },function(result){
-                    console.log('Todos.remove');
-                    console.log(result);
-                });
-            }else{
-                TodoItems.remove({
-                    todoId: todo.id
-                },function(result){
-                    console.log('TodoItems.remove');
-                    console.log(result);
-                });
+                    Todos.remove({
+                        todoId: todoitem.recipients[0].todo_id
+                    },function(result){
+                        console.log('Todos.remove');
+                        console.log(result);
+                        $scope.todos.remove(function (item) {
+                            return item.id == todoitem.id;
+                        });
+                    });
+                }else{
+                    TodoItems.remove({
+                        todoId: todoitem.id
+                    },function(result){
+                        console.log('TodoItems.remove');
+                        console.log(result);
+                        $scope.todos.remove(function (item) {
+                            return item.id == todoitem.id;
+                        });
+                    });
+                }
             }
         }
 
-        function completeTodo(todo){
-            TodoItems.complete({
-                todoId: todo.id,
-                action:'complete'
-            },function(result){
-                console.log(result);
-            });
+        function completeTodo(todo,$event){
+            $event.stopPropagation();
+            if (confirm('确定完成这个待办事项？')) {
+                TodoItems.complete({
+                    todoId: todo.id,
+                    action:'complete'
+                },function(result){
+                    console.log(result);
+                    todo.state='completed';
+                });
+            }
         }
     }
 
@@ -78,13 +66,77 @@
 
     function completeTodoController($rootScope,$scope,Todos,TodoItems) {
         $scope.cancel_complete=cancel_complete;
-        function cancel_complete(todo){
-            TodoItems.cancel_complete({
-                todoId: todo.id,
-                action:'cancel_complete'
-            },function(result){
-                console.log(result);
+        $scope.selectall=selectall;
+        $scope.removeAll=removeAll;
+        $scope.completenum=$scope.todos.find(function(item){
+            return item.state=='completed';
+        }).length;
+        $scope.todoQueue={};
+        angular.forEach($scope.todos, function (todo) {
+            var startD = new Date(Date.parse(todo.updated_at));
+            var endD   = new Date();
+            var days = Math.abs(parseInt((startD.getTime()-endD.getTime()) / (1000 * 60 * 60 * 24)));
+            if(days < 30){
+                $scope.todoQueue['month']=($scope.todoQueue['month']||{id:1,title:'最近一个月',queue:[]});
+                $scope.todoQueue['month']['queue'].push(todo);
+            }else{
+                var year=startD.getFullYear();
+                $scope.todoQueue[year]=($scope.todoQueue[year]||{id:year,title:year+'年',queue:[]});
+                $scope.todoQueue[year]['queue'].push(todo);
+            }
+
+        });
+
+        function selectall(){
+            $scope.$select=!$scope.$select;
+            angular.forEach($scope.todos,function(todo){
+                if (todo.state=='completed'){
+                    todo.$select=$scope.$select;
+                }
             });
+        }
+
+        function removeAll($event){
+            $event.stopPropagation();
+            if (confirm('将选中的待办事项全部删除？')) {
+                angular.forEach($scope.todos,function(todoitem){
+                    if (todoitem.state=='completed'&&todoitem.$select==true){
+                        TodoItems.remove({
+                            todoId: todoitem.id
+                        },function(result){
+                            console.log('TodoItems.remove');
+                            console.log(result);
+                            angular.forEach($scope.todoQueue,function(queue){
+                                queue.queue.remove(function (item) {
+                                    return item.id == todoitem.id;
+                                });
+                                //var index = $scope.todos.index(function (item) {
+                                //    return item.id == todoitem.id;
+                                //});
+                                //if (index > -1) {
+                                //    $scope.todos.splice(index, 1);
+                                //}
+                            });
+                        });
+                    }
+                });
+                //$scope.todos.remove(function (item) {
+                //    return item.id == todoitem.id;
+                //});
+            }
+        }
+        function cancel_complete(todo,$event){
+            $event.stopPropagation();
+            if (confirm('继续执行这个待办事项？')) {
+                TodoItems.cancel_complete({
+                    todoId: todo.id,
+                    action:'cancel_complete'
+                },function(result){
+                    console.log(result);
+                    todo.state='opening';
+                    $scope.completenum--;
+                });
+            }
         }
     }
 

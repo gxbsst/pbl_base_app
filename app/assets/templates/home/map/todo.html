@@ -1,27 +1,27 @@
 <div class="todo map-tab" ng-controller="mapTodoController">
     <div class="no-data" ng-if="todoread&&!todos.length">
         <div><i class="pf-edit"></i></div>
-        <div><span class="btn btn-blue" et-modal="title='新建事项';controller='addTodoController';padding=0;src='home/map/todo/todo-set.html'">新建事项</span></div>
+        <div><span class="btn btn-blue" et-modal="title='新建事项';controller='addTodoController';padding=20;src='home/map/todo/todo-set.html'">新建事项</span></div>
         <div class="slogen">高效管理您的工作学习，快速创建待办事项吧！</div>
     </div>
     <div class="todo-data" ng-if="todos.length">
         <div class="todo-ctrl">
-            <span et-modal="title='完成事项';$todoQueue=todoQueue;controller='completeTodoController';padding=20;src='home/map/todo/todo-complete.html'"><i class="pf-doc-eye"></i>完成事项</span>
+            <span et-modal="title='完成事项';todos=todos;controller='completeTodoController';padding=20;src='home/map/todo/todo-complete.html'"><i class="pf-doc-eye"></i>完成事项</span>
             <span et-modal="title='新建事项';controller='addTodoController';padding=20;src='home/map/todo/todo-set.html'"
                     ><i class="pf-plus"></i>新建事项</span>
         </div>
         <div class="todo-list" et-scrollbar>
-            <div class="todo-item" ng-repeat="todo in todoQueue['opening']">
-                <span class="todo-select"><i ng-click="completeTodo(todo);"></i></span>
+            <div class="todo-item" ng-repeat="todo in todos" ng-if="todo.state=='opening'">
+                <span class="todo-select"><i ng-click="completeTodo(todo,$event);"></i></span>
                 <span class="todo-title" ng-bind="todo.content"
                       et-modal="title='查看事项';$todo=todo;controller='editTodoController';padding=20;src='home/map/todo/todo-view.html'"
                         ></span>
                 <span class="todo-endat" ng-bind="todo.start_at | date:'yyyy.MM.dd' +'到期'"></span>
                 <span class="todo-edit">
-                    <i class="pf-edit" ng-if="currentUser.id==todo.user_id"
+                    <i class="pf-edit" ng-if="currentUser.id==todo.sender_id"
                        et-modal="title='修改事项';$todo=todo;controller='editTodoController';padding=20;src='home/map/todo/todo-set.html'"
                             ></i>
-                    <i class="pf-trash-o" ng-click="removeTodo(todo)"></i>
+                    <i class="pf-trash-o" ng-click="removeTodo(todo,$event)"></i>
                 </span>
             </div>
         </div>
