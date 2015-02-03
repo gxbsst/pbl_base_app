@@ -13,6 +13,7 @@ gem 'activerecord-jdbcpostgresql-adapter', platforms: [:jruby]
 gem 'sass-rails'
 gem 'compass-rails', '~> 2.0.0'
 gem 'uglifier', '>= 1.3.0'
+gem 'yui-compressor'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem 'jquery-rails', '3.1.2'
