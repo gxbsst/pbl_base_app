@@ -8,7 +8,7 @@
     Notifications.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Notifications($resource, RESOURCE_ACTIONS) {
-        return $resource('/notifications/:action/:notificationId', {
+        return $resource('/notifications/:notificationId/:action', {
             notificationId: '@notificationId',
             action: '@action'
         }, RESOURCE_ACTIONS);

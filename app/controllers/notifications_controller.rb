@@ -84,7 +84,7 @@ class NotificationsController < ApplicationController
   end
 
   def read
-    Notification.update(params[:id], {read: true})
+    Notification.update(params[:notification_id], :read => true)
     @count = Notification.find(:count, query_params)
     render :count
   end
