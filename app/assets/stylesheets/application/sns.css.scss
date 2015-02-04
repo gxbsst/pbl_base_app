@@ -265,4 +265,20 @@
 
 .notifies{
   width:450px;
+  margin:-18px;
+  .notifies-filters{
+    padding:10px 15px;
+    text-align:right;
+    .block-mini{
+      margin-left:6px;
+      cursor:pointer;
+      @include border-radius(13px);
+    }
+  }
+  & > ul{
+    & > li{
+      padding:0 15px;
+      line-height:30px;
+    }
+  }
 }
