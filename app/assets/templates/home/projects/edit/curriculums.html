@@ -3,13 +3,13 @@
         <dt class="col-1-5">学科</dt>
         <dt class="col-1-5">年级</dt>
         <dt class="col-3-5">课程标准</dt>
-        <dd class="col-1-5">
+        <dd class="col-1-5 scrollbar scrollbar-macosx" et-scrollbar>
             <div ng-if="!vm.subjects.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="categories">
                 <li ng-repeat="entry in vm.subjects.data" ng-class="{active:entry.id==vm.subject.id}" ng-bind="entry.name" ng-click="vm.getPhases(entry)"></li>
             </ul>
         </dd>
-        <dd class="col-1-5">
+        <dd class="col-1-5 scrollbar scrollbar-macosx" et-scrollbar>
             <i class="remark" ng-if="!vm.subject">请选择学科</i>
             <div ng-if="vm.subject&&!vm.phases.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="categories">
@@ -17,7 +17,7 @@
             </ul>
         </dd>
         <dd class="col-3-5">
-            <div class="selector-entries scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
+            <div class="selector-entries scrollbar scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
                 <i class="remark" ng-if="!vm.phase">请选择年级</i>
                 <div ng-if="vm.phase&&!vm.standards.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
                 <div ng-repeat="entry in vm.standards.data">

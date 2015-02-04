@@ -3,13 +3,13 @@
         <dt class="col-1-5">技能种类</dt>
         <dt class="col-1-5">分类</dt>
         <dt class="col-3-5">技能</dt>
-        <dd class="col-1-5">
+        <dd class="col-1-5 scrollbar scrollbar-macosx" et-scrollbar>
             <div ng-if="!vm.categories.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="categories">
                 <li ng-repeat="entry in vm.categories.data" ng-class="{active:entry.id==vm.category.id}" ng-bind="entry.name" ng-click="vm.getSubCategories(entry)"></li>
             </ul>
         </dd>
-        <dd class="col-1-5">
+        <dd class="col-1-5 scrollbar scrollbar-macosx" et-scrollbar>
             <i class="remark" ng-if="!vm.sub_categories">请选择学科</i>
             <div ng-if="vm.category&&!vm.sub_categories.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
             <ul class="categories">
@@ -17,7 +17,7 @@
             </ul>
         </dd>
         <dd class="col-3-5">
-            <div class="selector-entries scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
+            <div class="selector-entries scrollbar scrollbar-macosx" ng-class="{busy:vm.isBusy}" et-scrollbar>
                 <i class="remark" ng-if="!vm.techniques">请选择年级</i>
                 <div ng-if="vm.sub_category&&!vm.techniques.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
                 <label ng-repeat="item in vm.techniques.data" ng-init="item.selected=vm.isSelected(item)" class="row"><input type="checkbox" ng-model="item.selected" ng-change="vm.onChange(item)"/> <span ng-bind="item.title"></span></label>

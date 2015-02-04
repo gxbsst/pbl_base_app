@@ -16,7 +16,7 @@
             <input type="text" class="form-control" placeholder="查找用户" ng-focus="vm.focusin=true" ng-blur="vm.focusin=false" ng-model="vm.keyword" ng-change="vm.onSearch()"/>
 
         </div>
-        <div class="member-users scrollbar" et-scrollbar>
+        <div class="member-users scrollbar scrollbar-macosx" et-scrollbar>
             <div class="loading" ng-if="!vm.users"><i class="pf-spinner-2 rotation"></i></div>
             <ul>
                 <li ng-repeat="user in vm.users" ng-class="{selected:user.$selected,disabled:!vm.isSelected(user)}" ng-show="!vm.filter(user)" ng-click="user.$selected=!user.$selected"><img ng-src="{{user|avatar}}"/> <span ng-bind="user.username"></span></li>
