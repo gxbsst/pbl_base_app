@@ -56,6 +56,10 @@ class GroupsController < ApplicationBaseController
                                                                sender_type: :Clazz,
                                                                sender_id: clazz[:id],
                                                                user_id: clazz[:user_id],
+                                                               additional_info:{
+                                                                   student_id: student[:id],
+                                                                   user_id: user_id
+                                                               },
                                                                type: :System
                                                            })
 
@@ -88,7 +92,7 @@ class GroupsController < ApplicationBaseController
             if @group.success?
 
               #STEP:根据邀请码加入群组
-              MemberShip.create({
+              member_ship = MemberShip.create({
                                     user_id: user_id,
                                     group_id: @group[:id]
                                 })
@@ -103,6 +107,10 @@ class GroupsController < ApplicationBaseController
                                                                  sender_type: :Parent,
                                                                  sender_id: clazz[:id],
                                                                  user_id: clazz[:user_id],
+                                                                 additional_info:{
+                                                                     member_ship_id: member_ship[:id],
+                                                                     user_id: user_id
+                                                                 },
                                                                  type: :System
                                                              })
                   end
@@ -114,6 +122,10 @@ class GroupsController < ApplicationBaseController
                                                                sender_type: :Group,
                                                                sender_id: @group[:id],
                                                                user_id: @group[:owner_id],
+                                                               additional_info:{
+                                                                   member_ship_id: member_ship[:id],
+                                                                   user_id: user_id
+                                                               },
                                                                type: :System
                                                            })
                 else
@@ -146,6 +158,7 @@ class GroupsController < ApplicationBaseController
     if group.success?
       case group[:owner_type]
         when 'Clazz'
+          #STEP:退出班级
           students = Student.where({
                                        user_id: user_id,
                                        clazz_id: group[:owner_id]
@@ -157,10 +170,15 @@ class GroupsController < ApplicationBaseController
                                                          sender_type: :Clazz,
                                                          sender_id: group[:owner_id],
                                                          user_id: user_id,
+                                                         additional_info:{
+                                                             student_id: entry[:id],
+                                                             user_id: user_id
+                                                         },
                                                          type: :System
                                                      }) if user_id != current_user.id
           end if students[:data]
         else
+          #STEP:退出群组
           member_ships = MemberShip.where({
                                               user_id: user_id,
                                               group_id: group[:id]
@@ -233,10 +251,14 @@ class GroupsController < ApplicationBaseController
 
   def destroy
     @group = Group.destroy(params[:id])
+
+    #STEP:删除群组后删除对应邀请码
     Invitation.destroy_by({
                               owner_type: :Group,
                               owner_id: params[:id]
                           })
+
+    #STEP:删除群组后删除所有群成员
     member_ships = MemberShip.where(group_id: @group[:id])
     member_ships[:data].each do |entry|
       MemberShip.destroy(entry[:id])

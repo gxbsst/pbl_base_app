@@ -63,7 +63,7 @@
             RegisterModals: {
                 controller: 'RegisterController as vm',
                 defaults: {
-                    closeable: false,
+                    closeable: true,
                     weight: 100,
                     titleHeight: '60px',
                     bgColor: '#fcfcfc',
@@ -76,7 +76,6 @@
                         closeable: true,
                         textColor: '#333',
                         src: 'register/step-1.html'
-                        //src: 'register/teacher/step-5.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,

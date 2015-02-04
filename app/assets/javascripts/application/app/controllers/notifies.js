@@ -147,7 +147,7 @@
         }
 
         function template(notify){
-            return ([notify.sender_type, notify.event_type].join('-') + '.html').toLowerCase();
+            return 'notifications/' + ([notify.sender_type, notify.event_type].join('-') + '.html').toLowerCase();
         }
     }
 
