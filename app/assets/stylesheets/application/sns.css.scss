@@ -272,7 +272,16 @@
     .block-mini{
       margin-left:6px;
       cursor:pointer;
+      color:#666;
       @include border-radius(13px);
+      &:hover{
+        color:#0051d5;
+        background:#c8dceb;
+      }
+      &.active{
+        color:#fff;
+        background:#0051d5;
+      }
     }
   }
   & > ul{

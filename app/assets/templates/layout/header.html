@@ -18,7 +18,10 @@
                 </span>
             </li>
             <li>
-                <i class="pf-bell top-right-btn cur-pointer" et-modal="title='系统消息';controller='NotifiesController as vm';src='notifications/notifies.html'"></i>
+                <i class="pf-bell top-right-btn cur-pointer relative"
+                   et-modal="title='系统消息';controller='NotifiesController as vm';src='notifications/notifies.html'">
+                    <span class="point" ng-class="{'point-lg':notifies_count>9}" ng-show="notifies_count" ng-bind="notifies_count"></span>
+                </i>
             </li>
             <li class="top-avatar" ng-if="currentUser">
                 <i class="top-right-btn"><a ui-sref="base.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>

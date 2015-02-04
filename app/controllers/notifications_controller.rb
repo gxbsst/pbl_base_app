@@ -35,11 +35,21 @@ class NotificationsController < ApplicationController
     render :index
   end
 
+  def user_notifies_count
+    @count = Notification.find(:count, query_params)
+    render :count
+  end
+
   def user_sms_index
     params[:type] = :User
     params[:user_id] = current_user.id
     @notifications = Notification.where(query_params)
     render :index
+  end
+
+  def user_sms_count
+    @count = Notification.find(:count, query_params)
+    render :count
   end
 
   def user_sms_create
@@ -91,7 +101,7 @@ class NotificationsController < ApplicationController
   private
 
   def query_params
-    params.permit(:user_id, :include, :limit, :page)
+    params.permit(:user_id, :type, :types, :sender_type, :sender_id, :sender_types, :sender_ids, :read, :include, :limit, :page)
   end
 
 end

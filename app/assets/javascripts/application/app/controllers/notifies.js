@@ -128,6 +128,8 @@
             Notifications.update({
                 notificationId: notification.id,
                 action: 'read'
+            }, function (result) {
+                $rootScope.notifies_count = result.count;
             });
         }
 
