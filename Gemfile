@@ -50,7 +50,7 @@ gem 'rails-assets-es5-shim'
 
 gem 'rails-assets-lodash'
 
-gem 'rails-assets-angular', '~> 1.2.0'
+gem 'rails-assets-angular', '~> 1.2.0', :source => 'https://rails-assets.org/'
 gem 'rails-assets-angular-route', '~> 1.2.0'
 gem 'rails-assets-angular-sanitize', '~> 1.2.0'
 gem 'rails-assets-angular-resource', '~> 1.2.0'

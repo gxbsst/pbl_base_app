@@ -286,8 +286,12 @@
   }
   & > ul{
     & > li{
+      position:relative;
       padding:0 15px;
       line-height:30px;
+      .destroy{
+
+      }
     }
   }
 }

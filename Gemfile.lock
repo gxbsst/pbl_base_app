@@ -360,7 +360,7 @@ DEPENDENCIES
   puma
   qiniu (~> 6.3.1)
   rails (= 4.1.7)
-  rails-assets-angular (~> 1.2.0)
+  rails-assets-angular (~> 1.2.0)!
   rails-assets-angular-bootstrap-datetimepicker
   rails-assets-angular-cache (~> 2.3.7)
   rails-assets-angular-chart.js
