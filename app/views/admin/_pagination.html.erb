@@ -1,3 +1,4 @@
+<% if meta.present? %>
 <div class="pagination center">
   <span>
     每页 <%= meta[:per_page] %> 条，
@@ -14,3 +15,4 @@
     第 <%= meta[:current_page] %> / <%= meta[:total_pages] %> 页
   </span>
 </div>
+<% end %>
