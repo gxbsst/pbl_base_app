@@ -57,7 +57,6 @@ class GroupsController < ApplicationBaseController
                                                                sender_id: clazz[:id],
                                                                user_id: clazz[:user_id],
                                                                additional_info:{
-                                                                   student_id: student[:id],
                                                                    user_id: user_id
                                                                },
                                                                type: :System
@@ -108,7 +107,6 @@ class GroupsController < ApplicationBaseController
                                                                  sender_id: clazz[:id],
                                                                  user_id: clazz[:user_id],
                                                                  additional_info:{
-                                                                     member_ship_id: member_ship[:id],
                                                                      user_id: user_id
                                                                  },
                                                                  type: :System
@@ -123,7 +121,6 @@ class GroupsController < ApplicationBaseController
                                                                sender_id: @group[:id],
                                                                user_id: @group[:owner_id],
                                                                additional_info:{
-                                                                   member_ship_id: member_ship[:id],
                                                                    user_id: user_id
                                                                },
                                                                type: :System
@@ -165,13 +162,13 @@ class GroupsController < ApplicationBaseController
                                    })
           students[:data].each do |entry|
             Student.destroy(entry[:id])
+            #STEP:被动踢出时通知被踢出用户
             NotificationDeliveryWorker.perform_async({
                                                          event_type: :leave,
                                                          sender_type: :Clazz,
                                                          sender_id: group[:owner_id],
                                                          user_id: user_id,
                                                          additional_info:{
-                                                             student_id: entry[:id],
                                                              user_id: user_id
                                                          },
                                                          type: :System
@@ -185,11 +182,15 @@ class GroupsController < ApplicationBaseController
                                           })
           member_ships[:data].each do |entry|
             MemberShip.destroy(entry[:id])
+            #STEP:被动踢出时通知被踢出用户
             NotificationDeliveryWorker.perform_async({
                                                          event_type: :leave,
                                                          sender_type: :Group,
                                                          sender_id: group[:id],
                                                          user_id: user_id,
+                                                         additional_info:{
+                                                             user_id: user_id
+                                                         },
                                                          type: :System
                                                      }) if user_id != current_user.id
           end if member_ships[:data]

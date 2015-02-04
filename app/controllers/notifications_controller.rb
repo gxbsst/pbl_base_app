@@ -8,6 +8,30 @@ class NotificationsController < ApplicationController
     params[:type] = :System
     params[:user_id] = current_user.id
     @notifications = Notification.where(query_params)
+    @notifications[:data].each do |notification|
+      case notification[:sender_type]
+        when 'Clazz'
+          notification[:clazz] = Clazz.find(notification[:sender_id])
+        when 'Group'
+          notification[:group] = Group.find(notification[:sender_id])
+        when 'User'
+          notification[:user] = User.find(notification[:sender_id])
+        when 'Post'
+          notification[:post] = Post.find(notification[:sender_id])
+        else
+      end
+      notification[:additional_info].clone.each do |key, value|
+        case key
+          when :user_id
+            user = User.find(value)
+            if user.success?
+              notification[:additional_info][:user] = user
+              notification[:additional_info].delete(:user_id)
+            end
+          else
+        end
+      end if notification[:additional_info]
+    end if @notifications[:data]
     render :index
   end
 
@@ -50,19 +74,8 @@ class NotificationsController < ApplicationController
   end
 
   def read
-    @notification = Notification.update(params[:id], {read: true})
-    case @notification[:sender_type]
-      when 'Clazz'
-        @notification[:clazz] = Clazz.find(@notification[:sender_id])
-      when 'Group'
-        @notification[:group] = Group.find(@notification[:sender_id])
-      when 'User'
-        @notification[:user] = User.find(@notification[:sender_id])
-      when 'Post'
-        @notification[:post] = Post.find(@notification[:sender_id])
-      else
-    end
-    render :show
+    Notification.update(params[:id], {read: true})
+    head :ok
   end
 
   def update

@@ -124,12 +124,10 @@
             angular.forEach(vm.notifies, function(entry){
                 delete entry.show;
             });
+            notification.show = true;
             Notifications.update({
                 notificationId: notification.id,
                 action: 'read'
-            }, function(result){
-                angular.extend(notification, result.data);
-                notification.show = true;
             });
         }
 
