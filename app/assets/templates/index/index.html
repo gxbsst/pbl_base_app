@@ -9,7 +9,7 @@
                 <div ui-sref="base.pbl.show({projectId:project.id})" class="case-item" ng-repeat="project in vm.projects">
                     <div class="item-pic">
                         <div class="project-cover">
-                            <span class="text-red" ng-if="!project.cover">尚未上传封面</span>
+                            <img ng-src="/images/cover.jpg" ng-if="!project.cover" />
                             <img ng-src="{{project.cover.key|thumb:'348x185'}}" ng-if="project.cover" />
                             <div class="pic-mask">
                                 <span ng-bind-html="project.description"></span>

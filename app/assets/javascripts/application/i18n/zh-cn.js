@@ -11,7 +11,7 @@
         i18nConfigProvider.locales['zh-cn'] = {
 
             SITE: {
-                name: '北京欧亚融信信息技术有限公司'
+                name: 'PBL教育平台'
             },
 
             DIRECTIVE: {
