@@ -261,6 +261,7 @@ ul.nav-left{
         .todo-item{
           height: 40px;
           line-height: 40px;
+          vertical-align: middle;
           font-size: 16px;
           border-bottom: 1px dashed #aaaaaa;
           &.active,&:hover{
@@ -284,7 +285,8 @@ ul.nav-left{
           }
           .todo-select{
             width: 11px;
-            display: inline-block;
+            height: 40px;
+            float: left;
             i{
               display: none;
               width: 11px;
@@ -294,10 +296,10 @@ ul.nav-left{
             }
           }
           .todo-title{
+            float: left;
             margin-left: 5px;
             display: inline-block;
             max-width: 70%;
-            line-height: 16px;
             cursor: pointer;
             overflow:hidden;
             text-overflow:ellipsis;
@@ -310,11 +312,15 @@ ul.nav-left{
               display: inline-block;
               margin-right: 5px;
               border-radius: 50%;
-              vertical-align: inherit;
+              vertical-align: middle;
             }
           }
           .todo-endat{
-            margin-left: 5px;
+            float: left;
+            display: inline-block;
+            height: 18px;
+            line-height: 15px;
+            margin: 10px 5px;
             font-size: 10px;
             color: #ffffff;
             background: #89bf5d;

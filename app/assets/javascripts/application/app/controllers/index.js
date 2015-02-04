@@ -14,6 +14,8 @@
             total_count: 3,
             total_pages: 0,
             current_page: 0,
+            state:'release,complete',
+            recommend:true,
             per_page: 10
         };
 
@@ -28,6 +30,8 @@
         function getProjects(){
             Projects.all({
                 limit:vm.meta.total_count,
+                state:vm.meta.state,
+                recommend:vm.meta.recommend,
                 page:vm.meta.current_page
             },function (result) {
                 angular.forEach(result.data, function (project) {
