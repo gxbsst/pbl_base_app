@@ -67,10 +67,9 @@
     function completeTodoController($rootScope,$scope,Todos,TodoItems) {
         $scope.cancel_complete=cancel_complete;
         $scope.selectall=selectall;
+        $scope.selectTodo=selectTodo;
         $scope.removeAll=removeAll;
-        $scope.completenum=$scope.todos.find(function(item){
-            return item.state=='completed';
-        }).length;
+        $scope.selectqueue=[];
         $scope.todoQueue={};
         angular.forEach($scope.todos, function (todo) {
             var startD = new Date(Date.parse(todo.updated_at));
@@ -87,11 +86,26 @@
 
         });
 
+        function selectTodo(todo){
+            todo.$select=!todo.$select;
+            if(todo.$select){
+                $scope.selectqueue.push(todo.id);
+            }else{
+                $scope.selectqueue.remove(function (item) {
+                    return item == todo.id;
+                });
+            }
+        }
+
         function selectall(){
             $scope.$select=!$scope.$select;
+            $scope.selectqueue=[];
             angular.forEach($scope.todos,function(todo){
                 if (todo.state=='completed'){
                     todo.$select=$scope.$select;
+                    if(todo.$select){
+                        $scope.selectqueue.push(todo.id);
+                    }
                 }
             });
         }
@@ -99,30 +113,42 @@
         function removeAll($event){
             $event.stopPropagation();
             if (confirm('将选中的待办事项全部删除？')) {
-                angular.forEach($scope.todos,function(todoitem){
-                    if (todoitem.state=='completed'&&todoitem.$select==true){
-                        TodoItems.remove({
-                            todoId: todoitem.id
-                        },function(result){
-                            console.log('TodoItems.remove');
-                            console.log(result);
-                            angular.forEach($scope.todoQueue,function(queue){
-                                queue.queue.remove(function (item) {
-                                    return item.id == todoitem.id;
-                                });
-                                //var index = $scope.todos.index(function (item) {
-                                //    return item.id == todoitem.id;
-                                //});
-                                //if (index > -1) {
-                                //    $scope.todos.splice(index, 1);
-                                //}
-                            });
-                        });
-                    }
-                });
+                //angular.forEach($scope.todos,function(todoitem){
+                //    if (todoitem.state=='completed'&&todoitem.$select==true){
+                //        TodoItems.remove({
+                //            todoId: todoitem.id
+                //        },function(result){
+                //            console.log('TodoItems.remove');
+                //            console.log(result);
+                //            angular.forEach($scope.todoQueue,function(queue){
+                //                queue.queue.remove(function (item) {
+                //                    return item.id == todoitem.id;
+                //                });
+                //            });
+                //        });
+                //    }
+                //});
                 //$scope.todos.remove(function (item) {
                 //    return item.id == todoitem.id;
                 //});
+                angular.forEach($scope.selectqueue,function(todoitemid){
+                    TodoItems.remove({
+                        todoId: todoitemid
+                    },function(result){
+                        console.log('TodoItems.remove');
+                        console.log(result);
+                    });
+
+                    angular.forEach($scope.todoQueue,function(queue){
+                        queue.queue.remove(function (item) {
+                            return item.id == todoitemid;
+                        });
+                    });
+
+                    $scope.todos.remove(function (item) {
+                        return item.id == todoitemid;
+                    });
+                });
             }
         }
         function cancel_complete(todo,$event){

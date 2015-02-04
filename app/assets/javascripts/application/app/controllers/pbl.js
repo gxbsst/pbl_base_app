@@ -24,7 +24,8 @@
             phase:'',
             technique:'',
             name:'',
-            order:'desc'
+            order:'desc',
+            state:'release,complete'
             };
         console.log(vm.meta);
         getSelect();
@@ -68,7 +69,8 @@
                 phase:vm.select.phase,
                 technique:vm.select.technique,
                 name:vm.select.name,
-                order:vm.select.order
+                order:vm.select.order,
+                state:vm.select.state
             },function (result) {
                 angular.forEach(result.data, function (project) {
                     getProjectProducts(project);

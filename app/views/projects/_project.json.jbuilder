@@ -21,4 +21,6 @@ json.state project.state if project.state
 json.tag_list project.tag_list if project.tag_list
 json.tasks project.tasks if project.tasks
 json.techniques project.techniques if project.techniques
+json.recommend project.recommend if project.recommend
+json.position project.position if project.position
 json.user_id project.user_id if project.user_id

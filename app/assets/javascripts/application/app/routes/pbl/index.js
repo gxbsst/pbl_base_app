@@ -23,7 +23,7 @@
                         template: '<div ui-view></div>'
                     },
                     'header@': {
-                        templateUrl: 'pbl/header.html'
+                        templateUrl: 'layout/header.html'
                     },
                     'banner@': {
                         templateUrl: 'layout/banner-pbl.html'
