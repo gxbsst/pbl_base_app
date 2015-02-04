@@ -19,8 +19,8 @@
   <tbody>
   <% @standards[:data].each do |standard| %>
       <tr>
-        <td><%= standard[:subject][:name] %></td>
-        <td><%= standard[:phase][:name] %></td>
+        <td><%= standard[:subject][:name] if standard[:subject] %></td>
+        <td><%= standard[:phase][:name] if standard[:phase] %></td>
         <td><%= standard[:title] %></td>
         <td class="center">
           <%= link_to '编辑', edit_admin_standard_path(standard.id) %>

@@ -18,7 +18,7 @@
   <tbody>
   <% @phases[:data].each do |phase| %>
       <tr>
-        <td><%= phase[:subject][:name] %></td>
+        <td><%= phase[:subject][:name] if phase[:subject] %></td>
         <td><%= phase[:name] %></td>
         <td class="center">
           <%= link_to '编辑', edit_admin_phase_path(phase.id) %>
