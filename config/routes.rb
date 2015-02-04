@@ -119,7 +119,7 @@ Rails.application.routes.draw do
 
   resources :students, defaults: { format: :json }
 
-  resources :knowledge, defaults: {format: :json}
+  resources :knowledges, defaults: {format: :json}
 
   resources :roles, defaults: {format: :json}
 

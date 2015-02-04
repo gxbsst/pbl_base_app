@@ -23,7 +23,7 @@
             });
         });
 
-        $interval(getCount, 60 * 1000);
+        $interval(getCount, 15 * 1000);
 
         angular.extend($rootScope, {
             ROLES: ROLES,

@@ -1,9 +1,8 @@
 # encoding: utf-8
-
-class KnowledgeController < ApplicationBaseController
+class KnowledgesController < ApplicationBaseController
 
   def index
-    @all_knowledge = Pbl::Knowledge.all(params.permit(:project_id))
+    @knowledges = Pbl::Knowledge.all(params.permit(:project_id))
   end
 
   def create

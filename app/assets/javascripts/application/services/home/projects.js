@@ -18,7 +18,7 @@
         return $resource('/projects/:projectId/:action', {
             projectId: '@projectId',
             action: '@action',
-            include: 'knowledge'
+            include: 'knowledges'
         }, RESOURCE_ACTIONS);
     }
 
