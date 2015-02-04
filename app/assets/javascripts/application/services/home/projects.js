@@ -28,7 +28,8 @@
         return $resource('/project/standard_items/:action/:standardItemId', {
             action: '@action',
             standardItemId: '@standardItemId',
-            include: 'standard_items'
+            include: 'standard_items',
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 
@@ -38,7 +39,8 @@
         return $resource('/project/techniques/:action/:techniqueId', {
             action: '@action',
             techniqueId: '@techniqueId',
-            include: 'techniques'
+            include: 'techniques',
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 
@@ -48,7 +50,8 @@
         return $resource('/project/products/:action/:productId', {
             action: '@action',
             productId: '@productId',
-            include: 'product_forms'
+            include: 'product_forms',
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 
@@ -58,7 +61,8 @@
         return $resource('/project/rules/:gaugeId', {
             action: '@action',
             gaugeId: '@gaugeId',
-            include: 'techniques'
+            include: 'techniques',
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 

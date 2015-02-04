@@ -23,7 +23,7 @@
             });
         });
 
-        $interval(getNotifies, 60 * 1000);
+        $interval(getCount, 60 * 1000);
 
         angular.extend($rootScope, {
             ROLES: ROLES,
@@ -109,7 +109,7 @@
 
         getFollows();
         getGroups();
-        getNotifies();
+        getCount();
 
         $scope.$on('onGroupsChanged', getGroups);
 
@@ -339,7 +339,19 @@
             });
         }
 
-        function getNotifies(){
+        function getCount(){
+
+            User.get({
+                action: 'notifies_count'
+            }, function(result){
+                $rootScope.notifies_count = result.count;
+            });
+
+            User.get({
+                action: 'sms_count'
+            }, function(result){
+                $rootScope.sms_count = result.count;
+            });
 
         }
 

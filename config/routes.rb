@@ -43,7 +43,9 @@ Rails.application.routes.draw do
   resource :register, defaults: { format: :json }, only: %w(create)
   resource :user, defaults: { format: :json }, only: %w(show) do
     get :notifies, :to => 'notifications#user_notifies_index'
+    get :notifies_count, :to => 'notifications#user_notifies_count'
     get :sms, :to => 'notifications#user_sms_index'
+    get :sms_count, :to => 'notifications#user_sms_count'
     post :sms, :to => 'notifications#user_sms_create'
     get :follows, :to => 'follows#user_index'
     resources :follows, defaults: { format: :json }, only: %w(create)

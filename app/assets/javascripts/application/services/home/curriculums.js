@@ -8,7 +8,7 @@
     Curriculums.$inject = ['$resource', 'RESOURCE_ACTIONS'];
 
     function Curriculums($resource, RESOURCE_ACTIONS) {
-        return $resource('/curriculum/:action/:id', {action: '@action', id: '@id'}, RESOURCE_ACTIONS);
+        return $resource('/curriculum/:action/:id', {action: '@action', id: '@id', limit: 100}, RESOURCE_ACTIONS);
     }
 
 })();
