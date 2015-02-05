@@ -158,7 +158,7 @@ Rails.application.routes.draw do
 
   resources :follows, defaults: {format: :json}
 
-  resources :notifications, defaults: {format: :json}, only: %w(show) do
+  resources :notifications, defaults: {format: :json}, only: %w(show destroy) do
     put :read, :to => 'notifications#read'
   end
 

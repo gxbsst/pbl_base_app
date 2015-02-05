@@ -15,7 +15,7 @@
         </div>
         <div ng-if="vm.group.label.length">
             <h3>群标签：</h3>
-            <span class="block-mini" ng-bind="($index?', ':'')+label" ng-repeat="label in vm.group.label track by $index"></span>
+            <span class="block-mini" ng-bind="label" ng-repeat="label in vm.group.label track by $index"></span>
         </div>
         <h3>群主/管理员</h3>
         <div class="members">

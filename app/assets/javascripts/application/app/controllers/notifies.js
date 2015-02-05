@@ -74,19 +74,29 @@
         var vm = this;
 
         vm.types = angular.copy(NOTIFIES_TYPES);
-        vm.show = show;
-        vm.setPage = setPage;
-        vm.prev = prev;
-        vm.next = next;
         vm.filter = filter;
         vm.template = template;
+        vm.setPage = setPage;
+        vm.show = show;
+        vm.prev = prev;
+        vm.next = next;
+        vm.destroy = destroy;
 
         setPage();
 
-        function setPage(page){
+        function setPage(page, loading){
+            if(typeof page == 'boolean'){
+                loading = page;
+                page = vm.notifies.current_page;
+            }
+            loading = typeof loading == 'boolean'? loading : true;
+            if(vm.notifies && loading){
+                delete vm.notifies.data;
+            }
             var options = {
                 action: 'notifies',
-                page: page || 1
+                page: page || 1,
+                limit: 8
             };
             angular.extend(options, vm.params || {});
             User.get(options, function (result) {
@@ -120,19 +130,30 @@
 
         }
 
+        function destroy(notify, $event){
+            $event.stopPropagation();
+            Notifications.remove({
+                notificationId: notify.id
+            }, function (result) {
+                $rootScope.notifies_count = result.count;
+                setPage(true);
+            });
+        }
+
         function show(notify){
-            angular.forEach(vm.notifies, function(entry){
+            angular.forEach(vm.notifies.data, function(entry){
                 delete entry.show;
             });
             notify.show = true;
-            var params = {
-                notificationId: notify.id,
-                action: 'read'
-            };
-            angular.extend(params, vm.params || {});
-            Notifications.update(params, function (result) {
-                $rootScope.notifies_count = result.count;
-            });
+            if(!notify.read){
+                Notifications.update(angular.extend({
+                    notificationId: notify.id,
+                    action: 'read'
+                }, vm.params || {}), function (result) {
+                    notify.read = true;
+                    $rootScope.notifies_count = result.count;
+                });
+            }
         }
 
         function filter(type){

@@ -38,14 +38,18 @@
                 controller: 'GroupsMembersController as vm'
             });
 
-        getGroup.$inject = ['$stateParams', '$q', 'Groups'];
+        getGroup.$inject = ['$state', '$stateParams', '$q', 'Groups'];
 
-        function getGroup($stateParams, $q, Groups){
+        function getGroup($state, $stateParams, $q, Groups){
             var defer = $q.defer();
             Groups.get({
                 groupId: $stateParams.groupId
             },function (result) {
-                defer.resolve(result.data);
+                if(result.data){
+                    defer.resolve(result.data);
+                }else{
+                    $state.go('base.home.user');
+                }
             }, function () {
                 defer.resolve(null);
             });

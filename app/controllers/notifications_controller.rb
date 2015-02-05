@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
     @notifications[:data].each do |notification|
       case notification[:sender_type]
         when 'Clazz'
-          notification[:clazz] = Clazz.find(notification[:sender_id])
+          notification[:group] = Group.find_by(:owner_id => notification[:sender_id], :include => 'clazzs')
         when 'Group'
           notification[:group] = Group.find(notification[:sender_id])
         when 'User'
@@ -36,6 +36,8 @@ class NotificationsController < ApplicationController
   end
 
   def user_notifies_count
+    params[:type] = :System
+    params[:user_id] = current_user.id
     @count = Notification.find(:count, query_params)
     render :count
   end
@@ -84,7 +86,9 @@ class NotificationsController < ApplicationController
   end
 
   def read
-    Notification.update(params[:notification_id], :read => true)
+    notification = Notification.update(params[:notification_id], :read => true)
+    params[:type] = notification[:type]
+    params[:user_id] = notification[:user_id]
     @count = Notification.find(:count, query_params)
     render :count
   end
@@ -95,8 +99,9 @@ class NotificationsController < ApplicationController
   end
 
   def destroy
-    @notification = Notification.destroy(params[:id])
-    render :show
+    Notification.destroy(params[:id])
+    @count = Notification.find(:count, query_params)
+    render :count
   end
 
   private

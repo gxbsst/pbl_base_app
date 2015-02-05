@@ -169,7 +169,7 @@ class GroupsController < ApplicationBaseController
                                                          sender_id: group[:owner_id],
                                                          user_id: user_id,
                                                          additional_info:{
-                                                             user_id: user_id
+                                                             user_id: current_user.id
                                                          },
                                                          type: :System
                                                      }) if user_id != current_user.id
@@ -189,7 +189,7 @@ class GroupsController < ApplicationBaseController
                                                          sender_id: group[:id],
                                                          user_id: user_id,
                                                          additional_info:{
-                                                             user_id: user_id
+                                                             user_id: current_user.id
                                                          },
                                                          type: :System
                                                      }) if user_id != current_user.id
@@ -226,22 +226,24 @@ class GroupsController < ApplicationBaseController
 
   def show
     @group = Group.find(params[:id], query_params)
-    @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz' || @group[:owner_type] == 'Parent'
-    @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'User'
-    invitation = Invitation.find_by(case @group[:owner_type]
-                                      when 'Clazz'
-                                        {
-                                            owner_type: :Clazz,
-                                            owner_id: @group[:clazz][:id]
-                                        }
-                                      else
-                                        {
-                                            owner_type: :Group,
-                                            owner_id: @group[:id]
-                                        }
-                                    end)
-    unless invitation.nil?
-      @group[:invitation_code] = invitation[:invitation_code]
+    if @group.success?
+      @group[:clazz] = Clazz.find(@group[:owner_id], include: 'users') if @group[:owner_type] == 'Clazz' || @group[:owner_type] == 'Parent'
+      @group[:user] = User.find(@group[:owner_id]) if @group[:owner_type] == 'User'
+      invitation = Invitation.find_by(case @group[:owner_type]
+                                        when 'Clazz'
+                                          {
+                                              owner_type: :Clazz,
+                                              owner_id: @group[:clazz][:id]
+                                          }
+                                        else
+                                          {
+                                              owner_type: :Group,
+                                              owner_id: @group[:id]
+                                          }
+                                      end)
+      unless invitation.nil?
+        @group[:invitation_code] = invitation[:invitation_code]
+      end
     end
   end
 
@@ -269,7 +271,7 @@ class GroupsController < ApplicationBaseController
                                                    sender_id: @group[:id],
                                                    user_id: entry[:user_id],
                                                    type: :System
-                                               }) if entry[:user_id] != current_user.id
+                                               }) if @group[:user_id] != entry[:user_id]
     end
     render :show
   end
