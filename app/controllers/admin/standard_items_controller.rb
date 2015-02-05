@@ -2,8 +2,9 @@ module Admin
   class StandardItemsController < AdminController
 
     def index
-      @standard_items = Curriculum::StandardItem.all(include: 'standards', page: params[:page])
+      @standard_items = Curriculum::StandardItem.all(page: params[:page])
       @standard_items[:data].each do |standard_item|
+        standard_item[:standard] = Curriculum::Standard.find(standard_item[:standard_id]) if standard_item[:standard_id]
         standard_item[:phase] = Curriculum::Phase.find(standard_item[:standard][:phase_id]) if standard_item[:standard]
         standard_item[:subject] = Curriculum::Subject.find(standard_item[:phase][:subject_id]) if standard_item[:phase]
       end
