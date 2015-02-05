@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?-woq4ns');
-  src:font_url('PblIconFont.eot?#iefix-woq4ns') format('embedded-opentype'),
-  font_url('PblIconFont.woff?-woq4ns') format('woff'),
-  font_url('PblIconFont.ttf?-woq4ns') format('truetype'),
-  font_url('PblIconFont.svg?-woq4ns#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?l32ibc');
+  src:font_url('PblIconFont.eot?#iefixl32ibc') format('embedded-opentype'),
+  font_url('PblIconFont.woff?l32ibc') format('woff'),
+  font_url('PblIconFont.ttf?l32ibc') format('truetype'),
+  font_url('PblIconFont.svg?l32ibc#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -83,6 +83,22 @@
   content: "\e630";
 }
 
+.pf-envelope-o:before {
+  content: "\f003";
+}
+
+.pf-heart:before {
+  content: "\f004";
+}
+
+.pf-star:before {
+  content: "\f005";
+}
+
+.pf-star-o:before {
+  content: "\f006";
+}
+
 .pf-cog:before {
   content: "\f013";
 }
@@ -101,6 +117,10 @@
 
 .pf-calendar:before {
   content: "\f073";
+}
+
+.pf-envelope:before {
+  content: "\f0e0";
 }
 
 .pf-file-doc:before {
@@ -373,6 +393,10 @@
 
 .pf-user:before {
   content: "\e626";
+}
+
+.pf-chat-3:before {
+  content: "\e63e";
 }
 
 .pf-plus:before {

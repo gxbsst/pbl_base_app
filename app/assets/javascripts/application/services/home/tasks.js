@@ -11,7 +11,8 @@
     function Disciplines($resource, RESOURCE_ACTIONS) {
         return $resource('/disciplines/:disciplineId', {
             disciplineId: '@disciplineId',
-            action: '@action'
+            action: '@action',
+            limit: 100
         }, RESOURCE_ACTIONS);
     }
 

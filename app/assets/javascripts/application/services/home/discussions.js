@@ -9,8 +9,7 @@
 
     function Discussions($resource, RESOURCE_ACTIONS) {
         return $resource('/discussions/:discussionId', {
-            discussionId: '@discussionId',
-            limit: 100
+            discussionId: '@discussionId'
         }, RESOURCE_ACTIONS);
     }
 
