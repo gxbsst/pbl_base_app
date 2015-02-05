@@ -300,7 +300,9 @@
         function onProjectTasks() {
             Tasks.all({
                 project_id: vm.project.id,
-                state: 'draft'
+                state: 'draft',
+                order:'created_at asc',
+                limit:100
             }, function (result) {
                 vm.tasks = result.data;
 

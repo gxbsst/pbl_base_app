@@ -29,7 +29,7 @@
         $scope.$on('setAddTask', setAddTask);
         $scope.$on('onProjectTaskGauges',onProjectTaskGauges);
 
-        Disciplines.all(function (data) {
+        Disciplines.all({limit:100},function (data) {
             vm.disciplines = data.data;
             //测试ng-model绑定
             //vm.disciplines.push(vm.project.tasks[0].test.discipline);
@@ -68,7 +68,8 @@
 
         function getProjectGauges() {
             ProjectGauges.all({
-                project_id: project.id
+                project_id: project.id,
+                limit:100
             }, function (result) {
                 project.rules = result.data;
             });
@@ -95,7 +96,8 @@
                 owner_types: RESOURCE_TYPES.project.task,
                 owner_ids: vm.tasks.map(function (task) {
                     return task.id;
-                }).join(',')
+                }).join(','),
+                limit:100
             }, function (result) {
                 vm.resources = result.data;
             });
@@ -138,7 +140,8 @@
 
         function onProjectKnowledge() {
             Knowledge.all(
-                {project_id: vm.project.id},
+                {project_id: vm.project.id,
+                    limit:100},
                 function (data) {
                     vm.project.knowledges = data.data;
                     console.log(data);
@@ -164,7 +167,9 @@
 
         function onProjectTasks() {
             Tasks.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                order:'created_at asc',
+                limit:100
             }, function (result) {
                 vm.tasks = result.data;
                 for(var i=0;i<vm.tasks.length;i++){
@@ -197,7 +202,8 @@
         function onProjectProducts() {
             console.log("products");
             ProjectProducts.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                limit:100
             }, function (result) {
                 var products = result.data,
                     findFinal = function (product) {
