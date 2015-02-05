@@ -1,0 +1,12 @@
+<div class="subject">
+    <span class="text-red" ng-if="!notify.read">新消息 </span>
+    <strong ng-bind="notify.user|name"></strong>
+    <span>关注了你</span>
+</div>
+<div class="content" ng-show="notify.show">
+    <a href="javascript:void(0)" et-user="notify.user" ng-bind="notify.user|name"></a>
+    <span>关注了你，赶快跟TA去打声招呼吧！</span>
+    <a href="javascript:void(0)" ng-click="HANDLES.follow(notify.user.id)" ng-if="!HANDLES.isFollowed(notify.user.id)">关注TA</a>
+    <div class="time" ng-bind="notify.created_at|date:'yyyy-MM-dd HH:mm:ss'"></div>
+</div>
+<i class="pf-trash-o destroy" ng-click="vm.destroy(notify,$event)" et-tips="'删除消息'"></i>

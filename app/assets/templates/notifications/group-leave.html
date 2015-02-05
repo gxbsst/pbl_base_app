@@ -1,14 +1,15 @@
 <div class="subject">
     <span class="text-red" ng-if="!notify.read">新消息 </span>
+    <span>您被</span>
     <strong ng-bind="notify.additional_info.user|name"></strong>
-    <span>加入了您创建的</span>
+    <span>请出了</span>
     <strong ng-bind="notify.group|group"></strong>
 </div>
 <div class="content" ng-show="notify.show">
+    <span>您被</span>
     <a href="javascript:void(0)" et-user="notify.additional_info.user" ng-bind="notify.additional_info.user|name"></a>
-    <span>加入了您创建的</span>
+    <span>请出了</span>
     <a href="javascript:void(0)" et-group="notify.group" ng-bind="notify.group|group"></a>
-    <span>，赶快跟TA去打声招呼吧！</span>
     <div class="time" ng-bind="notify.created_at|date:'yyyy-MM-dd HH:mm:ss'"></div>
 </div>
 <i class="pf-trash-o destroy" ng-click="vm.destroy(notify,$event)" et-tips="'删除消息'"></i>

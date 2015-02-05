@@ -3,7 +3,14 @@
         <span class="block-mini" ng-class="{active:!vm.params}" ng-click="vm.filter()">全部消息</span>
         <span class="block-mini" ng-class="{active:type.selected}" ng-repeat="type in vm.types" ng-bind="type.name" ng-click="vm.filter(type)"></span>
     </div>
+    <div ng-if="!vm.notifies.data" class="loading"><i class="pf-spinner-2 rotation"></i></div>
+    <div ng-if="vm.notifies.data&&!vm.notifies.data.length" class="text-gray center lh-60">没有任何消息...</div>
     <ul>
         <li ng-repeat="notify in vm.notifies.data" ng-click="vm.show(notify)" ng-include="vm.template(notify)"></li>
     </ul>
+    <div class="pagination" ng-if="vm.notifies.meta">
+        <span ng-class="{disabled:vm.notifies.meta.current_page==1}" ng-click="vm.setPage(1)">首页</span>
+        <span ng-class="{disabled:vm.notifies.meta.current_page==i}" ng-click="vm.setPage(i)" ng-repeat="i in []|range:1:vm.notifies.meta.total_pages" ng-bind="i"></span>
+        <span ng-class="{disabled:vm.notifies.meta.current_page==vm.notifies.meta.total_pages}" ng-click="vm.setPage(vm.notifies.meta.total_pages)">末页</span>
+    </div>
 </div>

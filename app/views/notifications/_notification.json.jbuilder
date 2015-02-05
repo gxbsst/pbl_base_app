@@ -16,7 +16,7 @@ json.clazz do
   json.partial! 'clazzs/clazz', clazz: notification[:clazz]
 end if notification[:clazz]
 json.group do
-  json.partial! 'groups/base', group: notification[:group]
+  json.partial! 'groups/group', group: notification[:group]
 end if notification[:group]
 json.user do
   json.partial! 'users/base', user: notification[:user]

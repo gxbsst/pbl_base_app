@@ -33,7 +33,8 @@ class CommentsController < ApplicationController
                                                    sender_id: post[:id],
                                                    user_id: post[:sender_id],
                                                    additional_info: {
-                                                       comment_id: @comment[:id]
+                                                       comment_id: @comment[:id],
+                                                       user_id: current_user.id
                                                    },
                                                    type: :System
                                                })

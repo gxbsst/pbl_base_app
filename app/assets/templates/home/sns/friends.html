@@ -10,7 +10,7 @@
             </ul>
         </div>-->
     </div>
-    <ul class="sns-list">
+    <ul class="sns-list scrollbar scrollbar-macosx" et-scrollbar>
         <li ng-repeat="user in friends" ng-show="vm.filter(user)" ng-click="$state.go('base.home.users.show',{userId:user.friend.id})"><img ng-src="{{user.friend|avatar:'30x30'}}" class="avatar"/> <span ng-bind="user.friend.realname||user.friend.username"></span></li>
     </ul>
 </div>

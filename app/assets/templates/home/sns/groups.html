@@ -10,7 +10,7 @@
             </ul>
         </div>
     </div>
-    <ul class="sns-list">
+    <ul class="sns-list scrollbar scrollbar-macosx" et-scrollbar>
         <li ng-repeat="group in groups" ng-show="vm.filter(group)" ng-click="$state.go('base.home.groups.show.posts',{groupId:group.id});HANDLES.scrollTop()">
             <img ng-src="{{group|avatar:'30x30'}}" class="avatar"/>
             <span ng-bind="group|group"></span>
