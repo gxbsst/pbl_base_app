@@ -52,6 +52,15 @@
         height:30px;
         padding:8px;
       }
+      &.scrollbar{
+        padding:0;
+        ul.categories{
+          margin:0;
+        }
+        .remark{
+          margin:0 12px;
+        }
+      }
     }
   }
   .selector{
