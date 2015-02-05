@@ -262,6 +262,35 @@ ul.selection{
   }
 }
 
+.relative{
+  position:relative;
+}
+
+.point{
+  $size:15px;
+  position:absolute;
+  right:0;
+  top:0;
+  display:block;
+  width:$size;
+  height:$size;
+  line-height:$size;
+  font-size:12px;
+  font-weight:bold;
+  text-align:center;
+  color:#fff;
+  background:#f00000;
+  @include border-radius(50%);
+  @include transform-origin(right, top);
+  @include transform(scale(.8, .8));
+  &.point-lg{
+    $size:17px;
+    width:$size;
+    height:$size;
+    line-height:$size;
+  }
+}
+
 .block-mini{
   display:inline-block;
   padding:0 12px;

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationBaseController
 
   def index
-    @projects = Pbl::Project.all(project_query_params)
+    @projects = Pbl::Project.all(query_params)
   end
 
   def create
@@ -13,6 +13,10 @@ class ProjectsController < ApplicationBaseController
 
   def show
     @project = Pbl::Project.find(params[:id], include_param)
+    if include_param[:include].present? && include_param[:include].split(',').include?('knowledges')
+      knowledges = Pbl::Knowledge.where(project_id: @project[:id])
+      @project[:knowledges] = knowledges[:data] if knowledges[:data]
+    end
   end
 
   def update
@@ -32,8 +36,8 @@ class ProjectsController < ApplicationBaseController
 
   private
 
-    def project_query_params
-      params.permit(:name, :include, :limit,:page, :subject, :phase, :technique, :name, :order,:user_id,:actor_id,:state)
+    def query_params
+      params.permit(:name, :include, :limit,:page, :subject, :phase, :technique, :name, :order,:user_id,:actor_id,:state, :recommend)
     end
 
 end

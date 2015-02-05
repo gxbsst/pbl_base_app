@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: git@58.246.127.90:pbl/pbl_service_client.git
-  revision: 4a1b55de15144731914464f371cf148ea1c4e809
+  revision: 9e77156155c2e36c2dda015deac2e1ae87bdf889
   branch: master
   specs:
-    pbl_service_client (0.0.23)
+    pbl_service_client (0.0.24)
       activemodel
       addressable
       typhoeus
@@ -360,7 +360,7 @@ DEPENDENCIES
   puma
   qiniu (~> 6.3.1)
   rails (= 4.1.7)
-  rails-assets-angular (~> 1.2.0)
+  rails-assets-angular (~> 1.2.0)!
   rails-assets-angular-bootstrap-datetimepicker
   rails-assets-angular-cache (~> 2.3.7)
   rails-assets-angular-chart.js

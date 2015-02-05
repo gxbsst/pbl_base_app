@@ -4,7 +4,7 @@ module Admin
     def index
       @standards = Curriculum::Standard.all(include: 'phases', page: params[:page])
       @standards[:data].each do |standard|
-        standard[:subject] = Curriculum::Subject.find(standard[:phase][:subject_id])
+        standard[:subject] = Curriculum::Subject.find(standard[:phase][:subject_id]) if standard[:phase] && standard[:phase][:subject_id]
       end
     end
 

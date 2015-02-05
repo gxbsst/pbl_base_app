@@ -17,7 +17,7 @@
         vm.showTask = showTask;
         vm.showtask = [];
 
-        project.knowledge = project.knowledge || [];
+        project.knowledges = project.knowledges || [];
         vm.project = project;
         vm.tempKnowledge = '';
         vm.addKnowledge = addKnowledge;
@@ -248,9 +248,9 @@
         function addKnowledge() {
             //vm.project.knowledge.push(vm.tempKnowledge);
             Knowledge.add({
-                "knowledge": {
-                    "project_id": vm.project.id,
-                    "description": vm.tempKnowledge
+                knowledge: {
+                    project_id: vm.project.id,
+                    description: vm.tempKnowledge
                 }
             }, onProjectKnowledge);
             vm.tempKnowledge = "";
@@ -264,7 +264,7 @@
             Knowledge.all(
                 {project_id: vm.project.id},
                 function (data) {
-                    vm.project.knowledge = data.data;
+                    vm.project.knowledges = data.data;
                     console.log(data);
                 });
         }

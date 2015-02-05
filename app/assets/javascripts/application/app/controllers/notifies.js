@@ -6,9 +6,9 @@
         .controller('SMSController', SMSController)
         .controller('NotifiesController', NotifiesController);
 
-    SMSController.$inject = ['User', 'Notifications'];
+    SMSController.$inject = ['$rootScope', 'User', 'Notifications'];
 
-    function SMSController(User, Notifications) {
+    function SMSController($rootScope, User, Notifications) {
 
         var vm = this;
 
@@ -67,9 +67,9 @@
 
     }
 
-    NotifiesController.$inject = ['NOTIFIES_TYPES', 'User', 'Notifications'];
+    NotifiesController.$inject = ['$rootScope', 'NOTIFIES_TYPES', 'User', 'Notifications'];
 
-    function NotifiesController(NOTIFIES_TYPES, User, Notifications) {
+    function NotifiesController($rootScope, NOTIFIES_TYPES, User, Notifications) {
 
         var vm = this;
 
@@ -120,16 +120,18 @@
 
         }
 
-        function show(notification){
+        function show(notify){
             angular.forEach(vm.notifies, function(entry){
                 delete entry.show;
             });
-            Notifications.update({
-                notificationId: notification.id,
+            notify.show = true;
+            var params = {
+                notificationId: notify.id,
                 action: 'read'
-            }, function(result){
-                angular.extend(notification, result.data);
-                notification.show = true;
+            };
+            angular.extend(params, vm.params || {});
+            Notifications.update(params, function (result) {
+                $rootScope.notifies_count = result.count;
             });
         }
 
@@ -147,7 +149,7 @@
         }
 
         function template(notify){
-            return ([notify.sender_type, notify.event_type].join('-') + '.html').toLowerCase();
+            return 'notifications/' + ([notify.sender_type, notify.event_type].join('-') + '.html').toLowerCase();
         }
     }
 

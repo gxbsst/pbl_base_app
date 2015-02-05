@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PblIconFont';
-  src:font_url('PblIconFont.eot?60mutm');
-  src:font_url('PblIconFont.eot?#iefix60mutm') format('embedded-opentype'),
-  font_url('PblIconFont.woff?60mutm') format('woff'),
-  font_url('PblIconFont.ttf?60mutm') format('truetype'),
-  font_url('PblIconFont.svg?60mutm#PblIconFont') format('svg');
+  src:font_url('PblIconFont.eot?-woq4ns');
+  src:font_url('PblIconFont.eot?#iefix-woq4ns') format('embedded-opentype'),
+  font_url('PblIconFont.woff?-woq4ns') format('woff'),
+  font_url('PblIconFont.ttf?-woq4ns') format('truetype'),
+  font_url('PblIconFont.svg?-woq4ns#PblIconFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -22,8 +22,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.pf-space:before {
-  content: "\　";
+
+.pf-edit2:before {
+  content: "\e63c";
 }
 
 .pf-group-eye:before {
@@ -74,8 +75,116 @@
   content: "\e62b";
 }
 
+.pf-view:before {
+  content: "\e63d";
+}
+
 .pf-preview-flag:before {
   content: "\e630";
+}
+
+.pf-cog:before {
+  content: "\f013";
+}
+
+.pf-trash-o:before {
+  content: "\f014";
+}
+
+.pf-file-o:before {
+  content: "\f016";
+}
+
+.pf-edit:before {
+  content: "\f045";
+}
+
+.pf-calendar:before {
+  content: "\f073";
+}
+
+.pf-file-doc:before {
+  content: "\f0f6";
+}
+
+.pf-file-pdf:before {
+  content: "\f1c1";
+}
+
+.pf-file-word:before {
+  content: "\f1c2";
+}
+
+.pf-file-excel:before {
+  content: "\f1c3";
+}
+
+.pf-file-ppt:before {
+  content: "\f1c4";
+}
+
+.pf-file-image:before {
+  content: "\f1c5";
+}
+
+.pf-file-archive:before {
+  content: "\f1c6";
+}
+
+.pf-file-audio:before {
+  content: "\f1c7";
+}
+
+.pf-file-movie:before {
+  content: "\f1c8";
+}
+
+.pf-file-code:before {
+  content: "\f1c9";
+}
+
+.pf-cloud-download:before {
+  content: "\f00b";
+}
+
+.pf-cloud-upload:before {
+  content: "\f00c";
+}
+
+.pf-alert:before {
+  content: "\f02d";
+}
+
+.pf-arrowhead-down:before {
+  content: "\f03f";
+}
+
+.pf-arrowhead-left:before {
+  content: "\f040";
+}
+
+.pf-arrowhead-right:before {
+  content: "\f03e";
+}
+
+.pf-arrowhead-up:before {
+  content: "\f03d";
+}
+
+.pf-triangle-down:before {
+  content: "\f05b";
+}
+
+.pf-triangle-left:before {
+  content: "\f044";
+}
+
+.pf-triangle-right:before {
+  content: "\f05a";
+}
+
+.pf-triangle-up:before {
+  content: "\f0aa";
 }
 
 .pf-bubble-star:before {
@@ -96,6 +205,34 @@
 
 .pf-users:before {
   content: "\e62e";
+}
+
+.pf-image:before {
+  content: "\e634";
+}
+
+.pf-camera:before {
+  content: "\e62f";
+}
+
+.pf-spinner-2:before {
+  content: "\e631";
+}
+
+.pf-spinner:before {
+  content: "\e635";
+}
+
+.pf-spinner-1:before {
+  content: "\e632";
+}
+
+.pf-share:before {
+  content: "\e601";
+}
+
+.pf-circle:before {
+  content: "\e602";
 }
 
 .pf-attachment:before {
@@ -236,138 +373,6 @@
 
 .pf-user:before {
   content: "\e626";
-}
-
-.pf-cog:before {
-  content: "\f013";
-}
-
-.pf-trash-o:before {
-  content: "\f014";
-}
-
-.pf-file-o:before {
-  content: "\f016";
-}
-
-.pf-edit:before {
-  content: "\f045";
-}
-
-.pf-calendar:before {
-  content: "\f073";
-}
-
-.pf-file-doc:before {
-  content: "\f0f6";
-}
-
-.pf-file-pdf:before {
-  content: "\f1c1";
-}
-
-.pf-file-word:before {
-  content: "\f1c2";
-}
-
-.pf-file-excel:before {
-  content: "\f1c3";
-}
-
-.pf-file-ppt:before {
-  content: "\f1c4";
-}
-
-.pf-file-image:before {
-  content: "\f1c5";
-}
-
-.pf-file-archive:before {
-  content: "\f1c6";
-}
-
-.pf-file-audio:before {
-  content: "\f1c7";
-}
-
-.pf-file-movie:before {
-  content: "\f1c8";
-}
-
-.pf-file-code:before {
-  content: "\f1c9";
-}
-
-.pf-cloud-download:before {
-  content: "\f00b";
-}
-
-.pf-cloud-upload:before {
-  content: "\f00c";
-}
-
-.pf-alert:before {
-  content: "\f02d";
-}
-
-.pf-arrowhead-down:before {
-  content: "\f03f";
-}
-
-.pf-arrowhead-left:before {
-  content: "\f040";
-}
-
-.pf-arrowhead-right:before {
-  content: "\f03e";
-}
-
-.pf-arrowhead-up:before {
-  content: "\f03d";
-}
-
-.pf-triangle-down:before {
-  content: "\f05b";
-}
-
-.pf-triangle-left:before {
-  content: "\f044";
-}
-
-.pf-triangle-right:before {
-  content: "\f05a";
-}
-
-.pf-triangle-up:before {
-  content: "\f0aa";
-}
-
-.pf-image:before {
-  content: "\e634";
-}
-
-.pf-camera:before {
-  content: "\e62f";
-}
-
-.pf-spinner-2:before {
-  content: "\e631";
-}
-
-.pf-spinner:before {
-  content: "\e635";
-}
-
-.pf-spinner-1:before {
-  content: "\e632";
-}
-
-.pf-share:before {
-  content: "\e601";
-}
-
-.pf-circle:before {
-  content: "\e602";
 }
 
 .pf-plus:before {

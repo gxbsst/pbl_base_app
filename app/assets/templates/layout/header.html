@@ -1,14 +1,12 @@
 <div class="navbar">
     <div class="container">
-        <ul class="nav">
-            <li><a ui-sref="base.index" class="logo" ng-class="getLocale()"></a></li>
-            <li><a ui-sref="base.news" ng-class="{active:$state.includes('base.news')}" ng-bind="'NAV.news'|i18n"></a></li>
-            <li><a ui-sref="base.home.index.posts" ng-class="{active:$state.includes('base.home')}" ng-bind="'NAV.home'|i18n"></a></li>
-            <li><a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" ng-bind="'NAV.pbl'|i18n"></a></li>
-            <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.amoocs'|i18n"></a></li>
-            <li><a href="http://amoocs.ibridgelearn.com" ng-bind="'NAV.explore'|i18n"></a></li>
-        </ul>
-        <ul class="top-right pull-right">
+        <a ui-sref="base.index" class="logo" ng-class="getLocale()"></a>
+        <span class="nav-main">
+            <a ui-sref="base.index"  ng-class="{active:$state.includes('base.index')}">首页</a>
+            <a ui-sref="base.pbl.list" ng-class="{active:$state.includes('base.pbl')}" >项目案例</a>
+            <a ui-sref="base.home.index.posts" ng-class="{active:$state.includes('base.home')}" >个人中心</a>
+        </span>
+        <ul class="top-right pull-right" ng-if="currentUser">
             <li ng-style="{width:vm.search?200:40}">
                 <i class="pf-search top-right-btn cur-pointer" ng-show="!vm.search" ng-click="vm.search=1"></i>
                 <span class="search-input" ng-show="vm.search">
@@ -18,11 +16,24 @@
                 </span>
             </li>
             <li>
-                <i class="pf-bell top-right-btn cur-pointer" et-modal="title='系统消息';controller='NotifiesController as vm';src='notifications/notifies.html'"></i>
+                <i class="pf-bell top-right-btn cur-pointer relative"
+                   et-modal="title='系统消息';controller='NotifiesController as vm';src='notifications/notifies.html'">
+                    <span class="point" ng-class="{'point-lg':notifies_count>9}" ng-show="notifies_count" ng-bind="notifies_count"></span>
+                </i>
             </li>
-            <li class="top-avatar" ng-if="currentUser">
+            <li class="top-avatar" et-hover="hover">
                 <i class="top-right-btn"><a ui-sref="base.home.user"><img ng-src="{{ currentUser|avatar }}" /></a></i>
+                <div class="sub-menu">
+                    <a href="/users/sign_out" data-method="delete">退出</a>
+                </div>
             </li>
         </ul>
+
+        <span class="user-tools">
+            <span ng-show="!currentUser">
+                <a href="/users/sign_in">登录</a> /
+                <a href="javascript:void(0)" et-modals="RegisterModals">注册</a>
+            </span>
+        </span>
     </div>
 </div>

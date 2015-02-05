@@ -8,7 +8,36 @@ class NotificationsController < ApplicationController
     params[:type] = :System
     params[:user_id] = current_user.id
     @notifications = Notification.where(query_params)
+    @notifications[:data].each do |notification|
+      case notification[:sender_type]
+        when 'Clazz'
+          notification[:clazz] = Clazz.find(notification[:sender_id])
+        when 'Group'
+          notification[:group] = Group.find(notification[:sender_id])
+        when 'User'
+          notification[:user] = User.find(notification[:sender_id])
+        when 'Post'
+          notification[:post] = Post.find(notification[:sender_id])
+        else
+      end
+      notification[:additional_info].clone.each do |key, value|
+        case key
+          when :user_id
+            user = User.find(value)
+            if user.success?
+              notification[:additional_info][:user] = user
+              notification[:additional_info].delete(:user_id)
+            end
+          else
+        end
+      end if notification[:additional_info]
+    end if @notifications[:data]
     render :index
+  end
+
+  def user_notifies_count
+    @count = Notification.find(:count, query_params)
+    render :count
   end
 
   def user_sms_index
@@ -16,6 +45,11 @@ class NotificationsController < ApplicationController
     params[:user_id] = current_user.id
     @notifications = Notification.where(query_params)
     render :index
+  end
+
+  def user_sms_count
+    @count = Notification.find(:count, query_params)
+    render :count
   end
 
   def user_sms_create
@@ -50,19 +84,9 @@ class NotificationsController < ApplicationController
   end
 
   def read
-    @notification = Notification.update(params[:id], {read: true})
-    case @notification[:sender_type]
-      when 'Clazz'
-        @notification[:clazz] = Clazz.find(@notification[:sender_id])
-      when 'Group'
-        @notification[:group] = Group.find(@notification[:sender_id])
-      when 'User'
-        @notification[:user] = User.find(@notification[:sender_id])
-      when 'Post'
-        @notification[:post] = Post.find(@notification[:sender_id])
-      else
-    end
-    render :show
+    Notification.update(params[:notification_id], :read => true)
+    @count = Notification.find(:count, query_params)
+    render :count
   end
 
   def update
@@ -78,7 +102,7 @@ class NotificationsController < ApplicationController
   private
 
   def query_params
-    params.permit(:user_id, :include, :limit, :page)
+    params.permit(:user_id, :type, :types, :sender_type, :sender_id, :sender_types, :sender_ids, :read, :include, :limit, :page)
   end
 
 end

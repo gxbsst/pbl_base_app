@@ -7,7 +7,6 @@ json.end_at project.end_at if project.end_at
 json.duration project.duration if project.duration
 json.duration_unit project.duration_unit if project.duration_unit
 json.grade project.grade if project.grade
-json.knowledge project.knowledge if project.knowledge
 json.limitation project.limitation if project.limitation
 json.public project.public if project.public
 json.region_id project.region_id if project.region_id
@@ -21,4 +20,9 @@ json.state project.state if project.state
 json.tag_list project.tag_list if project.tag_list
 json.tasks project.tasks if project.tasks
 json.techniques project.techniques if project.techniques
+json.recommend project.recommend if project.recommend
+json.position project.position if project.position
 json.user_id project.user_id if project.user_id
+json.knowledges do
+  json.partial! 'knowledges/knowledge', collection: project[:knowledges], :as => :knowledge
+end if project[:knowledges]

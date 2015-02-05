@@ -8,8 +8,10 @@ json.sender_type notification[:sender_type] if notification[:sender_type]
 json.sender_id notification[:sender_id] if notification[:sender_id]
 json.type notification[:type] if notification[:type]
 json.event_type notification[:event_type] if notification[:event_type]
-json.additional_info notification[:additional_info] if notification[:additional_info]
 json.created_at notification[:created_at] if notification[:created_at]
+json.additional_info do
+  json.partial! 'notifications/additional_info', additional_info: notification[:additional_info]
+end if notification[:additional_info]
 json.clazz do
   json.partial! 'clazzs/clazz', clazz: notification[:clazz]
 end if notification[:clazz]

@@ -20,12 +20,12 @@ module Todo
     end
 
     def complete
-      @project = Pbl::Models::Todo::TodoItem.complete(params[:id])
+      @todo_item = Pbl::Models::Todo::TodoItem.complete(params[:id])
       render :show
     end
 
     def cancel_complete
-      @project = Pbl::Models::Todo::TodoItem.cancel_complete(params[:id])
+      @todo_item = Pbl::Models::Todo::TodoItem.cancel_complete(params[:id])
       render :show
     end
 

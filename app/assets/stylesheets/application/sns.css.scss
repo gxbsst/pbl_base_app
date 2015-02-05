@@ -265,4 +265,53 @@
 
 .notifies{
   width:450px;
+  margin:-18px;
+  .notifies-filters{
+    padding:10px 15px;
+    text-align:right;
+    border-bottom:1px solid #e5e5e5;
+    .block-mini{
+      margin-left:6px;
+      cursor:pointer;
+      color:#666;
+      @include border-radius(13px);
+      &:hover{
+        color:#0051d5;
+        background:#c8dceb;
+      }
+      &.active{
+        color:#fff;
+        background:#0051d5;
+      }
+    }
+  }
+  & > ul{
+    padding:10px 0;
+    & > li{
+      position:relative;
+      padding:0 45px 0 15px;
+      line-height:30px;
+      cursor:pointer;
+      .destroy{
+        position:absolute;
+        top:0;
+        right:15px;
+        width:30px;
+        font-size:16px;
+        line-height:30px;
+        text-align:center;
+        color:#999;
+        cursor:pointer;
+        @include transition(.2s ease all);
+        @include transform(scale(.8, .8));
+        &:hover{
+          color:#f00000;
+          @include transform(scale(1, 1));
+        }
+      }
+      &:hover{
+        background:#f5f5f5;
+      }
+    }
+  }
 }

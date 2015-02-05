@@ -4,7 +4,7 @@
                         <i ng-click="selectall()" class="pf-space"
                            ng-class="{'pf-checkmark':$select}"></i>
             全选</span>
-        <span>已选择</span><span class="red" ng-bind="completenum"></span><span>个事项</span>
+        <span>已选择</span><span class="red" ng-bind="selectqueue.length"></span><span>个事项</span>
         <span class="todo-edit">
             <i class="pf-trash-o" ng-click="removeAll($event)"></i>
         </span>
@@ -20,7 +20,7 @@
             <div class="todo-list" ng-show="!queue.$show">
                 <div class="todo-item" ng-repeat="todo in queue.queue track by todo.updated_at"  ng-if="todo.state=='completed'">
                     <span class="todo-select">
-                        <i ng-click="todo.$select=!todo.$select" class="pf-space"
+                        <i ng-click="selectTodo(todo)" class="pf-space"
                            ng-class="{'pf-checkmark':todo.$select}"></i>
                     </span>
                     <span class="todo-title" ng-bind="todo.content"
@@ -35,3 +35,4 @@
         </div>
     </div>
 </div>
+{{selectqueue}}

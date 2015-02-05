@@ -23,7 +23,7 @@
             });
         });
 
-        $interval(getNotifies, 60 * 1000);
+        $interval(getCount, 15 * 1000);
 
         angular.extend($rootScope, {
             ROLES: ROLES,
@@ -63,7 +63,7 @@
             RegisterModals: {
                 controller: 'RegisterController as vm',
                 defaults: {
-                    closeable: false,
+                    closeable: true,
                     weight: 100,
                     titleHeight: '60px',
                     bgColor: '#fcfcfc',
@@ -76,7 +76,6 @@
                         closeable: true,
                         textColor: '#333',
                         src: 'register/step-1.html'
-                        //src: 'register/teacher/step-5.html'
                     }, {
                         title: '请填写您的帐号信息',
                         closeable: true,
@@ -110,7 +109,7 @@
 
         getFollows();
         getGroups();
-        getNotifies();
+        getCount();
 
         $scope.$on('onGroupsChanged', getGroups);
 
@@ -340,7 +339,19 @@
             });
         }
 
-        function getNotifies(){
+        function getCount(){
+
+            User.get({
+                action: 'notifies_count'
+            }, function(result){
+                $rootScope.notifies_count = result.count;
+            });
+
+            User.get({
+                action: 'sms_count'
+            }, function(result){
+                $rootScope.sms_count = result.count;
+            });
 
         }
 
