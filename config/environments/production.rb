@@ -77,3 +77,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+Sidekiq.configure_server do |config|
+  config.redis = {:url => 'redis://10.10.31.111:6379/0', :namespace => 'sidekiq'}
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = {:url => 'redis://10.10.31.111:6379/0', :namespace => 'sidekiq'}
+end
