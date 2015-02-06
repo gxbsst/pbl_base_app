@@ -29,11 +29,12 @@
                 }
             });
 
-        getUser.$inject = ['$q', 'User'];
+        getUser.$inject = ['$q', '$stateParams', 'Users'];
 
-        function getUser($q, User){
+        function getUser($q, $stateParams, Users){
             var defer = $q.defer();
-            User.get({
+            Users.get({
+                userId: $stateParams.userId,
                 include: 'schools'
             },function (result) {
                 defer.resolve(result.data);

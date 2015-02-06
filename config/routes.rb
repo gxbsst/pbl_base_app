@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     delete :unfollow, :to => 'follows#unfollow'
     resources :follows, defaults: { format: :json }, only: %w(index)
     get :sms, :to => 'notifications#user_sms_index'
+    post :sms, :to => 'notifications#user_sms_create'
     get :friends, :to => 'friend_ships#user_friends'
     get :children, :to => 'friend_ships#user_children'
     post :children, :to => 'friend_ships#add_user_child'
@@ -47,7 +48,6 @@ Rails.application.routes.draw do
     get :notifies_count, :to => 'notifications#user_notifies_count'
     get :sms, :to => 'notifications#user_sms_index'
     get :sms_count, :to => 'notifications#user_sms_count'
-    post :sms, :to => 'notifications#user_sms_create'
     get :follows, :to => 'follows#user_index'
     resources :follows, defaults: { format: :json }, only: %w(create)
     resources :rules, defaults: { format: :json }, only: %w(index)

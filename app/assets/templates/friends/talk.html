@@ -3,9 +3,9 @@
         <div ng-if="!vm.messages" class="loading"><i class="pf-spinner-2 rotation"></i></div>
         <div class="text-gray center" ng-if="vm.messages&&!vm.messages.length">你们之间还没有任何交流...</div>
         <div class="more" ng-click="vm.histories()" ng-if="vm.more">查看更多历史消息</div>
-        <div class="message" ng-class="message.user.id==currentUser.id?'right':'left'" ng-repeat="message in vm.messages">
+        <div class="message" ng-init="message.user=HANDLES.getUser(message.sender_id)" ng-class="message.sender_id==currentUser.id?'right':'left'" ng-repeat="message in vm.messages">
             <img ng-src="{{message.user|avatar:'40x40'}}"/>
-            <div ng-bind="message.description"></div>
+            <div ng-bind="message.content"></div>
             <div class="time" ng-bind="message.created_at|date:'yyyy-MM-dd HH:mm:ss'"></div>
         </div>
     </div>
