@@ -21,8 +21,11 @@
             </div>
             <div>
                 <div class="case-list">
-                    <div ng-click="vm.projectShow(project)" class="case-item" ng-repeat="project in vm.projects">
-                        <div class="item-pic">
+                    <div class="case-item" ng-repeat="project in vm.projects">
+                        <div class="item-state">
+                            <span ng-class="project.state"></span>
+                        </div>
+                        <div class="item-pic" ng-click="vm.projectShow(project)">
                             <div class="project-cover">
                                 <img ng-src="/images/cover.jpg" ng-if="!project.cover" />
                                 <img ng-src="{{project.cover.key|thumb:'290x150'}}" ng-if="project.cover" />
@@ -31,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item-title">
+                        <div class="item-title" ng-click="vm.projectShow(project)">
                             <span ng-bind-html="project.name||'未命名项目'"></span>
                         </div>
                         <div class="item-cont">
@@ -43,8 +46,10 @@
                                     结束时间: <span ng-bind="project.end_at | date : 'yyyy-MM-dd'"></span>
                                 </div>
                             </div>
-                            <div class="item-state">
-                                <span ng-class="project.state" ng-bind="('projecttypes.'+project.state)|i18n"></span>
+                            <div class="item-ctrl">
+                                <span ng-if="vm.criteria=='user_id'"  ng-click="vm.removeProjects(project)">
+                                    <i class="pf-trash-o"></i>
+                                </span>
                             </div>
                         </div>
                     </div>

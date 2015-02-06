@@ -14,7 +14,7 @@
         this.all=function() {
             return {
                 data:[{name:'黎加厚',cover:'FtfCsegGl2m1NRX4hUGGqgCdl7_A',cont:'基于项目的学习是以学习研究学科的概念和原理为中心，通过学生参与一个活动项目的调查和研究来解决问题，以构建起他们自己的知识体系，并能运用到现实社会当中去。',title:'上海师范大学教授'},
-                    {name:'刘延申',cover:'FqfYppggBoiGHMiwJZo9vk2QIuiB',cont:'项目学习是学生通过亲自调研，查阅文献，收集资料，分析研究，撰写论文等讲学到得理论知识和现实生活中的实际问题紧密结合，得到综合训练和提高。',title:'华中示范大学教授'},
+                    {name:'刘延申',cover:'FqfYppggBoiGHMiwJZo9vk2QIuiB',cont:'项目学习是学生通过亲自调研，查阅文献，收集资料，分析研究，撰写论文等讲学到得理论知识和现实生活中的实际问题紧密结合，得到综合训练和提高。',title:'华中师范大学教授'},
                     {name:'Thom Markham',cover:'FlNfmoOhnuz-DldjtckufXkGUy2C',cont:'PBL teaches doing as well as knowing. Stu- dents acquire knowledge, but they also apply what they learn to solve authentic problems and produce results that matter。',title:'哲学博士、教育家'}]
             };
         }
