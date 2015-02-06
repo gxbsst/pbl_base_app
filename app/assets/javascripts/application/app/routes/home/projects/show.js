@@ -79,9 +79,7 @@
             if ($stateParams.projectId) {
                 getProject({projectId: $stateParams.projectId})
                     .then(function (project) {
-                        if (project.user_id == $rootScope.currentUser.id) {
-                            Result = "teacher";
-                        }
+
                         ProjectMembers.all({
                             projectId: project.id
                         }, function (result) {
@@ -98,6 +96,9 @@
                                         Result = "teacher"
                                     }
                                 });
+                                if (project.user_id == $rootScope.currentUser.id) {
+                                    Result = "teacher";
+                                }
                                 defer.resolve(Result);
                             });
                         });

@@ -2,7 +2,7 @@ module Todo
   class TodosController < ApplicationController
 
     def index
-      @todos = Pbl::Models::Todo::Todo.where(params.permit(:todo_id))
+      @todos = Pbl::Models::Todo::Todo.where(params.permit(:todo_id, :limit))
     end
 
     def create

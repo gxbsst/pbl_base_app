@@ -2,7 +2,7 @@ module Project
   class TasksController < ApplicationController
 
     def index
-      @tasks = Pbl::Models::Projects::Task.where(params.permit(:project_id, :include, :state))
+      @tasks = Pbl::Models::Projects::Task.where(params.permit(:project_id, :include, :state, :limit ,:order))
     end
 
     def create

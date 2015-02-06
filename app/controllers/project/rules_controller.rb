@@ -2,7 +2,7 @@ module Project
   class RulesController < ApplicationController
 
     def index
-      @rules = Pbl::Rule.all(params.permit(:project_id, :include))
+      @rules = Pbl::Rule.all(params.permit(:project_id, :include, :limit))
     end
 
     def create

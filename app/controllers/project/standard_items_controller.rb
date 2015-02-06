@@ -2,7 +2,7 @@ module Project
   class StandardItemsController < ApplicationBaseController
 
     def index
-      @standard_items = Pbl::StandardItem.all(params.permit(:project_id, :include))
+      @standard_items = Pbl::StandardItem.all(params.permit(:project_id, :include, :limit))
     end
 
     def create

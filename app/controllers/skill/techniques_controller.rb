@@ -1,7 +1,7 @@
 class Skill::TechniquesController < ApplicationBaseController
 
   def index
-    @techniques = Skills::Technique.where(params.permit(:sub_category_id))
+    @techniques = Skills::Technique.where(params.permit(:sub_category_id, :limit))
   end
 
   def create

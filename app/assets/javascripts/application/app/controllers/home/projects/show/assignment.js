@@ -164,7 +164,8 @@
             Tasks.all({
                 project_id: vm.project.id,
                 state:'released',
-                limit:'100'
+                order:'created_at asc',
+                limit:100
             }, function (result) {
                 vm.tasks = result.data;
 
