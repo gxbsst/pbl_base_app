@@ -10,6 +10,10 @@ class GroupsController < ApplicationBaseController
     member_ships = MemberShip.where(user_id: user_id)
     students = Student.where(user_id: user_id)
     @groups = Group.where(ids: member_ships[:data].map(&:group_id).join(','), limit: 100) unless member_ships[:data].empty?
+    @groups[:data].each do |group|
+      group[:clazz] = Clazz.find(group[:owner_id], include: 'users') if group[:owner_type] == 'Clazz' || group[:owner_type] == 'Parent'
+      group[:user] = User.find(group[:owner_id]) if group[:owner_type] == 'User'
+    end
     unless students[:data].empty?
       clazzs = Group.where(owner_ids: students[:data].map(&:clazz_id).join(','), owner_type: :Clazz, limit: 100)
       clazzs[:data].each do |group|
