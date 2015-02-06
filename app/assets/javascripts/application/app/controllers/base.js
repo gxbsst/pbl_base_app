@@ -8,13 +8,13 @@
     BaseController.$inject = [
         '$scope', '$rootScope', '$document', '$q', '$timeout', '$interval', 'modals',
         'NOTIFIES_TYPES', 'RESOURCE_TYPES', 'PATHS', 'QINIU', 'DURATION_UNITS', 'ROLES', 'DISCIPLINES', 'INTERESTS', 'GROUP_TAGS', 'GRADES',
-        'Resources', 'Follows', 'Friends', 'Groups', 'Invitations', 'User',
+        'Resources', 'Follows', 'Friends', 'Groups', 'Invitations', 'User', 'Users',
         'TYPE_DEFIN', 'WORK_TYPES'
     ];
 
     function BaseController($scope, $rootScope, $document, $q, $timeout, $interval, modals,
                             NOTIFIES_TYPES, RESOURCE_TYPES, PATHS, QINIU, DURATION_UNITS, ROLES, DISCIPLINES, INTERESTS, GROUP_TAGS, GRADES,
-                            Resources, Follows, Friends, Groups, Invitations, User,
+                            Resources, Follows, Friends, Groups, Invitations, User, Users,
                             TYPE_DEFIN, WORK_TYPES) {
 
         $document.on('click', function () {
@@ -55,6 +55,7 @@
                 join: join,
                 leave: leave,
                 search: search,
+                getUser: getUser,
                 getResource: getResource,
                 getResources: getResources,
                 getInvitation: getInvitation,
@@ -276,6 +277,26 @@
                 });
             }
 
+        }
+
+        function getUser(user_id){
+            $rootScope.users = $rootScope.users || {};
+            var defer = $q.defer(),
+                user = $rootScope.users[user_id];
+            if(user){
+                defer.resolve(user);
+            }else{
+                $rootScope.users[user_id] = {};
+                Users.get({
+                    userId: user_id
+                }, function (result) {
+                    $rootScope.users[user_id] = result.data;
+                    defer.resolve(result.data);
+                }, function () {
+                    defer.resolve(null);
+                });
+            }
+            return defer.promise;
         }
 
         function getResource(resources, type, id) {

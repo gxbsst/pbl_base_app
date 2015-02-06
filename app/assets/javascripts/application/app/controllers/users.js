@@ -21,18 +21,13 @@
     }
 
     UsersShowController.$inject = ['$scope', '$stateParams', 'Users', '$rootScope', '$state', 'Projects',
-        'ProjectProducts', 'Resources', 'RESOURCE_TYPES', 'PROJECT_TYPES'];
+        'ProjectProducts', 'Resources', 'RESOURCE_TYPES', 'PROJECT_TYPES', 'user'];
 
     function UsersShowController($scope, $stateParams, Users, $rootScope, $state, Projects,
-                                 ProjectProducts, Resources, RESOURCE_TYPES, PROJECT_TYPES) {
+                                 ProjectProducts, Resources, RESOURCE_TYPES, PROJECT_TYPES, user) {
         var vm = this;
-        Users.get({userId: $stateParams.userId}, function (result) {
-            vm.user = result.data;
-            Users.get({userId: $stateParams.userId, action: 'clazzs'}, function (result) {
-                vm.user.clazzs = result.data;
-            });
-        });
 
+        vm.user = user;
         vm.projectsread = false;
         vm.projects = [];
         vm.getProjects = getProjects;
@@ -60,6 +55,9 @@
 
         getProjects();
 
+        Users.get({userId: $stateParams.userId, action: 'clazzs'}, function (result) {
+            vm.user.clazzs = result.data;
+        });
 
         function projectShow(project) {
             console.log(RESOURCE_TYPES);
@@ -158,7 +156,7 @@
 
     UserCardController.$inject = ['$scope', 'Users'];
 
-    function UserCardController($scope, Users){
+    function UserCardController($scope, Users) {
 
         var vm = this,
             user = $scope.user;

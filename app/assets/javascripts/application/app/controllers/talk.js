@@ -38,12 +38,13 @@
                 });
             }
             Users.all(params, function(result){
-                vm.messages.concat(result.data);
+                vm.messages = vm.messages.concat(result.data);
             });
         }
 
         function send(){
-            User.add({
+            Users.add({
+                userId: vm.user.id,
                 action: 'sms',
                 sms: vm.message
             }, function () {

@@ -45,7 +45,6 @@ class NotificationsController < ApplicationController
   def user_sms_index
     params[:type] = :User
     params[:sender_id] = current_user.id
-    puts query_params
     @notifications = Notification.where(query_params)
     render :index
   end
@@ -60,7 +59,6 @@ class NotificationsController < ApplicationController
     sms[:type] = :User
     sms[:sender_type] = :User
     sms[:sender_id] = current_user.id
-    puts sms
     @notification = Notification.create(sms)
     render :show
   end
@@ -109,7 +107,8 @@ class NotificationsController < ApplicationController
   private
 
   def query_params
-    params.permit(:user_id, :type, :types, :sender_type, :sender_id, :sender_types, :sender_ids, :read, :include, :limit, :page)
+    params[:order] = 'created_at asc'
+    params.permit(:user_id, :type, :types, :sender_type, :sender_id, :sender_types, :sender_ids, :read, :include, :limit, :page, :order, :latest_id, :older_id)
   end
 
 end

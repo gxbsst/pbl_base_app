@@ -11,7 +11,7 @@ class GroupsController < ApplicationBaseController
     students = Student.where(user_id: user_id)
     @groups = Group.where(ids: member_ships[:data].map(&:group_id).join(','), limit: 100) unless member_ships[:data].empty?
     unless students[:data].empty?
-      clazzs = Group.where(owner_ids: students[:data].map(&:clazz_id).join(','), limit: 100)
+      clazzs = Group.where(owner_ids: students[:data].map(&:clazz_id).join(','), owner_type: :Clazz, limit: 100)
       clazzs[:data].each do |group|
         group[:clazz] = Clazz.find(group[:owner_id])
       end
@@ -91,7 +91,7 @@ class GroupsController < ApplicationBaseController
             if @group.success?
 
               #STEP:根据邀请码加入群组
-              member_ship = MemberShip.create({
+              MemberShip.create({
                                     user_id: user_id,
                                     group_id: @group[:id]
                                 })
