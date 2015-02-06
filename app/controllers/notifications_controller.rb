@@ -44,7 +44,8 @@ class NotificationsController < ApplicationController
 
   def user_sms_index
     params[:type] = :User
-    params[:user_id] = current_user.id
+    params[:sender_id] = current_user.id
+    puts query_params
     @notifications = Notification.where(query_params)
     render :index
   end
@@ -59,6 +60,7 @@ class NotificationsController < ApplicationController
     sms[:type] = :User
     sms[:sender_type] = :User
     sms[:sender_id] = current_user.id
+    puts sms
     @notification = Notification.create(sms)
     render :show
   end

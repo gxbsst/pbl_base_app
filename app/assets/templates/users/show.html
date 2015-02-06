@@ -1,4 +1,4 @@
-<div class="user-info">
+<div class="user-info" ng-show="vm.user">
     <div class="row ">
         <div class="row-title">
             <span class="title">个人信息</span>
@@ -16,9 +16,10 @@
                 <div>
                     <span class="sub-title">帐号:</span><span ng-bind="vm.user.username"></span>
                 </div>
-                <div class="user-btn">
-                    <span class="btn btn-sm" role="button">加关注</span>
-                    <span class="btn btn-sm" role="button">发私信</span>
+                <div class="user-btn" et-init="vm.followed=HANDLES.isFollowed(vm.user.id)">
+                    <span class="btn btn-sm" ng-if="!vm.followed" ng-click="HANDLES.follow(vm.user.id)"><i class="pf-plus"></i> 关注TA</span>
+                    <span class="btn btn-sm disabled" ng-if="vm.followed"><i class="pf-checkmark"></i> 已关注</span>
+                    <span class="btn btn-sm" role="button" et-talk="vm.user">发私信</span>
                 </div>
             </div>
         </div>

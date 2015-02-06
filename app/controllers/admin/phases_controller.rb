@@ -2,7 +2,7 @@ module Admin
   class PhasesController < AdminController
 
     def index
-      @phases = Curriculum::Phase.all(include: 'subjects', page: params[:page])
+      @phases = Curriculum::Phase.all(include: 'subjects', page: params[:page], limit: params[:limit])
     end
 
     def new

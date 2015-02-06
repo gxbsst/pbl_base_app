@@ -2,7 +2,7 @@ module Admin
   class GaugesController < AdminController
 
     def index
-      @gauges = Gauge.all(include: 'techniques', page: params[:page])
+      @gauges = Gauge.all(include: 'techniques', page: params[:page], limit: params[:limit])
     end
 
     def new

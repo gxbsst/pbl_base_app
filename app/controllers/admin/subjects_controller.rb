@@ -2,7 +2,7 @@ module Admin
   class SubjectsController < AdminController
 
     def index
-      @subjects = Curriculum::Subject.all(page: params[:page])
+      @subjects = Curriculum::Subject.all(page: params[:page], limit: params[:limit])
     end
 
     def new

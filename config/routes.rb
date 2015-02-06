@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :users, defaults: { format: :json }, only: %w(index create show update destroy) do
     delete :unfollow, :to => 'follows#unfollow'
     resources :follows, defaults: { format: :json }, only: %w(index)
+    get :sms, :to => 'notifications#user_sms_index'
     get :friends, :to => 'friend_ships#user_friends'
     get :children, :to => 'friend_ships#user_children'
     post :children, :to => 'friend_ships#add_user_child'

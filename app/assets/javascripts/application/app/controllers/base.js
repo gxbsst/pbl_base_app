@@ -234,19 +234,19 @@
         }
 
         function isFriend(user_id) {
-            return $rootScope.friends.has(function (user) {
+            return $rootScope.friends && $rootScope.friends.has(function (user) {
                 return user.id == user_id;
             });
         }
 
         function isFollowed(user_id) {
-            return $rootScope.follows.has(function (follow) {
+            return $rootScope.follows && $rootScope.follows.has(function (follow) {
                 return follow.user_id == user_id;
             });
         }
 
         function isJoined(group_id) {
-            return $rootScope.groups.has(function (group) {
+            return $rootScope.groups && $rootScope.groups.has(function (group) {
                 return group.id == group_id;
             });
         }

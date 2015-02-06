@@ -30,11 +30,11 @@
                    et-sync="{projectId:vm.project.id,project:{duration:vm.project.duration},$service:'Projects'}"/>
             <select et-select="DURATION_UNITS|sliceTo:1" ng-model="vm.project.duration_unit" class="margin-right-6"
                     et-sync="{projectId:vm.project.id,project:{duration_unit:vm.project.duration_unit},$service:'Projects'}"></select>
-            <label class="control-label">
+            <!--<label class="control-label">
                 <input type="checkbox" ng-model="vm.project.public"
                        et-sync="{projectId:vm.project.id,project:{public:vm.project.public},$service:'Projects'}"/>
                 公开招募
-            </label>
+            </label>-->
         </div>
         <div class="form-group block" ng-show="vm.project.public">
             <div class="form-group">
@@ -125,6 +125,3 @@
 
 </div>
 -->
-
-
-

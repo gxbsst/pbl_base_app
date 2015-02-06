@@ -7,7 +7,7 @@
     <div class="tools center" et-init="vm.followed=HANDLES.isFollowed(vm.user.id)">
         <span class="btn" ng-if="!vm.followed" ng-click="HANDLES.follow(vm.user.id)"><i class="pf-plus"></i> 关注TA</span>
         <span class="btn disabled" ng-if="vm.followed"><i class="pf-checkmark"></i> 已关注</span>
-        <span class="btn">私信</span>
+        <span class="btn" et-talk="vm.user">私信TA</span>
     </div>
     <div class="info">
         <div>真实姓名：<span ng-bind-html="vm.user.realname||'<i class=text-gray>未知</i>'"></span></div>

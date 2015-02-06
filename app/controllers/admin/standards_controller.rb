@@ -2,7 +2,7 @@ module Admin
   class StandardsController < AdminController
 
     def index
-      @standards = Curriculum::Standard.all(include: 'phases', page: params[:page])
+      @standards = Curriculum::Standard.all(include: 'phases', page: params[:page], limit: params[:limit])
       @standards[:data].each do |standard|
         standard[:subject] = Curriculum::Subject.find(standard[:phase][:subject_id]) if standard[:phase] && standard[:phase][:subject_id]
       end

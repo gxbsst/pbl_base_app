@@ -1,3 +1,18 @@
 <div class="talk">
-    <div ng-click="vm.histories()">查看更多历史消息</div>
+    <div class="messages scrollbar scrollbar-macosx" et-scrollbar>
+        <div ng-if="!vm.messages" class="loading"><i class="pf-spinner-2 rotation"></i></div>
+        <div class="text-gray center" ng-if="vm.messages&&!vm.messages.length">你们之间还没有任何交流...</div>
+        <div class="more" ng-click="vm.histories()" ng-if="vm.more">查看更多历史消息</div>
+        <div class="message" ng-class="message.user.id==currentUser.id?'right':'left'" ng-repeat="message in vm.messages">
+            <img ng-src="{{message.user|avatar:'40x40'}}"/>
+            <div ng-bind="message.description"></div>
+            <div class="time" ng-bind="message.created_at|date:'yyyy-MM-dd HH:mm:ss'"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <form class="sender" ng-submit="vm.send()" et-exec="vm.message.user_id=vm.user.id">
+            <input class="form-control" type="text" ng-model="vm.message.content" placeholder="想跟TA说点儿什么？"/>
+            <button type="submit" class="btn btn-blue">发送</button>
+        </form>
+    </div>
 </div>

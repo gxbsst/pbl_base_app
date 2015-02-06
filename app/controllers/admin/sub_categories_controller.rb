@@ -2,7 +2,7 @@ module Admin
   class SubCategoriesController < AdminController
 
     def index
-      @sub_categories = Skills::SubCategory.all(include: 'categories', page: params[:page])
+      @sub_categories = Skills::SubCategory.all(include: 'categories', page: params[:page], limit: params[:limit])
     end
 
     def new

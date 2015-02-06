@@ -2,7 +2,7 @@ module Admin
   class TechniquesController < AdminController
 
     def index
-      @techniques = Skills::Technique.all(include: 'sub_categories', page: params[:page])
+      @techniques = Skills::Technique.all(include: 'sub_categories', page: params[:page], limit: params[:limit])
       @techniques[:data].each do |technique|
         technique[:category] = Skills::Category.find(technique[:sub_category][:category_id]) if technique[:sub_category]
       end
