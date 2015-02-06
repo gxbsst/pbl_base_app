@@ -196,7 +196,11 @@
             }, function (result) {
                 angular.forEach(result.data, function (project) {
                     getProjectProducts(project);
-                    vm.projects.push(project);
+                    if(!vm.projects.findOne(function(item){
+                            item.id == project.id;
+                        })){
+                        vm.projects.push(project);
+                    }
                     vm.projectsread=true;
                 });
                 vm.meta = result.meta;
