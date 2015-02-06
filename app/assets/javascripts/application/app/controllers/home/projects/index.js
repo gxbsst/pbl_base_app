@@ -128,6 +128,7 @@
         vm.projectsread=false;
         vm.projects = [];
         vm.getProjects = getProjects;
+        vm.removeProjects = removeProjects;
         vm.changeState=changeState;
         vm.projectShow=projectShow;
         vm.meta = {
@@ -155,6 +156,15 @@
 
         getProjects();
 
+        function removeProjects(project){
+            Projects.remove({projectId:project.id},function(result){
+                console.log(result);
+                vm.projects.remove(function (item) {
+                    return item.id == project.id;
+                });
+            });
+
+        }
 
         function projectShow(project){
             console.log(RESOURCE_TYPES);

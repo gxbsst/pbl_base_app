@@ -959,11 +959,34 @@
     .case-list{
       .case-item{
         float:left;
+        position: relative;
         width:290px;
         height:267px;
         margin:10px;
         padding:2px;
         cursor: pointer;
+        border:3px solid #ffffff;
+        .item-state{
+          position: absolute;
+          left: 0;
+          top:0;
+          z-index: 99;
+          span{
+            display: block;
+            width: 49px;
+            height: 19px;
+            &.draft{
+              background:image-url('skin_caogao.png') no-repeat;
+            }
+            &.release{
+              background:image-url('skin_ing.png') no-repeat;
+            }
+            &.completed{
+              background:image-url('skin_end.png') no-repeat;
+            }
+          }
+        }
+
         .item-pic{
           .project-cover{
             height:150px;
@@ -1010,26 +1033,18 @@
             float: left;
             width: 180px;
           }
-          .item-state{
+          .item-ctrl{
             float: right;
-            width: 50px;
             span{
               display: block;
-              width: 50px;
-              height: 36px;
-              background: #ff6100;
-              color: #ffffff;
-              line-height: 36px;
+              width: 24px;
+              height: 24px;
+              background: #eeeeee;
+              color: #b3bccd;
+              line-height: 24px;
               text-align: center;
-              &.draft{
-                background: #70c811;
-              }
-              &.release{
-                background: #ff6100;
-              }
-              &.completed{
-                background: #c6a997;
-              }
+              font-size: 15px;
+              border-radius: 50%;
             }
           }
         }
@@ -1050,6 +1065,12 @@
               border:1px solid #3d7ef2;
               border-radius:5px;
               text-decoration:none;
+            }
+            .item-ctrl{
+              span{
+                background: #3b7ef3;
+                color: #ffffff;
+              }
             }
           }
         }
