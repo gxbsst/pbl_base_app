@@ -10,10 +10,14 @@
 
     function group($filter) {
         return function(group){
+            var name = group.name;
             if(group.clazz){
-                return $filter('grade')(group.clazz.grade_id) + group.clazz.name;
+                name = $filter('grade')(group.clazz.grade_id) + group.clazz.name;
+                if(group.owner_type == 'Parent'){
+                    name += '(家长群)';
+                }
             }
-            return group.name;
+            return name;
         }
 
     }

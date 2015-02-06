@@ -352,13 +352,35 @@
   .messages{
     max-height:400px;
     .message{
+      position:relative;
+      margin:8px 60px;
+      padding:8px 12px;
+      border:1px solid #e0e0e0;
+      @include border-radius(4px);
+      .avatar{
+        position:absolute;
+        top:0;
+        width:40px;
+        height:40px;
+        @include border-radius(50%);
+      }
       &.left{
-        background:#ccc;
+        background:#fafafa;
+        .avatar{
+          left:-50px;
+        }
         &:before{
-          border:11px solid #ccc;
+          content:'';
+          border:11px solid #000;
           border-left-color:transparent;
           border-right-color:transparent;
           border-top:0;
+        }
+      }
+      &.right{
+        background:#fff;
+        .avatar{
+          right:-50px;
         }
       }
     }
