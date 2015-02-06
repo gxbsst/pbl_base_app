@@ -201,14 +201,17 @@
         function send(){
             todo.user_id=$rootScope.currentUser.id;
             var recipients=[{assignee_type:'User',assignee_id:$rootScope.currentUser.id}];
-            var users=todo.users.split(",");
-            angular.forEach(users, function (user) {
-                recipients.push({assignee_type:'User',assignee_id:user});
-            });
+            //var users=todo.users.split(",");
+            //angular.forEach(users, function (user) {
+            //    recipients.push({assignee_type:'User',assignee_id:user});
+            //});
             Todos.add({todo:{start_at:todo.start_at,end_at:todo.end_at,content:todo.content,user_id:todo.user_id,
                 recipient:recipients
             }},function(result){
                 console.log(result);
+                console.log($scope.todos);
+                $scope.todos.push(result.data);
+                console.log($scope.todos);
             })
         }
         function beforeRender($view, $dates, $upDate,type) {
@@ -265,10 +268,10 @@
         function send(){
             todo.user_id=$rootScope.currentUser.id;
             var recipients=[{assignee_type:'User',assignee_id:$rootScope.currentUser.id}];
-            var users=todo.users.split(",");
-            angular.forEach(users, function (user) {
-                recipients.push({assignee_type:'User',assignee_id:user});
-            });
+            //var users=todo.users.split(",");
+            //angular.forEach(users, function (user) {
+            //    recipients.push({assignee_type:'User',assignee_id:user});
+            //});
             Todos.update({id:todo.id,todo:{start_at:todo.start_at,end_at:todo.end_at,content:todo.content,user_id:todo.user_id,
                 recipient:recipients
             }},function(result){
