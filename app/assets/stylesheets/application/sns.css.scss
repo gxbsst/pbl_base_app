@@ -337,23 +337,28 @@
 }
 
 .talk{
-  margin:-18px -10px -10px -10px;
-  width:500px;
+  margin:-18px;
+  width:550px;
   .more{
     color:#1996dc;
     line-height:35px;
     text-align:center;
+    margin-top:8px;
     cursor:pointer;
     &:hover{
       color:#0051d5;
       text-decoration:underline;
     }
   }
+  .loading{
+    margin-top:8px;
+    line-height:35px;
+  }
   .messages{
     max-height:400px;
     .message{
       position:relative;
-      margin:8px 60px;
+      margin:8px 68px;
       padding:8px 12px;
       border:1px solid #e0e0e0;
       @include border-radius(4px);
@@ -364,23 +369,59 @@
         height:40px;
         @include border-radius(50%);
       }
+      $top:10px;
       &.left{
         background:#fafafa;
         .avatar{
-          left:-50px;
+          left:-55px;
+        }
+        &:before, &:after{
+          display:block;
+          position:absolute;
+          content:'';
         }
         &:before{
-          content:'';
-          border:11px solid #000;
-          border-left-color:transparent;
-          border-right-color:transparent;
-          border-top:0;
+          top:$top;
+          left:-10px;
+          border:10px solid #e0e0e0;
+          border-top-color:transparent;
+          border-bottom-color:transparent;
+          border-left:0;
+        }
+        &:after{
+          top:$top + 1.5px;
+          left:-9px;
+          border:9px solid #fafafa;
+          border-top-color:transparent;
+          border-bottom-color:transparent;
+          border-left:0;
         }
       }
       &.right{
         background:#fff;
         .avatar{
-          right:-50px;
+          right:-55px;
+        }
+        &:before, &:after{
+          display:block;
+          position:absolute;
+          content:'';
+        }
+        &:before{
+          top:$top;
+          right:-10px;
+          border:10px solid #e0e0e0;
+          border-top-color:transparent;
+          border-bottom-color:transparent;
+          border-right:0;
+        }
+        &:after{
+          top:$top + 1.5px;
+          right:-9px;
+          border:9px solid #fff;
+          border-top-color:transparent;
+          border-bottom-color:transparent;
+          border-right:0;
         }
       }
     }
@@ -389,12 +430,11 @@
       color:#999;
     }
   }
-  .loading,.text-gray{
+  .text-gray{
     padding:20px 0;
   }
   .footer{
-    margin:0 -8px;
-    padding:8px 8px 0;
+    padding:8px;
     border-top:1px solid #e5e5e5;
     background:#fafafa;
     .sender{

@@ -5,52 +5,98 @@
         .module('app.pbl')
         .controller('TalkController', TalkController);
 
-    TalkController.$inject = ['$scope', 'Users'];
+    TalkController.$inject = ['$scope', '$timeout', '$q', 'Users'];
 
-    function TalkController($scope, Users) {
+    function TalkController($scope, $timeout, $q, Users) {
 
-        var vm = this;
+        var vm = this,
+            callback = function () {
+                pull = $timeout(function () {
+                    getMessages();
+                }, 5 * 1000);
+            },
+            pull;
 
+        vm.messages = [];
         vm.send = send;
+        vm.histories = histories;
 
         $scope.$watch('user', function (user) {
-            if(user){
+            if (user) {
                 vm.user = user;
-                getMessages();
+                getMessages(true);
             }
         });
 
-        function getMessages(more){
-            vm.messages = vm.messages || [];
+        $scope.$on('$destroy', function () {
+            $timeout.cancel(pull);
+        });
+
+        function getMessages(more) {
+
+            pull && $timeout.cancel(pull);
+
+            delete vm.scrollBottom;
+            delete vm.scrollTop;
+            if (more) {
+                vm.loading = true;
+            }
             var older = vm.messages.first(),
                 latest = vm.messages.last(),
                 params = {
                     userId: vm.user.id,
                     action: 'sms'
                 };
-            if(more){
+            if (more) {
                 older && angular.extend(params, {
                     older_id: older.id
                 });
-            }else{
+            } else {
                 latest && angular.extend(params, {
                     latest_id: latest.id
                 });
             }
-            Users.all(params, function(result){
-                vm.messages = vm.messages.concat(result.data);
+            Users.all(params, function (result) {
+                delete vm.loading;
+                if (!params.latest_id) {
+                    vm.more = result.data.length >= 10;
+                    result.data = result.data.reverse();
+                }
+                if (params.older_id) {
+                    vm.messages = result.data.concat(vm.messages);
+                } else {
+                    vm.messages = vm.messages.concat(result.data);
+                }
+                if (result.data.length) {
+                    $timeout(function () {
+                        if (params.older_id) {
+                            vm.scrollTop = true;
+                        } else {
+                            vm.scrollBottom = true;
+                        }
+                    }, 50);
+                }
+
+                callback();
             });
+
         }
 
-        function send(){
+        function send() {
+            vm.sending = true;
             Users.add({
                 userId: vm.user.id,
                 action: 'sms',
                 sms: vm.message
             }, function () {
-                vm.message.content = '';
                 getMessages();
+                delete vm.message.content;
+                delete vm.sending;
             });
+        }
+
+        function histories() {
+            getMessages(true);
         }
 
     }

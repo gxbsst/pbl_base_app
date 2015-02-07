@@ -107,7 +107,7 @@ class NotificationsController < ApplicationController
   private
 
   def query_params
-    params[:order] = 'created_at asc'
+    #params[:order] = 'created_at asc' if params[:latest_id].present?
     params.permit(:user_id, :type, :types, :sender_type, :sender_id, :sender_types, :sender_ids, :read, :include, :limit, :page, :order, :latest_id, :older_id)
   end
 
