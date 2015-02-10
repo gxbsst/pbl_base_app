@@ -170,7 +170,8 @@
 
         function getProjectTasks() {
             Tasks.all({
-                project_id: vm.project.id
+                project_id: vm.project.id,
+                order:'created_at asc'
             }, function (result) {
                 vm.tasks = result.data;
             });
