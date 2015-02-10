@@ -66,7 +66,7 @@
                 limit:vm.meta.total_count,
                 page:vm.meta.current_page+1,
                 subject:vm.select.subject,
-                phase:vm.select.phase,
+                grade:vm.select.phase,
                 technique:vm.select.technique,
                 name:vm.select.name,
                 order:vm.select.order,
