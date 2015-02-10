@@ -37,7 +37,7 @@ class ProjectsController < ApplicationBaseController
   private
 
     def query_params
-      params.permit(:name, :include, :limit,:page, :subject, :phase, :technique, :name, :order,:user_id,:actor_id,:state, :recommend)
+      params.permit(:name, :include, :limit,:page, :subject, :grade, :technique, :name, :order,:user_id,:actor_id,:state, :recommend)
     end
 
 end

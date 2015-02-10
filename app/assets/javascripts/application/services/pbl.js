@@ -25,9 +25,9 @@
         //return $resource('', {}, RESOURCE_ACTIONS);
         this.all=function() {
             return {
-                data: [{key: '一年级', title: '一年级'}, {key: '二年级', title: '二年级'}, {key: '三年级', title: '三年级'},
-                    {key: '四年级', title: '四年级'}, {key: '五年级', title: '五年级'}, {key: '六年级', title: '六年级'},
-                    {key: '七年级', title: '七年级'}, {key: '八年级', title: '八年级'}, {key: '九年级', title: '九年级'}]
+                data: [{key: 1, title: '一年级'}, {key: 2, title: '二年级'}, {key: 3, title: '三年级'},
+                    {key: 4, title: '四年级'}, {key: 5, title: '五年级'}, {key: 6, title: '六年级'},
+                    {key: 7, title: '七年级'}, {key: 8, title: '八年级'}, {key: 9, title: '九年级'}]
             };
         }
     }

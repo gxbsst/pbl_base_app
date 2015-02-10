@@ -9,7 +9,7 @@
                     <lable class="options-lab">已选条件：</lable>
                     <span class="options-tag" ng-if="vm.select.subject!=''"><span ng-bind="vm.select.subject"></span>
                         <i class="pf-cross" ng-click="vm.changeSelect('subject','')"></i></span>
-                    <span class="options-tag" ng-if="vm.select.phase!=''"><span ng-bind="vm.select.phase"></span>
+                    <span class="options-tag" ng-if="vm.select.phase!=''"><span ng-bind="vm.phases[vm.select.phase-1].title"></span>
                         <i class="pf-cross" ng-click="vm.changeSelect('phase','')"></i></span>
                     <span class="options-tag" ng-if="vm.select.technique!=''"><span ng-bind="vm.select.technique"></span>
                         <i class="pf-cross" ng-click="vm.changeSelect('technique','')"></i></span>
