@@ -37,7 +37,8 @@
     function ProjectTechnique($resource, RESOURCE_ACTIONS) {
         //return $resource('', {}, RESOURCE_ACTIONS);
         this.all=function() {
-            return {data: [{key: '学习技能', title: '学习技能'}, {key: '沟通技能', title: '沟通技能'}]};
+            return {data: [{key: 'SCANS技能', title: 'SCANS技能'}, {key: 'enGauge 21世纪技能', title: 'enGauge 21世纪技能'},
+                {key: '7C技能', title: '7C技能'}, {key: '21世纪技能', title: '21世纪技能'}]};
         }
     }
 })();
